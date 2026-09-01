@@ -558,7 +558,9 @@
             </ul>
           </div>
 
-          <a href="https://buy.stripe.com/cNi3cw3Lde8bcTQgMPgfu00" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 rounded-2xl bg-dark-surface hover:bg-emerald-500 hover:text-slate-900 border border-emerald-500/40 text-emerald-300 font-bold text-sm tracking-wide flex items-center justify-center gap-2 transition shadow-lg transform hover:-translate-y-0.5"><i class="fa-solid fa-shield-halved"></i> <span>Get Pro Pass ($6.99/mo)</span></a>
+          <button onclick="handleMembershipClick('pro')" class="w-full py-3.5 rounded-2xl bg-dark-surface hover:bg-emerald-500 hover:text-slate-900 border border-emerald-500/40 text-emerald-300 font-bold text-sm tracking-wide flex items-center justify-center gap-2 transition shadow-lg transform hover:-translate-y-0.5">
+          <i class="fa-solid fa-shield-halved"></i> <span>Get Pro Pass ($6.99/mo)</span>
+        </button>
         </div>
 
         <!-- TIER 2: ELITE HIGH-ROLLER ($12.99 / mo) -->
@@ -593,7 +595,9 @@
             </ul>
           </div>
 
-          <a href="https://buy.stripe.com/cNi7sM1D58NR3jggMPgfu01" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-sm tracking-wider uppercase flex items-center justify-center gap-2 transition shadow-[0_0_25px_rgba(245,158,11,0.35)] transform hover:-translate-y-0.5"><i class="fa-solid fa-crown text-slate-950"></i> <span>Join Elite High-Roller ($12.99/mo)</span></a>
+          <button onclick="handleMembershipClick('elite')" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-sm tracking-wider uppercase flex items-center justify-center gap-2 transition shadow-[0_0_25px_rgba(245,158,11,0.4)] transform hover:-translate-y-0.5">
+          <i class="fa-solid fa-crown"></i> <span>Join Elite High-Roller ($12.99/mo)</span>
+        </button>
         </div>
 
       </div>
@@ -732,73 +736,7 @@
   </div>
 
   <!-- FOOTER -->
-  <footer class="border-t border-dark-border/80 bg-[#090c14] py-12 text-xs text-gray-400 mt-20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-      
-      <!-- Top Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-8 border-b border-dark-border/60">
-        <div class="space-y-3 md:col-span-2">
-          <div class="flex items-center space-x-2">
-            <div class="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center text-sm font-bold">
-              <i class="fa-solid fa-shield-halved"></i>
-            </div>
-            <span class="text-base font-black text-white tracking-tight">SENTINEL ZERO</span>
-            <span class="text-[10px] bg-emerald-500/15 text-emerald-300 font-mono font-bold px-2 py-0.5 rounded">LLC</span>
-          </div>
-          <p class="text-xs text-gray-400 max-w-md leading-relaxed">
-            The next-generation competitive integrity platform. Combining hardware silicon attestation, real-time biometric input analysis, and automated escrow match insurance.
-          </p>
-          <div class="flex items-center gap-2 pt-1 text-[11px] text-amber-400 font-semibold">
-            <i class="fa-solid fa-scale-balanced"></i>
-            <span>Operated under the US Predominant Factor Skill-Gaming Legal Doctrine. Must be 18+ to enter cash prize competitions.</span>
-          </div>
-        </div>
-
-        <div class="space-y-2.5">
-          <div class="text-white font-bold text-xs uppercase tracking-wider font-mono">Platform & Protocol</div>
-          <ul class="space-y-2 text-xs">
-            <li><a href="#games-section" class="hover:text-emerald-400 transition">Supported Game Roster</a></li>
-            <li><a href="SentinelAgent.exe" download="SentinelAgent.exe" class="hover:text-emerald-400 transition flex items-center gap-1.5"><i class="fa-solid fa-download text-emerald-400 text-[11px]"></i> Download Sentinel Client</a></li>
-            <li><button onclick="openArchitectureModal()" class="hover:text-emerald-400 transition text-left">Technical Architecture & Threat Model</button></li>
-            <li><a href="https://discord.gg/6ZnnXuqkdd" target="_blank" class="hover:text-[#5865F2] transition flex items-center gap-1.5"><i class="fa-brands fa-discord text-sm"></i> Community Discord</a></li>
-          </ul>
-        </div>
-
-        <div class="space-y-2.5">
-          <div class="text-white font-bold text-xs uppercase tracking-wider font-mono">Legal & Compliance</div>
-          <ul class="space-y-2 text-xs">
-            <li><button onclick="openTosModal()" class="hover:text-emerald-400 transition text-left flex items-center gap-1.5"><i class="fa-solid fa-gavel text-amber-400 text-[11px]"></i> Terms of Service & User Agreement</button></li>
-            <li><button onclick="openPrivacyModal()" class="hover:text-emerald-400 transition text-left flex items-center gap-1.5"><i class="fa-solid fa-user-lock text-emerald-400 text-[11px]"></i> Privacy & Data Policy</button></li>
-            <li><span class="text-gray-400 flex items-center gap-1.5"><i class="fa-solid fa-shield-cat text-teal-400 text-[11px]"></i> 100% Match Insurance Shield</span></li>
-            <li><span class="text-gray-400">Jurisdiction Compliance: 40 US States</span></li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Mandatory Publisher Safe Harbor Disclaimer -->
-      <div class="p-4 rounded-2xl bg-dark-card/50 border border-dark-border/40 text-[11px] text-gray-400 leading-relaxed space-y-2">
-        <div class="font-bold text-gray-300 uppercase tracking-wider font-mono">Independent Platform & Publisher Safe-Harbor Notice</div>
-        <p>
-          Sentinel Zero is an independent competitive matchmaking, tournament orchestration, and skill-gaming insurance platform operated by Sentinel Zero, LLC. Sentinel Zero is not affiliated with, authorized by, sponsored by, or endorsed by Valve Corporation, Battlestate Games, Riot Games, Inc., Activision Blizzard, Inc., Epic Games, Inc., Ubisoft Entertainment SA, or Facepunch Studios.
-        </p>
-        <p>
-          Counter-Strike 2, Escape from Tarkov, Valorant, League of Legends, Call of Duty, Apex Legends, Rainbow Six Siege, Rocket League, and Rust are registered trademarks and copyrights of their respective owners. All tournament matches and custom scrims hosted through Sentinel Zero utilize standard custom private lobby mechanics provided by the respective game titles.
-        </p>
-      </div>
-
-      <!-- Copyright & Bottom Bar -->
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
-        <div>&copy; 2026 Sentinel Zero, LLC. All rights reserved. Zero Kernel Rootkit Policy.</div>
-        <div class="flex items-center space-x-6 text-[11px]">
-          <button onclick="openTosModal()" class="hover:text-white transition">Terms</button>
-          <button onclick="openPrivacyModal()" class="hover:text-white transition">Privacy</button>
-          <button onclick="openArchitectureModal()" class="hover:text-white transition">Security Architecture</button>
-          <span class="text-emerald-400 font-mono">API v1.0.4 Live</span>
-        </div>
-      </div>
-
-    </div>
-  </footer>
+  
 
   <script>
     // MASTER GAME SPECIFICATION & PRIVATE MATCHMAKING CONFIGURATION
