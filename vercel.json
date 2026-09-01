@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "rewrites": [
+    { "source": "/api/v1/stats", "destination": "/api/stats" },
+    { "source": "/api/v1/health", "destination": "/api/health" },
+    { "source": "/api/v1/subscribe", "destination": "/api/subscribe" },
+    { "source": "/api/v1/wager/create", "destination": "/api/wager" },
+    { "source": "/api/v1/wager/resolve", "destination": "/api/wager" },
+    { "source": "/api/v1/wallet", "destination": "/api/wallet" },
+    { "source": "/api/v1/wallet/deposit", "destination": "/api/wallet" },
+    { "source": "/api/v1/wallet/transactions", "destination": "/api/wallet" }
+  ]
+}
