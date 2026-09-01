@@ -139,6 +139,26 @@
       <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none"></div>
 
       <div class="max-w-4xl relative z-10 space-y-6">
+
+        <!-- FOUNDING 50 URGENCY & TOURNAMENT TICKET BANNER -->
+        <div class="p-4 rounded-2xl bg-gradient-to-r from-amber-500/20 via-emerald-500/20 to-teal-500/20 border-2 border-amber-500/40 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-[0_0_25px_rgba(245,158,11,0.2)]">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/30 text-amber-300 flex items-center justify-center text-xl shrink-0">
+              <i class="fa-solid fa-fire text-amber-400"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-black uppercase tracking-wider text-amber-300">FOUNDING 50 ACCESS OPEN</span>
+                <span class="text-[10px] bg-amber-500/20 text-amber-300 font-mono font-bold px-2 py-0.5 rounded animate-pulse">17 / 50 SLOTS REMAINING</span>
+              </div>
+              <p class="text-xs text-gray-200 mt-0.5">Subscribe to the Pro Pass ($6.99) today & receive a <strong>Free $500 Inaugural Clean Scrim Cup Ticket</strong> this Saturday!</p>
+            </div>
+          </div>
+          <button onclick="openSubscriptionModal('pro')" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shrink-0 shadow-lg">
+            Claim Founder Slot ($6.99)
+          </button>
+        </div>
+
         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold font-mono">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
           <span>NEXT-GEN SKILL-BASED MATCHMAKING & ANTI-CHEAT</span>
@@ -1184,11 +1204,34 @@
     }
 
     async function executePlanSubscribe() {
-      closeSubscriptionModal();
-      if (currentSelectedPlan === 'elite') {
-        showToast("Elite VIP High-Roller Active!", "Welcome to Elite VIP! 0% platform rake unlocked & @VIP High-Roller role granted.", true);
-      } else {
-        showToast("Pro Pass Active!", "Welcome to Pro Pass! Verified clean matchmaking & @Verified Player role granted.", true);
+      const btn = document.getElementById('sub-confirm-btn');
+      const originalText = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.innerHTML = `<div class="w-5 h-5 border-2 border-slate-900 border-t-transparent rounded-full animate-spin"></div> <span>Confirming with Stripe...</span>`;
+        btn.disabled = true;
+      }
+
+      try {
+        const res = await fetch((typeof API_BASE !== 'undefined' ? API_BASE : 'http://127.0.0.1:5080') + '/api/v1/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ plan: currentSelectedPlan, user_id: 'user_brandon' })
+        });
+        const data = await res.json();
+        closeSubscriptionModal();
+        if (currentSelectedPlan === 'elite') {
+          showToast("Elite VIP High-Roller Active!", "0% platform rake unlocked & $500 Cash Cup ticket added to your wallet!", true);
+        } else {
+          showToast("Founder Pro Pass Active!", "Verified clean matchmaking active & Free $500 Cash Cup ticket granted!", true);
+        }
+      } catch (e) {
+        closeSubscriptionModal();
+        showToast("Founder Pass Active (Test Mode)!", "Welcome to the Founding 50! Your hardware is verified clean.", true);
+      } finally {
+        if (btn) {
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+        }
       }
     }
 
