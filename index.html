@@ -121,7 +121,7 @@
           <div class="flex items-center space-x-2 bg-dark-surface px-3 py-1.5 rounded-xl border border-dark-border">
             <div class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
             <span class="text-xs text-gray-400 font-semibold">Wallet:</span>
-            <span class="text-xs font-black text-white font-mono" id="balance">$20.00</span>
+            <span class="text-xs font-black text-white font-mono" id="balance">$0.00</span>
             <button onclick="openDepositModal()" class="text-[10px] bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 px-1.5 py-0.5 rounded font-bold transition ml-0.5">+ Add</button>
           </div>
 
@@ -229,14 +229,14 @@
 
     <!-- RECENT ACTIVITY TICKER -->
     <div class="flex items-center space-x-3 text-xs bg-dark-card/60 border border-dark-border px-4 py-2.5 rounded-xl font-medium text-gray-300 overflow-x-auto whitespace-nowrap">
-      <span class="text-emerald-400 font-bold uppercase tracking-wider flex items-center gap-1.5">
-        <i class="fa-solid fa-fire text-orange-400"></i> Live Scrims:
+      <span class="text-emerald-400 font-bold uppercase tracking-wider flex items-center gap-1.5 font-mono">
+        <i class="fa-solid fa-trophy text-amber-400"></i> TOURNAMENT LADDER:
       </span>
-      <span class="text-gray-400"><i class="fa-solid fa-trophy text-amber-400 mr-1"></i> <strong>Swag_Gaming</strong> won a $50 1v1 CS2 Wager (~8 mins)!</span>
+      <span class="text-gray-300 font-semibold"><i class="fa-solid fa-crown text-amber-400 mr-1"></i> Saturday $500 Cash Cup (Check-in 6:00 PM EST)</span>
       <span class="text-dark-border">&bull;</span>
-      <span class="text-gray-400"><i class="fa-solid fa-gamepad text-emerald-400 mr-1"></i> <strong>Tarkov Customs Raid</strong> (30-min timer &bull; 10/10 ready)</span>
+      <span class="text-gray-300 font-semibold"><i class="fa-solid fa-server text-indigo-400 mr-1"></i> 128-Tick Dedicated Server Matchmaking Active</span>
       <span class="text-dark-border">&bull;</span>
-      <span class="text-gray-400"><i class="fa-solid fa-car text-cyan-400 mr-1"></i> <strong>Rocket League 1v1 Wager</strong> (5-min match starting)</span>
+      <span class="text-gray-300 font-semibold"><i class="fa-solid fa-shield-halved text-emerald-400 mr-1"></i> OpenSentinel Silicon Verification Active</span>
     </div>
 
     <!-- GAME SELECTOR GRID WITH REAL COVER ART -->
@@ -1108,6 +1108,10 @@
       if (stored) {
         try {
           currentUser = JSON.parse(stored);
+          if (currentUser.balance === 20.00 && !currentUser.has_deposited) {
+            currentUser.balance = 0.00;
+            localStorage.setItem('sz_user', JSON.stringify(currentUser));
+          }
           renderAuthenticatedHeader();
         } catch (e) {
           currentUser = null;
@@ -1171,14 +1175,14 @@
         username: tag,
         email: email || `${tag.toLowerCase().replace(/[^a-z0-9]/g, '')}@sentinelzero.gg`,
         tier: 'Pro',
-        balance: 20.00,
+        balance: 0.00,
         hardware_verified: true
       };
 
       localStorage.setItem('sz_user', JSON.stringify(currentUser));
       closeAuthModal();
       renderAuthenticatedHeader();
-      showToast("Account Connected!", `Welcome ${currentUser.username}! Silicon verified & $20.00 testnet balance credited.`, true);
+      showToast("Account Connected!", `Welcome ${currentUser.username}! Silicon verified & Account linked and ready for competitive matches.`, true);
     }
 
     function signOutUser() {

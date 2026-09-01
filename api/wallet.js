@@ -18,7 +18,7 @@ export default function handler(req, res) {
   return res.status(200).json({
     user_id: "user_founder_01",
     username: "Member #9042",
-    balance: 20.00,
+    balance: 0.00,
     is_pro: true,
     hardware_verified: true
   });
