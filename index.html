@@ -83,7 +83,7 @@
       <nav class="hidden xl:flex items-center space-x-6 text-xs font-bold tracking-wide text-gray-300">
         <a href="#games-section" class="hover:text-emerald-400 transition flex items-center gap-1.5"><i class="fa-solid fa-gamepad text-emerald-400"></i> Browse Games</a>
         <a href="#about-section" class="hover:text-emerald-400 transition flex items-center gap-1.5"><i class="fa-solid fa-shield-halved text-emerald-400"></i> About Us</a>
-        <a href="#vip-section" class="text-amber-300 hover:text-amber-200 transition flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-full"><i class="fa-solid fa-crown text-amber-400"></i> VIP Pass</a>
+        <a href="#vip-section" class="text-amber-300 hover:text-amber-200 transition flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-full"><i class="fa-solid fa-crown text-amber-400"></i> Pro & VIP Passes</a>
         <a href="https://discord.gg/6ZnnXuqkdd" target="_blank" class="hover:text-[#5865F2] transition flex items-center gap-1.5"><i class="fa-brands fa-discord"></i> Discord</a>
       </nav>
 
@@ -161,7 +161,7 @@
           </a>
           <button onclick="openVipModal()" class="px-6 py-3.5 rounded-2xl bg-amber-500/15 hover:bg-amber-500/25 border-2 border-amber-500/40 hover:border-amber-400 text-amber-300 font-bold text-sm tracking-wide flex items-center gap-2.5 transition shadow-[0_0_20px_rgba(245,158,11,0.2)] transform hover:-translate-y-0.5">
             <i class="fa-solid fa-crown text-amber-400"></i>
-            <span>Get VIP Founder Pass ($9.99/mo)</span>
+            <span>Get Pro Pass ($6.99/mo)</span>
           </button>
           <a href="#about-section" class="px-5 py-3.5 rounded-2xl bg-dark-surface/80 hover:bg-dark-surface border border-dark-border text-gray-300 hover:text-white font-semibold text-sm transition flex items-center gap-2">
             <i class="fa-solid fa-circle-info"></i>
@@ -514,48 +514,90 @@
       </div>
     </section>
 
-    <!-- VIP FOUNDER PASS SUBSCRIPTION SECTION -->
+    <!-- SUBSCRIPTION TIERS SECTION -->
     <section id="vip-section" class="my-16 scroll-mt-24">
-      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-b from-[#1a1827] via-dark-card to-dark-card border-2 border-amber-500/40 p-8 sm:p-12 shadow-2xl">
-        <div class="absolute -top-20 -right-20 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
-
-        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
-          <div class="max-w-xl space-y-4">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-300 text-xs font-bold font-mono">
-              <i class="fa-solid fa-crown text-amber-400"></i> SENTINEL ZERO VIP FOUNDER PASS
-            </div>
-            <h2 class="text-2xl sm:text-4xl font-black text-white tracking-tight">Elevate Your Competitive Edge</h2>
-            <p class="text-sm text-gray-300 leading-relaxed">
-              Unlock <strong>0% platform rake on all cash wagers</strong>, exclusive VIP Discord lounges with direct developer voice access, priority queue matchmaking, and automated entries into our <strong>$500 monthly subscriber cash tournaments</strong>.
-            </p>
-
-            <!-- Feature Bullet List -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
-              <div class="flex items-center gap-2 text-gray-200"><i class="fa-solid fa-circle-check text-amber-400 text-sm"></i> <span><strong>0% Platform Rake</strong> (Save 10% on every pot)</span></div>
-              <div class="flex items-center gap-2 text-gray-200"><i class="fa-solid fa-circle-check text-amber-400 text-sm"></i> <span><strong>VIP Discord Channel</strong> Access (`#vip-lounge`)</span></div>
-              <div class="flex items-center gap-2 text-gray-200"><i class="fa-solid fa-circle-check text-amber-400 text-sm"></i> <span><strong>Priority Queue</strong> (Instant Scrim Pairing)</span></div>
-              <div class="flex items-center gap-2 text-gray-200"><i class="fa-solid fa-circle-check text-amber-400 text-sm"></i> <span><strong>Gold Founder Badge</strong> & Custom Discord Role</span></div>
-              <div class="flex items-center gap-2 text-gray-200"><i class="fa-solid fa-circle-check text-amber-400 text-sm"></i> <span><strong>Free $500 Monthly Cup</strong> Entry Tickets</span></div>
-              <div class="flex items-center gap-2 text-gray-200"><i class="fa-solid fa-circle-check text-amber-400 text-sm"></i> <span><strong>100% Match Insurance</strong> Guarantee</span></div>
-            </div>
-          </div>
-
-          <!-- Subscription Pricing Card -->
-          <div class="bg-[#111624] border border-amber-500/40 rounded-2xl p-6 lg:w-80 shrink-0 text-center space-y-5 shadow-2xl relative">
-            <div class="text-xs uppercase tracking-widest text-amber-400 font-mono font-bold">FOUNDER TIER PASS</div>
-            <div class="flex items-baseline justify-center gap-1">
-              <span class="text-4xl font-black text-white font-mono">$9.99</span>
-              <span class="text-xs text-gray-400 font-semibold">/ month</span>
-            </div>
-            <div class="text-[11px] text-gray-400">Cancel anytime. 100% money-back guarantee.</div>
-
-            <button onclick="openVipModal()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-sm tracking-wider uppercase flex items-center justify-center gap-2 transition shadow-[0_0_25px_rgba(245,158,11,0.35)] transform hover:-translate-y-0.5">
-              <i class="fa-solid fa-crown text-slate-950"></i>
-              <span>Join VIP Founder Pass</span>
-            </button>
-            <div class="text-[10px] text-gray-500">Instant Apple Pay & Stripe Connect Checkout</div>
-          </div>
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold font-mono mb-3">
+          <i class="fa-solid fa-crown text-amber-400"></i> FAIR PLAY MEMBERSHIP TIERS
         </div>
+        <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">Choose Your Competitive Pass</h2>
+        <p class="text-sm text-gray-400 mt-2">Zero spyware. Verified clean matchmaking. 100% money-back insurance guarantee on every match.</p>
+      </div>
+
+      <!-- Pricing Grid (Two-Tier Side-by-Side) -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        
+        <!-- TIER 1: THE PRO PASS ($6.99 / mo) -->
+        <div class="bg-dark-card border border-dark-border rounded-3xl p-8 relative flex flex-col justify-between hover:border-emerald-500/50 transition shadow-xl space-y-6">
+          <div class="space-y-4">
+            <div class="flex justify-between items-center">
+              <span class="text-xs uppercase tracking-widest text-emerald-400 font-mono font-bold bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full">FLAGSHIP TIER</span>
+              <span class="text-xs text-gray-400">Cancel anytime</span>
+            </div>
+            <div>
+              <h3 class="text-2xl font-black text-white">Pro Pass</h3>
+              <p class="text-xs text-gray-400 mt-1">For everyday competitive players who want clean, cheat-free lobbies.</p>
+            </div>
+            <div class="flex items-baseline gap-1 pt-2">
+              <span class="text-4xl font-black text-white font-mono">$6.99</span>
+              <span class="text-xs text-gray-400 font-semibold">/ month</span>
+              <span class="text-xs text-emerald-400 font-bold ml-2 font-mono">(or $59.99/yr)</span>
+            </div>
+
+            <!-- Features -->
+            <ul class="space-y-3 pt-4 border-t border-dark-border/60 text-xs text-gray-300">
+              <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-emerald-400 text-sm"></i> <span><strong>Verified Clean Matchmaking</strong> across all 9 PC games</span></li>
+              <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-emerald-400 text-sm"></i> <span><strong>100% Match Insurance Shield</strong> (Instant refund if cheater caught)</span></li>
+              <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-emerald-400 text-sm"></i> <span><strong>50% Platform Rake Discount</strong> on all cash wagers</span></li>
+              <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-emerald-400 text-sm"></i> <span><strong>@Verified Player</strong> Discord Role & Profile Badge</span></li>
+              <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-emerald-400 text-sm"></i> <span><strong>Open Community Tournament</strong> Bracket Access</span></li>
+            </ul>
+          </div>
+
+          <button onclick="openSubscriptionModal('pro')" class="w-full py-3.5 rounded-2xl bg-dark-surface hover:bg-emerald-500 hover:text-slate-900 border border-emerald-500/40 text-emerald-300 font-bold text-sm tracking-wide flex items-center justify-center gap-2 transition shadow-lg transform hover:-translate-y-0.5">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>Get Pro Pass ($6.99/mo)</span>
+          </button>
+        </div>
+
+        <!-- TIER 2: ELITE HIGH-ROLLER ($12.99 / mo) -->
+        <div class="bg-gradient-to-b from-[#1c1829] via-dark-card to-dark-card border-2 border-amber-500/50 rounded-3xl p-8 relative flex flex-col justify-between hover:border-amber-400 transition shadow-2xl space-y-6">
+          <div class="absolute -top-3.5 right-8 bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 text-[10px] font-black uppercase tracking-wider px-3.5 py-1 rounded-full shadow-lg">
+            HIGH-ROLLER & PROS
+          </div>
+
+          <div class="space-y-4">
+            <div class="flex justify-between items-center">
+              <span class="text-xs uppercase tracking-widest text-amber-300 font-mono font-bold bg-amber-500/15 border border-amber-500/30 px-3 py-1 rounded-full">0% RAKE VIP</span>
+              <span class="text-xs text-gray-400">Cancel anytime</span>
+            </div>
+            <div>
+              <h3 class="text-2xl font-black text-white">Elite High-Roller</h3>
+              <p class="text-xs text-gray-400 mt-1">For serious wager grinders, teams, and monthly tournament competitors.</p>
+            </div>
+            <div class="flex items-baseline gap-1 pt-2">
+              <span class="text-4xl font-black text-white font-mono">$12.99</span>
+              <span class="text-xs text-gray-400 font-semibold">/ month</span>
+              <span class="text-xs text-amber-400 font-bold ml-2 font-mono">(or $119.99/yr)</span>
+            </div>
+
+            <!-- Features -->
+            <ul class="space-y-3 pt-4 border-t border-dark-border/60 text-xs text-gray-200">
+              <li class="flex items-center gap-2.5"><i class="fa-solid fa-crown text-amber-400 text-sm"></i> <span><strong>0% Platform Rake on All Matches</strong> (Keep 100% of your pots)</span></li>
+              <li class="flex items-center gap-2.5"><i class="fa-solid fa-crown text-amber-400 text-sm"></i> <span><strong>Free $500 Monthly Cash Cup</strong> Tournament Entries</span></li>
+              <li class="flex items-center gap-2.5"><i class="fa-solid fa-crown text-amber-400 text-sm"></i> <span><strong>VIP Discord Channel & Dev Voice</strong> (`#👑-vip-high-rollers`)</span></li>
+              <li class="flex items-center gap-2.5"><i class="fa-solid fa-crown text-amber-400 text-sm"></i> <span><strong>Priority Queue Matchmaking</strong> (Instant Scrim Pairing)</span></li>
+              <li class="flex items-center gap-2.5"><i class="fa-solid fa-crown text-amber-400 text-sm"></i> <span><strong>Gold Founder Badge</strong> & Custom Discord Role</span></li>
+              <li class="flex items-center gap-2.5"><i class="fa-solid fa-crown text-amber-400 text-sm"></i> <span><strong>100% Match Insurance Shield</strong> Included</span></li>
+            </ul>
+          </div>
+
+          <button onclick="openSubscriptionModal('elite')" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-sm tracking-wider uppercase flex items-center justify-center gap-2 transition shadow-[0_0_25px_rgba(245,158,11,0.35)] transform hover:-translate-y-0.5">
+            <i class="fa-solid fa-crown text-slate-950"></i>
+            <span>Join Elite High-Roller ($12.99/mo)</span>
+          </button>
+        </div>
+
       </div>
     </section>
 
@@ -941,27 +983,51 @@
 
 
   
-  <!-- VIP FOUNDER PASS SUBSCRIPTION CHECKOUT MODAL -->
-  <div id="vip-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden transition-opacity duration-300">
-    <div class="bg-[#0f131f] border-2 border-amber-500/50 rounded-3xl w-full max-w-md p-6 sm:p-8 shadow-2xl relative text-white space-y-6">
-      <button onclick="closeVipModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition w-8 h-8 flex items-center justify-center rounded-full bg-slate-800/60 hover:bg-slate-700">
+  <!-- INTERACTIVE TWO-TIER SUBSCRIPTION CHECKOUT MODAL -->
+  <div id="subscription-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden transition-opacity duration-300">
+    <div class="bg-[#0f131f] border-2 border-emerald-500/50 rounded-3xl w-full max-w-md p-6 sm:p-8 shadow-2xl relative text-white space-y-6">
+      <button onclick="closeSubscriptionModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition w-8 h-8 flex items-center justify-center rounded-full bg-slate-800/60 hover:bg-slate-700">
         <i class="fa-solid fa-xmark text-lg"></i>
       </button>
 
       <div class="text-center space-y-2">
-        <div class="w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center text-2xl mx-auto shadow-[0_0_20px_rgba(245,158,11,0.3)]">
-          <i class="fa-solid fa-crown"></i>
+        <div id="sub-modal-icon" class="w-14 h-14 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center text-2xl mx-auto shadow-[0_0_20px_rgba(16,185,129,0.3)]">
+          <i class="fa-solid fa-shield-halved"></i>
         </div>
-        <h3 class="text-2xl font-black text-white tracking-tight">VIP Founder Membership</h3>
-        <p class="text-xs text-gray-400">Unlock 0% match rakes, VIP Discord lounges & monthly cash cups.</p>
+        <h3 id="sub-modal-title" class="text-2xl font-black text-white tracking-tight">Activate Pro Pass</h3>
+        <p id="sub-modal-desc" class="text-xs text-gray-400">Verified clean matchmaking, 100% insurance & 50% rake discounts.</p>
       </div>
 
-      <div class="p-4 rounded-2xl bg-dark-surface border border-amber-500/20 space-y-2 text-xs">
-        <div class="flex justify-between items-center"><span class="text-gray-300">Plan:</span><strong class="text-amber-300 font-bold">Monthly Founder Pass</strong></div>
-        <div class="flex justify-between items-center"><span class="text-gray-300">Billing:</span><strong class="text-white font-mono">$9.99 / month</strong></div>
-        <div class="flex justify-between items-center"><span class="text-gray-300">Rakeback:</span><strong class="text-emerald-400 font-bold">100% (0% Platform Fee)</strong></div>
-        <div class="flex justify-between items-center"><span class="text-gray-300">Discord Role:</span><strong class="text-[#5865F2] font-bold">@VIP High-Roller</strong></div>
+      <!-- Plan Selector Chips inside Modal -->
+      <div class="grid grid-cols-2 gap-2 p-1 rounded-xl bg-dark-surface border border-dark-border">
+        <button id="tab-pro" onclick="switchModalPlan('pro')" class="py-2 rounded-lg text-xs font-bold transition bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-mono">
+          Pro ($6.99/mo)
+        </button>
+        <button id="tab-elite" onclick="switchModalPlan('elite')" class="py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-amber-300 font-mono">
+          Elite VIP ($12.99/mo)
+        </button>
       </div>
+
+      <div class="p-4 rounded-2xl bg-dark-surface border border-dark-border space-y-2 text-xs">
+        <div class="flex justify-between items-center"><span class="text-gray-300">Selected Plan:</span><strong id="sub-plan-name" class="text-emerald-300 font-bold">Pro Pass Monthly</strong></div>
+        <div class="flex justify-between items-center"><span class="text-gray-300">Billing:</span><strong id="sub-plan-price" class="text-white font-mono">$6.99 / month</strong></div>
+        <div class="flex justify-between items-center"><span class="text-gray-300">Platform Rake:</span><strong id="sub-plan-rake" class="text-emerald-400 font-bold">50% Off (5% Fee)</strong></div>
+        <div class="flex justify-between items-center"><span class="text-gray-300">Discord Role:</span><strong id="sub-plan-role" class="text-[#5865F2] font-bold">@Verified Player</strong></div>
+      </div>
+
+      <!-- Payment Action -->
+      <div class="space-y-2">
+        <button id="sub-confirm-btn" onclick="executePlanSubscribe()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-sm tracking-wider uppercase flex items-center justify-center gap-2 transition shadow-[0_0_20px_rgba(16,185,129,0.35)]">
+          <i class="fa-brands fa-apple text-lg"></i>
+          <span id="sub-btn-label">Subscribe for $6.99 / mo</span>
+        </button>
+      </div>
+
+      <div class="text-center text-[11px] text-gray-400">
+        Secured with 256-Bit Stripe Connect & Apple Pay. Cancel anytime with 1-click.
+      </div>
+    </div>
+  </div>
 
       <!-- Payment Selection -->
       <div class="space-y-2">
@@ -1047,19 +1113,82 @@
     let selectedDepositVal = 20.00;
 
     
-    function openVipModal() {
-      const modal = document.getElementById('vip-modal');
+    let currentSelectedPlan = 'pro';
+
+    function openSubscriptionModal(planType) {
+      if (!planType) planType = 'pro';
+      switchModalPlan(planType);
+      const modal = document.getElementById('subscription-modal');
       if (modal) modal.classList.remove('hidden');
     }
 
-    function closeVipModal() {
-      const modal = document.getElementById('vip-modal');
+    function openVipModal() {
+      openSubscriptionModal('elite');
+    }
+
+    function closeSubscriptionModal() {
+      const modal = document.getElementById('subscription-modal');
       if (modal) modal.classList.add('hidden');
     }
 
-    async function executeVipSubscribe() {
-      closeVipModal();
-      showToast("VIP Founder Pass Active!", "Welcome to VIP Founder status! 0% platform rake unlocked & @VIP role granted.", true);
+    function closeVipModal() {
+      closeSubscriptionModal();
+    }
+
+    function switchModalPlan(plan) {
+      currentSelectedPlan = plan;
+      const tabPro = document.getElementById('tab-pro');
+      const tabElite = document.getElementById('tab-elite');
+      const icon = document.getElementById('sub-modal-icon');
+      const title = document.getElementById('sub-modal-title');
+      const desc = document.getElementById('sub-modal-desc');
+      const planName = document.getElementById('sub-plan-name');
+      const planPrice = document.getElementById('sub-plan-price');
+      const planRake = document.getElementById('sub-plan-rake');
+      const planRole = document.getElementById('sub-plan-role');
+      const btn = document.getElementById('sub-confirm-btn');
+      const btnLabel = document.getElementById('sub-btn-label');
+
+      if (plan === 'elite') {
+        if (tabPro) tabPro.className = 'py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-emerald-300 font-mono';
+        if (tabElite) tabElite.className = 'py-2 rounded-lg text-xs font-bold transition bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono';
+        if (icon) {
+          icon.className = 'w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center text-2xl mx-auto shadow-[0_0_20px_rgba(245,158,11,0.3)]';
+          icon.innerHTML = '<i class="fa-solid fa-crown"></i>';
+        }
+        if (title) title.innerText = 'Elite High-Roller VIP';
+        if (desc) desc.innerText = '0% platform rake, free $500 monthly cups & VIP Discord voice access.';
+        if (planName) { planName.innerText = 'Elite High-Roller Monthly'; planName.className = 'text-amber-300 font-bold'; }
+        if (planPrice) planPrice.innerText = '$12.99 / month';
+        if (planRake) { planRake.innerText = '0% Platform Rake (Keep 100%)'; planRake.className = 'text-amber-400 font-bold'; }
+        if (planRole) planRole.innerText = '@VIP High-Roller';
+        if (btn) btn.className = 'w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-sm tracking-wider uppercase flex items-center justify-center gap-2 transition shadow-[0_0_20px_rgba(245,158,11,0.35)]';
+        if (btnLabel) btnLabel.innerText = 'Subscribe for $12.99 / mo';
+      } else {
+        if (tabPro) tabPro.className = 'py-2 rounded-lg text-xs font-bold transition bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-mono';
+        if (tabElite) tabElite.className = 'py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-amber-300 font-mono';
+        if (icon) {
+          icon.className = 'w-14 h-14 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center text-2xl mx-auto shadow-[0_0_20px_rgba(16,185,129,0.3)]';
+          icon.innerHTML = '<i class="fa-solid fa-shield-halved"></i>';
+        }
+        if (title) title.innerText = 'Activate Pro Pass';
+        if (desc) desc.innerText = 'Verified clean matchmaking, 100% insurance & 50% rake discounts.';
+        if (planName) { planName.innerText = 'Pro Pass Monthly'; planName.className = 'text-emerald-300 font-bold'; }
+        if (planPrice) planPrice.innerText = '$6.99 / month';
+        if (planRake) { planRake.innerText = '50% Off (5% Fee)'; planRake.className = 'text-emerald-400 font-bold'; }
+        if (planRole) planRole.innerText = '@Verified Player';
+        if (btn) btn.className = 'w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-sm tracking-wider uppercase flex items-center justify-center gap-2 transition shadow-[0_0_20px_rgba(16,185,129,0.35)]';
+        if (btnLabel) btnLabel.innerText = 'Subscribe for $6.99 / mo';
+      }
+    }
+
+    async function executePlanSubscribe() {
+      closeSubscriptionModal();
+      if (currentSelectedPlan === 'elite') {
+        showToast("Elite VIP High-Roller Active!", "Welcome to Elite VIP! 0% platform rake unlocked & @VIP High-Roller role granted.", true);
+      } else {
+        showToast("Pro Pass Active!", "Welcome to Pro Pass! Verified clean matchmaking & @Verified Player role granted.", true);
+      }
     }
 
     function openDepositModal() {
