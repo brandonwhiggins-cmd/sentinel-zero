@@ -113,15 +113,15 @@
 
         <!-- PROFILE -->
         <div class="flex items-center space-x-2.5 cursor-pointer">
-          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-600 flex items-center justify-center font-bold text-white text-sm shadow">
-            BH
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-slate-950 text-sm font-black shadow-[0_0_10px_rgba(16,185,129,0.3)]">
+            <i class="fa-solid fa-user-shield"></i>
           </div>
           <div class="hidden sm:block text-left">
             <div class="text-xs font-bold text-white flex items-center gap-1">
-              <span>Brandon</span>
-              <span class="text-[9px] bg-amber-500/20 text-amber-300 font-black px-1 rounded">PRO</span>
+              <span>Member #9042</span>
+              <span class="text-[9px] bg-emerald-500/20 text-emerald-300 font-black px-1 rounded">PRO</span>
             </div>
-            <div class="text-[10px] text-emerald-400 font-semibold">100% Clean Hardware</div>
+            <div class="text-[10px] text-emerald-400 font-semibold flex items-center gap-1"><i class="fa-solid fa-circle-check text-[9px]"></i> Silicon Attested</div>
           </div>
         </div>
       </div>
@@ -1202,27 +1202,27 @@
     }
 
     const LIVE_PRO_PASS_STRIPE_URL = "https://buy.stripe.com/cNi3cw3Lde8bcTQgMPgfu00";
+    let LIVE_ELITE_STRIPE_URL = "https://buy.stripe.com/cNi3cw3Lde8bcTQgMPgfu00";
 
     async function executePlanSubscribe() {
       const btn = document.getElementById('sub-confirm-btn');
+      const originalText = btn ? btn.innerHTML : '';
       if (btn) {
-        btn.innerHTML = `<div class="w-5 h-5 border-2 border-slate-900 border-t-transparent rounded-full animate-spin"></div> <span>Redirecting to Stripe Checkout...</span>`;
+        btn.innerHTML = `<div class="w-5 h-5 border-2 border-slate-900 border-t-transparent rounded-full animate-spin"></div> <span>Opening Stripe Checkout...</span>`;
         btn.disabled = true;
       }
 
-      // Record intent on backend
-      try {
-        fetch((typeof API_BASE !== 'undefined' ? API_BASE : 'http://127.0.0.1:5080') + '/api/v1/subscribe', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ plan: currentSelectedPlan, user_id: 'user_brandon' })
-        }).catch(() => {});
-      } catch (e) {}
+      const checkoutUrl = (currentSelectedPlan === 'elite' && LIVE_ELITE_STRIPE_URL) ? LIVE_ELITE_STRIPE_URL : LIVE_PRO_PASS_STRIPE_URL;
 
-      // Open Live Stripe Checkout
       setTimeout(() => {
-        window.location.href = LIVE_PRO_PASS_STRIPE_URL;
-      }, 500);
+        closeSubscriptionModal();
+        if (btn) {
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+        }
+        showToast("Stripe Checkout Ready!", "Opening secure checkout tab...", true);
+        window.open(checkoutUrl, '_blank');
+      }, 300);
     }
 
     function openDepositModal() {
@@ -1235,42 +1235,29 @@
       if (modal) modal.classList.add('hidden');
     }
 
-    function selectDepositAmount(amt, btn) {
-      selectedDepositVal = amt;
-      document.querySelectorAll('.amt-btn').forEach(function(b) {
-        b.className = 'amt-btn py-2 rounded-lg bg-slate-800/80 border border-slate-700 font-mono font-bold text-sm hover:border-emerald-400 text-gray-200 transition';
+    selectedDepositVal = 20.00;
+
+    function selectDeposit(val) {
+      selectedDepositVal = val;
+      const chips = document.querySelectorAll('.deposit-chip');
+      chips.forEach(c => {
+        if (parseInt(c.dataset.amount) === val) {
+          c.classList.add('border-emerald-500', 'bg-emerald-500/20', 'text-emerald-300');
+          c.classList.remove('border-dark-border', 'text-gray-300');
+        } else {
+          c.classList.remove('border-emerald-500', 'bg-emerald-500/20', 'text-emerald-300');
+          c.classList.add('border-dark-border', 'text-gray-300');
+        }
       });
-      if (btn) {
-        btn.className = 'amt-btn py-2 rounded-lg bg-emerald-500/20 border-2 border-emerald-400 font-mono font-bold text-sm text-emerald-300 transition shadow-[0_0_10px_rgba(16,185,129,0.2)]';
-      }
-      const label = document.getElementById('deposit-btn-text');
-      if (label) label.innerText = 'Confirm $' + amt.toFixed(2) + ' Deposit';
+      const lbl = document.getElementById('deposit-btn-amount');
+      if (lbl) lbl.innerText = '$' + val.toFixed(2);
     }
 
-    function showToast(title, message, isSuccess) {
-      if (isSuccess === undefined) isSuccess = true;
-      const container = document.getElementById('toast-container');
-      if (!container) return;
-      const toast = document.createElement('div');
-      toast.className = 'p-4 rounded-xl border backdrop-blur-md shadow-2xl text-white flex items-start gap-3 transition-all duration-300 pointer-events-auto max-w-sm ' +
-        (isSuccess ? 'bg-[#0d1b18]/95 border-emerald-500/50 shadow-emerald-500/20' : 'bg-[#1e1014]/95 border-rose-500/50 shadow-rose-500/20');
-      toast.innerHTML = '<div class="w-7 h-7 rounded-full flex items-center justify-center shrink-0 ' + (isSuccess ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400') + '">' +
-        '<i class="fa-solid ' + (isSuccess ? 'fa-circle-check' : 'fa-circle-xmark') + '"></i></div>' +
-        '<div><div class="text-xs font-black uppercase tracking-wider ' + (isSuccess ? 'text-emerald-300' : 'text-rose-300') + '">' + title + '</div>' +
-        '<div class="text-xs text-gray-300 mt-0.5">' + message + '</div></div>';
-      container.appendChild(toast);
-      setTimeout(function() {
-        toast.style.opacity = '0';
-        toast.style.transform = 'translateY(-10px)';
-        setTimeout(function() { toast.remove(); }, 300);
-      }, 4000);
-    }
-
-    async function executeDepositFlow() {
+    async function executeDeposit() {
       const btn = document.getElementById('confirm-deposit-btn');
       const originalHtml = btn ? btn.innerHTML : '';
       if (btn) {
-        btn.innerHTML = '<div class="w-5 h-5 border-2 border-slate-900 border-t-transparent rounded-full animate-spin"></div><span>Processing 256-Bit Escrow...</span>';
+        btn.innerHTML = `<div class="w-5 h-5 border-2 border-slate-900 border-t-transparent rounded-full animate-spin"></div> <span>Processing $${selectedDepositVal.toFixed(2)} Deposit...</span>`;
         btn.disabled = true;
       }
 
@@ -1280,14 +1267,12 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ amount: selectedDepositVal, user_id: 'user_brandon' })
         });
-        if (res.ok) {
-          const data = await res.json();
+        const data = await res.json();
+        if (data.success) {
           const balEl = document.getElementById('balance');
-          if (balEl && data.new_balance !== undefined) {
-            balEl.innerText = '$' + Number(data.new_balance).toFixed(2);
-          }
+          if (balEl) balEl.innerText = '$' + parseFloat(data.new_balance).toFixed(2);
           closeDepositModal();
-          showToast('Deposit Confirmed', '$' + selectedDepositVal.toFixed(2) + ' added via Stripe/Apple Pay. New Balance: $' + Number(data.new_balance).toFixed(2), true);
+          showToast("Deposit Successful!", `Added $${selectedDepositVal.toFixed(2)} via Apple Pay / Stripe Connect.`, true);
         } else {
           fallbackLocalDeposit();
         }
