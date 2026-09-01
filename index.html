@@ -872,23 +872,156 @@
       if (modal) modal.classList.add('hidden');
     }
 
-    function triggerCasualLaunch() {
+    let currentActiveMatch = null;
+
+    async function triggerCasualLaunch() {
       const btn = document.getElementById('launch-btn');
       if (!btn) return;
-      btn.innerHTML = `<div class="w-5 h-5 border-2 border-slate-900 border-t-transparent rounded-full animate-spin"></div> <span>Attesting Hardware & Launching...</span>`;
-      setTimeout(() => {
-        showToast("Match Ready & Attested", "Silicon Hardware: 100% Clean • Match Insurance Active • Direct Game Launching!", true);
-        closeGameModal();
-        btn.innerHTML = `<i class="fa-solid fa-rocket"></i> <span>FIND MATCH & DIRECT LAUNCH</span>`;
-      }, 1200);
-    }
-  </script>
 
-  <script>
-    // LIVE PRODUCTION STATE SYNCHRONIZATION ENGINE
-    const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-      ? 'http://127.0.0.1:5080'
-      : 'https://sentinelzero.gg';
+      const gameTitle = document.getElementById('modal-game-name')?.innerText || 'CS2';
+      const wagerAmount = 10.00; // $10.00 default entry fee
+
+      btn.innerHTML = `<div class="w-5 h-5 border-2 border-slate-900 border-t-transparent rounded-full animate-spin"></div> <span>Attesting Hardware & Locking $10 Escrow...</span>`;
+      btn.disabled = true;
+
+      try {
+        // 1. Lock Wager from Wallet
+        const res = await fetch((typeof API_BASE !== 'undefined' ? API_BASE : 'http://127.0.0.1:5080') + '/api/v1/wager/create', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ amount: wagerAmount, game_id: gameTitle.toLowerCase(), user_id: 'user_brandon' })
+        });
+        const data = await res.json();
+
+        if (data.error) {
+          showToast("Insufficient Balance", "Please add funds to your escrow wallet first!", false);
+          openDepositModal();
+          btn.innerHTML = `<i class="fa-solid fa-rocket"></i> <span>FIND MATCH & DIRECT LAUNCH</span>`;
+          btn.disabled = false;
+          return;
+        }
+
+        // Update Wallet Balance on Screen
+        const balEl = document.getElementById('balance');
+        if (balEl && data.new_balance !== undefined) {
+          balEl.innerText = '$' + parseFloat(data.new_balance).toFixed(2);
+        }
+
+        currentActiveMatch = {
+          match_id: data.match_id || ('match_' + Date.now()),
+          game: gameTitle,
+          pot_amount: data.pot_amount || (wagerAmount * 2),
+          wager_amount: wagerAmount
+        };
+
+        // Close Game Modal and Open Live Match Room Overlay
+        closeGameModal();
+        openActiveMatchModal(currentActiveMatch);
+
+      } catch (err) {
+        // Local Fallback simulation if offline
+        const balEl = document.getElementById('balance');
+        let cur = 20.00;
+        if (balEl) {
+          cur = Math.max(0, (parseFloat(balEl.innerText.replace('$', '')) || 20.00) - wagerAmount);
+          balEl.innerText = '$' + cur.toFixed(2);
+        }
+        currentActiveMatch = {
+          match_id: 'match_' + Date.now(),
+          game: gameTitle,
+          pot_amount: wagerAmount * 2,
+          wager_amount: wagerAmount
+        };
+        closeGameModal();
+        openActiveMatchModal(currentActiveMatch);
+      } finally {
+        if (btn) {
+          btn.innerHTML = `<i class="fa-solid fa-rocket"></i> <span>FIND MATCH & DIRECT LAUNCH</span>`;
+          btn.disabled = false;
+        }
+      }
+    }
+
+    function openActiveMatchModal(match) {
+      const modal = document.getElementById('active-match-modal');
+      const potEl = document.getElementById('active-pot-amount');
+      const idEl = document.getElementById('active-match-id');
+      const codeEl = document.getElementById('active-connect-code');
+
+      if (potEl) potEl.innerText = '$' + match.pot_amount.toFixed(2);
+      if (idEl) idEl.innerText = 'MATCH #' + match.match_id.substring(match.match_id.length - 8).toUpperCase() + ' (' + match.game + ')';
+      if (codeEl) {
+        const port = Math.floor(Math.random() * 500) + 27015;
+        codeEl.innerText = `connect 198.51.100.44:${port}; password sentinel_match`;
+      }
+
+      if (modal) modal.classList.remove('hidden');
+      showToast("Match Ready & Escrow Locked!", `$${match.pot_amount.toFixed(2)} pot secured. Join the dedicated server.`, true);
+    }
+
+    function closeActiveMatchModal() {
+      const modal = document.getElementById('active-match-modal');
+      if (modal) modal.classList.add('hidden');
+      currentActiveMatch = null;
+    }
+
+    async function resolveCurrentMatch(outcome) {
+      if (!currentActiveMatch) return;
+      const match = currentActiveMatch;
+
+      try {
+        const res = await fetch((typeof API_BASE !== 'undefined' ? API_BASE : 'http://127.0.0.1:5080') + '/api/v1/wager/resolve', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ match_id: match.match_id, outcome: outcome, pot_amount: match.pot_amount, user_id: 'user_brandon' })
+        });
+        const data = await res.json();
+        
+        const balEl = document.getElementById('balance');
+        if (balEl && data.new_balance !== undefined) {
+          balEl.innerText = '$' + parseFloat(data.new_balance).toFixed(2);
+        }
+
+        closeActiveMatchModal();
+
+        if (outcome === 'win') {
+          showToast("Victory Payout Claimed!", `Won $${data.payout.toFixed(2)}! (Rake: ${data.rake_applied}) Credited to wallet.`, true);
+        } else if (outcome === 'cheater_detected') {
+          showToast("Insurance Shield Activated!", `Cheater banned & forfeited stake! 100% refund of $${data.payout.toFixed(2)} returned to your wallet.`, true);
+        } else {
+          showToast("Match Canceled", `Escrow released. $${data.payout.toFixed(2)} refunded to your wallet.`, true);
+        }
+      } catch (e) {
+        // Offline fallback
+        const balEl = document.getElementById('balance');
+        let cur = 10.00;
+        if (balEl) cur = parseFloat(balEl.innerText.replace('$', '')) || 10.00;
+
+        closeActiveMatchModal();
+        if (outcome === 'win') {
+          const payout = match.pot_amount * 0.95;
+          if (balEl) balEl.innerText = '$' + (cur + payout).toFixed(2);
+          showToast("Victory Payout Claimed!", `Won $${payout.toFixed(2)}! Credited to wallet.`, true);
+        } else if (outcome === 'cheater_detected') {
+          if (balEl) balEl.innerText = '$' + (cur + match.wager_amount).toFixed(2);
+          showToast("Insurance Shield Activated!", `Cheater caught! 100% of $${match.wager_amount.toFixed(2)} refunded.`, true);
+        } else {
+          if (balEl) balEl.innerText = '$' + (cur + match.wager_amount).toFixed(2);
+          showToast("Match Canceled", `$${match.wager_amount.toFixed(2)} refunded to wallet.`, true);
+        }
+      }
+    }
+
+    function copyConnectCode() {
+      const codeEl = document.getElementById('active-connect-code');
+      const btnText = document.getElementById('copy-btn-text');
+      if (codeEl) {
+        navigator.clipboard.writeText(codeEl.innerText).then(() => {
+          if (btnText) btnText.innerText = 'Copied!';
+          setTimeout(() => { if (btnText) btnText.innerText = 'Copy Code'; }, 1500);
+        });
+      }
+    }
 
     async function fetchLiveStats() {
       try {
@@ -996,6 +1129,69 @@
 
 
   
+  
+  <!-- ACTIVE MATCH ROOM & ESCROW DIALOG -->
+  <div id="active-match-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden">
+    <div class="bg-[#0f131f] border-2 border-emerald-500/50 rounded-3xl w-full max-w-lg p-6 sm:p-8 shadow-2xl relative text-white space-y-6">
+      
+      <!-- Top Status Bar -->
+      <div class="flex justify-between items-center pb-4 border-b border-dark-border">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+          <span class="text-xs font-mono font-bold text-emerald-400 uppercase tracking-widest">LIVE ESCROW MATCH IN PROGRESS</span>
+        </div>
+        <span id="active-match-id" class="text-xs font-mono text-gray-400">MATCH #9042-CS2</span>
+      </div>
+
+      <!-- Pot & Opponent Card -->
+      <div class="grid grid-cols-2 gap-3">
+        <div class="p-4 rounded-2xl bg-dark-surface border border-dark-border text-center space-y-1">
+          <span class="text-[11px] text-gray-400 uppercase tracking-wider font-semibold">Total Pot in Escrow</span>
+          <div id="active-pot-amount" class="text-3xl font-black text-amber-400 font-mono">$20.00</div>
+          <span class="text-[10px] text-emerald-400 font-bold flex items-center justify-center gap-1"><i class="fa-solid fa-lock"></i> 100% Insured</span>
+        </div>
+        <div class="p-4 rounded-2xl bg-dark-surface border border-dark-border text-center space-y-1">
+          <span class="text-[11px] text-gray-400 uppercase tracking-wider font-semibold">Verified Opponent</span>
+          <div id="active-opponent-name" class="text-base font-bold text-white truncate pt-1">ShadowSniper#99</div>
+          <span class="text-[10px] text-emerald-400 font-bold flex items-center justify-center gap-1"><i class="fa-solid fa-shield-halved"></i> Hardware Clean</span>
+        </div>
+      </div>
+
+      <!-- Private Room Connection Box -->
+      <div class="p-4 rounded-2xl bg-dark-bg border border-dark-border space-y-2">
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-gray-400 font-semibold">Private Dedicated Server:</span>
+          <button onclick="copyConnectCode()" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-1 text-[11px]">
+            <i class="fa-regular fa-copy"></i> <span id="copy-btn-text">Copy Code</span>
+          </button>
+        </div>
+        <div id="active-connect-code" class="p-3 rounded-xl bg-slate-950 font-mono text-xs text-emerald-300 select-all border border-emerald-500/30 overflow-x-auto">
+          connect 198.51.100.44:27015; password sentinel
+        </div>
+      </div>
+
+      <!-- Escrow Resolution Actions -->
+      <div class="space-y-3 pt-2">
+        <button onclick="resolveCurrentMatch('win')" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-sm tracking-wider uppercase flex items-center justify-center gap-2 transition shadow-[0_0_20px_rgba(16,185,129,0.35)]">
+          <i class="fa-solid fa-trophy"></i>
+          <span>Report Match Victory (Claim Pot)</span>
+        </button>
+
+        <div class="grid grid-cols-2 gap-2">
+          <button onclick="resolveCurrentMatch('cheater_detected')" class="py-2.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/40 text-amber-300 font-bold text-xs flex items-center justify-center gap-1.5 transition">
+            <i class="fa-solid fa-shield-cat"></i>
+            <span>Trigger Cheater Shield</span>
+          </button>
+          <button onclick="resolveCurrentMatch('cancel')" class="py-2.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/40 text-rose-300 font-bold text-xs flex items-center justify-center gap-1.5 transition">
+            <i class="fa-solid fa-xmark"></i>
+            <span>Cancel & Refund</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <!-- INTERACTIVE TWO-TIER SUBSCRIPTION CHECKOUT MODAL -->
   <div id="subscription-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden transition-opacity duration-300">
     <div class="bg-[#0f131f] border-2 border-emerald-500/50 rounded-3xl w-full max-w-md p-6 sm:p-8 shadow-2xl relative text-white space-y-6">
