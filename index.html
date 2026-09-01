@@ -154,7 +154,7 @@
               <p class="text-xs text-gray-200 mt-0.5">Subscribe to the Pro Pass ($6.99) today & receive a <strong>Free $500 Inaugural Clean Scrim Cup Ticket</strong> this Saturday!</p>
             </div>
           </div>
-          <a href="https://buy.stripe.com/cNi3cw3Lde8bcTQgMPgfu00" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shrink-0 shadow-lg flex items-center gap-1.5">Claim Founder Slot ($6.99) <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
+          <a href="https://buy.stripe.com/cNi3cw3Lde8bcTQgMPgfu00" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shrink-0 shadow-lg flex items-center gap-1.5">Claim Founder Slot ($6.99) <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
         </div>
 
         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold font-mono">
@@ -573,10 +573,7 @@
             </ul>
           </div>
 
-          <button onclick="openSubscriptionModal('pro')" class="w-full py-3.5 rounded-2xl bg-dark-surface hover:bg-emerald-500 hover:text-slate-900 border border-emerald-500/40 text-emerald-300 font-bold text-sm tracking-wide flex items-center justify-center gap-2 transition shadow-lg transform hover:-translate-y-0.5">
-            <i class="fa-solid fa-shield-halved"></i>
-            <span>Get Pro Pass ($6.99/mo)</span>
-          </button>
+          <a href="https://buy.stripe.com/cNi3cw3Lde8bcTQgMPgfu00" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 rounded-2xl bg-dark-surface hover:bg-emerald-500 hover:text-slate-900 border border-emerald-500/40 text-emerald-300 font-bold text-sm tracking-wide flex items-center justify-center gap-2 transition shadow-lg transform hover:-translate-y-0.5"><i class="fa-solid fa-shield-halved"></i> <span>Get Pro Pass ($6.99/mo)</span></a>
         </div>
 
         <!-- TIER 2: ELITE HIGH-ROLLER ($12.99 / mo) -->
@@ -611,10 +608,7 @@
             </ul>
           </div>
 
-          <button onclick="openSubscriptionModal('elite')" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-sm tracking-wider uppercase flex items-center justify-center gap-2 transition shadow-[0_0_25px_rgba(245,158,11,0.35)] transform hover:-translate-y-0.5">
-            <i class="fa-solid fa-crown text-slate-950"></i>
-            <span>Join Elite High-Roller ($12.99/mo)</span>
-          </button>
+          <a href="https://buy.stripe.com/cNi7sM1D58NR3jggMPgfu01" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-sm tracking-wider uppercase flex items-center justify-center gap-2 transition shadow-[0_0_25px_rgba(245,158,11,0.35)] transform hover:-translate-y-0.5"><i class="fa-solid fa-crown text-slate-950"></i> <span>Join Elite High-Roller ($12.99/mo)</span></a>
         </div>
 
       </div>
@@ -1036,10 +1030,10 @@
 
       <!-- Payment Action -->
       <div class="space-y-2">
-        <button id="sub-confirm-btn" onclick="executePlanSubscribe()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-sm tracking-wider uppercase flex items-center justify-center gap-2 transition shadow-[0_0_20px_rgba(16,185,129,0.35)]">
+        <a id="sub-confirm-btn" href="https://buy.stripe.com/cNi3cw3Lde8bcTQgMPgfu00" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-sm tracking-wider uppercase flex items-center justify-center gap-2 transition shadow-[0_0_20px_rgba(16,185,129,0.35)]">
           <i class="fa-brands fa-apple text-lg"></i>
           <span id="sub-btn-label">Subscribe for $6.99 / mo</span>
-        </button>
+        </a>
       </div>
 
       <div class="text-center text-[11px] text-gray-400">
@@ -1183,6 +1177,7 @@
         if (planRole) planRole.innerText = '@VIP High-Roller';
         if (btn) btn.className = 'w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-sm tracking-wider uppercase flex items-center justify-center gap-2 transition shadow-[0_0_20px_rgba(245,158,11,0.35)]';
         if (btnLabel) btnLabel.innerText = 'Subscribe for $12.99 / mo';
+        if (btn) btn.href = 'https://buy.stripe.com/cNi7sM1D58NR3jggMPgfu01';
       } else {
         if (tabPro) tabPro.className = 'py-2 rounded-lg text-xs font-bold transition bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-mono';
         if (tabElite) tabElite.className = 'py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-amber-300 font-mono';
@@ -1198,6 +1193,7 @@
         if (planRole) planRole.innerText = '@Verified Player';
         if (btn) btn.className = 'w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-sm tracking-wider uppercase flex items-center justify-center gap-2 transition shadow-[0_0_20px_rgba(16,185,129,0.35)]';
         if (btnLabel) btnLabel.innerText = 'Subscribe for $6.99 / mo';
+        if (btn) btn.href = 'https://buy.stripe.com/cNi3cw3Lde8bcTQgMPgfu00';
       }
     }
 
