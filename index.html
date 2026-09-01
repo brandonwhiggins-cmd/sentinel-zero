@@ -154,9 +154,7 @@
               <p class="text-xs text-gray-200 mt-0.5">Subscribe to the Pro Pass ($6.99) today & receive a <strong>Free $500 Inaugural Clean Scrim Cup Ticket</strong> this Saturday!</p>
             </div>
           </div>
-          <button onclick="openSubscriptionModal('pro')" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shrink-0 shadow-lg">
-            Claim Founder Slot ($6.99)
-          </button>
+          <a href="https://buy.stripe.com/cNi3cw3Lde8bcTQgMPgfu00" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shrink-0 shadow-lg flex items-center gap-1.5">Claim Founder Slot ($6.99) <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
         </div>
 
         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold font-mono">
@@ -1203,36 +1201,28 @@
       }
     }
 
+    const LIVE_PRO_PASS_STRIPE_URL = "https://buy.stripe.com/cNi3cw3Lde8bcTQgMPgfu00";
+
     async function executePlanSubscribe() {
       const btn = document.getElementById('sub-confirm-btn');
-      const originalText = btn ? btn.innerHTML : '';
       if (btn) {
-        btn.innerHTML = `<div class="w-5 h-5 border-2 border-slate-900 border-t-transparent rounded-full animate-spin"></div> <span>Confirming with Stripe...</span>`;
+        btn.innerHTML = `<div class="w-5 h-5 border-2 border-slate-900 border-t-transparent rounded-full animate-spin"></div> <span>Redirecting to Stripe Checkout...</span>`;
         btn.disabled = true;
       }
 
+      // Record intent on backend
       try {
-        const res = await fetch((typeof API_BASE !== 'undefined' ? API_BASE : 'http://127.0.0.1:5080') + '/api/v1/subscribe', {
+        fetch((typeof API_BASE !== 'undefined' ? API_BASE : 'http://127.0.0.1:5080') + '/api/v1/subscribe', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ plan: currentSelectedPlan, user_id: 'user_brandon' })
-        });
-        const data = await res.json();
-        closeSubscriptionModal();
-        if (currentSelectedPlan === 'elite') {
-          showToast("Elite VIP High-Roller Active!", "0% platform rake unlocked & $500 Cash Cup ticket added to your wallet!", true);
-        } else {
-          showToast("Founder Pro Pass Active!", "Verified clean matchmaking active & Free $500 Cash Cup ticket granted!", true);
-        }
-      } catch (e) {
-        closeSubscriptionModal();
-        showToast("Founder Pass Active (Test Mode)!", "Welcome to the Founding 50! Your hardware is verified clean.", true);
-      } finally {
-        if (btn) {
-          btn.innerHTML = originalText;
-          btn.disabled = false;
-        }
-      }
+        }).catch(() => {});
+      } catch (e) {}
+
+      // Open Live Stripe Checkout
+      setTimeout(() => {
+        window.location.href = LIVE_PRO_PASS_STRIPE_URL;
+      }, 500);
     }
 
     function openDepositModal() {
