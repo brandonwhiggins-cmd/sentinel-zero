@@ -78,7 +78,16 @@
         </div>
       </div>
 
-            <!-- CASUAL SEARCH / GENRE FILTER -->
+            
+      <!-- NAVIGATION LINKS -->
+      <nav class="hidden xl:flex items-center space-x-6 text-xs font-bold tracking-wide text-gray-300">
+        <a href="#games-section" class="hover:text-emerald-400 transition flex items-center gap-1.5"><i class="fa-solid fa-gamepad text-emerald-400"></i> Browse Games</a>
+        <a href="#about-section" class="hover:text-emerald-400 transition flex items-center gap-1.5"><i class="fa-solid fa-shield-halved text-emerald-400"></i> About Us</a>
+        <a href="#vip-section" class="text-amber-300 hover:text-amber-200 transition flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-full"><i class="fa-solid fa-crown text-amber-400"></i> VIP Pass</a>
+        <a href="https://discord.gg/6ZnnXuqkdd" target="_blank" class="hover:text-[#5865F2] transition flex items-center gap-1.5"><i class="fa-brands fa-discord"></i> Discord</a>
+      </nav>
+
+      <!-- CASUAL SEARCH / GENRE FILTER -->
       <div class="hidden md:flex items-center space-x-2 bg-dark-surface px-3 py-1.5 rounded-full border border-dark-border">
         <button onclick="filterGames('all', this)" class="genre-btn px-4 py-1 rounded-full text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 transition shadow">All Games</button>
         <button onclick="filterGames('shooter', this)" class="genre-btn px-4 py-1 rounded-full text-xs font-semibold text-gray-400 hover:text-white transition">Shooters</button>
@@ -122,6 +131,70 @@
 
   <!-- MAIN APP -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full space-y-8">
+
+    <!-- HERO / LANDING BANNER -->
+    <section class="mb-12 relative overflow-hidden rounded-3xl bg-gradient-to-b from-[#131d31]/90 via-dark-card to-dark-card/90 border border-emerald-500/30 p-8 sm:p-12 shadow-2xl">
+      <!-- Glow ambient backdrop -->
+      <div class="absolute -top-24 -left-24 w-96 h-96 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="max-w-4xl relative z-10 space-y-6">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold font-mono">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <span>NEXT-GEN SKILL-BASED MATCHMAKING & ANTI-CHEAT</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-white leading-tight">
+          Competitive Gaming Reborn.<br>
+          <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">Zero Kernel Spyware. 100% Fair Play.</span>
+        </h1>
+
+        <p class="text-sm sm:text-base text-gray-300 leading-relaxed max-w-2xl">
+          Sentinel Zero combines <strong>non-invasive Silicon Attestation</strong>, server-side <strong>Fog-of-War raycasting</strong>, and automated <strong>escrow match insurance</strong>. Play custom scrims, wager on your skill across 9 major PC titles, and experience clean gaming without invasive ring-0 rootkits.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-wrap items-center gap-4 pt-2">
+          <a href="#games-section" class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-900 font-black text-sm tracking-wider uppercase flex items-center gap-2.5 transition shadow-[0_0_25px_rgba(16,185,129,0.35)] transform hover:-translate-y-0.5">
+            <i class="fa-solid fa-gamepad text-base"></i>
+            <span>Browse 9 Games</span>
+          </a>
+          <button onclick="openVipModal()" class="px-6 py-3.5 rounded-2xl bg-amber-500/15 hover:bg-amber-500/25 border-2 border-amber-500/40 hover:border-amber-400 text-amber-300 font-bold text-sm tracking-wide flex items-center gap-2.5 transition shadow-[0_0_20px_rgba(245,158,11,0.2)] transform hover:-translate-y-0.5">
+            <i class="fa-solid fa-crown text-amber-400"></i>
+            <span>Get VIP Founder Pass ($9.99/mo)</span>
+          </button>
+          <a href="#about-section" class="px-5 py-3.5 rounded-2xl bg-dark-surface/80 hover:bg-dark-surface border border-dark-border text-gray-300 hover:text-white font-semibold text-sm transition flex items-center gap-2">
+            <i class="fa-solid fa-circle-info"></i>
+            <span>Our Story & Tech</span>
+          </a>
+        </div>
+
+        <!-- Metric badges -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-dark-border/60">
+          <div class="p-3 rounded-xl bg-dark-surface/50 border border-dark-border/50">
+            <div class="text-xs text-gray-400">Raycaster Latency</div>
+            <div class="text-lg font-black text-emerald-400 font-mono">0.84 ms</div>
+            <div class="text-[10px] text-gray-500">Sub-millisecond BVH</div>
+          </div>
+          <div class="p-3 rounded-xl bg-dark-surface/50 border border-dark-border/50">
+            <div class="text-xs text-gray-400">Match Insurance</div>
+            <div class="text-lg font-black text-emerald-400 font-mono">100% Refund</div>
+            <div class="text-[10px] text-gray-500">Cheater funds forfeited</div>
+          </div>
+          <div class="p-3 rounded-xl bg-dark-surface/50 border border-dark-border/50">
+            <div class="text-xs text-gray-400">Kernel Footprint</div>
+            <div class="text-lg font-black text-emerald-400 font-mono">0% Spyware</div>
+            <div class="text-[10px] text-gray-500">Non-invasive silicon TPM</div>
+          </div>
+          <div class="p-3 rounded-xl bg-dark-surface/50 border border-dark-border/50">
+            <div class="text-xs text-gray-400">Platform Status</div>
+            <div class="text-lg font-black text-emerald-400 font-mono">LIVE 24/7</div>
+            <div class="text-[10px] text-gray-500">Vercel Edge Global CDN</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     
     <!-- CASUAL HERO BANNER -->
     <div class="rounded-3xl p-6 sm:p-8 bg-gradient-to-r from-dark-surface via-dark-card to-dark-surface border border-dark-border relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
@@ -372,6 +445,119 @@
 
       </div>
     </div>
+
+  
+    <!-- ABOUT US & MISSION SECTION -->
+    <section id="about-section" class="my-16 scroll-mt-24">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold font-mono mb-3">
+          <i class="fa-solid fa-shield-halved"></i> THE SENTINEL ZERO MANIFESTO
+        </div>
+        <h2 class="text-3xl font-black text-white tracking-tight">Built by Gamers Tired of Cheaters & Kernel Spyware</h2>
+        <p class="text-sm text-gray-400 mt-2">We built Sentinel Zero to prove that competitive esports can be 100% fair, transparent, and cheat-free without invading user privacy.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <!-- Pillar 1 -->
+        <div class="p-6 rounded-3xl bg-dark-card border border-dark-border hover:border-emerald-500/40 transition space-y-4">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl font-bold shadow-[0_0_15px_rgba(16,185,129,0.3)]">
+            <i class="fa-solid fa-microchip"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white">Non-Invasive Silicon Attestation</h3>
+          <p class="text-xs text-gray-400 leading-relaxed">
+            Unlike intrusive kernel rootkits that scan personal files, Sentinel Zero inspects hardware registers (TPM 2.0 PCRs, CPU timing invariants, and IOMMU DMA isolation) in sub-millisecond bursts to block DMA cards before games launch.
+          </p>
+        </div>
+
+        <!-- Pillar 2 -->
+        <div class="p-6 rounded-3xl bg-dark-card border border-dark-border hover:border-emerald-500/40 transition space-y-4">
+          <div class="w-12 h-12 rounded-2xl bg-teal-500/20 text-teal-400 flex items-center justify-center text-xl font-bold shadow-[0_0_15px_rgba(20,184,166,0.3)]">
+            <i class="fa-solid fa-eye-slash"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white">Server-Side Fog-of-War</h3>
+          <p class="text-xs text-gray-400 leading-relaxed">
+            Our 0.84ms BVH raycasting engine runs directly on game servers to calculate line-of-sight occlusion. Enemy positions are never sent to your PC until they are visible, making traditional wallhacks and radar cheats mathematically impossible.
+          </p>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div class="p-6 rounded-3xl bg-dark-card border border-dark-border hover:border-emerald-500/40 transition space-y-4">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl font-bold shadow-[0_0_15px_rgba(245,158,11,0.3)]">
+            <i class="fa-solid fa-scale-balanced"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white">100% Match Insurance Shield</h3>
+          <p class="text-xs text-gray-400 leading-relaxed">
+            Backed by our airtight legal Terms of Service: if your opponent is caught using hardware or macro cheats, 100% of your wager is refunded instantly, while the cheater's entire stake is permanently forfeited as liquidated damages.
+          </p>
+        </div>
+      </div>
+
+      <!-- Leadership / Founder Spotlight -->
+      <div class="p-8 rounded-3xl bg-gradient-to-r from-dark-card to-dark-surface border border-dark-border flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-4">
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-emerald-500 to-indigo-600 flex items-center justify-center text-white text-2xl font-black shadow-lg">
+            BH
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h4 class="text-base font-black text-white">Brandon Higgins (<span class="text-emerald-400">SknotRockit</span>)</h4>
+              <span class="text-[10px] bg-emerald-500/20 text-emerald-300 font-mono font-bold px-2 py-0.5 rounded">Founder & CEO</span>
+            </div>
+            <p class="text-xs text-gray-400 mt-1">Lead architect of the OpenSentinel attestation protocol & skill-gaming escrow engine.</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="https://discord.gg/6ZnnXuqkdd" target="_blank" class="px-5 py-2.5 rounded-xl bg-[#5865F2] hover:bg-[#4752C4] text-white font-bold text-xs flex items-center gap-2 transition shadow-lg">
+            <i class="fa-brands fa-discord"></i> Chat with Founder on Discord
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIP FOUNDER PASS SUBSCRIPTION SECTION -->
+    <section id="vip-section" class="my-16 scroll-mt-24">
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-b from-[#1a1827] via-dark-card to-dark-card border-2 border-amber-500/40 p-8 sm:p-12 shadow-2xl">
+        <div class="absolute -top-20 -right-20 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+          <div class="max-w-xl space-y-4">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-300 text-xs font-bold font-mono">
+              <i class="fa-solid fa-crown text-amber-400"></i> SENTINEL ZERO VIP FOUNDER PASS
+            </div>
+            <h2 class="text-2xl sm:text-4xl font-black text-white tracking-tight">Elevate Your Competitive Edge</h2>
+            <p class="text-sm text-gray-300 leading-relaxed">
+              Unlock <strong>0% platform rake on all cash wagers</strong>, exclusive VIP Discord lounges with direct developer voice access, priority queue matchmaking, and automated entries into our <strong>$500 monthly subscriber cash tournaments</strong>.
+            </p>
+
+            <!-- Feature Bullet List -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
+              <div class="flex items-center gap-2 text-gray-200"><i class="fa-solid fa-circle-check text-amber-400 text-sm"></i> <span><strong>0% Platform Rake</strong> (Save 10% on every pot)</span></div>
+              <div class="flex items-center gap-2 text-gray-200"><i class="fa-solid fa-circle-check text-amber-400 text-sm"></i> <span><strong>VIP Discord Channel</strong> Access (`#vip-lounge`)</span></div>
+              <div class="flex items-center gap-2 text-gray-200"><i class="fa-solid fa-circle-check text-amber-400 text-sm"></i> <span><strong>Priority Queue</strong> (Instant Scrim Pairing)</span></div>
+              <div class="flex items-center gap-2 text-gray-200"><i class="fa-solid fa-circle-check text-amber-400 text-sm"></i> <span><strong>Gold Founder Badge</strong> & Custom Discord Role</span></div>
+              <div class="flex items-center gap-2 text-gray-200"><i class="fa-solid fa-circle-check text-amber-400 text-sm"></i> <span><strong>Free $500 Monthly Cup</strong> Entry Tickets</span></div>
+              <div class="flex items-center gap-2 text-gray-200"><i class="fa-solid fa-circle-check text-amber-400 text-sm"></i> <span><strong>100% Match Insurance</strong> Guarantee</span></div>
+            </div>
+          </div>
+
+          <!-- Subscription Pricing Card -->
+          <div class="bg-[#111624] border border-amber-500/40 rounded-2xl p-6 lg:w-80 shrink-0 text-center space-y-5 shadow-2xl relative">
+            <div class="text-xs uppercase tracking-widest text-amber-400 font-mono font-bold">FOUNDER TIER PASS</div>
+            <div class="flex items-baseline justify-center gap-1">
+              <span class="text-4xl font-black text-white font-mono">$9.99</span>
+              <span class="text-xs text-gray-400 font-semibold">/ month</span>
+            </div>
+            <div class="text-[11px] text-gray-400">Cancel anytime. 100% money-back guarantee.</div>
+
+            <button onclick="openVipModal()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-sm tracking-wider uppercase flex items-center justify-center gap-2 transition shadow-[0_0_25px_rgba(245,158,11,0.35)] transform hover:-translate-y-0.5">
+              <i class="fa-solid fa-crown text-slate-950"></i>
+              <span>Join VIP Founder Pass</span>
+            </button>
+            <div class="text-[10px] text-gray-500">Instant Apple Pay & Stripe Connect Checkout</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
   </main>
 
@@ -754,6 +940,43 @@
   </script>
 
 
+  
+  <!-- VIP FOUNDER PASS SUBSCRIPTION CHECKOUT MODAL -->
+  <div id="vip-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden transition-opacity duration-300">
+    <div class="bg-[#0f131f] border-2 border-amber-500/50 rounded-3xl w-full max-w-md p-6 sm:p-8 shadow-2xl relative text-white space-y-6">
+      <button onclick="closeVipModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition w-8 h-8 flex items-center justify-center rounded-full bg-slate-800/60 hover:bg-slate-700">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="text-center space-y-2">
+        <div class="w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center text-2xl mx-auto shadow-[0_0_20px_rgba(245,158,11,0.3)]">
+          <i class="fa-solid fa-crown"></i>
+        </div>
+        <h3 class="text-2xl font-black text-white tracking-tight">VIP Founder Membership</h3>
+        <p class="text-xs text-gray-400">Unlock 0% match rakes, VIP Discord lounges & monthly cash cups.</p>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-dark-surface border border-amber-500/20 space-y-2 text-xs">
+        <div class="flex justify-between items-center"><span class="text-gray-300">Plan:</span><strong class="text-amber-300 font-bold">Monthly Founder Pass</strong></div>
+        <div class="flex justify-between items-center"><span class="text-gray-300">Billing:</span><strong class="text-white font-mono">$9.99 / month</strong></div>
+        <div class="flex justify-between items-center"><span class="text-gray-300">Rakeback:</span><strong class="text-emerald-400 font-bold">100% (0% Platform Fee)</strong></div>
+        <div class="flex justify-between items-center"><span class="text-gray-300">Discord Role:</span><strong class="text-[#5865F2] font-bold">@VIP High-Roller</strong></div>
+      </div>
+
+      <!-- Payment Selection -->
+      <div class="space-y-2">
+        <button onclick="executeVipSubscribe()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-sm tracking-wider uppercase flex items-center justify-center gap-2 transition shadow-[0_0_20px_rgba(245,158,11,0.35)]">
+          <i class="fa-brands fa-apple text-lg"></i>
+          <span>Subscribe with Apple Pay / Card</span>
+        </button>
+      </div>
+
+      <div class="text-center text-[11px] text-gray-400">
+        Secured with 256-Bit Stripe Connect encryption. Cancel anytime with 1-click.
+      </div>
+    </div>
+  </div>
+
   <!-- MODERN STRIPE & APPLE PAY DEPOSIT MODAL -->
   <div id="deposit-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden transition-opacity duration-300">
     <div class="bg-[#0d131f] border border-emerald-500/40 rounded-2xl w-full max-w-md p-6 shadow-2xl relative text-white">
@@ -822,6 +1045,22 @@
 
   <script>
     let selectedDepositVal = 20.00;
+
+    
+    function openVipModal() {
+      const modal = document.getElementById('vip-modal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeVipModal() {
+      const modal = document.getElementById('vip-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    async function executeVipSubscribe() {
+      closeVipModal();
+      showToast("VIP Founder Pass Active!", "Welcome to VIP Founder status! 0% platform rake unlocked & @VIP role granted.", true);
+    }
 
     function openDepositModal() {
       const modal = document.getElementById('deposit-modal');
