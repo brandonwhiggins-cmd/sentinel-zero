@@ -270,7 +270,7 @@
     <section id="games-section" class="scroll-mt-24">
       <div class="flex items-center justify-between mb-4">
         <h2 class="text-xl font-black text-white tracking-tight">Choose Your Game</h2>
-        <span class="text-xs text-gray-400 font-semibold">13 Games Supported on PC & Cross-Play</span>
+        <span class="text-xs text-gray-400 font-semibold">14 Games Supported on PC & Cross-Play</span>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6" id="game-grid">
@@ -785,6 +785,28 @@
             </div>
           </div>
         </div>
+
+        <!-- 14. OVERWATCH 2 -->
+        <div onclick="selectGameDetails('overwatch')" data-category="all,shooter,wager" class="game-card bg-dark-card border border-dark-border rounded-2xl cursor-pointer relative overflow-hidden group flex flex-col">
+          <div class="h-44 w-full overflow-hidden relative">
+            <img src="assets/games/overwatch.jpg" alt="Overwatch 2" class="w-full h-full object-cover game-img">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-card via-dark-card/30 to-transparent"></div>
+            <span class="absolute top-3 right-3 text-[10px] font-mono bg-dark-bg/80 backdrop-blur-sm border border-emerald-500/40 text-emerald-300 px-2 py-0.5 rounded-full font-bold">CROSS-PLAY</span>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between space-y-3">
+            <div>
+              <div class="flex items-center justify-between">
+                <h3 class="font-extrabold text-lg text-white group-hover:text-emerald-400 transition">Overwatch 2</h3>
+                <span class="text-[11px] font-mono text-gray-400 flex items-center gap-1"><i class="fa-solid fa-clock text-[10px] text-gray-400"></i> ~15-25 mins</span>
+              </div>
+              <p class="text-xs text-gray-400 mt-0.5">5v5 Competitive Scrims & 1v1 Arena Duels</p>
+            </div>
+            <div class="pt-3 border-t border-dark-border flex justify-between items-center text-xs font-semibold">
+              <span class="text-gray-400"><span class="text-emerald-400 font-bold flex items-center gap-1"><i class="fa-solid fa-circle text-[8px] animate-pulse"></i> LIVE VERIFIED</span></span>
+              <span class="text-emerald-400 flex items-center gap-1 font-bold">Play Now <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
+            </div>
+          </div>
+        </div>
         </div>
 
     </div>
@@ -996,6 +1018,17 @@
           { title: '1v1 Head-to-Head Cash Wager ($50 Pot)', subtitle: '4-Min Quarters • All-Madden Competitive Rules', time: '~20 Mins', badge: '$50.00 POT', pot: true },
           { title: '1v1 MUT / Super Bowl Showdown ($100 Pot)', subtitle: 'High-Stakes Cash Duel • Custom Match Room', time: '~20 Mins', badge: '$100.00 POT', pot: true },
           { title: '1v1 College Overtime Shootout ($40 Pot)', subtitle: 'Sudden Death Red Zone Possessions', time: '~8 Mins', badge: '$40.00 POT', pot: true }
+        ]
+      },
+      overwatch: {
+        name: 'Overwatch 2',
+        desc: 'Blizzard Entertainment hero shooter. Private custom lobby matches for 5v5 Competitive Tournament Scrims, 1v1 Mirror Hero Aim Duels, and 3v3 Lockout Elimination wagers with insured escrow pots.',
+        time: '~15-25 Mins',
+        img: 'assets/games/overwatch.jpg',
+        modes: [
+          { title: '5v5 Competitive Tournament Scrim ($100 Pot)', subtitle: 'Full Escort / Hybrid / Flashpoint Rules • Custom Lobby Code', time: '~20 Mins', badge: '$100.00 POT', pot: true },
+          { title: '1v1 Mirror Hero Aim Duel ($30 Pot)', subtitle: 'First to 5 Kills • Castaneda Arena • Instant Attestation', time: '~8 Mins', badge: '$30.00 POT', pot: true },
+          { title: '3v3 Lockout Elimination Scrim ($60 Pot)', subtitle: 'Best of 5 Rounds • Custom Private Room', time: '~12 Mins', badge: '$60.00 POT', pot: true }
         ]
       }
     };
