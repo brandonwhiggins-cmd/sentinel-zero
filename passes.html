@@ -208,5 +208,20 @@
     </div>
   </footer>
 
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const stored = localStorage.getItem('sz_user');
+      if (stored) {
+        try {
+          const user = JSON.parse(stored);
+          const ctaBtn = document.querySelector('header a[href="index.html"].px-4');
+          if (ctaBtn && user.username) {
+            ctaBtn.innerHTML = `<i class="fa-solid fa-user-shield text-slate-900 mr-1"></i> <span>${user.username}</span>`;
+            ctaBtn.classList.remove('uppercase');
+          }
+        } catch (e) {}
+      }
+    });
+  </script>
 </body>
 </html>
