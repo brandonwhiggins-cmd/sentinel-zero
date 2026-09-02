@@ -2114,6 +2114,135 @@
       checkFounderInviteUrl();
     });
 
+  
+    // =========================================================================
+    // 🎮 9-PLATFORM GAME PASSPORT ENGINE
+    // =========================================================================
+    const GAME_PLATFORMS = [
+      { id: 'steam', name: 'Steam', icon: 'fa-brands fa-steam', color: 'text-sky-400', border: 'border-sky-500/30', bg: 'bg-sky-500/10', placeholder: 'SteamID64 or Profile URL (e.g. 765611980...)', games: 'CS2, Rust, Rocket League', example: '76561198024910294' },
+      { id: 'riot', name: 'Riot Games', icon: 'fa-solid fa-fist-raised', color: 'text-red-400', border: 'border-red-500/30', bg: 'bg-red-500/10', placeholder: 'Riot ID & Tagline (e.g. Player#NA1)', games: 'Valorant, League of Legends', example: 'Sknot#NA1' },
+      { id: 'epic', name: 'Epic Games', icon: 'fa-solid fa-bolt', color: 'text-purple-400', border: 'border-purple-500/30', bg: 'bg-purple-500/10', placeholder: 'Epic Display Name (e.g. Player_Epic)', games: 'Fortnite, Rocket League', example: 'SknotRockIt' },
+      { id: 'ea', name: 'EA Account', icon: 'fa-solid fa-gamepad', color: 'text-orange-400', border: 'border-orange-500/30', bg: 'bg-orange-500/10', placeholder: 'EA ID (e.g. Player_FUT)', games: 'EA Sports FC 25, Madden 25, Apex', example: 'Brandon_FUT' },
+      { id: 'activision', name: 'Activision ID', icon: 'fa-solid fa-crosshairs', color: 'text-emerald-400', border: 'border-emerald-500/30', bg: 'bg-emerald-500/10', placeholder: 'Activision ID (e.g. Player#1234567)', games: 'Call of Duty: Warzone / MW3', example: 'Sknot#9042810' },
+      { id: 'bnet', name: 'Battle.net', icon: 'fa-solid fa-circle-nodes', color: 'text-cyan-400', border: 'border-cyan-500/30', bg: 'bg-cyan-500/10', placeholder: 'BattleTag (e.g. Player#1234)', games: 'Overwatch 2', example: 'Sknot#1902' },
+      { id: 'ubisoft', name: 'Ubisoft Connect', icon: 'fa-solid fa-shield-halved', color: 'text-blue-400', border: 'border-blue-500/30', bg: 'bg-blue-500/10', placeholder: 'Ubisoft Username (e.g. Player_Ubi)', games: 'Rainbow Six Siege', example: 'Sknot_Ubi' },
+      { id: 'tarkov', name: 'Battlestate Games', icon: 'fa-solid fa-skull', color: 'text-amber-400', border: 'border-amber-500/30', bg: 'bg-amber-500/10', placeholder: 'Tarkov In-Game Nickname (e.g. ScavLord)', games: 'Escape from Tarkov: Arena', example: 'ScavLord_Higgins' },
+      { id: 'nba2k', name: '2K Sports', icon: 'fa-solid fa-basketball', color: 'text-amber-500', border: 'border-amber-600/30', bg: 'bg-amber-600/10', placeholder: '2K Gamertag (e.g. Player_2K)', games: 'NBA 2K25', example: 'Sknot_Buckets' }
+    ];
+
+    function openLinkedAccountsModal() {
+      if (!currentUser) {
+        openAuthModal();
+        showToast("Connect Account First", "Please connect your Discord identity to manage your Game Passport.", true);
+        return;
+      }
+      renderLinkedAccountsUI();
+      const m = document.getElementById('linked-accounts-modal');
+      if (m) m.classList.remove('hidden');
+    }
+
+    function closeLinkedAccountsModal() {
+      const m = document.getElementById('linked-accounts-modal');
+      if (m) m.classList.add('hidden');
+    }
+
+    function renderLinkedAccountsUI() {
+      const c = document.getElementById('passport-platforms-container');
+      const discordEl = document.getElementById('passport-discord-user');
+      const countEl = document.getElementById('passport-linked-count');
+      if (!c) return;
+
+      const dName = (currentUser && currentUser.username) ? currentUser.username : 'Verified_Player';
+      if (discordEl) discordEl.innerText = '@' + dName.replace('@', '');
+
+      const linked = (currentUser && currentUser.linked_accounts) ? currentUser.linked_accounts : {};
+      let totalLinked = 0;
+
+      c.innerHTML = '';
+      GAME_PLATFORMS.forEach(p => {
+        const val = linked[p.id];
+        const isLinked = !!val;
+        if (isLinked) totalLinked++;
+
+        const card = document.createElement('div');
+        card.className = `p-4 rounded-2xl bg-dark-card border ${isLinked ? 'border-emerald-500/40' : 'border-dark-border'} flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition hover:border-cyan-500/40`;
+        
+        card.innerHTML = `
+          <div class="flex items-start gap-3.5 flex-1">
+            <div class="w-10 h-10 rounded-xl ${p.bg} border ${p.border} ${p.color} flex items-center justify-center text-lg shrink-0 mt-0.5">
+              <i class="${p.icon}"></i>
+            </div>
+            <div class="space-y-1 flex-1">
+              <div class="flex items-center gap-2">
+                <span class="font-extrabold text-sm text-white">${p.name}</span>
+                <span class="text-[10px] font-mono text-gray-400">(${p.games})</span>
+                ${isLinked ? '<span class="text-[9px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-2 py-0.5 rounded-full"><i class="fa-solid fa-check"></i> VERIFIED</span>' : '<span class="text-[9px] font-mono font-bold bg-dark-surface text-gray-400 border border-dark-border px-2 py-0.5 rounded-full">NOT LINKED</span>'}
+              </div>
+              
+              ${isLinked ? `
+                <div class="flex items-center gap-2 text-xs">
+                  <span class="text-gray-400 font-mono text-[11px]">Gamertag:</span>
+                  <span class="font-mono font-bold text-white bg-slate-950 px-2.5 py-0.5 rounded-lg border border-emerald-500/30">${val}</span>
+                </div>
+              ` : `
+                <div class="flex items-center gap-2 pt-1 max-w-md">
+                  <input type="text" id="input-${p.id}" placeholder="${p.placeholder}" class="flex-1 px-3 py-1.5 rounded-lg bg-dark-bg border border-dark-border text-xs text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 font-mono">
+                  <button onclick="saveGameAccount('${p.id}')" class="px-3 py-1.5 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/40 text-cyan-300 font-bold text-xs transition">
+                    Connect
+                  </button>
+                </div>
+              `}
+            </div>
+          </div>
+
+          ${isLinked ? `
+            <div class="flex items-center gap-2 shrink-0">
+              <button onclick="editGameAccount('${p.id}')" class="text-xs text-gray-400 hover:text-white px-2.5 py-1 rounded-lg bg-dark-surface hover:bg-dark-border transition"><i class="fa-solid fa-pencil"></i> Edit</button>
+              <button onclick="unlinkGameAccount('${p.id}')" class="text-xs text-rose-400 hover:text-rose-300 px-2.5 py-1 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 transition"><i class="fa-solid fa-link-slash"></i></button>
+            </div>
+          ` : ''}
+        `;
+        c.appendChild(card);
+      });
+
+      if (countEl) countEl.innerText = `${totalLinked} of 9 Linked`;
+    }
+
+    function saveGameAccount(platformId) {
+      const input = document.getElementById(`input-${platformId}`);
+      if (!input || !input.value.trim()) {
+        showToast("Input Required", "Please enter your gamertag or ID.", false);
+        return;
+      }
+      const val = input.value.trim();
+      if (!currentUser) {
+        currentUser = { username: 'Verified_Player', tier: 'Pro', balance: 0.00 };
+      }
+      if (!currentUser.linked_accounts) currentUser.linked_accounts = {};
+      currentUser.linked_accounts[platformId] = val;
+      localStorage.setItem('sz_user', JSON.stringify(currentUser));
+
+      renderLinkedAccountsUI();
+      if (typeof syncToGoogleSheet === 'function') {
+        syncToGoogleSheet(platformId.toUpperCase(), val);
+      }
+      showToast("Gamertag Verified & Linked!", `Bound ${val} to your Discord passport and synced to live roster.`, true);
+    }
+
+    function editGameAccount(platformId) {
+      if (!currentUser || !currentUser.linked_accounts) return;
+      delete currentUser.linked_accounts[platformId];
+      renderLinkedAccountsUI();
+    }
+
+    function unlinkGameAccount(platformId) {
+      if (!currentUser || !currentUser.linked_accounts) return;
+      delete currentUser.linked_accounts[platformId];
+      localStorage.setItem('sz_user', JSON.stringify(currentUser));
+      renderLinkedAccountsUI();
+      showToast("Account Unlinked", `Removed ${platformId} tag from passport.`, true);
+    }
+
   </script>
 
 
