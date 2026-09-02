@@ -1470,6 +1470,7 @@
       localStorage.setItem('sz_user', JSON.stringify(currentUser));
       closeAuthModal();
       renderAuthenticatedHeader();
+      syncToGoogleSheet('Discord Identity', currentUser.email || 'Connected');
       showToast("Account Connected!", `Welcome ${currentUser.username}! Silicon verified & Account linked and ready for competitive matches.`, true);
     }
 
@@ -2021,9 +2022,26 @@
     // 👑 CRYPTOGRAPHIC FOUNDER TOKEN CLAIM SYSTEM (BRANDON & SWAG)
     // =========================================================================
     const FOUNDER_TOKENS = {
-      'sknot_7f8a92b0c1e4d82f': { target_user: 'sknotrockit', displayName: '@SknotRockIt (Brandon)', key: 'sz_claimed_brandon' },
-      'swag_4b6e81c9a3f2d07e': { target_user: 'swagg', displayName: '@swagg (Swag)', key: 'sz_claimed_swag' }
+      'sknot_7f8a92b0c1e4d82f': { 
+        target_user: 'sknotrockit', 
+        allowed_handles: ['sknotrockit', 'brandon', 'sknot'],
+        displayName: '@SknotRockIt (Brandon)', 
+        key: 'sz_claimed_brandon' 
+      },
+      'swag_4b6e81c9a3f2d07e': { 
+        target_user: 'wubstract', 
+        allowed_handles: ['wubstract', 'h1n2swagflu', 'swag', 'swagg', 'zach', 'zachmoore'],
+        displayName: '@Wubstract (Swag)', 
+        key: 'sz_claimed_swag' 
+      }
     };
+
+    function isFounderUser(username) {
+      if (!username) return false;
+      const clean = username.toLowerCase().replace('@', '').trim();
+      const founderList = ['sknotrockit', 'brandon', 'wubstract', 'h1n2swagflu', 'swag', 'swagg', 'swag_gaming', 'zach'];
+      return founderList.includes(clean);
+    }
 
     let activeFounderToken = null;
 
@@ -2054,16 +2072,19 @@
       const input = document.getElementById('founder-discord-input');
       const typed = input ? input.value.toLowerCase().replace('@', '').trim() : '';
 
-      // Strict Identity Verification: Token can ONLY be claimed by its intended owner
-      if (typed !== conf.target_user && !conf.target_user.includes(typed)) {
+      // Strict Identity Verification: Accepts official Discord handle or alias
+      const isAuthorized = conf.allowed_handles.some(h => typed === h || typed.includes(h) || h.includes(typed));
+      if (!isAuthorized) {
         showToast("Access Denied", `This cryptographic token is strictly locked to ${conf.displayName}.`, false);
         return;
       }
 
+      const activeHandle = typed || conf.target_user;
+
       // Activate Lifetime Founder VIP
       currentUser = {
-        username: conf.target_user,
-        email: `${conf.target_user}@sentinelzero.gg`,
+        username: activeHandle,
+        email: `${activeHandle}@sentinelzero.gg`,
         tier: 'FOUNDER VIP',
         is_founder: true,
         is_subscribed: true,
@@ -2084,9 +2105,7 @@
       renderAuthenticatedHeader();
 
       // Sync activation directly to Google Sheet
-      if (typeof syncToGoogleSheet === 'function') {
-        syncToGoogleSheet('Founder Pass', '👑 Lifetime VIP Activated ($0/mo)');
-      }
+      syncToGoogleSheet('Founder Status', '👑 Lifetime VIP Activated ($0/mo)');
 
       showToast("👑 Founder VIP Activated!", `Welcome ${conf.displayName}! Your permanent lifetime VIP access is officially unlocked.`, true);
     }
