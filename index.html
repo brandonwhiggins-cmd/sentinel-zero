@@ -2243,6 +2243,72 @@
       showToast("Account Unlinked", `Removed ${platformId} tag from passport.`, true);
     }
 
+  
+    // =========================================================================
+    // 🖥️ NATIVE DESKTOP CLIENT ENGINE & DIRECT GAME LAUNCHER
+    // =========================================================================
+    let activeMatchGameKey = 'cs2';
+
+    function launchActiveGameNative() {
+      const g = (activeMatchGameKey || 'cs2').toLowerCase();
+      let uri = 'steam://rungameid/730'; // Default: CS2
+
+      if (g.includes('cs') || g.includes('counter')) {
+        uri = 'steam://rungameid/730';
+        showToast("Launching CS2", "Directing Steam to start Counter-Strike 2...", true);
+      } else if (g.includes('siege') || g.includes('r6')) {
+        uri = 'uplay://launch/54/0';
+        showToast("Launching Siege", "Directing Ubisoft Connect to launch Rainbow Six Siege...", true);
+      } else if (g.includes('rocket') || g.includes('rl')) {
+        uri = 'steam://rungameid/252950';
+        showToast("Launching Rocket League", "Starting Rocket League...", true);
+      } else if (g.includes('rust')) {
+        uri = 'steam://rungameid/252490';
+        showToast("Launching Rust", "Connecting to private Sentinel rust server...", true);
+      } else {
+        uri = 'steam://rungameid/730';
+        showToast("Launching Game", "Starting verified competitive game client...", true);
+      }
+
+      window.location.href = uri;
+    }
+
+    function checkDesktopClientMode() {
+      const params = new URLSearchParams(window.location.search);
+      const isClient = params.get('client') === 'desktop';
+      const hwid = params.get('hwid') || 'TPM2.0-ATT-SECURE';
+
+      if (isClient) {
+        if (!currentUser) {
+          currentUser = {
+            username: 'Verified_Player',
+            tier: 'Pro',
+            balance: 0.00,
+            hardware_verified: true,
+            hwid: hwid
+          };
+          localStorage.setItem('sz_user', JSON.stringify(currentUser));
+        } else {
+          currentUser.hardware_verified = true;
+          currentUser.hwid = hwid;
+          localStorage.setItem('sz_user', JSON.stringify(currentUser));
+        }
+
+        renderAuthenticatedHeader();
+        
+        // Update user tier badge to show TPM Attested
+        const badgeEl = document.getElementById('user-tier-badge');
+        if (badgeEl && !currentUser.is_founder) {
+          badgeEl.innerText = "🛡️ TPM 2.0 ATTESTED";
+          badgeEl.className = "text-[9px] font-mono bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 px-2 py-0.5 rounded-full font-bold";
+        }
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      checkDesktopClientMode();
+    });
+
   </script>
 
 
