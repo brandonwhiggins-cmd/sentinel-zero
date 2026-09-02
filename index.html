@@ -2279,5 +2279,60 @@
 
   
 
+
+  <!-- ========================================================================================= -->
+  <!-- 👑 FOUNDER ONE-TIME VIP ACTIVATION MODAL -->
+  <!-- ========================================================================================= -->
+  <div id="founder-claim-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md hidden transition-all">
+    <div class="bg-[#0f131f] border-2 border-amber-500/60 rounded-3xl w-full max-w-md p-6 sm:p-8 shadow-2xl relative text-white space-y-6">
+      
+      <div class="text-center space-y-2">
+        <div class="w-16 h-16 rounded-2xl bg-amber-500/20 border border-amber-500/50 text-amber-400 flex items-center justify-center text-3xl mx-auto shadow-[0_0_25px_rgba(245,158,11,0.4)]">
+          <i class="fa-solid fa-crown"></i>
+        </div>
+        <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 font-mono text-[10px] font-bold">
+          <i class="fa-solid fa-lock"></i> VERIFIED FOUNDER TOKEN
+        </div>
+        <h3 class="text-2xl font-black text-white tracking-tight" id="founder-claim-title">Founder VIP Access</h3>
+        <p class="text-xs text-gray-400" id="founder-claim-desc">You have been invited to claim lifetime complimentary Elite VIP access ($0.00/mo) on Sentinel Zero.</p>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-dark-surface border border-amber-500/30 space-y-3 text-xs">
+        <div class="flex items-center justify-between">
+          <span class="text-gray-400">Authorized Recipient:</span>
+          <strong class="text-amber-300 font-mono" id="founder-claim-target">@SknotRockIt</strong>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-gray-400">Monthly Pass Fee:</span>
+          <span class="font-bold text-emerald-400 font-mono">$0.00 / Lifetime Free</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-gray-400">Match Wager Rule:</span>
+          <span class="text-gray-300 font-mono text-[11px]">Real Escrow Required</span>
+        </div>
+      </div>
+
+      <form id="founder-claim-form" onsubmit="event.preventDefault(); executeFounderClaim();" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-gray-300 mb-1.5 uppercase tracking-wider font-mono">Confirm Discord Handle</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500 font-mono text-xs">@</span>
+            <input type="text" id="founder-discord-input" required class="w-full pl-8 pr-4 py-3 rounded-xl bg-dark-surface border border-dark-border focus:border-amber-400 focus:outline-none text-white text-xs font-mono transition">
+          </div>
+        </div>
+
+        <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-sm tracking-wider uppercase flex items-center justify-center gap-2 transition shadow-[0_0_20px_rgba(245,158,11,0.35)]">
+          <i class="fa-solid fa-crown"></i>
+          <span>Activate Lifetime VIP Access</span>
+        </button>
+      </form>
+
+      <div class="text-center text-[10px] text-gray-500 font-mono">
+        Cryptographic single-use token &bull; Self-destructs upon activation
+      </div>
+
+    </div>
+  </div>
+
 </body>
 </html>
