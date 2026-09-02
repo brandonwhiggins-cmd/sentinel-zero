@@ -119,6 +119,7 @@
         <button onclick="filterGames('shooter', this)" class="genre-btn px-4 py-1 rounded-full text-xs font-semibold text-gray-400 hover:text-white transition">Shooters</button>
         <button onclick="filterGames('br', this)" class="genre-btn px-4 py-1 rounded-full text-xs font-semibold text-gray-400 hover:text-white transition">Battle Royale</button>
         <button onclick="filterGames('wager', this)" class="genre-btn px-4 py-1 rounded-full text-xs font-semibold text-gray-400 hover:text-white transition">1v1 Wagers</button>
+        <button onclick="filterGames('sports', this)" class="genre-btn px-4 py-1 rounded-full text-xs font-semibold text-gray-400 hover:text-white transition">Sports</button>
       </div>
 
             <!-- DISCORD COMMUNITY -->
@@ -269,7 +270,7 @@
     <section id="games-section" class="scroll-mt-24">
       <div class="flex items-center justify-between mb-4">
         <h2 class="text-xl font-black text-white tracking-tight">Choose Your Game</h2>
-        <span class="text-xs text-gray-400 font-semibold">9 Games Supported on PC</span>
+        <span class="text-xs text-gray-400 font-semibold">13 Games Supported on PC & Cross-Play</span>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6" id="game-grid">
@@ -385,7 +386,7 @@
         </div>
 
         <!-- 6. ROCKET LEAGUE -->
-        <div onclick="selectGameDetails('rl')" data-category="all,wager" class="game-card bg-dark-card border border-dark-border rounded-2xl cursor-pointer relative overflow-hidden group flex flex-col">
+        <div onclick="selectGameDetails('rl')" data-category="all,sports,wager" class="game-card bg-dark-card border border-dark-border rounded-2xl cursor-pointer relative overflow-hidden group flex flex-col">
           <div class="h-44 w-full overflow-hidden relative">
             <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/252950/header.jpg" alt="Rocket League" class="w-full h-full object-cover game-img">
             <div class="absolute inset-0 bg-gradient-to-t from-dark-card via-dark-card/30 to-transparent"></div>
@@ -429,7 +430,7 @@
         </div>
 
         <!-- 8. LEAGUE OF LEGENDS -->
-        <div onclick="selectGameDetails('lol')" data-category="all,wager" class="game-card bg-dark-card border border-dark-border rounded-2xl cursor-pointer relative overflow-hidden group flex flex-col">
+        <div onclick="selectGameDetails('lol')" data-category="all,sports,wager" class="game-card bg-dark-card border border-dark-border rounded-2xl cursor-pointer relative overflow-hidden group flex flex-col">
           <div class="h-44 w-full overflow-hidden relative">
             <img src="assets/games/league_of_legends.jpg" alt="League of Legends" class="w-full h-full object-cover object-center game-img">
             <div class="absolute inset-0 bg-gradient-to-t from-dark-card via-dark-card/30 to-transparent"></div>
@@ -695,7 +696,96 @@
           <button onclick="openArchitectureModal()" class="hover:text-white transition">Security Architecture</button>
           <span class="text-emerald-400 font-mono">API v1.0.4 Live</span>
         </div>
-      </div>
+      
+
+        <!-- 10. FORTNITE -->
+        <div onclick="selectGameDetails('fortnite')" data-category="all,br,wager,shooter" class="game-card bg-dark-card border border-dark-border rounded-2xl cursor-pointer relative overflow-hidden group flex flex-col">
+          <div class="h-44 w-full overflow-hidden relative">
+            <img src="assets/games/fortnite.jpg" alt="Fortnite" class="w-full h-full object-cover game-img">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-card via-dark-card/30 to-transparent"></div>
+            <span class="absolute top-3 right-3 text-[10px] font-mono bg-dark-bg/80 backdrop-blur-sm border border-emerald-500/40 text-emerald-300 px-2 py-0.5 rounded-full font-bold">CROSS-PLAY</span>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between space-y-3">
+            <div>
+              <div class="flex items-center justify-between">
+                <h3 class="font-extrabold text-lg text-white group-hover:text-emerald-400 transition">Fortnite</h3>
+                <span class="text-[11px] font-mono text-gray-400 flex items-center gap-1"><i class="fa-solid fa-clock text-[10px] text-gray-400"></i> ~8-15 mins</span>
+              </div>
+              <p class="text-xs text-gray-400 mt-0.5">1v1 Build Fights, Zero Build Duels & Zone Wars</p>
+            </div>
+            <div class="pt-3 border-t border-dark-border flex justify-between items-center text-xs font-semibold">
+              <span class="text-gray-400"><span class="text-emerald-400 font-bold flex items-center gap-1"><i class="fa-solid fa-circle text-[8px] animate-pulse"></i> LIVE VERIFIED</span></span>
+              <span class="text-emerald-400 flex items-center gap-1 font-bold">Play Now <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 11. EA SPORTS FC 25 -->
+        <div onclick="selectGameDetails('fc25')" data-category="all,sports,wager" class="game-card bg-dark-card border border-dark-border rounded-2xl cursor-pointer relative overflow-hidden group flex flex-col">
+          <div class="h-44 w-full overflow-hidden relative">
+            <img src="assets/games/ea_fc_25.jpg" alt="EA Sports FC 25" class="w-full h-full object-cover game-img">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-card via-dark-card/30 to-transparent"></div>
+            <span class="absolute top-3 right-3 text-[10px] font-mono bg-dark-bg/80 backdrop-blur-sm border border-emerald-500/40 text-emerald-300 px-2 py-0.5 rounded-full font-bold">CROSS-PLAY</span>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between space-y-3">
+            <div>
+              <div class="flex items-center justify-between">
+                <h3 class="font-extrabold text-lg text-white group-hover:text-emerald-400 transition">EA Sports FC 25</h3>
+                <span class="text-[11px] font-mono text-gray-400 flex items-center gap-1"><i class="fa-solid fa-clock text-[10px] text-gray-400"></i> ~15 mins</span>
+              </div>
+              <p class="text-xs text-gray-400 mt-0.5">1v1 Competitive Kick-Off & FUT Cash Duels</p>
+            </div>
+            <div class="pt-3 border-t border-dark-border flex justify-between items-center text-xs font-semibold">
+              <span class="text-gray-400"><span class="text-emerald-400 font-bold flex items-center gap-1"><i class="fa-solid fa-circle text-[8px] animate-pulse"></i> LIVE VERIFIED</span></span>
+              <span class="text-emerald-400 flex items-center gap-1 font-bold">Play Now <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 12. NBA 2K25 -->
+        <div onclick="selectGameDetails('nba2k25')" data-category="all,sports,wager" class="game-card bg-dark-card border border-dark-border rounded-2xl cursor-pointer relative overflow-hidden group flex flex-col">
+          <div class="h-44 w-full overflow-hidden relative">
+            <img src="assets/games/nba_2k25.jpg" alt="NBA 2K25" class="w-full h-full object-cover game-img">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-card via-dark-card/30 to-transparent"></div>
+            <span class="absolute top-3 right-3 text-[10px] font-mono bg-dark-bg/80 backdrop-blur-sm border border-emerald-500/40 text-emerald-300 px-2 py-0.5 rounded-full font-bold">CROSS-PLAY</span>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between space-y-3">
+            <div>
+              <div class="flex items-center justify-between">
+                <h3 class="font-extrabold text-lg text-white group-hover:text-emerald-400 transition">NBA 2K25</h3>
+                <span class="text-[11px] font-mono text-gray-400 flex items-center gap-1"><i class="fa-solid fa-clock text-[10px] text-gray-400"></i> ~10-20 mins</span>
+              </div>
+              <p class="text-xs text-gray-400 mt-0.5">1v1 Blacktop & 3v3 Park / Pro-Am Cash Wagers</p>
+            </div>
+            <div class="pt-3 border-t border-dark-border flex justify-between items-center text-xs font-semibold">
+              <span class="text-gray-400"><span class="text-emerald-400 font-bold flex items-center gap-1"><i class="fa-solid fa-circle text-[8px] animate-pulse"></i> LIVE VERIFIED</span></span>
+              <span class="text-emerald-400 flex items-center gap-1 font-bold">Play Now <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 13. MADDEN NFL 25 -->
+        <div onclick="selectGameDetails('madden25')" data-category="all,sports,wager" class="game-card bg-dark-card border border-dark-border rounded-2xl cursor-pointer relative overflow-hidden group flex flex-col">
+          <div class="h-44 w-full overflow-hidden relative">
+            <img src="assets/games/madden_25.jpg" alt="Madden NFL 25" class="w-full h-full object-cover game-img">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-card via-dark-card/30 to-transparent"></div>
+            <span class="absolute top-3 right-3 text-[10px] font-mono bg-dark-bg/80 backdrop-blur-sm border border-emerald-500/40 text-emerald-300 px-2 py-0.5 rounded-full font-bold">CROSS-PLAY</span>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between space-y-3">
+            <div>
+              <div class="flex items-center justify-between">
+                <h3 class="font-extrabold text-lg text-white group-hover:text-emerald-400 transition">Madden NFL 25</h3>
+                <span class="text-[11px] font-mono text-gray-400 flex items-center gap-1"><i class="fa-solid fa-clock text-[10px] text-gray-400"></i> ~20 mins</span>
+              </div>
+              <p class="text-xs text-gray-400 mt-0.5">1v1 Head-to-Head & MUT Cash Duels</p>
+            </div>
+            <div class="pt-3 border-t border-dark-border flex justify-between items-center text-xs font-semibold">
+              <span class="text-gray-400"><span class="text-emerald-400 font-bold flex items-center gap-1"><i class="fa-solid fa-circle text-[8px] animate-pulse"></i> LIVE VERIFIED</span></span>
+              <span class="text-emerald-400 flex items-center gap-1 font-bold">Play Now <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
+            </div>
+          </div>
+        </div>
+        </div>
 
     </div>
   </footer>
@@ -862,6 +952,50 @@
           { title: '5v5 Standard Tournament Scrim (MR12)', subtitle: 'Full Tournament Mode • Win by 2 Overtime • Custom Lobby', time: '35 Mins', badge: 'FREE PLAY', pot: false },
           { title: 'Swiftplay Cash Wager ($50 Pot)', subtitle: 'First to 5 Rounds • Fast-Paced • Insured Escrow', time: '15 Mins', badge: '$50.00 POT', pot: true },
           { title: '1v1 Aim Duel Wager ($30 Pot)', subtitle: 'Custom Deathmatch Map • First to 20 Kills', time: '10 Mins', badge: '$30.00 POT', pot: true }
+        ]
+      },
+      fortnite: {
+        name: 'Fortnite',
+        desc: 'Epic Games competitive battle royale & 1v1 arenas. Custom private match matchmaking codes for 1v1 Build Fights, Zero Build Aim Duels, and competitive Zone Wars scrims with verified smart escrow.',
+        time: '~8-15 Mins',
+        img: 'assets/games/fortnite.jpg',
+        modes: [
+          { title: '1v1 Build & Box Fight Duel ($50 Pot)', subtitle: 'First to 5 Rounds • Custom Creative 2.0 Code • Anti-Macro Shield', time: '~8 Mins', badge: '$50.00 POT', pot: true },
+          { title: '1v1 Zero Build Aim Duel ($30 Pot)', subtitle: 'Best of 7 Rounds • High-Stakes Aim Map', time: '~6 Mins', badge: '$30.00 POT', pot: true },
+          { title: 'Duo Zone Wars Cash Scrim ($100 Pot)', subtitle: 'Competitive Endgame Scrim • Custom Private Lobby Code', time: '~15 Mins', badge: '$100.00 POT', pot: true }
+        ]
+      },
+      fc25: {
+        name: 'EA Sports FC 25',
+        desc: 'Official EA Sports competitive football simulator. Direct 1v1 Online Friendlies and Ultimate Team cash wagers with 6-minute halves, tactical defending, and instant score verification.',
+        time: '~15 Mins',
+        img: 'assets/games/ea_fc_25.jpg',
+        modes: [
+          { title: '1v1 Competitive Kick-Off Wager ($50 Pot)', subtitle: '6-Min Halves • Tactical Defending • Extra Time & Penalties', time: '~15 Mins', badge: '$50.00 POT', pot: true },
+          { title: '1v1 Weekend League Gauntlet ($100 Pot)', subtitle: 'Best of 3 Series • Custom Match Lobby', time: '~35 Mins', badge: '$100.00 POT', pot: true },
+          { title: '2v2 Co-Op Scrim ($80 Pot)', subtitle: 'Competitive 2v2 FUT Squads • Verified Smart Escrow', time: '~15 Mins', badge: '$80.00 POT', pot: true }
+        ]
+      },
+      nba2k25: {
+        name: 'NBA 2K25',
+        desc: '2K Sports competitive basketball simulator. High-stakes 1v1 Blacktop duels to 21 points and 3v3 Park / Pro-Am cash wagers on Hall of Fame difficulty with 0% platform rake for Elite members.',
+        time: '~10-20 Mins',
+        img: 'assets/games/nba_2k25.jpg',
+        modes: [
+          { title: '1v1 Blacktop High-Stakes Duel ($50 Pot)', subtitle: 'Game to 21 • Win by 2 • Hall of Fame Difficulty', time: '~10 Mins', badge: '$50.00 POT', pot: true },
+          { title: '3v3 Pro-Am / Park Cash Scrim ($120 Pot)', subtitle: 'Squad vs Squad • Verified Room ID • Smart Escrow', time: '~15 Mins', badge: '$120.00 POT', pot: true },
+          { title: '5v5 Full-Court Quick Match ($80 Pot)', subtitle: '5-Min Quarters • Standard Competitive Rosters', time: '~20 Mins', badge: '$80.00 POT', pot: true }
+        ]
+      },
+      madden25: {
+        name: 'Madden NFL 25',
+        desc: 'EA Sports competitive football simulation. 1v1 Head-to-Head and MUT cash wagers with 4-minute quarters on All-Madden difficulty with full cheater insurance protection.',
+        time: '~20 Mins',
+        img: 'assets/games/madden_25.jpg',
+        modes: [
+          { title: '1v1 Head-to-Head Cash Wager ($50 Pot)', subtitle: '4-Min Quarters • All-Madden Competitive Rules', time: '~20 Mins', badge: '$50.00 POT', pot: true },
+          { title: '1v1 MUT / Super Bowl Showdown ($100 Pot)', subtitle: 'High-Stakes Cash Duel • Custom Match Room', time: '~20 Mins', badge: '$100.00 POT', pot: true },
+          { title: '1v1 College Overtime Shootout ($40 Pot)', subtitle: 'Sudden Death Red Zone Possessions', time: '~8 Mins', badge: '$40.00 POT', pot: true }
         ]
       }
     };
