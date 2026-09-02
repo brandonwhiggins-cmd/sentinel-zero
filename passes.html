@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Competitive Season Passes | Sentinel Zero</title>
+  
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="Competitive Season Passes | Sentinel Zero">
+  <meta name="description" content="Choose your competitive tier. Pro Pass ($6.99/mo) & Elite High-Roller ($12.99/mo). 0% rake on matches, weekly cash tournament entries, and 100% match insurance.">
+  <meta name="theme-color" content="#10b981">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.sentinelzero.gg/passes">
+  <meta property="og:title" content="Competitive Season Passes | Sentinel Zero">
+  <meta property="og:description" content="Choose your competitive tier. Pro Pass ($6.99/mo) & Elite High-Roller ($12.99/mo). 0% rake on matches, weekly cash tournament entries, and 100% match insurance.">
+  <meta property="og:image" content="https://www.sentinelzero.gg/assets/og_banner.jpg">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Plus Jakarta Sans + JetBrains Mono -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: { 400: '#34d399', 500: '#10b981', 600: '#059669' },
+            dark: { bg: '#0b0f19', card: '#111827', surface: '#1a2234', border: '#243048' }
+          },
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #0b0f19;
+      background-image: 
+        radial-gradient(at 10% 10%, rgba(16, 185, 129, 0.08) 0px, transparent 40%),
+        radial-gradient(at 90% 90%, rgba(99, 102, 241, 0.06) 0px, transparent 40%);
+      background-attachment: fixed;
+    }
+  </style>
+</head>
+<body class="text-gray-200 min-h-screen flex flex-col antialiased">
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="sticky top-0 z-40 bg-dark-bg/85 backdrop-blur-md border-b border-dark-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- LOGO -->
+      <a href="index.html" class="flex items-center space-x-3 cursor-pointer">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-400 p-0.5 flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.35)]">
+          <div class="w-full h-full bg-dark-bg rounded-[14px] flex items-center justify-center">
+            <i class="fa-solid fa-shield-halved text-emerald-400 text-lg"></i>
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center space-x-1.5">
+            <span class="text-base font-black tracking-tight text-white">SENTINEL</span>
+            <span class="text-base font-black tracking-tight text-emerald-400">ZERO</span>
+          </div>
+          <p class="text-[9px] font-mono text-gray-400 tracking-wider">COMPETITIVE INTEGRITY</p>
+        </div>
+      </a>
+
+      <!-- NAV LINKS -->
+      <nav class="hidden md:flex items-center space-x-6 text-xs font-bold tracking-wide text-gray-300">
+        <a href="index.html" class="hover:text-emerald-400 transition flex items-center gap-1.5"><i class="fa-solid fa-gamepad"></i> Play Arena</a>
+        <a href="guide.html" class="hover:text-emerald-400 transition flex items-center gap-1.5"><i class="fa-solid fa-book-open"></i> How It Works</a>
+        <a href="passes.html" class="text-amber-300 hover:text-amber-200 transition flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-full"><i class="fa-solid fa-crown text-amber-400"></i> Season Passes</a>
+        <a href="https://discord.gg/7FXD5AhmnP" target="_blank" class="hover:text-[#5865F2] transition flex items-center gap-1.5"><i class="fa-brands fa-discord"></i> Discord</a>
+      </nav>
+
+      <!-- RIGHT CTAs -->
+      <div class="flex items-center space-x-3">
+        <a href="SentinelAgent.exe" download="SentinelAgent.exe" class="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-dark-surface hover:bg-dark-card border border-dark-border text-gray-300 hover:text-white text-xs font-semibold transition">
+          <i class="fa-solid fa-download text-emerald-400"></i>
+          <span>Client</span>
+        </a>
+        <a href="index.html" class="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-lg">
+          Enter Arena
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN PASSES CONTENT -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-1 w-full space-y-12">
+
+    <!-- HEADER -->
+    <div class="text-center space-y-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold font-mono">
+        <i class="fa-solid fa-crown"></i> SEASON 0 WHITELIST
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-black text-white tracking-tight">
+        Choose Your Competitive Pass
+      </h1>
+      <p class="text-sm sm:text-base text-gray-400 max-w-2xl mx-auto leading-relaxed">
+        Zero spyware. Verified clean matchmaking. 100% money-back insurance guarantee on every competitive match.
+      </p>
+    </div>
+
+    <!-- PRICING CARDS -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      
+      <!-- PRO PASS ($6.99) -->
+      <div class="p-8 rounded-3xl bg-dark-card border border-dark-border hover:border-emerald-500/50 transition shadow-2xl flex flex-col justify-between space-y-6">
+        <div class="space-y-4">
+          <div class="flex justify-between items-center">
+            <span class="text-xs uppercase tracking-widest text-emerald-400 font-mono font-bold bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full">FLAGSHIP PASS</span>
+            <span class="text-xs text-gray-400">Cancel anytime</span>
+          </div>
+          <div>
+            <h3 class="text-2xl font-black text-white">Pro Pass</h3>
+            <p class="text-xs text-gray-400 mt-1">For everyday competitive players who want clean, cheat-free lobbies.</p>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span class="text-4xl font-black text-white font-mono">$6.99</span>
+            <span class="text-xs text-gray-400">/ month</span>
+          </div>
+          <ul class="space-y-3 text-xs text-gray-300 pt-2 border-t border-dark-border">
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Verified Clean Matchmaking across all 9 games</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> 100% Match Insurance Shield (instant victim refund)</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> 50% Platform Rake Discount on all cash matches</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> @Verified Player Discord Role & Profile Badge</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Open Community Tournament Bracket Access</li>
+          </ul>
+        </div>
+        <a href="https://buy.stripe.com/cNi3cw3Lde8bcTQgMPgfu00" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 rounded-2xl bg-dark-surface hover:bg-emerald-500 hover:text-slate-900 border border-emerald-500/40 text-emerald-300 font-bold text-sm tracking-wide flex items-center justify-center gap-2 transition shadow-lg">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Subscribe to Pro ($6.99/mo)</span>
+        </a>
+      </div>
+
+      <!-- ELITE VIP ($12.99) -->
+      <div class="p-8 rounded-3xl bg-gradient-to-b from-[#1c1829] via-dark-card to-dark-card border-2 border-amber-500/50 rounded-3xl relative flex flex-col justify-between hover:border-amber-400 transition shadow-[0_0_30px_rgba(245,158,11,0.2)] space-y-6">
+        <div class="space-y-4">
+          <div class="flex justify-between items-center">
+            <span class="text-xs uppercase tracking-widest text-amber-400 font-mono font-bold bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-full">0% RAKE VIP</span>
+            <span class="text-xs text-gray-400">Cancel anytime</span>
+          </div>
+          <div>
+            <h3 class="text-2xl font-black text-white flex items-center gap-2">
+              <span>Elite High-Roller</span>
+              <i class="fa-solid fa-crown text-amber-400 text-lg"></i>
+            </h3>
+            <p class="text-xs text-gray-400 mt-1">For serious wager grinders, high-stakes duels, and tournament competitors.</p>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span class="text-4xl font-black text-white font-mono">$12.99</span>
+            <span class="text-xs text-gray-400">/ month</span>
+          </div>
+          <ul class="space-y-3 text-xs text-gray-300 pt-2 border-t border-dark-border">
+            <li class="flex items-center gap-2 text-white font-semibold"><i class="fa-solid fa-star text-amber-400"></i> <strong>0% Platform Rake on All Matches</strong> (Keep 100% of your pots)</li>
+            <li class="flex items-center gap-2 text-amber-300 font-semibold"><i class="fa-solid fa-trophy text-amber-400"></i> <strong>Free $500 Monthly Cash Cup</strong> Tournament Entries</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> VIP Discord Channel & Voice Lounge</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> Gold Founder Badge & Custom Discord Role</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> Priority Queue Matchmaking</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> 100% Match Insurance Shield Included</li>
+          </ul>
+        </div>
+        <a href="https://buy.stripe.com/cNi7sM1D58NR3jggMPgfu01" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-sm tracking-wider uppercase flex items-center justify-center gap-2 transition shadow-[0_0_25px_rgba(245,158,11,0.4)]">
+          <i class="fa-solid fa-crown"></i>
+          <span>Join Elite VIP ($12.99/mo)</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- FAQ -->
+    <div class="p-8 rounded-3xl bg-dark-card border border-dark-border space-y-4 max-w-4xl mx-auto">
+      <h3 class="text-lg font-black text-white">Frequently Asked Questions</h3>
+      <div class="space-y-3 text-xs text-gray-300 leading-relaxed">
+        <div class="p-4 rounded-xl bg-dark-surface border border-dark-border space-y-1">
+          <div class="font-bold text-white">Can I cancel my pass at any time?</div>
+          <p class="text-gray-400">Yes, absolutely. All passes are month-to-month with zero lock-in contracts. You can cancel with 1-click in your Stripe customer portal anytime.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-dark-surface border border-dark-border space-y-1">
+          <div class="font-bold text-white">How do I enter the Saturday $500 Cash Cup?</div>
+          <p class="text-gray-400">All Pro and Elite members receive an automatic tournament entry pass. Check-in begins Saturdays at 6:00 PM EST inside the #500-saturday-cup channel in Discord.</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-dark-border/80 bg-[#090c14] py-8 text-xs text-gray-400 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>&copy; 2026 Sentinel Zero, LLC. Zero Kernel Rootkit Policy. Operated under US Skill-Gaming Doctrine.</div>
+      <div class="flex items-center space-x-6 text-[11px]">
+        <a href="index.html" class="hover:text-white transition">Play Arena</a>
+        <a href="guide.html" class="hover:text-white transition">Player Guide</a>
+        <a href="passes.html" class="hover:text-white transition text-emerald-400">Season Passes</a>
+        <a href="https://discord.gg/7FXD5AhmnP" target="_blank" class="hover:text-white transition">Discord</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

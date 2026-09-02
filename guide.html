@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How It Works | Sentinel Zero Competitive Player Guide</title>
+  
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="How It Works | Sentinel Zero Competitive Player Guide">
+  <meta name="description" content="Step-by-step guide to Sentinel Zero. Learn how to link Discord, run silicon hardware attestation, join 1v1 scrim lobbies, and enter the Saturday $500 Cash Cup.">
+  <meta name="theme-color" content="#10b981">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.sentinelzero.gg/guide">
+  <meta property="og:title" content="How It Works | Sentinel Zero Competitive Player Guide">
+  <meta property="og:description" content="Step-by-step guide to Sentinel Zero. Learn how to link Discord, run silicon hardware attestation, join 1v1 scrim lobbies, and enter the Saturday $500 Cash Cup.">
+  <meta property="og:image" content="https://www.sentinelzero.gg/assets/og_banner.jpg">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Plus Jakarta Sans + JetBrains Mono -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: { 400: '#34d399', 500: '#10b981', 600: '#059669' },
+            dark: { bg: '#0b0f19', card: '#111827', surface: '#1a2234', border: '#243048' }
+          },
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #0b0f19;
+      background-image: 
+        radial-gradient(at 10% 10%, rgba(16, 185, 129, 0.08) 0px, transparent 40%),
+        radial-gradient(at 90% 90%, rgba(99, 102, 241, 0.06) 0px, transparent 40%);
+      background-attachment: fixed;
+    }
+  </style>
+</head>
+<body class="text-gray-200 min-h-screen flex flex-col antialiased">
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="sticky top-0 z-40 bg-dark-bg/85 backdrop-blur-md border-b border-dark-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- LOGO -->
+      <a href="index.html" class="flex items-center space-x-3 cursor-pointer">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-400 p-0.5 flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.35)]">
+          <div class="w-full h-full bg-dark-bg rounded-[14px] flex items-center justify-center">
+            <i class="fa-solid fa-shield-halved text-emerald-400 text-lg"></i>
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center space-x-1.5">
+            <span class="text-base font-black tracking-tight text-white">SENTINEL</span>
+            <span class="text-base font-black tracking-tight text-emerald-400">ZERO</span>
+          </div>
+          <p class="text-[9px] font-mono text-gray-400 tracking-wider">COMPETITIVE INTEGRITY</p>
+        </div>
+      </a>
+
+      <!-- NAV LINKS -->
+      <nav class="hidden md:flex items-center space-x-6 text-xs font-bold tracking-wide text-gray-300">
+        <a href="index.html" class="hover:text-emerald-400 transition flex items-center gap-1.5"><i class="fa-solid fa-gamepad"></i> Play Arena</a>
+        <a href="guide.html" class="text-emerald-400 transition flex items-center gap-1.5"><i class="fa-solid fa-book-open"></i> How It Works</a>
+        <a href="passes.html" class="text-amber-300 hover:text-amber-200 transition flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-full"><i class="fa-solid fa-crown text-amber-400"></i> Season Passes</a>
+        <a href="https://discord.gg/7FXD5AhmnP" target="_blank" class="hover:text-[#5865F2] transition flex items-center gap-1.5"><i class="fa-brands fa-discord"></i> Discord</a>
+      </nav>
+
+      <!-- RIGHT CTAs -->
+      <div class="flex items-center space-x-3">
+        <a href="SentinelAgent.exe" download="SentinelAgent.exe" class="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-dark-surface hover:bg-dark-card border border-dark-border text-gray-300 hover:text-white text-xs font-semibold transition">
+          <i class="fa-solid fa-download text-emerald-400"></i>
+          <span>Client</span>
+        </a>
+        <a href="index.html" class="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-lg">
+          Enter Arena
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN GUIDE CONTAINER -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-1 w-full space-y-12">
+
+    <!-- HERO HEADER -->
+    <div class="text-center space-y-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold font-mono">
+        <i class="fa-solid fa-compass"></i> OFFICIAL ONBOARDING BLUEPRINT
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-black text-white tracking-tight">
+        How Sentinel Zero Works
+      </h1>
+      <p class="text-sm sm:text-base text-gray-400 max-w-2xl mx-auto leading-relaxed">
+        From linking your Discord identity to competing in clean, 128-tick private dedicated lobbies and claiming tournament payouts. Here is your complete 5-step playbook.
+      </p>
+    </div>
+
+    <!-- 5-STEP VISUAL PROGRESSION -->
+    <div class="space-y-8">
+
+      <!-- STEP 1 -->
+      <div class="p-6 sm:p-8 rounded-3xl bg-dark-card border border-dark-border hover:border-emerald-500/40 transition shadow-xl relative overflow-hidden">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div class="space-y-3 flex-1">
+            <div class="flex items-center gap-3">
+              <span class="w-9 h-9 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center font-mono font-black text-sm">01</span>
+              <span class="text-xs uppercase tracking-widest text-emerald-400 font-mono font-bold">STEP ONE</span>
+            </div>
+            <h2 class="text-2xl font-black text-white">Connect Your Discord & Gamertag</h2>
+            <p class="text-xs text-gray-300 leading-relaxed">
+              Click <strong>"Connect Account"</strong> on the main platform. Enter your Discord username/tag (e.g. <code>@YourTag#0001</code>) and email. This binds your competitive record, unlocks Discord scrim channels, and registers you for Saturday's tournament brackets.
+            </p>
+            <div class="flex items-center gap-2 pt-2 text-[11px] text-emerald-400 font-semibold">
+              <i class="fa-solid fa-lock"></i>
+              <span>Zero-knowledge privacy: We never inspect private messages, documents, or personal files.</span>
+            </div>
+          </div>
+          <div class="w-full md:w-64 p-4 rounded-2xl bg-dark-surface border border-dark-border text-center space-y-2 shrink-0">
+            <div class="w-12 h-12 rounded-2xl bg-[#5865F2]/20 text-[#5865F2] flex items-center justify-center text-2xl mx-auto">
+              <i class="fa-brands fa-discord"></i>
+            </div>
+            <div class="text-xs font-bold text-white">@Verified Player</div>
+            <div class="text-[10px] text-gray-400">Granted automatically upon profile setup</div>
+            <a href="https://discord.gg/7FXD5AhmnP" target="_blank" class="inline-block w-full py-2 rounded-xl bg-[#5865F2] hover:bg-[#4752C4] text-white font-bold text-[11px] transition">
+              Join Discord Server
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="p-6 sm:p-8 rounded-3xl bg-dark-card border border-dark-border hover:border-emerald-500/40 transition shadow-xl relative overflow-hidden">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div class="space-y-3 flex-1">
+            <div class="flex items-center gap-3">
+              <span class="w-9 h-9 rounded-2xl bg-teal-500/20 border border-teal-500/40 text-teal-400 flex items-center justify-center font-mono font-black text-sm">02</span>
+              <span class="text-xs uppercase tracking-widest text-teal-400 font-mono font-bold">STEP TWO</span>
+            </div>
+            <h2 class="text-2xl font-black text-white">Download the Sentinel Client (Windows)</h2>
+            <p class="text-xs text-gray-300 leading-relaxed">
+              Grab <code>SentinelAgent.exe</code> (8.6 MB). Run it before launching your game. In &lt; 15 seconds, it queries your hardware TPM 2.0 PCR registers and verifies IOMMU (VT-d / AMD-Vi) DMA hardware isolation to guarantee no rogue PCIe memory-reading devices are attached.
+            </p>
+            <div class="flex items-center gap-2 pt-2 text-[11px] text-teal-400 font-semibold">
+              <i class="fa-solid fa-microchip"></i>
+              <span>Zero kernel rootkit spyware: Runs in lightweight userland without degrading FPS.</span>
+            </div>
+          </div>
+          <div class="w-full md:w-64 p-4 rounded-2xl bg-dark-surface border border-dark-border text-center space-y-2 shrink-0">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-2xl mx-auto">
+              <i class="fa-solid fa-shield-cat"></i>
+            </div>
+            <div class="text-xs font-bold text-white">SentinelAgent.exe</div>
+            <div class="text-[10px] text-gray-400">Windows 10 / 11 • 64-bit</div>
+            <a href="SentinelAgent.exe" download="SentinelAgent.exe" class="inline-flex items-center justify-center gap-1.5 w-full py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-[11px] transition">
+              <i class="fa-solid fa-download"></i> Download Client
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="p-6 sm:p-8 rounded-3xl bg-dark-card border border-dark-border hover:border-emerald-500/40 transition shadow-xl relative overflow-hidden">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div class="space-y-3 flex-1">
+            <div class="flex items-center gap-3">
+              <span class="w-9 h-9 rounded-2xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center font-mono font-black text-sm">03</span>
+              <span class="text-xs uppercase tracking-widest text-amber-400 font-mono font-bold">STEP THREE</span>
+            </div>
+            <h2 class="text-2xl font-black text-white">Find a Match & Join Dedicated Scrim Lobbies</h2>
+            <p class="text-xs text-gray-300 leading-relaxed">
+              Select your game (Counter-Strike 2, Tarkov Arena, Warzone, Rust, Rocket League, etc.). Pick your match type (1v1 Aim Duel, 2v2 Gunfight, or 5v5 Team Scrim). Click <strong>"FIND MATCH & DIRECT LAUNCH"</strong>.
+            </p>
+            <p class="text-xs text-gray-300 leading-relaxed">
+              The platform pairs you with a verified opponent and reveals your private dedicated server connection string:
+            </p>
+            <div class="p-3 rounded-xl bg-slate-950 font-mono text-xs text-emerald-300 border border-emerald-500/30 select-all">
+              connect 198.51.100.44:27015; password sentinel_match
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="p-6 sm:p-8 rounded-3xl bg-dark-card border border-dark-border hover:border-emerald-500/40 transition shadow-xl relative overflow-hidden">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div class="space-y-3 flex-1">
+            <div class="flex items-center gap-3">
+              <span class="w-9 h-9 rounded-2xl bg-indigo-500/20 border border-indigo-500/40 text-indigo-400 flex items-center justify-center font-mono font-black text-sm">04</span>
+              <span class="text-xs uppercase tracking-widest text-indigo-400 font-mono font-bold">STEP FOUR</span>
+            </div>
+            <h2 class="text-2xl font-black text-white">Discord Scrim Channels & Saturday Tournaments</h2>
+            <p class="text-xs text-gray-300 leading-relaxed">
+              Want to find 1v1 challengers or stack with clean teammates? Head into our dedicated Discord channels:
+            </p>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-1 font-mono text-xs">
+              <div class="p-2 rounded-lg bg-dark-surface border border-dark-border">#cs2-wagers</div>
+              <div class="p-2 rounded-lg bg-dark-surface border border-dark-border">#tarkov-scrims</div>
+              <div class="p-2 rounded-lg bg-dark-surface border border-dark-border">#cod-gunfight</div>
+              <div class="p-2 rounded-lg bg-dark-surface border border-dark-border">#apex-arenas</div>
+              <div class="p-2 rounded-lg bg-dark-surface border border-dark-border">#rocket-league-duels</div>
+              <div class="p-2 rounded-lg bg-dark-surface border border-dark-border text-amber-400">#500-saturday-cup</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 5 -->
+      <div class="p-6 sm:p-8 rounded-3xl bg-dark-card border border-dark-border hover:border-emerald-500/40 transition shadow-xl relative overflow-hidden">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div class="space-y-3 flex-1">
+            <div class="flex items-center gap-3">
+              <span class="w-9 h-9 rounded-2xl bg-rose-500/20 border border-rose-500/40 text-rose-400 flex items-center justify-center font-mono font-black text-sm">05</span>
+              <span class="text-xs uppercase tracking-widest text-rose-400 font-mono font-bold">STEP FIVE</span>
+            </div>
+            <h2 class="text-2xl font-black text-white">Wallet Escrow & 100% Cheater Insurance Shield</h2>
+            <p class="text-xs text-gray-300 leading-relaxed">
+              When entering cash matches, entry stakes are locked into automated smart escrow.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+              <div class="p-4 rounded-2xl bg-dark-surface border border-emerald-500/30 space-y-1">
+                <div class="text-xs font-bold text-emerald-400 flex items-center gap-1.5"><i class="fa-solid fa-trophy"></i> Clean Win Payouts</div>
+                <p class="text-[11px] text-gray-400">Winning player receives the match pot immediately credited to their wallet balance (0% platform rake for Elite members).</p>
+              </div>
+              <div class="p-4 rounded-2xl bg-dark-surface border border-amber-500/30 space-y-1">
+                <div class="text-xs font-bold text-amber-400 flex items-center gap-1.5"><i class="fa-solid fa-shield-cat"></i> 100% Insurance Shield</div>
+                <p class="text-[11px] text-gray-400">If an opponent is detected cheating or deploying macros, their stake is permanently forfeited and your 100% match entry fee is instantly refunded.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- LAUNCH READINESS CHECKLIST -->
+    <div class="p-8 rounded-3xl bg-gradient-to-r from-dark-surface via-dark-card to-dark-surface border border-emerald-500/30 shadow-2xl space-y-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h3 class="text-xl font-black text-white">Player Launch Checklist</h3>
+          <p class="text-xs text-gray-400 mt-0.5">Make sure you complete these 3 items before Saturday's $500 Cash Cup:</p>
+        </div>
+        <span class="text-xs font-mono font-bold text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">30 SECONDS</span>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <label class="flex items-center gap-3 p-3.5 rounded-xl bg-dark-bg/60 border border-dark-border cursor-pointer hover:border-emerald-500/40 transition">
+          <input type="checkbox" checked class="w-4 h-4 rounded text-emerald-500 focus:ring-0">
+          <span class="font-semibold text-white">1. Join Community Discord: <code class="text-indigo-300">discord.gg/7FXD5AhmnP</code></span>
+        </label>
+        <label class="flex items-center gap-3 p-3.5 rounded-xl bg-dark-bg/60 border border-dark-border cursor-pointer hover:border-emerald-500/40 transition">
+          <input type="checkbox" checked class="w-4 h-4 rounded text-emerald-500 focus:ring-0">
+          <span class="font-semibold text-white">2. Download & Keep <code>SentinelAgent.exe</code> on your PC</span>
+        </label>
+        <label class="flex items-center gap-3 p-3.5 rounded-xl bg-dark-bg/60 border border-dark-border cursor-pointer hover:border-emerald-500/40 transition">
+          <input type="checkbox" checked class="w-4 h-4 rounded text-emerald-500 focus:ring-0">
+          <span class="font-semibold text-white">3. Choose your Season 0 Pass (Pro $6.99 or Elite $12.99)</span>
+        </label>
+      </div>
+
+      <div class="flex flex-col sm:flex-row justify-center gap-3 pt-2">
+        <a href="index.html" class="px-6 py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-lg text-center">
+          Go to Arena & Match Lobbies
+        </a>
+        <a href="passes.html" class="px-6 py-3 rounded-2xl bg-dark-surface hover:bg-dark-card border border-dark-border text-white font-bold text-xs transition text-center">
+          View Season 0 Passes
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-dark-border/80 bg-[#090c14] py-8 text-xs text-gray-400 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>&copy; 2026 Sentinel Zero, LLC. Zero Kernel Rootkit Policy. Operated under US Skill-Gaming Doctrine.</div>
+      <div class="flex items-center space-x-6 text-[11px]">
+        <a href="index.html" class="hover:text-white transition">Play Arena</a>
+        <a href="guide.html" class="hover:text-white transition text-emerald-400">Player Guide</a>
+        <a href="passes.html" class="hover:text-white transition">Season Passes</a>
+        <a href="https://discord.gg/7FXD5AhmnP" target="_blank" class="hover:text-white transition">Discord</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

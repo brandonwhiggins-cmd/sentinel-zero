@@ -1,6 +1,9 @@
 {
   "version": 2,
   "rewrites": [
+    { "source": "/guide", "destination": "/guide.html" },
+    { "source": "/passes", "destination": "/passes.html" },
+    { "source": "/play", "destination": "/index.html" },
     { "source": "/api/v1/stats", "destination": "/api/stats" },
     { "source": "/api/v1/health", "destination": "/api/health" },
     { "source": "/api/v1/subscribe", "destination": "/api/subscribe" },
