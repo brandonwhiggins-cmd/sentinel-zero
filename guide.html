@@ -156,6 +156,10 @@
             <p class="text-xs text-gray-300 leading-relaxed">
               Grab <code>SentinelAgent.exe</code> (8.6 MB). Run it before launching your game. In &lt; 15 seconds, it queries your hardware TPM 2.0 PCR registers and verifies IOMMU (VT-d / AMD-Vi) DMA hardware isolation to guarantee no rogue PCIe memory-reading devices are attached.
             </p>
+            <div class="p-3.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs space-y-1 my-3">
+              <div class="font-bold text-white flex items-center gap-2"><i class="fa-brands fa-windows text-cyan-400"></i> Windows PC Exclusive (No Consoles Supported)</div>
+              <p class="text-gray-300 text-[11px] leading-relaxed">Sentinel Zero does <strong>NOT</strong> support PlayStation 5, Xbox Series X/S, or Nintendo Switch. Because our cryptographic attestation requires low-level motherboard TPM 2.0 PCR registers and IOMMU DMA bus isolation, games must be run directly on Windows 10/11 64-bit. Playing on console or using Cronus/XIM hardware adapters is strictly prohibited.</p>
+            </div>
             <div class="flex items-center gap-2 pt-2 text-[11px] text-teal-400 font-semibold">
               <i class="fa-solid fa-microchip"></i>
               <span>Zero kernel rootkit spyware: Runs in lightweight userland without degrading FPS.</span>
@@ -265,6 +269,11 @@
       </div>
 
     </div>
+
+            <div class="p-4 rounded-xl bg-dark-surface border border-dark-border space-y-1">
+          <div class="font-bold text-white flex items-center gap-2"><i class="fa-brands fa-windows text-cyan-400"></i> Can I participate using a console (PS5, Xbox, Switch)?</div>
+          <p class="text-gray-400">No. Sentinel Zero is exclusively built for Windows PC. All match participants must run SentinelAgent.exe on the PC executing the game to verify clean hardware registers. Console connections, emulators, and hardware macro interposers (Cronus/XIM) are strictly prohibited and result in immediate match stake forfeiture.</p>
+        </div>
 
     <!-- LAUNCH READINESS CHECKLIST -->
     <div class="p-8 rounded-3xl bg-gradient-to-r from-dark-surface via-dark-card to-dark-surface border border-emerald-500/30 shadow-2xl space-y-6">

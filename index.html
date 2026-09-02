@@ -134,7 +134,7 @@
         <div id="unauth-view" class="flex items-center space-x-2.5">
           <a href="SentinelAgent.exe" download="SentinelAgent.exe" class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-dark-surface hover:bg-dark-card border border-dark-border text-gray-300 hover:text-white text-xs font-semibold transition">
             <i class="fa-solid fa-download text-emerald-400"></i>
-            <span>Client</span>
+            <span><i class="fa-brands fa-windows text-cyan-400 mr-1"></i> PC Client</span>
           </a>
           <button onclick="openAuthModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center gap-2 transition shadow-[0_0_15px_rgba(16,185,129,0.3)]">
             <i class="fa-brands fa-discord text-sm"></i>
@@ -229,9 +229,9 @@
     <!-- CASUAL HERO BANNER -->
     <div class="rounded-3xl p-6 sm:p-8 bg-gradient-to-r from-dark-surface via-dark-card to-dark-surface border border-dark-border relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
       <div class="space-y-3 z-10 text-center md:text-left">
-        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-bold">
-          <i class="fa-solid fa-bolt"></i>
-          <span>15-Sec Scan &bull; Zero Background Lag &bull; 100% Refund Guarantee</span>
+        <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 text-xs font-bold font-mono">
+          <i class="fa-brands fa-windows text-cyan-400 text-sm"></i>
+          <span>WINDOWS PC ONLY &bull; TPM 2.0 HARDWARE ATTESTED &bull; NO CONSOLES</span>
         </div>
         <h1 class="text-3xl sm:text-4xl font-black text-white tracking-tight leading-tight">
           Play Your Favorite Games.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-200">Zero Cheaters Guaranteed.</span>
@@ -268,9 +268,19 @@
 
     <!-- GAME SELECTOR GRID WITH REAL COVER ART -->
     <section id="games-section" class="scroll-mt-24">
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-xl font-black text-white tracking-tight">Choose Your Game</h2>
-        <span class="text-xs text-gray-400 font-semibold">14 Games Supported on PC</span>
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+        <div>
+          <h2 class="text-xl font-black text-white tracking-tight flex items-center gap-2">
+            <span>Choose Your Game</span>
+            <span class="text-[10px] font-mono font-bold bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+              <i class="fa-brands fa-windows"></i> WINDOWS PC EXCLUSIVE
+            </span>
+          </h2>
+          <p class="text-xs text-gray-400 mt-0.5">All 14 titles require active Windows PC client attestation &bull; Consoles prohibited</p>
+        </div>
+        <span class="text-xs text-gray-400 font-semibold flex items-center gap-1.5 shrink-0">
+          <i class="fa-solid fa-desktop text-emerald-400"></i> 14 Competitive PC Titles
+        </span>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6" id="game-grid">
