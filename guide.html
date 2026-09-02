@@ -208,13 +208,31 @@
             <p class="text-xs text-gray-300 leading-relaxed">
               Want to find 1v1 challengers or stack with clean teammates? Head into our dedicated Discord channels:
             </p>
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-1 font-mono text-xs">
-              <div class="p-2 rounded-lg bg-dark-surface border border-dark-border">#cs2-wagers</div>
-              <div class="p-2 rounded-lg bg-dark-surface border border-dark-border">#tarkov-scrims</div>
-              <div class="p-2 rounded-lg bg-dark-surface border border-dark-border">#cod-gunfight</div>
-              <div class="p-2 rounded-lg bg-dark-surface border border-dark-border">#apex-arenas</div>
-              <div class="p-2 rounded-lg bg-dark-surface border border-dark-border">#rocket-league-duels</div>
-              <div class="p-2 rounded-lg bg-dark-surface border border-dark-border text-amber-400">#500-saturday-cup</div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2 font-mono text-xs">
+              <a href="https://discord.gg/7FXD5AhmnP" target="_blank" class="p-3 rounded-xl bg-dark-surface hover:bg-[#5865F2]/20 border border-dark-border hover:border-[#5865F2]/60 text-gray-300 hover:text-white transition flex items-center justify-between group shadow-sm">
+                <span>#cs2-wagers</span>
+                <i class="fa-brands fa-discord text-gray-500 group-hover:text-[#5865F2] transition"></i>
+              </a>
+              <a href="https://discord.gg/7FXD5AhmnP" target="_blank" class="p-3 rounded-xl bg-dark-surface hover:bg-[#5865F2]/20 border border-dark-border hover:border-[#5865F2]/60 text-gray-300 hover:text-white transition flex items-center justify-between group shadow-sm">
+                <span>#tarkov-scrims</span>
+                <i class="fa-brands fa-discord text-gray-500 group-hover:text-[#5865F2] transition"></i>
+              </a>
+              <a href="https://discord.gg/7FXD5AhmnP" target="_blank" class="p-3 rounded-xl bg-dark-surface hover:bg-[#5865F2]/20 border border-dark-border hover:border-[#5865F2]/60 text-gray-300 hover:text-white transition flex items-center justify-between group shadow-sm">
+                <span>#cod-gunfight</span>
+                <i class="fa-brands fa-discord text-gray-500 group-hover:text-[#5865F2] transition"></i>
+              </a>
+              <a href="https://discord.gg/7FXD5AhmnP" target="_blank" class="p-3 rounded-xl bg-dark-surface hover:bg-[#5865F2]/20 border border-dark-border hover:border-[#5865F2]/60 text-gray-300 hover:text-white transition flex items-center justify-between group shadow-sm">
+                <span>#apex-arenas</span>
+                <i class="fa-brands fa-discord text-gray-500 group-hover:text-[#5865F2] transition"></i>
+              </a>
+              <a href="https://discord.gg/7FXD5AhmnP" target="_blank" class="p-3 rounded-xl bg-dark-surface hover:bg-[#5865F2]/20 border border-dark-border hover:border-[#5865F2]/60 text-gray-300 hover:text-white transition flex items-center justify-between group shadow-sm">
+                <span>#rocket-league-duels</span>
+                <i class="fa-brands fa-discord text-gray-500 group-hover:text-[#5865F2] transition"></i>
+              </a>
+              <a href="https://discord.gg/7FXD5AhmnP" target="_blank" class="p-3 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 hover:border-amber-500 text-amber-300 hover:text-amber-200 transition flex items-center justify-between group shadow-sm">
+                <span class="font-bold">#500-saturday-cup</span>
+                <i class="fa-solid fa-trophy text-amber-400 group-hover:scale-110 transition"></i>
+              </a>
             </div>
           </div>
         </div>
@@ -259,18 +277,41 @@
       </div>
 
       <div class="space-y-3 text-xs">
-        <label class="flex items-center gap-3 p-3.5 rounded-xl bg-dark-bg/60 border border-dark-border cursor-pointer hover:border-emerald-500/40 transition">
-          <input type="checkbox" checked class="w-4 h-4 rounded text-emerald-500 focus:ring-0">
-          <span class="font-semibold text-white">1. Join Community Discord: <code class="text-indigo-300">discord.gg/7FXD5AhmnP</code></span>
-        </label>
-        <label class="flex items-center gap-3 p-3.5 rounded-xl bg-dark-bg/60 border border-dark-border cursor-pointer hover:border-emerald-500/40 transition">
-          <input type="checkbox" checked class="w-4 h-4 rounded text-emerald-500 focus:ring-0">
-          <span class="font-semibold text-white">2. Download & Keep <code>SentinelAgent.exe</code> on your PC</span>
-        </label>
-        <label class="flex items-center gap-3 p-3.5 rounded-xl bg-dark-bg/60 border border-dark-border cursor-pointer hover:border-emerald-500/40 transition">
-          <input type="checkbox" checked class="w-4 h-4 rounded text-emerald-500 focus:ring-0">
-          <span class="font-semibold text-white">3. Choose your Season 0 Pass (Pro $6.99 or Elite $12.99)</span>
-        </label>
+        <!-- Item 1 -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-dark-bg/80 border border-dark-border hover:border-emerald-500/40 transition">
+          <div class="flex items-center gap-3">
+            <input type="checkbox" id="chk-discord" checked class="w-4 h-4 rounded text-emerald-500 focus:ring-0">
+            <label for="chk-discord" class="font-semibold text-white cursor-pointer">1. Join Community Discord & Claim Verified Role</label>
+          </div>
+          <a href="https://discord.gg/7FXD5AhmnP" target="_blank" class="px-4 py-2 rounded-xl bg-[#5865F2] hover:bg-[#4752C4] text-white font-bold text-xs flex items-center justify-center gap-2 transition shrink-0 shadow">
+            <i class="fa-brands fa-discord"></i>
+            <span>Join Discord Server</span>
+          </a>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-dark-bg/80 border border-dark-border hover:border-emerald-500/40 transition">
+          <div class="flex items-center gap-3">
+            <input type="checkbox" id="chk-client" checked class="w-4 h-4 rounded text-emerald-500 focus:ring-0">
+            <label for="chk-client" class="font-semibold text-white cursor-pointer">2. Download & Keep <code>SentinelAgent.exe</code> Ready</label>
+          </div>
+          <a href="SentinelAgent.exe" download="SentinelAgent.exe" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 transition shrink-0 shadow">
+            <i class="fa-solid fa-download"></i>
+            <span>Download Client (8.6 MB)</span>
+          </a>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-dark-bg/80 border border-dark-border hover:border-emerald-500/40 transition">
+          <div class="flex items-center gap-3">
+            <input type="checkbox" id="chk-pass" checked class="w-4 h-4 rounded text-emerald-500 focus:ring-0">
+            <label for="chk-pass" class="font-semibold text-white cursor-pointer">3. Choose Your Season 0 Pass (Pro $6.99 or Elite $12.99)</label>
+          </div>
+          <a href="passes.html" class="px-4 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-bold text-xs flex items-center justify-center gap-2 transition shrink-0 shadow">
+            <i class="fa-solid fa-crown text-amber-400"></i>
+            <span>View Season Passes</span>
+          </a>
+        </div>
       </div>
 
       <div class="flex flex-col sm:flex-row justify-center gap-3 pt-2">
