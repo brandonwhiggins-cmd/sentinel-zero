@@ -201,7 +201,7 @@
             </div>
           </div>
           <div class="flex items-center gap-2.5 shrink-0">
-            <button onclick="handleMembershipClick('pro')" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-lg flex items-center gap-1.5">
+            <a href="https://buy.stripe.com/cNi3cw3Lde8bcTQgMPgfu00" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-lg flex items-center gap-1.5">
               <span>Explore Season Passes</span>
               <i class="fa-solid fa-arrow-right text-[10px]"></i>
             </button>
@@ -730,7 +730,7 @@
 
           <button onclick="handleMembershipClick('pro')" class="w-full py-3.5 rounded-2xl bg-dark-surface hover:bg-emerald-500 hover:text-slate-900 border border-emerald-500/40 text-emerald-300 font-bold text-sm tracking-wide flex items-center justify-center gap-2 transition shadow-lg transform hover:-translate-y-0.5">
           <i class="fa-solid fa-shield-halved"></i> <span>Get Pro Pass ($6.99/mo)</span>
-        </button>
+        </a>
         </div>
 
         <!-- TIER 2: ELITE HIGH-ROLLER ($12.99 / mo) -->
@@ -765,9 +765,9 @@
             </ul>
           </div>
 
-          <button onclick="handleMembershipClick('elite')" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-sm tracking-wider uppercase flex items-center justify-center gap-2 transition shadow-[0_0_25px_rgba(245,158,11,0.4)] transform hover:-translate-y-0.5">
+          <a href="https://buy.stripe.com/cNi7sM1D58N7128547gfu01" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-sm tracking-wider uppercase flex items-center justify-center gap-2 transition shadow-[0_0_25px_rgba(245,158,11,0.4)] transform hover:-translate-y-0.5">
           <i class="fa-solid fa-crown"></i> <span>Join Elite High-Roller ($12.99/mo)</span>
-        </button>
+        </a>
         </div>
 
       </div>
@@ -1481,12 +1481,10 @@
     }
 
     function handleMembershipClick(tier) {
-      if (!currentUser) {
-        openAuthModal();
-        showToast("Step 1: Connect Account", "Connect your Discord account first, then choose your competitive pass!", true);
-      } else {
-        openSubscriptionModal(tier);
-      }
+      const url = (tier === 'elite') 
+        ? 'https://buy.stripe.com/cNi7sM1D58N7128547gfu01' 
+        : 'https://buy.stripe.com/cNi3cw3Lde8bcTQgMPgfu00';
+      window.open(url, '_blank', 'noopener,noreferrer');
     }
 
     // Modal helpers for Legal & Architecture
@@ -1692,19 +1690,7 @@
     </div>
   </div>
 
-      <!-- Payment Selection -->
-      <div class="space-y-2">
-        <button onclick="executeVipSubscribe()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-sm tracking-wider uppercase flex items-center justify-center gap-2 transition shadow-[0_0_20px_rgba(245,158,11,0.35)]">
-          <i class="fa-brands fa-apple text-lg"></i>
-          <span>Subscribe with Apple Pay / Card</span>
-        </button>
-      </div>
 
-      <div class="text-center text-[11px] text-gray-400">
-        Secured with 256-Bit Stripe Connect encryption. Cancel anytime with 1-click.
-      </div>
-    </div>
-  </div>
 
   <!-- MODERN STRIPE & APPLE PAY DEPOSIT MODAL -->
   <div id="deposit-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden transition-opacity duration-300">
