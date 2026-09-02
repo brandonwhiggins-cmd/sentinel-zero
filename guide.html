@@ -180,22 +180,60 @@
 
       <!-- STEP 3 -->
       <div class="p-6 sm:p-8 rounded-3xl bg-dark-card border border-dark-border hover:border-emerald-500/40 transition shadow-xl relative overflow-hidden">
-        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-          <div class="space-y-3 flex-1">
-            <div class="flex items-center gap-3">
-              <span class="w-9 h-9 rounded-2xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center font-mono font-black text-sm">03</span>
-              <span class="text-xs uppercase tracking-widest text-amber-400 font-mono font-bold">STEP THREE</span>
-            </div>
-            <h2 class="text-2xl font-black text-white">Find a Match & Join Dedicated Scrim Lobbies</h2>
-            <p class="text-xs text-gray-300 leading-relaxed">
-              Select your game (Counter-Strike 2, Tarkov Arena, Warzone, Rust, Rocket League, etc.). Pick your match type (1v1 Aim Duel, 2v2 Gunfight, or 5v5 Team Scrim). Click <strong>"FIND MATCH & DIRECT LAUNCH"</strong>.
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <span class="w-9 h-9 rounded-2xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center font-mono font-black text-sm">03</span>
+            <span class="text-xs uppercase tracking-widest text-amber-400 font-mono font-bold">STEP THREE</span>
+          </div>
+          <div>
+            <h2 class="text-2xl font-black text-white">Find a Match & Join Lobbies (Tailored to Your Game)</h2>
+            <p class="text-xs text-gray-300 leading-relaxed mt-1">
+              Select your game and match type (1v1 Cash Duel, 2v2 Gunfight, or 5v5 Team Scrim). Click <strong>"FIND MATCH & DIRECT LAUNCH"</strong>. Because each game handles multiplayer differently, Sentinel Zero automatically reveals the <strong>exact connection credentials</strong> built for that specific title:
             </p>
-            <p class="text-xs text-gray-300 leading-relaxed">
-              The platform pairs you with a verified opponent and reveals your private dedicated server connection string:
-            </p>
-            <div class="p-3 rounded-xl bg-slate-950 font-mono text-xs text-emerald-300 border border-emerald-500/30 select-all">
-              connect 198.51.100.44:27015; password sentinel_match
+          </div>
+
+          <!-- 3 TAILORED CONNECTION METHODS -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
+            
+            <!-- 1. Dedicated Console Connect (CS2, Rust) -->
+            <div class="p-4 rounded-2xl bg-dark-surface border border-dark-border space-y-2.5">
+              <div class="flex items-center gap-2 font-bold text-emerald-400 text-xs">
+                <i class="fa-solid fa-terminal"></i>
+                <span>1. Console Connect IP</span>
+              </div>
+              <div class="text-[11px] text-gray-400 font-mono font-semibold">CS2 &bull; Rust &bull; TF2</div>
+              <p class="text-[11px] text-gray-300 leading-relaxed">For Source engine titles, copy the 1-click IP string and paste into your in-game <code>~</code> developer console:</p>
+              <div class="p-2.5 rounded-xl bg-slate-950 font-mono text-[11px] text-emerald-300 border border-emerald-500/30 select-all break-all">
+                connect 198.51.100.44:27015; password sentinel
+              </div>
             </div>
+
+            <!-- 2. Match Key & Room Code (Fortnite, Rocket League, Tarkov) -->
+            <div class="p-4 rounded-2xl bg-dark-surface border border-dark-border space-y-2.5">
+              <div class="flex items-center gap-2 font-bold text-cyan-400 text-xs">
+                <i class="fa-solid fa-key"></i>
+                <span>2. Match Key & Room Code</span>
+              </div>
+              <div class="text-[11px] text-gray-400 font-mono font-semibold">Fortnite &bull; Rocket League &bull; Tarkov</div>
+              <p class="text-[11px] text-gray-300 leading-relaxed">Enter the custom matchmaking key or private room name & password in the game lobby:</p>
+              <div class="p-2.5 rounded-xl bg-slate-950 font-mono text-[11px] text-cyan-300 border border-cyan-500/30 select-all break-all">
+                Key: SZ_MATCH_9042 &bull; Pass: sentinel
+              </div>
+            </div>
+
+            <!-- 3. Direct Online Friendly / Gamertag Invite (Sports, Valorant, Overwatch, Warzone) -->
+            <div class="p-4 rounded-2xl bg-dark-surface border border-dark-border space-y-2.5">
+              <div class="flex items-center gap-2 font-bold text-amber-400 text-xs">
+                <i class="fa-solid fa-user-plus"></i>
+                <span>3. Verified Gamertag Invite</span>
+              </div>
+              <div class="text-[11px] text-gray-400 font-mono font-semibold">FC 25 &bull; NBA 2K25 &bull; Madden &bull; Valorant</div>
+              <p class="text-[11px] text-gray-300 leading-relaxed">Invite your opponent's verified in-game ID to an Online Friendly or Custom Party:</p>
+              <div class="p-2.5 rounded-xl bg-slate-950 font-mono text-[11px] text-amber-300 border border-amber-500/30 select-all break-all">
+                Opponent: Swag_Gamer#9042 (Verified)
+              </div>
+            </div>
+
           </div>
         </div>
       </div>

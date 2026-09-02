@@ -1206,8 +1206,28 @@
       if (potEl) potEl.innerText = '$' + match.pot_amount.toFixed(2);
       if (idEl) idEl.innerText = 'MATCH #' + match.match_id.substring(match.match_id.length - 8).toUpperCase() + ' (' + match.game + ')';
       if (codeEl) {
-        const port = Math.floor(Math.random() * 500) + 27015;
-        codeEl.innerText = `connect 198.51.100.44:${port}; password sentinel_match`;
+        const g = (match.game || '').toLowerCase();
+        const codeLabelEl = document.getElementById('active-code-label');
+        if (g.includes('cs2') || g.includes('rust')) {
+          if (codeLabelEl) codeLabelEl.innerText = "Dedicated Server Console Command:";
+          const port = Math.floor(Math.random() * 500) + 27015;
+          codeEl.innerText = `connect 198.51.100.44:${port}; password sentinel_match`;
+        } else if (g.includes('fortnite')) {
+          if (codeLabelEl) codeLabelEl.innerText = "Custom Matchmaking Key & Map Code:";
+          codeEl.innerText = `Custom Key: SZ_${match.match_id.substring(match.match_id.length - 6).toUpperCase()} • Island: 1234-5678-9012`;
+        } else if (g.includes('rocket') || g.includes('rl')) {
+          if (codeLabelEl) codeLabelEl.innerText = "Private Match Name & Password:";
+          codeEl.innerText = `Name: SZ_${match.match_id.substring(match.match_id.length - 4).toUpperCase()} • Pass: sentinel`;
+        } else if (g.includes('tarkov')) {
+          if (codeLabelEl) codeLabelEl.innerText = "Custom Arena Room Code:";
+          codeEl.innerText = `Arena Room: ARENA-${match.match_id.substring(match.match_id.length - 6).toUpperCase()}`;
+        } else if (g.includes('fc25') || g.includes('fifa') || g.includes('nba') || g.includes('madden')) {
+          if (codeLabelEl) codeLabelEl.innerText = "Verified Opponent Gamertag (Online Friendly):";
+          codeEl.innerText = `Invite Opponent: Swag_Gaming#${Math.floor(Math.random()*8999)+1000} (Attested PC)`;
+        } else {
+          if (codeLabelEl) codeLabelEl.innerText = "Custom Match Party Code / Opponent:";
+          codeEl.innerText = `Party: SZ-${match.match_id.substring(match.match_id.length - 6).toUpperCase()} • Opponent: Swag_Gaming (Attested PC)`;
+        }
       }
 
       if (modal) modal.classList.remove('hidden');
