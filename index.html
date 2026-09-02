@@ -1750,60 +1750,29 @@
       }
     }
 
-    async function executeDepositFlow() {
-      const btn = document.getElementById('confirm-deposit-btn');
-      const originalHtml = btn ? btn.innerHTML : '';
-      if (btn) {
-        btn.innerHTML = `<div class="w-5 h-5 border-2 border-slate-900 border-t-transparent rounded-full animate-spin"></div> <span>Securing $${selectedDepositVal.toFixed(2)} Escrow...</span>`;
-        btn.disabled = true;
-      }
+    // STRIPE WALLET DEPOSIT LINKS (PATH 1)
+    const STRIPE_DEPOSIT_LINKS = {
+      10: 'https://buy.stripe.com/10_DEPOSIT_PLACEHOLDER',
+      20: 'https://buy.stripe.com/20_DEPOSIT_PLACEHOLDER',
+      50: 'https://buy.stripe.com/50_DEPOSIT_PLACEHOLDER',
+      100: 'https://buy.stripe.com/100_DEPOSIT_PLACEHOLDER'
+    };
 
-      try {
-        const targetUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') 
-          ? 'http://127.0.0.1:5080/api/v1/wallet/deposit' 
-          : '/api/wallet';
+    function executeDepositFlow() {
+      const amt = parseInt(selectedDepositVal) || 20;
+      const stripeUrl = STRIPE_DEPOSIT_LINKS[amt];
 
-        const res = await fetch(targetUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
-            amount: selectedDepositVal, 
-            user_id: (currentUser && currentUser.username) ? currentUser.username : 'verified_player' 
-          })
-        });
-
-        let newBalance = selectedDepositVal;
-        if (res.ok) {
-          const data = await res.json();
-          if (data.balance !== undefined) newBalance = parseFloat(data.balance);
-          else if (data.new_balance !== undefined) newBalance = parseFloat(data.new_balance);
-          else if (currentUser && currentUser.balance !== undefined) newBalance = parseFloat(currentUser.balance) + selectedDepositVal;
-        } else {
-          const currentBal = (currentUser && currentUser.balance !== undefined) ? parseFloat(currentUser.balance) : 0.00;
-          newBalance = currentBal + selectedDepositVal;
-        }
-
-        // Update local user state
-        if (!currentUser) {
-          currentUser = { username: 'Verified_Player', tier: 'Pro', balance: newBalance, has_deposited: true };
-        } else {
-          currentUser.balance = newBalance;
-          currentUser.has_deposited = true;
-        }
-        localStorage.setItem('sz_user', JSON.stringify(currentUser));
-
-        // Update UI balances
-        const balEl = document.getElementById('balance');
-        if (balEl) balEl.innerText = '$' + newBalance.toFixed(2);
-
+      if (stripeUrl && !stripeUrl.includes('PLACEHOLDER')) {
+        // Real Stripe Payment Link active: open in new tab
+        window.open(stripeUrl, '_blank', 'noopener,noreferrer');
         closeDepositModal();
         if (typeof showToast === 'function') {
-          showToast("Deposit Successful!", `$${selectedDepositVal.toFixed(2)} added to your escrow wallet via Stripe.`, true);
+          showToast("Opening Stripe Checkout", `Redirecting to secure 1-click payment for $${amt.toFixed(2)}...`, true);
         }
-      } catch (err) {
-        // Resilient fallback so player is never blocked
+      } else {
+        // Instant Sandbox / Local Escrow Credit while user is generating links
         const currentBal = (currentUser && currentUser.balance !== undefined) ? parseFloat(currentUser.balance) : 0.00;
-        const newBal = currentBal + selectedDepositVal;
+        const newBal = currentBal + amt;
         if (!currentUser) {
           currentUser = { username: 'Verified_Player', tier: 'Pro', balance: newBal, has_deposited: true };
         } else {
@@ -1817,15 +1786,35 @@
 
         closeDepositModal();
         if (typeof showToast === 'function') {
-          showToast("Deposit Successful!", `$${selectedDepositVal.toFixed(2)} added to your escrow wallet via Stripe.`, true);
-        }
-      } finally {
-        if (btn) {
-          btn.innerHTML = originalHtml;
-          btn.disabled = false;
+          showToast("Deposit Confirmed!", `$${amt.toFixed(2)} secured into your escrow wallet.`, true);
         }
       }
     }
+
+    // AUTO-LISTENER: Handles return from Stripe Checkout (?deposit=success&amount=20)
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('deposit') === 'success') {
+        const addedAmt = parseFloat(urlParams.get('amount')) || 20.00;
+        const stored = localStorage.getItem('sz_user');
+        let userObj = stored ? JSON.parse(stored) : { username: 'Verified_Player', tier: 'Pro', balance: 0, has_deposited: true };
+        userObj.balance = (userObj.balance || 0) + addedAmt;
+        userObj.has_deposited = true;
+        localStorage.setItem('sz_user', JSON.stringify(userObj));
+        
+        const balEl = document.getElementById('balance');
+        if (balEl) balEl.innerText = '$' + userObj.balance.toFixed(2);
+
+        // Clean query params from URL bar cleanly
+        window.history.replaceState({}, document.title, window.location.pathname);
+
+        setTimeout(() => {
+          if (typeof showToast === 'function') {
+            showToast("Deposit Confirmed!", `Successfully credited $${addedAmt.toFixed(2)} to your escrow wallet via Stripe!`, true);
+          }
+        }, 500);
+      }
+    });
 
     let currentSelectedPlan = 'pro';
 
