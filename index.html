@@ -2030,6 +2030,85 @@
       closeDepositModal();
       showToast('Deposit Complete', '$' + selectedDepositVal.toFixed(2) + ' credited to local escrow wallet. Balance: $' + newVal.toFixed(2), true);
     }
+  
+    // =========================================================================
+    // 👑 CRYPTOGRAPHIC FOUNDER TOKEN CLAIM SYSTEM (BRANDON & SWAG)
+    // =========================================================================
+    const FOUNDER_TOKENS = {
+      'sknot_7f8a92b0c1e4d82f': { target_user: 'sknotrockit', displayName: '@SknotRockIt (Brandon)', key: 'sz_claimed_brandon' },
+      'swag_4b6e81c9a3f2d07e': { target_user: 'swagg', displayName: '@swagg (Swag)', key: 'sz_claimed_swag' }
+    };
+
+    let activeFounderToken = null;
+
+    function checkFounderInviteUrl() {
+      const params = new URLSearchParams(window.location.search);
+      const token = params.get('founder_invite');
+      if (!token) return;
+
+      const conf = FOUNDER_TOKENS[token];
+      if (!conf) {
+        showToast("Invalid Invite", "This founder activation link is invalid or expired.", false);
+        return;
+      }
+
+      activeFounderToken = token;
+      const modal = document.getElementById('founder-claim-modal');
+      const targetEl = document.getElementById('founder-claim-target');
+      const inputEl = document.getElementById('founder-discord-input');
+
+      if (targetEl) targetEl.innerText = conf.displayName;
+      if (inputEl) inputEl.value = conf.target_user;
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function executeFounderClaim() {
+      if (!activeFounderToken || !FOUNDER_TOKENS[activeFounderToken]) return;
+      const conf = FOUNDER_TOKENS[activeFounderToken];
+      const input = document.getElementById('founder-discord-input');
+      const typed = input ? input.value.toLowerCase().replace('@', '').trim() : '';
+
+      // Strict Identity Verification: Token can ONLY be claimed by its intended owner
+      if (typed !== conf.target_user && !conf.target_user.includes(typed)) {
+        showToast("Access Denied", `This cryptographic token is strictly locked to ${conf.displayName}.`, false);
+        return;
+      }
+
+      // Activate Lifetime Founder VIP
+      currentUser = {
+        username: conf.target_user,
+        email: `${conf.target_user}@sentinelzero.gg`,
+        tier: 'FOUNDER VIP',
+        is_founder: true,
+        is_subscribed: true,
+        balance: 0.00,
+        hardware_verified: true,
+        claimed_token: activeFounderToken
+      };
+
+      localStorage.setItem('sz_user', JSON.stringify(currentUser));
+      localStorage.setItem(conf.key, 'true');
+
+      // Burn token from URL cleanly
+      window.history.replaceState({}, document.title, window.location.pathname);
+
+      // Close modal & render VIP header
+      const modal = document.getElementById('founder-claim-modal');
+      if (modal) modal.classList.add('hidden');
+      renderAuthenticatedHeader();
+
+      // Sync activation directly to Google Sheet
+      if (typeof syncToGoogleSheet === 'function') {
+        syncToGoogleSheet('Founder Pass', '👑 Lifetime VIP Activated ($0/mo)');
+      }
+
+      showToast("👑 Founder VIP Activated!", `Welcome ${conf.displayName}! Your permanent lifetime VIP access is officially unlocked.`, true);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      checkFounderInviteUrl();
+    });
+
   </script>
 
 
