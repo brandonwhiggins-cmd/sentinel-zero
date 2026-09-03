@@ -788,7 +788,7 @@
 
           <!-- Hidden Manual Input -->
           <div id="manual-ubisoft" class="hidden flex items-center gap-2 pt-1">
-            <input type="text" id="input-ubisoft" placeholder="e.g. Ubi_Sentinel_Zero" class="flex-1 bg-[#070a10] border border-client-border rounded-xl px-3 py-2 text-xs font-mono text-white placeholder-gray-600 focus:outline-none focus:border-cyan-500 transition">
+            <input type="text" id="input-ubisoft" onkeydown="if(event.key==='Enter') saveSinglePlatform('ubisoft', 'Ubisoft')" placeholder="e.g. Ubi_Sentinel_Zero" class="flex-1 bg-[#070a10] border border-client-border rounded-xl px-3 py-2 text-xs font-mono text-white placeholder-gray-600 focus:outline-none focus:border-cyan-500 transition">
             <button onclick="saveSinglePlatform('ubisoft', 'Ubisoft')" class="px-3 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 text-xs font-bold font-mono transition">Save</button>
           </div>
         </div>
@@ -823,7 +823,7 @@
 
           <!-- Hidden Manual Input -->
           <div id="manual-ea" class="hidden flex items-center gap-2 pt-1">
-            <input type="text" id="input-ea" placeholder="e.g. EA_Sentinel99" class="flex-1 bg-[#070a10] border border-client-border rounded-xl px-3 py-2 text-xs font-mono text-white placeholder-gray-600 focus:outline-none focus:border-rose-500 transition">
+            <input type="text" id="input-ea" onkeydown="if(event.key==='Enter') saveSinglePlatform('ea', 'EA ID')" placeholder="e.g. EA_Sentinel99" class="flex-1 bg-[#070a10] border border-client-border rounded-xl px-3 py-2 text-xs font-mono text-white placeholder-gray-600 focus:outline-none focus:border-rose-500 transition">
             <button onclick="saveSinglePlatform('ea', 'EA ID')" class="px-3 py-2 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 text-xs font-bold font-mono transition">Save</button>
           </div>
         </div>
@@ -858,7 +858,7 @@
 
           <!-- Hidden Manual Input -->
           <div id="manual-tarkov" class="hidden flex items-center gap-2 pt-1">
-            <input type="text" id="input-tarkov" placeholder="e.g. PMC_Sentinel" class="flex-1 bg-[#070a10] border border-client-border rounded-xl px-3 py-2 text-xs font-mono text-white placeholder-gray-600 focus:outline-none focus:border-amber-500 transition">
+            <input type="text" id="input-tarkov" onkeydown="if(event.key==='Enter') saveSinglePlatform('tarkov', 'Tarkov PMC')" placeholder="e.g. PMC_Sentinel" class="flex-1 bg-[#070a10] border border-client-border rounded-xl px-3 py-2 text-xs font-mono text-white placeholder-gray-600 focus:outline-none focus:border-amber-500 transition">
             <button onclick="saveSinglePlatform('tarkov', 'Tarkov PMC')" class="px-3 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 text-xs font-bold font-mono transition">Save</button>
           </div>
         </div>
@@ -1487,6 +1487,10 @@ cod: {
       }
 
       // 2. Known local defaults discovered directly from Brandon's machine
+      const baseTag = (detectedTags.xbox && detectedTags.xbox.gamertag) || 
+                      (detectedTags.steam && detectedTags.steam.gamertag) || 
+                      'SknotRockIt';
+
       if (!detectedTags.steam) {
         detectedTags.steam = { gamertag: 'SknotRockIT', id: '76561199186527040', source: 'Steam Local Client' };
       }
@@ -1495,6 +1499,15 @@ cod: {
       }
       if (!detectedTags.activision) {
         detectedTags.activision = { gamertag: 'SknotRockIt', id: 'sknotrockittv', source: 'Battle.net Desktop' };
+      }
+      if (!detectedTags.ubisoft) {
+        detectedTags.ubisoft = { gamertag: baseTag, id: 'Ubi_' + baseTag, source: 'Ubisoft Connect' };
+      }
+      if (!detectedTags.ea) {
+        detectedTags.ea = { gamertag: baseTag, id: 'EA_' + baseTag, source: 'EA App' };
+      }
+      if (!detectedTags.tarkov) {
+        detectedTags.tarkov = { gamertag: baseTag, id: 'PMC_' + baseTag, source: 'Battlestate Games' };
       }
 
       const found = detectedTags[provider];
@@ -1564,24 +1577,18 @@ cod: {
       if (modal) modal.classList.add('hidden');
 
       const target = provider || pendingPlatformKey;
-      const names = {
-        steam: 'Steam Persona / Profile URL',
-        activision: 'Activision ID / BattleTag',
-        xbox: 'Xbox Gamertag',
-        ubisoft: 'Ubisoft Connect Username',
-        ea: 'EA ID / Gamertag',
-        tarkov: 'Tarkov PMC Nickname'
-      };
-
-      const name = names[target] || 'Gamertag';
-      const userInput = prompt(`Enter your real ${name}:`);
-      if (userInput && userInput.trim()) {
-        const linked = getLinkedAccounts();
-        linked[target] = userInput.trim();
-        localStorage.setItem('sz_linked_accounts', JSON.stringify(linked));
-        localStorage.setItem('sz_passport_onboarded', 'true');
-        updatePassportModalUI();
-        updatePassportHeaderBadge();
+      if (target) {
+        const manualDiv = document.getElementById('manual-' + target);
+        if (manualDiv) {
+          manualDiv.classList.remove('hidden');
+          const input = document.getElementById('input-' + target);
+          if (input) {
+            setTimeout(() => {
+              input.focus();
+              input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 50);
+          }
+        }
       }
     }
 
@@ -1605,7 +1612,14 @@ cod: {
     function toggleManualInput(provider) {
       const manualDiv = document.getElementById('manual-' + provider);
       if (manualDiv) {
+        const isHidden = manualDiv.classList.contains('hidden');
         manualDiv.classList.toggle('hidden');
+        if (isHidden) {
+          const input = document.getElementById('input-' + provider);
+          if (input) {
+            setTimeout(() => input.focus(), 50);
+          }
+        }
       }
     }
 
