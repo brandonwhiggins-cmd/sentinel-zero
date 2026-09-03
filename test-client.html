@@ -1747,6 +1747,75 @@ cod: {
         { k: 'tarkov', n: 'BSG' }
       ];
 
+      const defaultActions = {
+        steam: `
+          <button onclick="signInWithProvider('steam')" class="w-full py-2.5 px-4 rounded-xl bg-[#171a21] hover:bg-[#1b2838] border border-sky-500/40 text-white font-bold text-xs flex items-center justify-center gap-2.5 transition shadow-sm hover:border-sky-400">
+            <i class="fa-brands fa-steam text-sky-400 text-base"></i>
+            <span>Sign In with Steam (1-Click Link)</span>
+          </button>
+          <div class="text-right pt-1.5">
+            <button onclick="toggleManualInput('steam')" class="text-[10px] text-gray-500 hover:text-gray-300 transition underline">
+              or enter Steam ID manually
+            </button>
+          </div>
+        `,
+        activision: `
+          <button onclick="signInWithProvider('activision')" class="w-full py-2.5 px-4 rounded-xl bg-[#0c243c] hover:bg-[#0074e0] border border-blue-500/40 text-white font-bold text-xs flex items-center justify-center gap-2.5 transition shadow-sm hover:border-blue-400">
+            <i class="fa-solid fa-shield text-blue-400 text-base"></i>
+            <span>Sign In with Battle.net (1-Click Link)</span>
+          </button>
+          <div class="text-right pt-1.5">
+            <button onclick="toggleManualInput('activision')" class="text-[10px] text-gray-500 hover:text-gray-300 transition underline">
+              or enter Activision ID manually
+            </button>
+          </div>
+        `,
+        xbox: `
+          <button onclick="signInWithProvider('xbox')" class="w-full py-2.5 px-4 rounded-xl bg-[#0e3b1c] hover:bg-[#107c41] border border-emerald-500/40 text-white font-bold text-xs flex items-center justify-center gap-2.5 transition shadow-sm hover:border-emerald-400">
+            <i class="fa-brands fa-xbox text-emerald-400 text-base"></i>
+            <span>Sign In with Xbox / Microsoft (1-Click Link)</span>
+          </button>
+          <div class="text-right pt-1.5">
+            <button onclick="toggleManualInput('xbox')" class="text-[10px] text-gray-500 hover:text-gray-300 transition underline">
+              or enter Gamertag manually
+            </button>
+          </div>
+        `,
+        ubisoft: `
+          <button onclick="signInWithProvider('ubisoft')" class="w-full py-2.5 px-4 rounded-xl bg-[#091b33] hover:bg-[#004bb3] border border-cyan-500/40 text-white font-bold text-xs flex items-center justify-center gap-2.5 transition shadow-sm hover:border-cyan-400">
+            <i class="fa-solid fa-shield-halved text-cyan-400 text-base"></i>
+            <span>Connect Ubisoft Account (1-Click Link)</span>
+          </button>
+          <div class="text-right pt-1.5">
+            <button onclick="toggleManualInput('ubisoft')" class="text-[10px] text-gray-500 hover:text-gray-300 transition underline">
+              or enter Ubisoft username manually
+            </button>
+          </div>
+        `,
+        ea: `
+          <button onclick="signInWithProvider('ea')" class="w-full py-2.5 px-4 rounded-xl bg-[#2e1215] hover:bg-[#801b24] border border-rose-500/40 text-white font-bold text-xs flex items-center justify-center gap-2.5 transition shadow-sm hover:border-rose-400">
+            <i class="fa-solid fa-play text-rose-400 text-base"></i>
+            <span>Sign In with EA Account (1-Click Link)</span>
+          </button>
+          <div class="text-right pt-1.5">
+            <button onclick="toggleManualInput('ea')" class="text-[10px] text-gray-500 hover:text-gray-300 transition underline">
+              or enter EA ID manually
+            </button>
+          </div>
+        `,
+        tarkov: `
+          <button onclick="signInWithProvider('tarkov')" class="w-full py-2.5 px-4 rounded-xl bg-[#1a1816] hover:bg-[#38332c] border border-amber-500/40 text-white font-bold text-xs flex items-center justify-center gap-2.5 transition shadow-sm hover:border-amber-400">
+            <i class="fa-solid fa-crosshairs text-stone-400 text-base"></i>
+            <span>Connect Battlestate Games (1-Click Link)</span>
+          </button>
+          <div class="text-right pt-1.5">
+            <button onclick="toggleManualInput('tarkov')" class="text-[10px] text-gray-500 hover:text-gray-300 transition underline">
+              or enter PMC nickname manually
+            </button>
+          </div>
+        `
+      };
+
       let count = 0;
 
       platforms.forEach(p => {
@@ -1788,6 +1857,12 @@ cod: {
             statusEl.innerText = "Not Linked";
             statusEl.className = "text-[10px] font-mono text-gray-500";
           }
+          if (actionDiv && defaultActions[p.k]) {
+            actionDiv.innerHTML = defaultActions[p.k];
+          }
+          if (manualDiv) manualDiv.classList.add('hidden');
+          const input = document.getElementById('input-' + p.k);
+          if (input) input.value = '';
         }
       });
 
