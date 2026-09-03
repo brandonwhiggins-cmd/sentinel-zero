@@ -213,18 +213,24 @@
             <span class="text-[9px] font-mono bg-emerald-500/20 text-emerald-300 px-1.5 py-0.2 rounded font-bold">2 ACTIVE</span>
           </div>
           <div class="space-y-1">
-            <button onclick="selectGame('cs2')" id="nav-cs2" class="w-full px-3 py-2.5 rounded-xl bg-emerald-500/15 border border-emerald-500/40 text-white font-bold flex items-center justify-between text-xs transition">
+            <!-- 1. CS2 -->
+            <button onclick="selectGame('cs2')" id="nav-cs2" class="game-nav-btn w-full px-2.5 py-2 rounded-xl bg-emerald-500/15 border border-emerald-500/40 text-white font-bold flex items-center justify-between text-xs transition group shadow-[0_0_15px_rgba(16,185,129,0.2)]">
               <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
-                <i class="fa-solid fa-crosshairs text-emerald-400 text-sm shrink-0"></i>
-                <span class="truncate font-bold text-white">Counter-Strike 2</span>
+                <div class="game-badge-box w-7 h-7 rounded-lg overflow-hidden shrink-0 border-2 border-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.4)] bg-slate-900 flex items-center justify-center relative transition">
+                  <img src="assets/games/cs2.jpg" alt="CS2" class="w-full h-full object-cover group-hover:scale-110 transition duration-200">
+                </div>
+                <span class="truncate font-bold text-white tracking-tight">Counter-Strike 2</span>
               </div>
               <span class="text-[9px] font-mono font-black bg-emerald-500 text-slate-950 px-2 py-0.5 rounded-full shrink-0 uppercase tracking-wider shadow-sm">● LIVE</span>
             </button>
 
-            <button onclick="selectGame('siege')" id="nav-siege" class="w-full px-3 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-client-card font-bold flex items-center justify-between text-xs transition">
+            <!-- 2. Rainbow Six Siege -->
+            <button onclick="selectGame('siege')" id="nav-siege" class="game-nav-btn w-full px-2.5 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-client-card font-bold flex items-center justify-between text-xs transition group">
               <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
-                <i class="fa-solid fa-shield-halved text-blue-400 text-sm shrink-0"></i>
-                <span class="truncate font-bold">Rainbow Six Siege</span>
+                <div class="game-badge-box w-7 h-7 rounded-lg overflow-hidden shrink-0 border border-white/10 shadow-sm bg-slate-900 flex items-center justify-center relative transition">
+                  <img src="assets/games/siege.jpg" alt="Siege" class="w-full h-full object-cover group-hover:scale-110 transition duration-200">
+                </div>
+                <span class="truncate font-bold tracking-tight">Rainbow Six Siege</span>
               </div>
               <span class="text-[9px] font-mono font-black bg-emerald-500 text-slate-950 px-2 py-0.5 rounded-full shrink-0 uppercase tracking-wider shadow-sm">● LIVE</span>
             </button>
@@ -239,127 +245,155 @@
           </div>
           <div class="space-y-1">
             <!-- 1. WARDOGS -->
-            <button onclick="selectGame('wardogs')" id="nav-wardogs" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
+            <button onclick="selectGame('wardogs')" id="nav-wardogs" class="game-nav-btn w-full px-2.5 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition group">
               <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
-                <i class="fa-solid fa-person-rifle text-amber-400 text-xs shrink-0 font-bold"></i>
-                <span class="truncate font-semibold">WARDOGS</span>
+                <div class="game-badge-box w-7 h-7 rounded-lg overflow-hidden shrink-0 border border-cyan-500/30 shadow-sm bg-slate-900 flex items-center justify-center relative transition">
+                  <img src="assets/games/wardogs.jpg" alt="WARDOGS" class="w-full h-full object-cover group-hover:scale-110 transition duration-200">
+                </div>
+                <span class="truncate font-bold tracking-tight text-white">WARDOGS</span>
               </div>
-              <span class="text-[9px] font-mono text-amber-400/80 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shrink-0">SOON</span>
+              <span class="text-[9px] font-mono font-bold text-cyan-300 bg-cyan-500/20 border border-cyan-500/30 px-1.5 py-0.5 rounded shrink-0">ORIGINAL</span>
             </button>
 
             <!-- 2. VALORANT -->
-            <button onclick="selectGame('valorant')" id="nav-valorant" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
+            <button onclick="selectGame('valorant')" id="nav-valorant" class="game-nav-btn w-full px-2.5 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition group">
               <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
-                <i class="fa-solid fa-crosshairs text-rose-500 text-xs shrink-0 font-bold"></i>
-                <span class="truncate font-semibold">VALORANT</span>
+                <div class="game-badge-box w-7 h-7 rounded-lg overflow-hidden shrink-0 border border-white/10 shadow-sm bg-slate-900 flex items-center justify-center relative transition">
+                  <img src="assets/games/valorant.jpg" alt="VALORANT" class="w-full h-full object-cover group-hover:scale-110 transition duration-200">
+                </div>
+                <span class="truncate font-semibold tracking-tight">VALORANT</span>
               </div>
               <span class="text-[9px] font-mono text-amber-400/80 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shrink-0">SOON</span>
             </button>
 
             <!-- 3. Call of Duty (MP/CDL) -->
-            <button onclick="selectGame('cod')" id="nav-cod" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
+            <button onclick="selectGame('cod')" id="nav-cod" class="game-nav-btn w-full px-2.5 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition group">
               <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
-                <i class="fa-solid fa-crosshairs text-orange-500 text-xs shrink-0"></i>
-                <span class="truncate">Call of Duty (MP/CDL)</span>
+                <div class="game-badge-box w-7 h-7 rounded-lg overflow-hidden shrink-0 border border-white/10 shadow-sm bg-slate-900 flex items-center justify-center relative transition">
+                  <img src="assets/games/cod.jpg" alt="Call of Duty" class="w-full h-full object-cover group-hover:scale-110 transition duration-200">
+                </div>
+                <span class="truncate font-semibold tracking-tight">Call of Duty (MP/CDL)</span>
               </div>
               <span class="text-[9px] font-mono text-amber-400/80 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shrink-0">SOON</span>
             </button>
 
             <!-- 4. Warzone (BR/Resurgence) -->
-            <button onclick="selectGame('warzone')" id="nav-warzone" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
+            <button onclick="selectGame('warzone')" id="nav-warzone" class="game-nav-btn w-full px-2.5 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition group">
               <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
-                <i class="fa-solid fa-person-rifle text-emerald-400 text-xs shrink-0"></i>
-                <span class="truncate">Warzone (BR/Resurgence)</span>
+                <div class="game-badge-box w-7 h-7 rounded-lg overflow-hidden shrink-0 border border-white/10 shadow-sm bg-slate-900 flex items-center justify-center relative transition">
+                  <img src="assets/games/warzone.jpg" alt="Warzone" class="w-full h-full object-cover group-hover:scale-110 transition duration-200">
+                </div>
+                <span class="truncate font-semibold tracking-tight">Warzone (BR/Resurgence)</span>
               </div>
               <span class="text-[9px] font-mono text-amber-400/80 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shrink-0">SOON</span>
             </button>
 
             <!-- 5. Rocket League -->
-            <button onclick="selectGame('rocketleague')" id="nav-rocketleague" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
+            <button onclick="selectGame('rocketleague')" id="nav-rocketleague" class="game-nav-btn w-full px-2.5 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition group">
               <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
-                <i class="fa-solid fa-car text-cyan-400 text-xs shrink-0"></i>
-                <span class="truncate">Rocket League</span>
+                <div class="game-badge-box w-7 h-7 rounded-lg overflow-hidden shrink-0 border border-white/10 shadow-sm bg-slate-900 flex items-center justify-center relative transition">
+                  <img src="assets/games/rocketleague.jpg" alt="Rocket League" class="w-full h-full object-cover group-hover:scale-110 transition duration-200">
+                </div>
+                <span class="truncate font-semibold tracking-tight">Rocket League</span>
               </div>
               <span class="text-[9px] font-mono text-amber-400/80 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shrink-0">SOON</span>
             </button>
 
             <!-- 6. Rust (Aim Train) -->
-            <button onclick="selectGame('rust')" id="nav-rust" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
+            <button onclick="selectGame('rust')" id="nav-rust" class="game-nav-btn w-full px-2.5 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition group">
               <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
-                <i class="fa-solid fa-fire text-amber-500 text-xs shrink-0"></i>
-                <span class="truncate">Rust (Aim Train)</span>
+                <div class="game-badge-box w-7 h-7 rounded-lg overflow-hidden shrink-0 border border-white/10 shadow-sm bg-slate-900 flex items-center justify-center relative transition">
+                  <img src="assets/games/rust.jpg" alt="Rust" class="w-full h-full object-cover group-hover:scale-110 transition duration-200">
+                </div>
+                <span class="truncate font-semibold tracking-tight">Rust (Aim Train)</span>
               </div>
               <span class="text-[9px] font-mono text-amber-400/80 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shrink-0">SOON</span>
             </button>
 
             <!-- 7. Apex Legends -->
-            <button onclick="selectGame('apex')" id="nav-apex" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
+            <button onclick="selectGame('apex')" id="nav-apex" class="game-nav-btn w-full px-2.5 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition group">
               <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
-                <i class="fa-solid fa-jet-fighter text-orange-400 text-xs shrink-0"></i>
-                <span class="truncate">Apex Legends</span>
+                <div class="game-badge-box w-7 h-7 rounded-lg overflow-hidden shrink-0 border border-white/10 shadow-sm bg-slate-900 flex items-center justify-center relative transition">
+                  <img src="assets/games/apex.jpg" alt="Apex Legends" class="w-full h-full object-cover group-hover:scale-110 transition duration-200">
+                </div>
+                <span class="truncate font-semibold tracking-tight">Apex Legends</span>
               </div>
               <span class="text-[9px] font-mono text-amber-400/80 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shrink-0">SOON</span>
             </button>
 
             <!-- 8. EA Sports FC 25 -->
-            <button onclick="selectGame('fc25')" id="nav-fc25" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
+            <button onclick="selectGame('fc25')" id="nav-fc25" class="game-nav-btn w-full px-2.5 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition group">
               <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
-                <i class="fa-solid fa-futbol text-emerald-400 text-xs shrink-0"></i>
-                <span class="truncate">EA Sports FC 25</span>
+                <div class="game-badge-box w-7 h-7 rounded-lg overflow-hidden shrink-0 border border-white/10 shadow-sm bg-slate-900 flex items-center justify-center relative transition">
+                  <img src="assets/games/fc25.jpg" alt="EA Sports FC 25" class="w-full h-full object-cover group-hover:scale-110 transition duration-200">
+                </div>
+                <span class="truncate font-semibold tracking-tight">EA Sports FC 25</span>
               </div>
               <span class="text-[9px] font-mono text-amber-400/80 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shrink-0">SOON</span>
             </button>
 
             <!-- 9. NBA 2K25 -->
-            <button onclick="selectGame('nba2k')" id="nav-nba2k" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
+            <button onclick="selectGame('nba2k')" id="nav-nba2k" class="game-nav-btn w-full px-2.5 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition group">
               <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
-                <i class="fa-solid fa-basketball text-orange-400 text-xs shrink-0"></i>
-                <span class="truncate">NBA 2K25</span>
+                <div class="game-badge-box w-7 h-7 rounded-lg overflow-hidden shrink-0 border border-white/10 shadow-sm bg-slate-900 flex items-center justify-center relative transition">
+                  <img src="assets/games/nba2k.jpg" alt="NBA 2K25" class="w-full h-full object-cover group-hover:scale-110 transition duration-200">
+                </div>
+                <span class="truncate font-semibold tracking-tight">NBA 2K25</span>
               </div>
               <span class="text-[9px] font-mono text-amber-400/80 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shrink-0">SOON</span>
             </button>
 
             <!-- 10. Escape from Tarkov -->
-            <button onclick="selectGame('tarkov')" id="nav-tarkov" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
+            <button onclick="selectGame('tarkov')" id="nav-tarkov" class="game-nav-btn w-full px-2.5 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition group">
               <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
-                <i class="fa-solid fa-crosshairs text-gray-400 text-xs shrink-0"></i>
-                <span class="truncate">Escape from Tarkov</span>
+                <div class="game-badge-box w-7 h-7 rounded-lg overflow-hidden shrink-0 border border-white/10 shadow-sm bg-slate-900 flex items-center justify-center relative transition">
+                  <img src="assets/games/tarkov.jpg" alt="Escape from Tarkov" class="w-full h-full object-cover group-hover:scale-110 transition duration-200">
+                </div>
+                <span class="truncate font-semibold tracking-tight">Escape from Tarkov</span>
               </div>
               <span class="text-[9px] font-mono text-amber-400/80 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shrink-0">SOON</span>
             </button>
 
             <!-- 11. Fortnite -->
-            <button onclick="selectGame('fortnite')" id="nav-fortnite" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
+            <button onclick="selectGame('fortnite')" id="nav-fortnite" class="game-nav-btn w-full px-2.5 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition group">
               <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
-                <i class="fa-solid fa-cube text-purple-400 text-xs shrink-0"></i>
-                <span class="truncate">Fortnite</span>
+                <div class="game-badge-box w-7 h-7 rounded-lg overflow-hidden shrink-0 border border-white/10 shadow-sm bg-slate-900 flex items-center justify-center relative transition">
+                  <img src="assets/games/fortnite.jpg" alt="Fortnite" class="w-full h-full object-cover group-hover:scale-110 transition duration-200">
+                </div>
+                <span class="truncate font-semibold tracking-tight">Fortnite</span>
               </div>
               <span class="text-[9px] font-mono text-amber-400/80 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shrink-0">SOON</span>
             </button>
 
             <!-- 12. Overwatch 2 -->
-            <button onclick="selectGame('overwatch')" id="nav-overwatch" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
+            <button onclick="selectGame('overwatch')" id="nav-overwatch" class="game-nav-btn w-full px-2.5 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition group">
               <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
-                <i class="fa-solid fa-circle-dot text-amber-400 text-xs shrink-0"></i>
-                <span class="truncate">Overwatch 2</span>
+                <div class="game-badge-box w-7 h-7 rounded-lg overflow-hidden shrink-0 border border-white/10 shadow-sm bg-slate-900 flex items-center justify-center relative transition">
+                  <img src="assets/games/overwatch.jpg" alt="Overwatch 2" class="w-full h-full object-cover group-hover:scale-110 transition duration-200">
+                </div>
+                <span class="truncate font-semibold tracking-tight">Overwatch 2</span>
               </div>
               <span class="text-[9px] font-mono text-amber-400/80 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shrink-0">SOON</span>
             </button>
 
             <!-- 13. Madden NFL 25 -->
-            <button onclick="selectGame('madden')" id="nav-madden" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
+            <button onclick="selectGame('madden')" id="nav-madden" class="game-nav-btn w-full px-2.5 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition group">
               <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
-                <i class="fa-solid fa-football text-yellow-500 text-xs shrink-0"></i>
-                <span class="truncate">Madden NFL 25</span>
+                <div class="game-badge-box w-7 h-7 rounded-lg overflow-hidden shrink-0 border border-white/10 shadow-sm bg-slate-900 flex items-center justify-center relative transition">
+                  <img src="assets/games/madden.jpg" alt="Madden NFL 25" class="w-full h-full object-cover group-hover:scale-110 transition duration-200">
+                </div>
+                <span class="truncate font-semibold tracking-tight">Madden NFL 25</span>
               </div>
               <span class="text-[9px] font-mono text-amber-400/80 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shrink-0">SOON</span>
             </button>
 
             <!-- 14. PUBG: BATTLEGROUNDS -->
-            <button onclick="selectGame('pubg')" id="nav-pubg" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
+            <button onclick="selectGame('pubg')" id="nav-pubg" class="game-nav-btn w-full px-2.5 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition group">
               <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
-                <i class="fa-solid fa-helmet-un text-amber-500 text-xs shrink-0"></i>
-                <span class="truncate">PUBG: BATTLEGROUNDS</span>
+                <div class="game-badge-box w-7 h-7 rounded-lg overflow-hidden shrink-0 border border-white/10 shadow-sm bg-slate-900 flex items-center justify-center relative transition">
+                  <img src="assets/games/pubg.jpg" alt="PUBG" class="w-full h-full object-cover group-hover:scale-110 transition duration-200">
+                </div>
+                <span class="truncate font-semibold tracking-tight">PUBG: BATTLEGROUNDS</span>
               </div>
               <span class="text-[9px] font-mono text-amber-400/80 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shrink-0">SOON</span>
             </button>
@@ -387,7 +421,9 @@
 
       <!-- Active Game Banner Card -->
       <div class="relative rounded-3xl overflow-hidden border border-client-border bg-gradient-to-br from-[#0c1424] via-client-card to-[#0b101c] p-8 shadow-2xl">
-        <div class="max-w-2xl space-y-4">
+        <img id="arena-backdrop-img" src="assets/games/cs2.jpg" alt="Arena Backdrop" class="absolute right-0 top-0 h-full w-2/3 object-cover opacity-25 pointer-events-none mix-blend-screen transition-opacity duration-500">
+        <div class="absolute inset-0 bg-gradient-to-r from-client-card via-client-card/85 to-transparent pointer-events-none"></div>
+        <div class="relative z-10 max-w-2xl space-y-4">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-xs font-bold shadow-sm">
             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
             <span id="arena-game-mode-badge">OFFICIAL 1v1 AIM DUEL ARENA</span>
@@ -1229,13 +1265,21 @@ cod: {
       const isLive = g.status === 'live';
 
       // 1. Update Active Navigation Styling
-      document.querySelectorAll('aside button').forEach(b => {
-        b.className = "w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition";
+      document.querySelectorAll('.game-nav-btn').forEach(b => {
+        b.className = "game-nav-btn w-full px-2.5 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition group";
+        const imgBox = b.querySelector('.game-badge-box');
+        if (imgBox) {
+          imgBox.className = "game-badge-box w-7 h-7 rounded-lg overflow-hidden shrink-0 border border-white/10 shadow-sm bg-slate-900 flex items-center justify-center relative transition";
+        }
       });
 
       const activeBtn = document.getElementById('nav-' + gameKey);
       if (activeBtn) {
-        activeBtn.className = "w-full px-3 py-2.5 rounded-xl bg-emerald-500/15 border border-emerald-500/40 text-white font-bold flex items-center justify-between text-xs transition shadow-[0_0_15px_rgba(16,185,129,0.2)]";
+        activeBtn.className = "game-nav-btn w-full px-2.5 py-2 rounded-xl bg-emerald-500/15 border border-emerald-500/40 text-white font-bold flex items-center justify-between text-xs transition shadow-[0_0_15px_rgba(16,185,129,0.2)] group";
+        const imgBox = activeBtn.querySelector('.game-badge-box');
+        if (imgBox) {
+          imgBox.className = "game-badge-box w-7 h-7 rounded-lg overflow-hidden shrink-0 border-2 border-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.4)] bg-slate-900 flex items-center justify-center relative transition";
+        }
       }
 
       // 2. Update Banner Card Elements
@@ -1259,6 +1303,8 @@ cod: {
 
       if (nameEl) nameEl.innerText = g.name;
       if (descEl) descEl.innerText = g.desc;
+      const backdrop = document.getElementById('arena-backdrop-img');
+      if (backdrop) backdrop.src = 'assets/games/' + gameKey + '.jpg';
 
       // Toggle between Live Queue Controls vs. Coming Soon Banner
       if (isLive) {
