@@ -1004,7 +1004,34 @@
         closePrivacyModal();
       }
     });
+    // =========================================================================
+    // 📊 REAL-TIME WEBSITE TRAFFIC & CONVERSION BEACON
+    // =========================================================================
+    function trackWebTraffic(event = 'pageview', details = {}) {
+      try {
+        const payload = {
+          event: event,
+          referrer: document.referrer || 'direct / bookmarks',
+          device: (window.innerWidth < 768) ? 'mobile' : 'desktop',
+          path: window.location.pathname + window.location.hash,
+          timestamp: Date.now(),
+          ...details
+        };
+        fetch('/api/track', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          keepalive: true
+        }).catch(() => {});
+      } catch (e) {}
+    }
+
+    // Auto-record pageview on arrival
+    trackWebTraffic('pageview');
   </script>
+
+  <!-- Vercel Web Analytics Official Tag -->
+  <script defer src="/_vercel/insights/script.js"></script>
 
 </body>
 </html>
