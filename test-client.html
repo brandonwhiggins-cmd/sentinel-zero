@@ -103,9 +103,6 @@
       } else {
         window.close();
       }
-    } else {
-        window.close();
-      }
     }
 
 </script>
@@ -207,9 +204,6 @@
       if (window.electronAPI && typeof window.electronAPI.close === 'function') {
         window.electronAPI.close();
       } else {
-        window.close();
-      }
-    } else {
         window.close();
       }
     }
@@ -860,15 +854,17 @@
       },
 
       // =========================================================================
-      // 🟡 12 EXPANDED ROSTER TITLES (COMING SOON IN SEASON 1)
+      // 🟡 SEASON 1 ROSTER TITLES (COMING SOON)
       // =========================================================================
-            
-        defaultLauncher: 'steam',
-        connect_code: 'Custom Lobby: #SZ-VALORANT-BETA',
-        launchers: [
-          { id: 'steam', label: 'Steam', icon: 'fa-brands fa-steam', uri: 'https://store.steampowered.com/' }
-        ],
-        lobbies: []
+      valorant: {
+        id: 'valorant',
+        name: 'VALORANT',
+        status: 'coming_soon',
+        modeBadge: 'RIOT GAMES • COMING SOON',
+        desc: 'Tactical 5v5 character-based shooter by Riot Games. Native kernel attestation with Riot Vanguard integration, private wager matchmaking, and automated post-match score settlement.',
+        format: 'COMPETITIVE 5v5 UNRATED / RANKED DUELS',
+        platform: 'Riot Games / Riot Client',
+        launcherUri: 'riotclient://'
       },
 cod: {
         id: 'cod',
@@ -1761,9 +1757,6 @@ cod: {
       if (window.electronAPI && typeof window.electronAPI.close === 'function') {
         window.electronAPI.close();
       } else {
-        window.close();
-      }
-    } else {
         window.close();
       }
     }
