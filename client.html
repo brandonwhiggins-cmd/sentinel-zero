@@ -283,7 +283,7 @@
               <span id="client-launch-label">QUEUE FOR CS2 1v1 DUEL ($10 ESCROW)</span>
             </button>
 
-            <button onclick="launchSteamDirect('cs2')" class="px-5 py-4 rounded-2xl bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/40 text-sky-300 font-bold text-xs flex items-center gap-2 transition">
+            <button onclick="launchGameDirect(activeGame)" class="px-5 py-4 rounded-2xl bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/40 text-sky-300 font-bold text-xs flex items-center gap-2 transition">
               <i class="fa-brands fa-steam text-sm"></i>
               <span>Launch Steam</span>
             </button>
@@ -429,9 +429,9 @@
 
       <!-- Direct Steam Launch Button -->
       <div class="space-y-2">
-        <button onclick="launchSteamDirect('cs2')" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition shadow-[0_0_20px_rgba(14,165,233,0.4)]">
+        <button onclick="launchGameDirect(activeGame)" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition shadow-[0_0_20px_rgba(14,165,233,0.4)]">
           <i class="fa-brands fa-steam text-lg"></i>
-          <span>🚀 1-Click Auto-Launch CS2 on Steam</span>
+          <span id="match-modal-launch-label">🚀 1-Click Auto-Launch Game</span>
         </button>
         <p class="text-[10px] text-center text-gray-400 font-mono">Launches Counter-Strike 2 & pulls both players into aim duel</p>
       </div>
@@ -538,6 +538,14 @@
     }
 
     function acceptLobbyChallenge(challenger, pot) {
+      const label = document.getElementById('match-modal-launch-label');
+      if (label) {
+        if (activeGame === 'siege') label.innerText = "🚀 1-Click Launch Rainbow Six Siege";
+        else if (activeGame === 'cs2') label.innerText = "🚀 1-Click Auto-Launch CS2 on Steam";
+        else if (activeGame === 'rl') label.innerText = "🚀 1-Click Auto-Launch Rocket League";
+        else if (activeGame === 'rust') label.innerText = "🚀 1-Click Auto-Launch Rust on Steam";
+        else label.innerText = `🚀 1-Click Launch ${activeGame.toUpperCase()}`;
+      }
       document.getElementById('client-match-opponent').innerText = challenger;
       document.getElementById('client-match-pot').innerText = pot;
       document.getElementById('client-match-modal').classList.remove('hidden');
@@ -552,14 +560,30 @@
       }, 1200);
     }
 
-    function launchSteamDirect(gameKey) {
-      if (gameKey === 'cs2') {
-        window.location.href = "steam://rungameid/730";
-      } else if (gameKey === 'rl') {
-        window.location.href = "steam://rungameid/252950";
-      } else if (gameKey === 'rust') {
-        window.location.href = "steam://rungameid/252490";
+    const GAME_LAUNCH_URIS = {
+      'cs2': 'steam://rungameid/730',
+      'siege': 'steam://rungameid/359550',
+      'r6': 'steam://rungameid/359550',
+      'rl': 'steam://rungameid/252950',
+      'rust': 'steam://rungameid/252490',
+      'apex': 'steam://rungameid/1172470',
+      'warzone': 'steam://rungameid/1938090',
+      'cod': 'steam://rungameid/1938090'
+    };
+
+    function launchGameDirect(gameKey) {
+      const k = (gameKey || activeGame || 'cs2').toLowerCase();
+      let uri = GAME_LAUNCH_URIS[k] || 'steam://rungameid/730';
+
+      if (window.electronAPI && window.electronAPI.launchGame) {
+        window.electronAPI.launchGame(uri);
+      } else {
+        window.location.href = uri;
       }
+    }
+
+    function launchSteamDirect(gameKey) {
+      launchGameDirect(gameKey);
     }
 
     function closeMatchModal() {

@@ -1027,6 +1027,8 @@
     GAME_CONFIGS.valorant = GAME_CONFIGS.val;
 
     function selectGameDetails(gameId) {
+      activeMatchGameKey = gameId;
+      updateModalLaunchButton(gameId);
       const cfg = GAME_CONFIGS[gameId];
       if (!cfg) return;
 
@@ -2197,22 +2199,44 @@
     // =========================================================================
     let activeMatchGameKey = 'cs2';
 
+    function updateModalLaunchButton(gameId) {
+      const label = document.getElementById('match-native-launch-label');
+      if (!label) return;
+      const g = (gameId || '').toLowerCase();
+      if (g.includes('siege') || g.includes('r6')) {
+        label.innerText = "🚀 1-Click Launch Rainbow Six Siege (Steam/Ubisoft)";
+      } else if (g.includes('cs') || g.includes('counter')) {
+        label.innerText = "🚀 1-Click Auto-Launch CS2 on Steam";
+      } else if (g.includes('rocket') || g.includes('rl')) {
+        label.innerText = "🚀 1-Click Auto-Launch Rocket League";
+      } else if (g.includes('rust')) {
+        label.innerText = "🚀 1-Click Auto-Launch Rust on Steam";
+      } else if (g.includes('apex')) {
+        label.innerText = "🚀 1-Click Auto-Launch Apex Legends on Steam";
+      } else {
+        label.innerText = "🚀 1-Click Direct Game Launch";
+      }
+    }
+
     function launchActiveGameNative() {
       const g = (activeMatchGameKey || 'cs2').toLowerCase();
-      let uri = 'steam://rungameid/730'; // Default: CS2
+      let uri = 'steam://rungameid/730';
 
-      if (g.includes('cs') || g.includes('counter')) {
+      if (g.includes('siege') || g.includes('r6')) {
+        uri = 'steam://rungameid/359550'; // Rainbow Six Siege Steam AppID
+        showToast("Launching R6 Siege", "Directing Steam to launch Rainbow Six Siege (AppID 359550)...", true);
+      } else if (g.includes('cs') || g.includes('counter')) {
         uri = 'steam://rungameid/730';
         showToast("Launching CS2", "Directing Steam to start Counter-Strike 2...", true);
-      } else if (g.includes('siege') || g.includes('r6')) {
-        uri = 'uplay://launch/54/0';
-        showToast("Launching Siege", "Directing Ubisoft Connect to launch Rainbow Six Siege...", true);
       } else if (g.includes('rocket') || g.includes('rl')) {
         uri = 'steam://rungameid/252950';
-        showToast("Launching Rocket League", "Starting Rocket League...", true);
+        showToast("Launching Rocket League", "Starting Rocket League on Steam...", true);
       } else if (g.includes('rust')) {
         uri = 'steam://rungameid/252490';
         showToast("Launching Rust", "Connecting to private Sentinel rust server...", true);
+      } else if (g.includes('apex')) {
+        uri = 'steam://rungameid/1172470';
+        showToast("Launching Apex Legends", "Starting Apex Legends on Steam...", true);
       } else {
         uri = 'steam://rungameid/730';
         showToast("Launching Game", "Starting verified competitive game client...", true);
