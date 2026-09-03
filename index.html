@@ -664,7 +664,7 @@
           <div>
             <label class="block text-[11px] font-mono text-gray-400 mb-1.5">SELECT MEMBERSHIP PASS</label>
             <div class="grid grid-cols-2 gap-2">
-              <label id="tier-label-pro" class="cursor-pointer p-3 rounded-xl border-2 border-emerald-500 bg-emerald-500/10 flex flex-col text-left transition">
+              <label id="tier-label-pro" onclick="selectTierRadio('pro')" class="cursor-pointer p-3 rounded-xl border-2 border-emerald-500 bg-emerald-500/10 flex flex-col text-left transition">
                 <input type="radio" name="pass-tier" value="pro" checked onchange="selectTierRadio('pro')" class="sr-only">
                 <div class="text-xs font-bold text-white flex items-center justify-between">
                   <span>Pro Pass</span>
@@ -673,7 +673,7 @@
                 <div class="text-[10px] text-gray-400 mt-0.5">50% Rake Discount</div>
               </label>
 
-              <label id="tier-label-elite" class="cursor-pointer p-3 rounded-xl border border-dark-border bg-dark-surface flex flex-col text-left hover:border-amber-500/50 transition">
+              <label id="tier-label-elite" onclick="selectTierRadio('elite')" class="cursor-pointer p-3 rounded-xl border border-dark-border bg-dark-surface flex flex-col text-left hover:border-amber-500/50 transition">
                 <input type="radio" name="pass-tier" value="elite" onchange="selectTierRadio('elite')" class="sr-only">
                 <div class="text-xs font-bold text-white flex items-center justify-between">
                   <span>Elite VIP</span>
@@ -898,6 +898,8 @@
 
     function selectTierRadio(tier) {
       currentSelectedTier = tier;
+      const radio = document.querySelector(`input[name="pass-tier"][value="${tier}"]`);
+      if (radio) radio.checked = true;
       const proLabel = document.getElementById('tier-label-pro');
       const eliteLabel = document.getElementById('tier-label-elite');
       const submitBtn = document.getElementById('su-submit-btn');
