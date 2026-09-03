@@ -37,7 +37,39 @@
       const sideEl = document.getElementById('side-balance');
       if (sideEl) sideEl.innerText = '$0.00';
       updatePassportHeaderBadge();
+      // Attach native window control listeners
+      const minBtn = document.getElementById('win-min-btn');
+      const maxBtn = document.getElementById('win-max-btn');
+      const closeBtn = document.getElementById('win-close-btn');
+      if (minBtn) minBtn.addEventListener('click', (e) => { e.stopPropagation(); minimizeWindow(); });
+      if (maxBtn) maxBtn.addEventListener('click', (e) => { e.stopPropagation(); maximizeWindow(); });
+      if (closeBtn) closeBtn.addEventListener('click', (e) => { e.stopPropagation(); closeWindow(); });
+
       alert('🧪 [TEST SANDBOX]: Test state reset.');
+    }
+
+
+    // =========================================================================
+    // 🪟 NATIVE WINDOW CONTROLS (MINIMIZE, MAXIMIZE, CLOSE)
+    // =========================================================================
+    function minimizeWindow() {
+      if (window.electronAPI && typeof window.electronAPI.minimize === 'function') {
+        window.electronAPI.minimize();
+      }
+    }
+
+    function maximizeWindow() {
+      if (window.electronAPI && typeof window.electronAPI.maximize === 'function') {
+        window.electronAPI.maximize();
+      }
+    }
+
+    function closeWindow() {
+      if (window.electronAPI && typeof window.electronAPI.close === 'function') {
+        window.electronAPI.close();
+      } else {
+        window.close();
+      }
     }
 
 </script>
@@ -99,7 +131,39 @@
       const sideEl = document.getElementById('side-balance');
       if (sideEl) sideEl.innerText = '$0.00';
       updatePassportHeaderBadge();
+      // Attach native window control listeners
+      const minBtn = document.getElementById('win-min-btn');
+      const maxBtn = document.getElementById('win-max-btn');
+      const closeBtn = document.getElementById('win-close-btn');
+      if (minBtn) minBtn.addEventListener('click', (e) => { e.stopPropagation(); minimizeWindow(); });
+      if (maxBtn) maxBtn.addEventListener('click', (e) => { e.stopPropagation(); maximizeWindow(); });
+      if (closeBtn) closeBtn.addEventListener('click', (e) => { e.stopPropagation(); closeWindow(); });
+
       alert('🧪 [TEST SANDBOX]: Test state reset.');
+    }
+
+
+    // =========================================================================
+    // 🪟 NATIVE WINDOW CONTROLS (MINIMIZE, MAXIMIZE, CLOSE)
+    // =========================================================================
+    function minimizeWindow() {
+      if (window.electronAPI && typeof window.electronAPI.minimize === 'function') {
+        window.electronAPI.minimize();
+      }
+    }
+
+    function maximizeWindow() {
+      if (window.electronAPI && typeof window.electronAPI.maximize === 'function') {
+        window.electronAPI.maximize();
+      }
+    }
+
+    function closeWindow() {
+      if (window.electronAPI && typeof window.electronAPI.close === 'function') {
+        window.electronAPI.close();
+      } else {
+        window.close();
+      }
     }
 
 </script>
@@ -212,15 +276,16 @@
       </div>
 
       <!-- 🪟 Native-Feel Frameless Window Controls -->
-      <div class="flex items-center no-drag ml-1 pl-2 border-l border-client-border">
-        <button onclick="minimizeWindow()" class="w-8 h-8 hover:bg-slate-800 text-gray-400 hover:text-white flex items-center justify-center transition" title="Minimize">
-          <i class="fa-solid fa-minus text-xs"></i>
+      <!-- Native Window Controls -->
+      <div class="flex items-center no-drag ml-1 pl-2 border-l border-client-border" style="-webkit-app-region: no-drag !important;">
+        <button id="win-min-btn" onclick="minimizeWindow()" class="w-8 h-8 hover:bg-slate-800 text-gray-400 hover:text-white flex items-center justify-center transition cursor-pointer" title="Minimize" style="-webkit-app-region: no-drag !important;">
+          <i class="fa-solid fa-minus text-xs pointer-events-none"></i>
         </button>
-        <button onclick="maximizeWindow()" class="w-8 h-8 hover:bg-slate-800 text-gray-400 hover:text-white flex items-center justify-center transition" title="Maximize">
-          <i class="fa-regular fa-square text-xs"></i>
+        <button id="win-max-btn" onclick="maximizeWindow()" class="w-8 h-8 hover:bg-slate-800 text-gray-400 hover:text-white flex items-center justify-center transition cursor-pointer" title="Maximize" style="-webkit-app-region: no-drag !important;">
+          <i class="fa-regular fa-square text-xs pointer-events-none"></i>
         </button>
-        <button onclick="closeWindow()" class="w-8 h-8 hover:bg-rose-600 text-gray-400 hover:text-white flex items-center justify-center transition" title="Close">
-          <i class="fa-solid fa-xmark text-sm"></i>
+        <button id="win-close-btn" onclick="closeWindow()" class="w-8 h-8 hover:bg-rose-600 text-gray-400 hover:text-white flex items-center justify-center transition cursor-pointer" title="Close" style="-webkit-app-region: no-drag !important;">
+          <i class="fa-solid fa-xmark text-sm pointer-events-none"></i>
         </button>
       </div>
     </div>
@@ -1317,6 +1382,14 @@ cod: {
       // Update UI
       updatePassportModalUI();
       updatePassportHeaderBadge();
+      // Attach native window control listeners
+      const minBtn = document.getElementById('win-min-btn');
+      const maxBtn = document.getElementById('win-max-btn');
+      const closeBtn = document.getElementById('win-close-btn');
+      if (minBtn) minBtn.addEventListener('click', (e) => { e.stopPropagation(); minimizeWindow(); });
+      if (maxBtn) maxBtn.addEventListener('click', (e) => { e.stopPropagation(); maximizeWindow(); });
+      if (closeBtn) closeBtn.addEventListener('click', (e) => { e.stopPropagation(); closeWindow(); });
+
 
       alert(`✅ Successfully linked ${cfg.name}!\n\nVerified Identity: ${cfg.defaultId}\nCryptographically bound to TPM 2.0 Hardware Hash.`);
     }
@@ -1328,6 +1401,14 @@ cod: {
       localStorage.setItem('sz_linked_accounts', JSON.stringify(linked));
       updatePassportModalUI();
       updatePassportHeaderBadge();
+      // Attach native window control listeners
+      const minBtn = document.getElementById('win-min-btn');
+      const maxBtn = document.getElementById('win-max-btn');
+      const closeBtn = document.getElementById('win-close-btn');
+      if (minBtn) minBtn.addEventListener('click', (e) => { e.stopPropagation(); minimizeWindow(); });
+      if (maxBtn) maxBtn.addEventListener('click', (e) => { e.stopPropagation(); maximizeWindow(); });
+      if (closeBtn) closeBtn.addEventListener('click', (e) => { e.stopPropagation(); closeWindow(); });
+
     }
 
     function toggleManualInput(provider) {
@@ -1352,6 +1433,14 @@ cod: {
 
       updatePassportModalUI();
       updatePassportHeaderBadge();
+      // Attach native window control listeners
+      const minBtn = document.getElementById('win-min-btn');
+      const maxBtn = document.getElementById('win-max-btn');
+      const closeBtn = document.getElementById('win-close-btn');
+      if (minBtn) minBtn.addEventListener('click', (e) => { e.stopPropagation(); minimizeWindow(); });
+      if (maxBtn) maxBtn.addEventListener('click', (e) => { e.stopPropagation(); maximizeWindow(); });
+      if (closeBtn) closeBtn.addEventListener('click', (e) => { e.stopPropagation(); closeWindow(); });
+
       alert(`✅ ${name} linked: ${val}`);
     }
 
@@ -1479,6 +1568,14 @@ cod: {
 
       localStorage.setItem('sz_passport_onboarded', 'true');
       updatePassportHeaderBadge();
+      // Attach native window control listeners
+      const minBtn = document.getElementById('win-min-btn');
+      const maxBtn = document.getElementById('win-max-btn');
+      const closeBtn = document.getElementById('win-close-btn');
+      if (minBtn) minBtn.addEventListener('click', (e) => { e.stopPropagation(); minimizeWindow(); });
+      if (maxBtn) maxBtn.addEventListener('click', (e) => { e.stopPropagation(); maximizeWindow(); });
+      if (closeBtn) closeBtn.addEventListener('click', (e) => { e.stopPropagation(); closeWindow(); });
+
       closeClientPassportModal();
       alert("🏆 Game Passport Activated! Your gaming identities are verified and ready for competitive duels.");
     }
@@ -1490,6 +1587,14 @@ cod: {
       // 🆔 Force Game Passport Onboarding on first launch
       const onboarded = localStorage.getItem('sz_passport_onboarded');
       updatePassportHeaderBadge();
+      // Attach native window control listeners
+      const minBtn = document.getElementById('win-min-btn');
+      const maxBtn = document.getElementById('win-max-btn');
+      const closeBtn = document.getElementById('win-close-btn');
+      if (minBtn) minBtn.addEventListener('click', (e) => { e.stopPropagation(); minimizeWindow(); });
+      if (maxBtn) maxBtn.addEventListener('click', (e) => { e.stopPropagation(); maximizeWindow(); });
+      if (closeBtn) closeBtn.addEventListener('click', (e) => { e.stopPropagation(); closeWindow(); });
+
       if (!onboarded) {
         setTimeout(() => {
           openClientPassportModal(true); // Force first-run setup
@@ -1524,7 +1629,39 @@ cod: {
       const sideEl = document.getElementById('side-balance');
       if (sideEl) sideEl.innerText = '$0.00';
       updatePassportHeaderBadge();
+      // Attach native window control listeners
+      const minBtn = document.getElementById('win-min-btn');
+      const maxBtn = document.getElementById('win-max-btn');
+      const closeBtn = document.getElementById('win-close-btn');
+      if (minBtn) minBtn.addEventListener('click', (e) => { e.stopPropagation(); minimizeWindow(); });
+      if (maxBtn) maxBtn.addEventListener('click', (e) => { e.stopPropagation(); maximizeWindow(); });
+      if (closeBtn) closeBtn.addEventListener('click', (e) => { e.stopPropagation(); closeWindow(); });
+
       alert('🧪 [TEST SANDBOX]: Test state reset.');
+    }
+
+
+    // =========================================================================
+    // 🪟 NATIVE WINDOW CONTROLS (MINIMIZE, MAXIMIZE, CLOSE)
+    // =========================================================================
+    function minimizeWindow() {
+      if (window.electronAPI && typeof window.electronAPI.minimize === 'function') {
+        window.electronAPI.minimize();
+      }
+    }
+
+    function maximizeWindow() {
+      if (window.electronAPI && typeof window.electronAPI.maximize === 'function') {
+        window.electronAPI.maximize();
+      }
+    }
+
+    function closeWindow() {
+      if (window.electronAPI && typeof window.electronAPI.close === 'function') {
+        window.electronAPI.close();
+      } else {
+        window.close();
+      }
     }
 
 </script>
