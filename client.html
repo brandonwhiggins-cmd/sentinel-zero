@@ -59,6 +59,12 @@
     ::-webkit-scrollbar-thumb:hover {
       background: #10b981;
     }
+    header {
+      -webkit-app-region: drag;
+    }
+    button, a, input, select, .no-drag {
+      -webkit-app-region: no-drag;
+    }
   </style>
 </head>
 <body class="h-full flex flex-col font-sans antialiased text-sm">
@@ -121,7 +127,7 @@
       </div>
 
       <!-- User Badge -->
-      <div class="flex items-center gap-2 pl-2 border-l border-client-border cursor-pointer">
+      <div class="flex items-center gap-2 pl-2 border-l border-client-border cursor-pointer no-drag">
         <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-amber-500 to-yellow-400 flex items-center justify-center text-slate-950 text-xs font-black">
           <i class="fa-solid fa-crown"></i>
         </div>
@@ -130,6 +136,20 @@
           <div class="text-[9px] font-mono text-amber-300 font-bold">👑 FOUNDER VIP</div>
         </div>
       </div>
+
+      <!-- 🪟 Custom Frameless Window Controls (Discord / Riot Style) -->
+      <div class="flex items-center no-drag ml-2 pl-2 border-l border-client-border space-x-1">
+        <button onclick="minimizeWindow()" class="w-7 h-7 rounded-lg hover:bg-slate-800 text-gray-400 hover:text-white flex items-center justify-center transition" title="Minimize">
+          <i class="fa-solid fa-minus text-[11px]"></i>
+        </button>
+        <button onclick="maximizeWindow()" class="w-7 h-7 rounded-lg hover:bg-slate-800 text-gray-400 hover:text-white flex items-center justify-center transition" title="Maximize">
+          <i class="fa-regular fa-square text-[11px]"></i>
+        </button>
+        <button onclick="closeWindow()" class="w-7 h-7 rounded-lg hover:bg-rose-500/20 text-gray-400 hover:text-rose-400 flex items-center justify-center transition" title="Close">
+          <i class="fa-solid fa-xmark text-xs"></i>
+        </button>
+      </div>
+
     </div>
   </header>
 
@@ -566,6 +586,27 @@
     window.addEventListener('DOMContentLoaded', () => {
       renderLobbies();
     });
+  
+    function minimizeWindow() {
+      if (window.electronAPI && window.electronAPI.minimize) {
+        window.electronAPI.minimize();
+      }
+    }
+
+    function maximizeWindow() {
+      if (window.electronAPI && window.electronAPI.maximize) {
+        window.electronAPI.maximize();
+      }
+    }
+
+    function closeWindow() {
+      if (window.electronAPI && window.electronAPI.close) {
+        window.electronAPI.close();
+      } else {
+        window.close();
+      }
+    }
+
   </script>
 </body>
 </html>
