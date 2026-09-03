@@ -112,6 +112,11 @@
         <span class="whitespace-nowrap">Anti-Cheat: KERNEL ACTIVE</span>
       </div>
       <span class="text-gray-600 shrink-0">&bull;</span>
+      <div class="flex items-center gap-1.5 text-amber-400 font-semibold whitespace-nowrap shrink-0" title="Live Auto-Syncing with Sentinel Zero Cloud Sandbox">
+        <i class="fa-solid fa-cloud text-xs shrink-0 text-amber-400 animate-pulse"></i>
+        <span class="whitespace-nowrap text-amber-300">Cloud Sync: LIVE (TEST)</span>
+      </div>
+      <span class="text-gray-600 shrink-0">&bull;</span>
       <div class="flex items-center gap-1.5 text-cyan-400 font-semibold whitespace-nowrap shrink-0">
         <i class="fa-solid fa-wifi text-xs shrink-0"></i>
         <span id="client-latency" class="whitespace-nowrap">US-East: 12ms</span>
@@ -141,12 +146,15 @@
       </div>
 
       <!-- User Badge -->
-      <div class="flex items-center gap-2 pl-2 border-l border-client-border cursor-pointer no-drag">
-        <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-amber-500 to-yellow-400 flex items-center justify-center text-slate-950 text-xs font-black">
+      <div class="flex items-center gap-2 pl-2 border-l border-client-border cursor-pointer no-drag group" onclick="openGamerTagPrompt()" title="Click to choose or edit your GamerTag">
+        <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-amber-500 to-yellow-400 flex items-center justify-center text-slate-950 text-xs font-black group-hover:scale-105 transition shadow-sm">
           <i class="fa-solid fa-crown"></i>
         </div>
         <div class="text-left leading-tight hidden sm:block">
-          <div class="text-xs font-bold text-white" id="client-username">@SknotRockIt</div>
+          <div class="flex items-center gap-1.5">
+            <span class="text-xs font-bold text-white group-hover:text-amber-300 transition" id="client-username">@Operative</span>
+            <i class="fa-solid fa-pen text-[8px] text-gray-500 group-hover:text-amber-400 transition"></i>
+          </div>
           <div class="text-[9px] font-mono text-amber-300 font-bold">👑 FOUNDER VIP</div>
         </div>
       </div>
@@ -1567,7 +1575,20 @@ cod: {
     }
 
     function copyReferralLink() {
-      const refUrl = "https://www.sentinelzero.gg/?ref=sknotrockit";
+      let myTag = 'operative';
+      try {
+        const userStr = localStorage.getItem('sz_user');
+        if (userStr) {
+          const u = JSON.parse(userStr);
+          if (u.username) myTag = u.username.toLowerCase();
+        } else {
+          const userEl = document.getElementById('client-username');
+          if (userEl && userEl.innerText) {
+            myTag = userEl.innerText.replace('@', '').toLowerCase();
+          }
+        }
+      } catch(e) {}
+      const refUrl = `https://www.sentinelzero.gg/?ref=${encodeURIComponent(myTag)}`;
       navigator.clipboard.writeText(refUrl).then(() => {
         const textEl = document.getElementById('ref-copy-text');
         if (textEl) {
@@ -2104,16 +2125,43 @@ cod: {
       initializeClientRuntime();
     }
   
-    // Check for active founder token or custom chosen GamerTag
-    function checkClientFounderUser() {
+    // Prompt to choose or edit GamerTag
+    function openGamerTagPrompt() {
+      const userEl = document.getElementById('client-username');
+      const current = userEl ? userEl.innerText.replace('@', '') : '';
+      const promptVal = current === 'Operative' ? '' : current;
+      const newTag = prompt("Choose your Sentinel Zero GamerTag / Callsign:", promptVal);
+      if (newTag && newTag.trim()) {
+        const clean = newTag.trim().replace(/^@/, '');
+        const userObj = { username: clean, email: `${clean.toLowerCase()}@founder.sentinelzero.gg`, role: 'Founder VIP' };
+        localStorage.setItem('sz_user', JSON.stringify(userObj));
+        if (userEl) userEl.innerText = '@' + clean;
+      }
+    }
+
+    // Check for active founder token, custom chosen GamerTag, or hardware-detected tag
+    async function checkClientFounderUser() {
       try {
-        const userStr = localStorage.getItem('sz_user') || localStorage.getItem('sz_registered_user');
         const userEl = document.getElementById('client-username');
+        const userStr = localStorage.getItem('sz_user') || localStorage.getItem('sz_registered_user');
         if (userStr) {
           const u = JSON.parse(userStr);
           if (u.username && userEl) {
             userEl.innerText = '@' + u.username;
+            return;
           }
+        }
+        // Auto-detect local machine gamertags in desktop Electron runtime
+        if (window.electronAPI && typeof window.electronAPI.detectGamertags === 'function') {
+          const detected = await window.electronAPI.detectGamertags() || {};
+          const localTag = (detected.xbox && detected.xbox.gamertag) || (detected.steam && detected.steam.gamertag);
+          if (localTag && userEl) {
+            userEl.innerText = '@' + localTag;
+            return;
+          }
+        }
+        if (userEl && (!userEl.innerText || userEl.innerText === '@SknotRockIt')) {
+          userEl.innerText = '@Operative';
         }
       } catch(e) {}
     }
