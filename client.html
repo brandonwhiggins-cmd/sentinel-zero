@@ -1773,6 +1773,79 @@ cod: {
     // =========================================================================
     // 🚀 FAIL-SAFE STARTUP & INITIALIZATION (FIRES IMMEDIATELY)
     // =========================================================================
+    // =========================================================================
+    // 🪟 NATIVE & UNIVERSAL WINDOW CONTROLS
+    // =========================================================================
+    function minimizeWindow() {
+      if (window.electronAPI && typeof window.electronAPI.minimize === 'function') {
+        window.electronAPI.minimize();
+      }
+    }
+
+    function maximizeWindow() {
+      if (window.electronAPI && typeof window.electronAPI.maximize === 'function') {
+        window.electronAPI.maximize();
+        return;
+      }
+      try {
+        if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+          if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen();
+          } else if (document.documentElement.webkitRequestFullscreen) {
+            document.documentElement.webkitRequestFullscreen();
+          }
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+          }
+        }
+      } catch (e) {
+        console.error("Fullscreen toggle error:", e);
+      }
+    }
+
+    function closeWindow() {
+      if (window.electronAPI && typeof window.electronAPI.close === 'function') {
+        window.electronAPI.close();
+      } else {
+        window.close();
+      }
+    }
+
+    // =========================================================================
+    // 🧪 MASTER FACTORY RESET (DAY-ZERO PURGE & ONBOARDING TRIGGER)
+    // =========================================================================
+    function masterFactoryReset() {
+      try {
+        localStorage.clear();
+        sessionStorage.clear();
+      } catch (e) {
+        console.error("Storage clear error:", e);
+      }
+
+      const bEl = document.getElementById('client-balance');
+      if (bEl) bEl.innerText = '$0.00';
+      const sEl = document.getElementById('side-balance');
+      if (sEl) sEl.innerText = '$0.00';
+
+      updatePassportHeaderBadge();
+      updatePassportModalUI();
+
+      openClientPassportModal(true);
+
+      const existingToast = document.getElementById('sz-reset-toast');
+      if (existingToast) existingToast.remove();
+
+      const toast = document.createElement('div');
+      toast.id = 'sz-reset-toast';
+      toast.className = 'fixed top-16 right-6 bg-gradient-to-r from-rose-600 to-amber-600 text-white px-5 py-3 rounded-2xl font-black text-xs shadow-2xl z-[100] border-2 border-rose-400/60 flex items-center gap-2.5 animate-bounce';
+      toast.innerHTML = '<i class="fa-solid fa-arrows-rotate text-sm"></i><span>MASTER RESET COMPLETE • Day-Zero Onboarding Active!</span>';
+      document.body.appendChild(toast);
+      setTimeout(() => { if (toast.parentNode) toast.remove(); }, 4500);
+    }
+
     function initializeClientRuntime() {
       try {
         selectGame('cs2');
