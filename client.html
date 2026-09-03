@@ -172,10 +172,14 @@
     <!-- PANEL 1: LEFT GAME NAV RAIL -->
     <aside class="w-72 bg-client-sidebar border-r border-client-border flex flex-col justify-between shrink-0">
       <div class="p-3 space-y-4 overflow-y-auto">
+                <!-- 🟢 2 ACTIVE TOURNAMENT TITLES (LIVE NOW) -->
         <div>
-          <div class="text-[10px] font-mono uppercase tracking-wider text-gray-400 font-bold px-3 mb-2 flex items-center justify-between">
-            <span>Verified Anchor Games</span>
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          <div class="text-[10px] font-mono uppercase tracking-wider text-emerald-400 font-bold px-3 mb-2 flex items-center justify-between">
+            <span class="flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span>Active Beta (Live Now)</span>
+            </span>
+            <span class="text-[9px] font-mono bg-emerald-500/20 text-emerald-300 px-1.5 py-0.2 rounded font-bold">2 ACTIVE</span>
           </div>
           <div class="space-y-1">
             <button onclick="selectGame('cs2')" id="nav-cs2" class="w-full px-3 py-2.5 rounded-xl bg-emerald-500/15 border border-emerald-500/40 text-white font-bold flex items-center justify-between text-xs transition">
@@ -183,7 +187,7 @@
                 <i class="fa-solid fa-crosshairs text-emerald-400 text-sm shrink-0"></i>
                 <span class="truncate font-bold text-white">Counter-Strike 2</span>
               </div>
-              <span class="text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap">AIM 1v1</span>
+              <span class="text-[9px] font-mono font-black bg-emerald-500 text-slate-950 px-2 py-0.5 rounded-full shrink-0 uppercase tracking-wider shadow-sm">● LIVE</span>
             </button>
 
             <button onclick="selectGame('siege')" id="nav-siege" class="w-full px-3 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-client-card font-bold flex items-center justify-between text-xs transition">
@@ -191,79 +195,112 @@
                 <i class="fa-solid fa-shield-halved text-blue-400 text-sm shrink-0"></i>
                 <span class="truncate font-bold">Rainbow Six Siege</span>
               </div>
-              <span class="text-[10px] font-mono text-gray-400 bg-slate-800/80 px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap">CQB 1v1</span>
-            </button>
-
-            <button onclick="selectGame('rl')" id="nav-rl" class="w-full px-3 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-client-card font-bold flex items-center justify-between text-xs transition">
-              <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
-                <i class="fa-solid fa-car text-cyan-400 text-sm shrink-0"></i>
-                <span class="truncate font-bold">Rocket League</span>
-              </div>
-              <span class="text-[10px] font-mono text-gray-400 bg-slate-800/80 px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap">SOCCAR</span>
-            </button>
-
-            <button onclick="selectGame('rust')" id="nav-rust" class="w-full px-3 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-client-card font-bold flex items-center justify-between text-xs transition">
-              <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
-                <i class="fa-solid fa-fire text-amber-500 text-sm shrink-0"></i>
-                <span class="truncate font-bold">Rust</span>
-              </div>
-              <span class="text-[10px] font-mono text-gray-400 bg-slate-800/80 px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap">AK-47</span>
-            </button>
-
-            <button onclick="selectGame('cod')" id="nav-cod" class="w-full px-3 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-client-card font-bold flex items-center justify-between text-xs transition">
-              <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
-                <i class="fa-solid fa-crosshairs text-orange-400 text-sm shrink-0"></i>
-                <span class="truncate font-bold">Call of Duty (MP/CDL)</span>
-              </div>
-              <span class="text-[10px] font-mono text-gray-400 bg-slate-800/80 px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap">CDL RULES</span>
-            </button>
-
-            <button onclick="selectGame('warzone')" id="nav-warzone" class="w-full px-3 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-client-card font-bold flex items-center justify-between text-xs transition">
-              <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
-                <i class="fa-solid fa-person-rifle text-emerald-400 text-sm shrink-0"></i>
-                <span class="truncate font-bold">Warzone (BR/Resurgence)</span>
-              </div>
-              <span class="text-[10px] font-mono text-gray-400 bg-slate-800/80 px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap">RESURGENCE</span>
+              <span class="text-[9px] font-mono font-black bg-emerald-500 text-slate-950 px-2 py-0.5 rounded-full shrink-0 uppercase tracking-wider shadow-sm">● LIVE</span>
             </button>
           </div>
         </div>
 
+        <!-- 🟡 12 SEASON 1 ROSTER TITLES (COMING SOON) -->
         <div>
           <div class="text-[10px] font-mono uppercase tracking-wider text-gray-400 font-bold px-3 mb-2 flex items-center justify-between">
-            <span>Expanded Roster</span>
-            <span class="text-[9px] font-mono text-gray-500">Multi-Store</span>
+            <span>Season 1 Roster</span>
+            <span class="text-[9px] font-mono bg-amber-500/15 text-amber-300 border border-amber-500/30 px-1.5 py-0.2 rounded font-bold">12 COMING SOON</span>
           </div>
           <div class="space-y-1">
-            <button onclick="selectGame('apex')" id="nav-apex" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
-              <div class="flex items-center gap-2 min-w-0 flex-1 pr-2">
-                <i class="fa-solid fa-jet-fighter text-orange-400 text-xs shrink-0"></i>
-                <span class="truncate font-bold">Apex Legends</span>
+            <button onclick="selectGame('cod')" id="nav-cod" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
+              <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
+                <i class="fa-solid fa-crosshairs text-orange-400 text-xs shrink-0"></i>
+                <span class="truncate">Call of Duty (MP/CDL)</span>
               </div>
-              <span class="text-[10px] font-mono text-gray-400 bg-slate-800/80 px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap">FIRING 1v1</span>
+              <span class="text-[9px] font-mono text-amber-400/80 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shrink-0">SOON</span>
+            </button>
+
+            <button onclick="selectGame('warzone')" id="nav-warzone" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
+              <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
+                <i class="fa-solid fa-person-rifle text-emerald-400 text-xs shrink-0"></i>
+                <span class="truncate">Warzone (BR/Resurgence)</span>
+              </div>
+              <span class="text-[9px] font-mono text-amber-400/80 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shrink-0">SOON</span>
+            </button>
+
+            <button onclick="selectGame('rl')" id="nav-rl" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
+              <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
+                <i class="fa-solid fa-car text-cyan-400 text-xs shrink-0"></i>
+                <span class="truncate">Rocket League</span>
+              </div>
+              <span class="text-[9px] font-mono text-amber-400/80 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shrink-0">SOON</span>
+            </button>
+
+            <button onclick="selectGame('rust')" id="nav-rust" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
+              <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
+                <i class="fa-solid fa-fire text-amber-500 text-xs shrink-0"></i>
+                <span class="truncate">Rust (Aim Train)</span>
+              </div>
+              <span class="text-[9px] font-mono text-amber-400/80 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shrink-0">SOON</span>
+            </button>
+
+            <button onclick="selectGame('apex')" id="nav-apex" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
+              <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
+                <i class="fa-solid fa-jet-fighter text-orange-400 text-xs shrink-0"></i>
+                <span class="truncate">Apex Legends</span>
+              </div>
+              <span class="text-[9px] font-mono text-amber-400/80 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shrink-0">SOON</span>
             </button>
 
             <button onclick="selectGame('fc25')" id="nav-fc25" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
-              <div class="flex items-center gap-2 min-w-0 flex-1 pr-2">
+              <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
                 <i class="fa-solid fa-futbol text-emerald-400 text-xs shrink-0"></i>
-                <span class="truncate font-bold">EA Sports FC 25</span>
+                <span class="truncate">EA Sports FC 25</span>
               </div>
-              <span class="text-[10px] font-mono text-gray-400 bg-slate-800/80 px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap">FUT 1v1</span>
+              <span class="text-[9px] font-mono text-amber-400/80 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shrink-0">SOON</span>
             </button>
 
             <button onclick="selectGame('nba2k')" id="nav-nba2k" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
-              <div class="flex items-center gap-2 min-w-0 flex-1 pr-2">
+              <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
                 <i class="fa-solid fa-basketball text-amber-500 text-xs shrink-0"></i>
-                <span class="truncate font-bold">NBA 2K25</span>
+                <span class="truncate">NBA 2K25</span>
               </div>
-              <span class="text-[10px] font-mono text-gray-400 bg-slate-800/80 px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap">FUT 1v1</span>
+              <span class="text-[9px] font-mono text-amber-400/80 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shrink-0">SOON</span>
             </button>
 
             <button onclick="selectGame('tarkov')" id="nav-tarkov" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
-              <div class="flex items-center gap-2 min-w-0 flex-1 pr-2">
+              <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
                 <i class="fa-solid fa-crosshairs text-stone-400 text-xs shrink-0"></i>
-                <span class="truncate font-bold">Escape from Tarkov</span>
+                <span class="truncate">Escape from Tarkov</span>
               </div>
-              <span class="text-[10px] font-mono text-gray-400 bg-slate-800/80 px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap">FACTORY</span>
+              <span class="text-[9px] font-mono text-amber-400/80 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shrink-0">SOON</span>
+            </button>
+
+            <button onclick="selectGame('fortnite')" id="nav-fortnite" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
+              <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
+                <i class="fa-solid fa-cube text-purple-400 text-xs shrink-0"></i>
+                <span class="truncate">Fortnite</span>
+              </div>
+              <span class="text-[9px] font-mono text-amber-400/80 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shrink-0">SOON</span>
+            </button>
+
+            <button onclick="selectGame('overwatch')" id="nav-overwatch" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
+              <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
+                <i class="fa-solid fa-circle-dot text-amber-400 text-xs shrink-0"></i>
+                <span class="truncate">Overwatch 2</span>
+              </div>
+              <span class="text-[9px] font-mono text-amber-400/80 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shrink-0">SOON</span>
+            </button>
+
+            <button onclick="selectGame('valorant')" id="nav-valorant" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
+              <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
+                <i class="fa-solid fa-fist-raised text-rose-400 text-xs shrink-0"></i>
+                <span class="truncate">Valorant</span>
+              </div>
+              <span class="text-[9px] font-mono text-amber-400/80 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shrink-0">SOON</span>
+            </button>
+
+            <button onclick="selectGame('madden')" id="nav-madden" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
+              <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
+                <i class="fa-solid fa-football text-yellow-500 text-xs shrink-0"></i>
+                <span class="truncate">Madden NFL 25</span>
+              </div>
+              <span class="text-[9px] font-mono text-amber-400/80 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shrink-0">SOON</span>
             </button>
           </div>
         </div>
@@ -302,7 +339,8 @@
             </p>
           </div>
 
-          <!-- Queue Match Type Selector Chips -->
+          <div id="arena-active-controls">
+<!-- Queue Match Type Selector Chips -->
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
             <button onclick="selectQueueTier(0, this)" id="tier-btn-0" class="queue-btn p-3.5 rounded-2xl bg-client-bg border border-client-border text-left hover:border-emerald-500/50 transition">
               <div class="text-[10px] font-mono text-gray-400 uppercase">Casual Clean Duel</div>
@@ -343,6 +381,33 @@
             <div id="banner-store-pills" class="flex items-center gap-1.5 flex-wrap">
               <!-- Populated dynamically via JS -->
             </div>
+</div>
+          <!-- 🟡 COMING SOON OVERLAY BANNER FOR 12 ROSTER TITLES -->
+          <div id="arena-coming-soon-banner" class="hidden pt-4">
+            <div class="p-6 rounded-2xl bg-[#0c1424]/90 border border-amber-500/30 text-center space-y-4 shadow-xl">
+              <div class="w-12 h-12 mx-auto rounded-2xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-300 text-xl shadow-[0_0_15px_rgba(245,158,11,0.2)]">
+                <i class="fa-solid fa-clock"></i>
+              </div>
+              <div class="space-y-1">
+                <div class="text-sm font-black text-white tracking-wider uppercase">
+                  <span id="coming-soon-game-name">Title</span> &bull; RELEASING IN SEASON 1
+                </div>
+                <p class="text-xs text-gray-400 max-w-lg mx-auto leading-relaxed">
+                  Hardware attestation and competitive 1v1 escrow rulesets are currently being calibrated. Live matchmaking is active for <strong>Counter-Strike 2</strong> and <strong>Rainbow Six Siege</strong>.
+                </p>
+              </div>
+              <div class="flex items-center justify-center gap-3 pt-1">
+                <button onclick="preRegisterTitle(CLIENT_GAMES[activeGame].name)" class="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-[0_0_20px_rgba(245,158,11,0.35)] flex items-center gap-2">
+                  <i class="fa-solid fa-bell"></i>
+                  <span>Pre-Register for Priority Access</span>
+                </button>
+                <button onclick="selectGame('cs2')" class="px-5 py-3 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 text-emerald-300 font-bold text-xs transition flex items-center gap-1.5">
+                  <i class="fa-solid fa-arrow-right"></i>
+                  <span>Play CS2 Now</span>
+                </button>
+              </div>
+            </div>
+          </div>
           </div>
         </div>
       </div>
@@ -548,8 +613,13 @@
 
     // MASTER GAME DEFINITIONS & MULTI-PLATFORM LAUNCH REGISTRY
     const CLIENT_GAMES = {
+      // =========================================================================
+      // 🟢 2 ACTIVE TOURNAMENT ANCHOR GAMES (LIVE NOW)
+      // =========================================================================
       cs2: {
+        id: 'cs2',
         name: 'Counter-Strike 2',
+        status: 'live',
         modeBadge: 'OFFICIAL 1v1 AIM DUEL ARENA • 128-TICK',
         desc: '128-tick private aim duels with MR12 competitive ruleset. Verified clean memory attestation with automated Steam auto-launch.',
         bannerBtn: { label: 'Launch Steam', icon: 'fa-brands fa-steam', uri: 'steam://rungameid/730' },
@@ -561,7 +631,9 @@
         lobbies: []
       },
       siege: {
+        id: 'siege',
         name: 'Rainbow Six Siege',
+        status: 'live',
         modeBadge: 'TACTICAL 1v1 CQB ARENA • HOUSE / CLUBHOUSE',
         desc: 'Close-quarters 1v1 duels on House & Clubhouse. Verified recoil attestation with direct Steam & Ubisoft Connect launch.',
         bannerBtn: { label: 'Launch Siege', icon: 'fa-solid fa-gamepad', uri: 'steam://rungameid/359550' },
@@ -574,36 +646,16 @@
         ],
         lobbies: []
       },
-      rl: {
-        name: 'Rocket League',
-        modeBadge: 'OFFICIAL 1v1 SOCCAR DUEL • DFH STADIUM',
-        desc: '1v1 Soccar competitive duels on DFH Stadium. Instant party code lobby invites with Epic Games and Steam support.',
-        bannerBtn: { label: 'Launch Rocket League', icon: 'fa-solid fa-bolt', uri: 'com.epicgames.launcher://apps/Sugar?action=launch&silent=true' },
-        defaultLauncher: 'epic',
-        connect_code: 'Name: SZ-ROCKET-9042 | Pass: 778',
-        launchers: [
-          { id: 'epic', label: 'Epic Games (Default)', icon: 'fa-solid fa-bolt', uri: 'com.epicgames.launcher://apps/Sugar?action=launch&silent=true' },
-          { id: 'steam', label: 'Steam (Legacy)', icon: 'fa-brands fa-steam', uri: 'steam://rungameid/252950' }
-        ],
-        lobbies: []
-      },
-      rust: {
-        name: 'Rust (Aim Train)',
-        modeBadge: 'AK-47 COMBAT DUEL ARENA • UKN RULES',
-        desc: 'AK-47 spray control & recoil aim battles on private UKN-style combat servers with automated server connect.',
-        bannerBtn: { label: 'Launch Rust on Steam', icon: 'fa-brands fa-steam', uri: 'steam://rungameid/252490' },
-        defaultLauncher: 'steam',
-        connect_code: 'client.connect 142.250.78.12:28015',
-        launchers: [
-          { id: 'steam', label: 'Steam (AppID 252490)', icon: 'fa-brands fa-steam', uri: 'steam://rungameid/252490' }
-        ],
-        lobbies: []
-      },
+
+      // =========================================================================
+      // 🟡 12 EXPANDED ROSTER TITLES (COMING SOON IN SEASON 1)
+      // =========================================================================
       cod: {
+        id: 'cod',
         name: 'Call of Duty (MP / CDL)',
-        modeBadge: 'OFFICIAL 1v1 SEARCH & DESTROY / GUNFIGHT ARENA',
-        desc: '1v1 Radar-On Search & Destroy & Gunfight duels on Karachi, Rio, and Rust. Official CDL competitive ruleset with verified anti-recoil hardware attestation.',
-        bannerBtn: { label: 'Launch via Battle.net', icon: 'fa-solid fa-shield', uri: 'battlenet://launch/ODIN' },
+        status: 'coming_soon',
+        modeBadge: 'COMING SOON • 1v1 SEARCH & DESTROY / GUNFIGHT',
+        desc: '1v1 Radar-On Search & Destroy & Gunfight duels on Karachi, Rio, and Rust under official CDL rulesets. Releasing in Season 1 rollout.',
         defaultLauncher: 'bnet',
         connect_code: 'Whisper Activision ID: SentinelCDL#1904',
         launchers: [
@@ -614,10 +666,11 @@
         lobbies: []
       },
       warzone: {
+        id: 'warzone',
         name: 'Call of Duty: Warzone',
-        modeBadge: 'HIGH-STAKES 2v2 KILL RACE & REBIRTH DUELS',
-        desc: '2v2 Kill Races & Rebirth Island wager drops. Verified hardware attestation and automated score tracking with Battle.net, Steam, and Xbox PC.',
-        bannerBtn: { label: 'Launch via Battle.net', icon: 'fa-solid fa-shield', uri: 'battlenet://launch/ODIN' },
+        status: 'coming_soon',
+        modeBadge: 'COMING SOON • 2v2 KILL RACE & REBIRTH DUELS',
+        desc: '2v2 Kill Races & Rebirth Island wager drops with automated kill tracking and hardware attestation. Releasing in Season 1 rollout.',
         defaultLauncher: 'bnet',
         connect_code: 'Warzone Party Invite: SentinelWZ#1904',
         launchers: [
@@ -627,11 +680,39 @@
         ],
         lobbies: []
       },
+      rl: {
+        id: 'rl',
+        name: 'Rocket League',
+        status: 'coming_soon',
+        modeBadge: 'COMING SOON • 1v1 SOCCAR DUEL',
+        desc: '1v1 Soccar competitive duels on DFH Stadium. Instant party code lobby invites with Epic Games and Steam support.',
+        defaultLauncher: 'epic',
+        connect_code: 'Name: SZ-ROCKET-9042 | Pass: 778',
+        launchers: [
+          { id: 'epic', label: 'Epic Games (Default)', icon: 'fa-solid fa-bolt', uri: 'com.epicgames.launcher://apps/Sugar?action=launch&silent=true' },
+          { id: 'steam', label: 'Steam (Legacy)', icon: 'fa-brands fa-steam', uri: 'steam://rungameid/252950' }
+        ],
+        lobbies: []
+      },
+      rust: {
+        id: 'rust',
+        name: 'Rust (Aim Train)',
+        status: 'coming_soon',
+        modeBadge: 'COMING SOON • AK-47 COMBAT DUEL ARENA',
+        desc: 'AK-47 spray control & recoil aim battles on private UKN-style combat servers with automated server connect.',
+        defaultLauncher: 'steam',
+        connect_code: 'client.connect 142.250.78.12:28015',
+        launchers: [
+          { id: 'steam', label: 'Steam (AppID 252490)', icon: 'fa-brands fa-steam', uri: 'steam://rungameid/252490' }
+        ],
+        lobbies: []
+      },
       apex: {
+        id: 'apex',
         name: 'Apex Legends',
-        modeBadge: '1v1 FIRING RANGE COMBAT ARENA',
+        status: 'coming_soon',
+        modeBadge: 'COMING SOON • 1v1 FIRING RANGE COMBAT',
         desc: '1v1 Firing Range duels with Red Shields, Wingman & R-99 ground loot. Verified zero-recoil macros attestation.',
-        bannerBtn: { label: 'Launch Apex on Steam', icon: 'fa-brands fa-steam', uri: 'steam://rungameid/1172470' },
         defaultLauncher: 'steam',
         connect_code: 'Firing Range Code: #SZ-APEX-110',
         launchers: [
@@ -641,24 +722,25 @@
         lobbies: []
       },
       fc25: {
+        id: 'fc25',
         name: 'EA Sports FC 25',
-        modeBadge: 'FUT CHAMPIONS 1v1 COMPETITIVE DUEL',
+        status: 'coming_soon',
+        modeBadge: 'COMING SOON • FUT CHAMPIONS 1v1 DUEL',
         desc: 'Competitive 90-minute FUT Champions duels with Golden Goal option. Instant gamertag matchmaking with EA App & Steam.',
-        bannerBtn: { label: 'Launch EA Sports FC 25', icon: 'fa-solid fa-play', uri: 'steam://rungameid/2669320' },
         defaultLauncher: 'steam',
         connect_code: 'FUT Online Friendlies: SentinelFC_Lobby',
         launchers: [
           { id: 'steam', label: 'Steam (AppID 2669320)', icon: 'fa-brands fa-steam', uri: 'steam://rungameid/2669320' },
-          { id: 'ea', label: 'EA App (Origin)', icon: 'fa-solid fa-play', uri: 'origin2://game/launch?offerIds=1028757' },
-          { id: 'epic', label: 'Epic Games', icon: 'fa-solid fa-bolt', uri: 'com.epicgames.launcher://apps/FC25?action=launch&silent=true' }
+          { id: 'ea', label: 'EA App (Origin)', icon: 'fa-solid fa-play', uri: 'origin2://game/launch?offerIds=1028757' }
         ],
         lobbies: []
       },
       nba2k: {
+        id: 'nba2k',
         name: 'NBA 2K25',
-        modeBadge: 'ANTE-UP 1v1 BLACKTOP ARENA',
+        status: 'coming_soon',
+        modeBadge: 'COMING SOON • ANTE-UP 1v1 BLACKTOP',
         desc: 'High-stakes Ante-Up 1v1 blacktop court duels to 21 points. Verified green-meter macro attestation with Steam.',
-        bannerBtn: { label: 'Launch NBA 2K25', icon: 'fa-brands fa-steam', uri: 'steam://rungameid/2878980' },
         defaultLauncher: 'steam',
         connect_code: 'GamerTag Invite: Sentinel2K_Match',
         launchers: [
@@ -667,14 +749,69 @@
         lobbies: []
       },
       tarkov: {
+        id: 'tarkov',
         name: 'Escape from Tarkov',
-        modeBadge: 'PMC FACTORY CLEAN SCRIM ARENA',
+        status: 'coming_soon',
+        modeBadge: 'COMING SOON • PMC FACTORY CLEAN SCRIM',
         desc: 'Private Factory & Customs 1v1 PMC extraction duels. Verified non-invasive memory attestation with BSG Launcher.',
-        bannerBtn: { label: 'Launch BSG Launcher', icon: 'fa-solid fa-crosshairs', uri: 'bsglauncher://' },
         defaultLauncher: 'bsg',
         connect_code: 'Lobby Room: #SZ-FACTORY-01 | Key: 9021',
         launchers: [
           { id: 'bsg', label: 'BSG Launcher (Official)', icon: 'fa-solid fa-crosshairs', uri: 'bsglauncher://' }
+        ],
+        lobbies: []
+      },
+      fortnite: {
+        id: 'fortnite',
+        name: 'Fortnite',
+        status: 'coming_soon',
+        modeBadge: 'COMING SOON • 1v1 SPEED BUILD & BOX FIGHT',
+        desc: '1v1 Box Fights & Speed Realistics on custom tournament maps. Verified anti-macro attestation with Epic Games.',
+        defaultLauncher: 'epic',
+        connect_code: 'Custom Matchmaking Key: SZ-FORTNITE-1V1',
+        launchers: [
+          { id: 'epic', label: 'Epic Games', icon: 'fa-solid fa-bolt', uri: 'com.epicgames.launcher://apps/Fortnite?action=launch&silent=true' }
+        ],
+        lobbies: []
+      },
+      overwatch: {
+        id: 'overwatch',
+        name: 'Overwatch 2',
+        status: 'coming_soon',
+        modeBadge: 'COMING SOON • 1v1 ARENA ELIMINATION',
+        desc: '1v1 Hero Duels on Antarctica & Castillo. Verified input latency & attestation with Battle.net and Steam.',
+        defaultLauncher: 'bnet',
+        connect_code: 'Custom Game Code: #SZ-OW2-DUEL',
+        launchers: [
+          { id: 'bnet', label: 'Battle.net', icon: 'fa-solid fa-shield', uri: 'battlenet://launch/Pro' },
+          { id: 'steam', label: 'Steam (AppID 2357570)', icon: 'fa-brands fa-steam', uri: 'steam://rungameid/2357570' }
+        ],
+        lobbies: []
+      },
+      valorant: {
+        id: 'valorant',
+        name: 'Valorant',
+        status: 'coming_soon',
+        modeBadge: 'COMING SOON • 1v1 AIM LAB ARENA',
+        desc: '1v1 Vandal & Phantom headshot duels on Ascent & Haven. Riot Vanguard hardware attestation integration for Season 1.',
+        defaultLauncher: 'riot',
+        connect_code: 'Custom Game Party: SentinelVal#NA1',
+        launchers: [
+          { id: 'riot', label: 'Riot Client', icon: 'fa-solid fa-fist-raised', uri: 'riotclient://' }
+        ],
+        lobbies: []
+      },
+      madden: {
+        id: 'madden',
+        name: 'Madden NFL 25',
+        status: 'coming_soon',
+        modeBadge: 'COMING SOON • H2H COMPETITIVE FRANCHISE',
+        desc: 'Head-to-head competitive Madden franchise duels. Verified controller input & instant escrow settlement.',
+        defaultLauncher: 'steam',
+        connect_code: 'H2H Online Invite: SentinelMadden_Lobby',
+        launchers: [
+          { id: 'steam', label: 'Steam', icon: 'fa-brands fa-steam', uri: 'steam://rungameid/2669320' },
+          { id: 'ea', label: 'EA App', icon: 'fa-solid fa-play', uri: 'origin2://' }
         ],
         lobbies: []
       }
@@ -683,10 +820,11 @@
     function selectGame(gameKey) {
       activeGame = gameKey;
       const g = CLIENT_GAMES[gameKey] || CLIENT_GAMES['cs2'];
+      const isLive = g.status === 'live';
 
       // 1. Update Active Navigation Styling
       document.querySelectorAll('aside button').forEach(b => {
-        b.className = "w-full px-3 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition";
+        b.className = "w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition";
       });
 
       const activeBtn = document.getElementById('nav-' + gameKey);
@@ -698,13 +836,37 @@
       const badgeEl = document.getElementById('arena-game-mode-badge');
       const nameEl = document.getElementById('arena-game-name');
       const descEl = document.getElementById('arena-game-desc');
+      const queueBtn = document.getElementById('client-launch-btn');
       const queueBtnLabel = document.getElementById('client-launch-label');
+      const comingSoonBanner = document.getElementById('arena-coming-soon-banner');
+      const activeControlsContainer = document.getElementById('arena-active-controls');
 
-      if (badgeEl) badgeEl.innerText = g.modeBadge;
+      if (badgeEl) {
+        if (isLive) {
+          badgeEl.innerText = g.modeBadge;
+          badgeEl.parentElement.className = "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-xs font-bold shadow-sm";
+        } else {
+          badgeEl.innerText = "SEASON 1 ESPORTS ROSTER • COMING SOON";
+          badgeEl.parentElement.className = "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 font-mono text-xs font-bold shadow-sm";
+        }
+      }
+
       if (nameEl) nameEl.innerText = g.name;
       if (descEl) descEl.innerText = g.desc;
-      if (queueBtnLabel) {
-        queueBtnLabel.innerText = `QUEUE FOR ${g.name.toUpperCase()} (${selectedWager === 0 ? 'FREE' : '$' + selectedWager + ' ESCROW'})`;
+
+      // Toggle between Live Queue Controls vs. Coming Soon Banner
+      if (isLive) {
+        if (activeControlsContainer) activeControlsContainer.classList.remove('hidden');
+        if (comingSoonBanner) comingSoonBanner.classList.add('hidden');
+        if (queueBtnLabel) {
+          queueBtnLabel.innerText = `QUEUE FOR ${g.name.toUpperCase()} (${selectedWager === 0 ? 'FREE' : '$' + selectedWager + ' ESCROW'})`;
+        }
+      } else {
+        if (activeControlsContainer) activeControlsContainer.classList.add('hidden');
+        if (comingSoonBanner) {
+          comingSoonBanner.classList.remove('hidden');
+          document.getElementById('coming-soon-game-name').innerText = g.name;
+        }
       }
 
       // 3. Render Storefront Pills (Steam / Battle.net / Xbox)
@@ -712,9 +874,17 @@
 
       // 4. Update Radar Header & Render Title Lobbies
       const radarTitle = document.getElementById('radar-title');
-      if (radarTitle) radarTitle.innerText = `Active ${g.name} Match Radar`;
+      if (radarTitle) {
+        radarTitle.innerText = isLive 
+          ? `Active ${g.name} Match Radar`
+          : `${g.name} (Season 1 Waitlist Active)`;
+      }
 
       renderLobbies();
+    }
+
+    function preRegisterTitle(gameName) {
+      alert(`🔔 SUCCESS: You are on the priority waitlist for ${gameName}! You will receive instant attestation notice when matchmaking unlocks.`);
     }
 
     function renderBannerStorePills(g) {
