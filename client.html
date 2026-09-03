@@ -9,40 +9,7 @@
   <title>Sentinel Zero | Competitive Esports Client</title>
 
   <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com">
-    // =========================================================================
-    // 🪟 BULLETPROOF WINDOW CONTROLS (ELECTRON NATIVE + BROWSER FALLBACK)
-    // =========================================================================
-    function minimizeWindow() {
-      if (window.electronAPI && typeof window.electronAPI.minimize === 'function') {
-        window.electronAPI.minimize();
-      }
-    }
-
-    function maximizeWindow() {
-      if (window.electronAPI && typeof window.electronAPI.maximize === 'function') {
-        window.electronAPI.maximize();
-      } else {
-        // Browser Fullscreen API Fallback
-        try {
-          if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen().catch(() => {});
-          } else {
-            document.exitFullscreen().catch(() => {});
-          }
-        } catch (e) {}
-      }
-    }
-
-    function closeWindow() {
-      if (window.electronAPI && typeof window.electronAPI.close === 'function') {
-        window.electronAPI.close();
-      } else {
-        window.close();
-      }
-    }
-
-</script>
+  
   <!-- FontAwesome Pro Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <!-- Fonts -->
@@ -50,63 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'monospace'],
-          },
-          colors: {
-            client: {
-              bg: '#070a10',
-              sidebar: '#0b0f19',
-              card: '#0f1626',
-              border: '#1b253b',
-              accent: '#10b981',
-              amber: '#f59e0b',
-              cyan: '#06b6d4',
-            }
-          }
-        }
-      }
-    }
   
-    // =========================================================================
-    // 🪟 BULLETPROOF WINDOW CONTROLS (ELECTRON NATIVE + BROWSER FALLBACK)
-    // =========================================================================
-    function minimizeWindow() {
-      if (window.electronAPI && typeof window.electronAPI.minimize === 'function') {
-        window.electronAPI.minimize();
-      }
-    }
-
-    function maximizeWindow() {
-      if (window.electronAPI && typeof window.electronAPI.maximize === 'function') {
-        window.electronAPI.maximize();
-      } else {
-        // Browser Fullscreen API Fallback
-        try {
-          if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen().catch(() => {});
-          } else {
-            document.exitFullscreen().catch(() => {});
-          }
-        } catch (e) {}
-      }
-    }
-
-    function closeWindow() {
-      if (window.electronAPI && typeof window.electronAPI.close === 'function') {
-        window.electronAPI.close();
-      } else {
-        window.close();
-      }
-    }
-
-</script>
 
   <style>
     body {
@@ -139,6 +50,30 @@
       -webkit-app-region: no-drag;
     }
   </style>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            client: {
+              bg: '#070a10',
+              sidebar: '#0b0f19',
+              card: '#0f1626',
+              border: '#1b253b',
+              accent: '#10b981',
+              amber: '#f59e0b',
+              cyan: '#06b6d4',
+            }
+          }
+        }
+      }
+    };
+  </script>
 </head>
 <body class="h-full flex flex-col font-sans antialiased text-sm">
 
@@ -685,7 +620,314 @@
   </div>
 
   <!-- JavaScript Client Engine -->
-  <script>
+  
+
+  <!-- ========================================================================= -->
+  <!-- 🆔 1-CLICK OAUTH GAME PASSPORT MODAL (SIGN IN WITH STEAM / XBOX / BNET) -->
+  <!-- ========================================================================= -->
+  <div id="client-passport-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-client-card border-2 border-cyan-500/40 rounded-3xl max-w-xl w-full p-6 text-white space-y-5 shadow-2xl relative max-h-[90vh] flex flex-col">
+      
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between border-b border-client-border pb-3 shrink-0">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-cyan-500/20 border border-cyan-500/40 text-cyan-400 flex items-center justify-center text-sm font-black">
+            <i class="fa-solid fa-id-card"></i>
+          </div>
+          <div>
+            <h3 class="font-extrabold text-sm text-white flex items-center gap-2">
+              <span id="passport-modal-title">Link Your Game Accounts</span>
+              <span id="passport-status-pill" class="text-[9px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 px-1.5 py-0.2 rounded">1-CLICK SIGN-IN</span>
+            </h3>
+            <p class="text-[11px] text-gray-400" id="passport-modal-desc">
+              Sign in with your gaming platform to automatically link and verify your in-game identity.
+            </p>
+          </div>
+        </div>
+        <button onclick="closeClientPassportModal()" id="passport-close-btn" class="w-7 h-7 rounded-lg hover:bg-slate-800 text-gray-400 hover:text-white flex items-center justify-center transition">
+          <i class="fa-solid fa-xmark text-xs"></i>
+        </button>
+      </div>
+
+      <!-- Scrollable Platforms List -->
+      <div class="space-y-3 overflow-y-auto flex-1 pr-1" id="passport-inputs-container">
+        
+        <!-- Platform 1: Steam -->
+        <div id="card-steam" class="p-4 rounded-2xl bg-client-bg border border-client-border hover:border-sky-500/40 transition space-y-3 shadow-sm">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-xl bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-400">
+                <i class="fa-brands fa-steam text-base"></i>
+              </div>
+              <div>
+                <div class="font-bold text-xs text-white">Steam Account</div>
+                <div class="text-[10px] font-mono text-gray-500">Counter-Strike 2 &bull; Rust &bull; Rocket League</div>
+              </div>
+            </div>
+            <span id="status-steam" class="text-[10px] font-mono text-gray-500">Not Linked</span>
+          </div>
+
+          <!-- 1-Click OAuth Sign-In Button -->
+          <div id="action-steam">
+            <button onclick="signInWithProvider('steam')" class="w-full py-2.5 px-4 rounded-xl bg-[#171a21] hover:bg-[#1b2838] border border-sky-500/40 text-white font-bold text-xs flex items-center justify-center gap-2.5 transition shadow-sm hover:border-sky-400">
+              <i class="fa-brands fa-steam text-sky-400 text-base"></i>
+              <span>Sign In with Steam (1-Click Link)</span>
+            </button>
+            <div class="text-right pt-1.5">
+              <button onclick="toggleManualInput('steam')" class="text-[10px] text-gray-500 hover:text-gray-300 transition underline">
+                or enter Steam ID manually
+              </button>
+            </div>
+          </div>
+
+          <!-- Hidden Manual Input -->
+          <div id="manual-steam" class="hidden flex items-center gap-2 pt-1">
+            <input type="text" id="input-steam" placeholder="e.g. steamcommunity.com/id/yourname" class="flex-1 bg-[#070a10] border border-client-border rounded-xl px-3 py-2 text-xs font-mono text-white placeholder-gray-600 focus:outline-none focus:border-sky-500 transition">
+            <button onclick="saveSinglePlatform('steam', 'Steam')" class="px-3 py-2 rounded-xl bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 text-xs font-bold font-mono transition">Save</button>
+          </div>
+        </div>
+
+        <!-- Platform 2: Battle.net / Activision -->
+        <div id="card-activision" class="p-4 rounded-2xl bg-client-bg border border-client-border hover:border-blue-500/40 transition space-y-3 shadow-sm">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center text-blue-400">
+                <i class="fa-solid fa-shield text-base"></i>
+              </div>
+              <div>
+                <div class="font-bold text-xs text-white">Battle.net / Activision ID</div>
+                <div class="text-[10px] font-mono text-gray-500">Call of Duty (MP/CDL) &bull; Warzone</div>
+              </div>
+            </div>
+            <span id="status-activision" class="text-[10px] font-mono text-gray-500">Not Linked</span>
+          </div>
+
+          <!-- 1-Click OAuth Sign-In Button -->
+          <div id="action-activision">
+            <button onclick="signInWithProvider('activision')" class="w-full py-2.5 px-4 rounded-xl bg-[#0c243c] hover:bg-[#0074e0] border border-blue-500/40 text-white font-bold text-xs flex items-center justify-center gap-2.5 transition shadow-sm hover:border-blue-400">
+              <i class="fa-solid fa-shield text-blue-400 text-base"></i>
+              <span>Sign In with Battle.net (1-Click Link)</span>
+            </button>
+            <div class="text-right pt-1.5">
+              <button onclick="toggleManualInput('activision')" class="text-[10px] text-gray-500 hover:text-gray-300 transition underline">
+                or enter Activision ID manually
+              </button>
+            </div>
+          </div>
+
+          <!-- Hidden Manual Input -->
+          <div id="manual-activision" class="hidden flex items-center gap-2 pt-1">
+            <input type="text" id="input-activision" placeholder="e.g. SentinelPlayer#1940291" class="flex-1 bg-[#070a10] border border-client-border rounded-xl px-3 py-2 text-xs font-mono text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 transition">
+            <button onclick="saveSinglePlatform('activision', 'Activision')" class="px-3 py-2 rounded-xl bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 text-xs font-bold font-mono transition">Save</button>
+          </div>
+        </div>
+
+        <!-- Platform 3: Xbox Live / PC Game Pass -->
+        <div id="card-xbox" class="p-4 rounded-2xl bg-client-bg border border-client-border hover:border-emerald-500/40 transition space-y-3 shadow-sm">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                <i class="fa-brands fa-xbox text-base"></i>
+              </div>
+              <div>
+                <div class="font-bold text-xs text-white">Xbox Live / PC Game Pass</div>
+                <div class="text-[10px] font-mono text-gray-500">Cross-Play Titles &bull; Microsoft Account</div>
+              </div>
+            </div>
+            <span id="status-xbox" class="text-[10px] font-mono text-gray-500">Not Linked</span>
+          </div>
+
+          <!-- 1-Click OAuth Sign-In Button -->
+          <div id="action-xbox">
+            <button onclick="signInWithProvider('xbox')" class="w-full py-2.5 px-4 rounded-xl bg-[#0e3b1c] hover:bg-[#107c41] border border-emerald-500/40 text-white font-bold text-xs flex items-center justify-center gap-2.5 transition shadow-sm hover:border-emerald-400">
+              <i class="fa-brands fa-xbox text-emerald-400 text-base"></i>
+              <span>Sign In with Xbox / Microsoft (1-Click Link)</span>
+            </button>
+            <div class="text-right pt-1.5">
+              <button onclick="toggleManualInput('xbox')" class="text-[10px] text-gray-500 hover:text-gray-300 transition underline">
+                or enter Gamertag manually
+              </button>
+            </div>
+          </div>
+
+          <!-- Hidden Manual Input -->
+          <div id="manual-xbox" class="hidden flex items-center gap-2 pt-1">
+            <input type="text" id="input-xbox" placeholder="e.g. SentinelGamertag" class="flex-1 bg-[#070a10] border border-client-border rounded-xl px-3 py-2 text-xs font-mono text-white placeholder-gray-600 focus:outline-none focus:border-emerald-500 transition">
+            <button onclick="saveSinglePlatform('xbox', 'Xbox Gamertag')" class="px-3 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-xs font-bold font-mono transition">Save</button>
+          </div>
+        </div>
+
+        <!-- Platform 4: Ubisoft Connect -->
+        <div id="card-ubisoft" class="p-4 rounded-2xl bg-client-bg border border-client-border hover:border-cyan-500/40 transition space-y-3 shadow-sm">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+                <i class="fa-solid fa-shield-halved text-base"></i>
+              </div>
+              <div>
+                <div class="font-bold text-xs text-white">Ubisoft Connect</div>
+                <div class="text-[10px] font-mono text-gray-500">Rainbow Six Siege</div>
+              </div>
+            </div>
+            <span id="status-ubisoft" class="text-[10px] font-mono text-gray-500">Not Linked</span>
+          </div>
+
+          <!-- 1-Click OAuth Sign-In Button -->
+          <div id="action-ubisoft">
+            <button onclick="signInWithProvider('ubisoft')" class="w-full py-2.5 px-4 rounded-xl bg-[#091b33] hover:bg-[#004bb3] border border-cyan-500/40 text-white font-bold text-xs flex items-center justify-center gap-2.5 transition shadow-sm hover:border-cyan-400">
+              <i class="fa-solid fa-shield-halved text-cyan-400 text-base"></i>
+              <span>Connect Ubisoft Account (1-Click Link)</span>
+            </button>
+            <div class="text-right pt-1.5">
+              <button onclick="toggleManualInput('ubisoft')" class="text-[10px] text-gray-500 hover:text-gray-300 transition underline">
+                or enter Ubisoft username manually
+              </button>
+            </div>
+          </div>
+
+          <!-- Hidden Manual Input -->
+          <div id="manual-ubisoft" class="hidden flex items-center gap-2 pt-1">
+            <input type="text" id="input-ubisoft" placeholder="e.g. Ubi_Sentinel_Zero" class="flex-1 bg-[#070a10] border border-client-border rounded-xl px-3 py-2 text-xs font-mono text-white placeholder-gray-600 focus:outline-none focus:border-cyan-500 transition">
+            <button onclick="saveSinglePlatform('ubisoft', 'Ubisoft')" class="px-3 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 text-xs font-bold font-mono transition">Save</button>
+          </div>
+        </div>
+
+        <!-- Platform 5: EA Account -->
+        <div id="card-ea" class="p-4 rounded-2xl bg-client-bg border border-client-border hover:border-rose-500/40 transition space-y-3 shadow-sm">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-xl bg-rose-500/15 border border-rose-500/30 flex items-center justify-center text-rose-400">
+                <i class="fa-solid fa-play text-base"></i>
+              </div>
+              <div>
+                <div class="font-bold text-xs text-white">EA Account (Origin)</div>
+                <div class="text-[10px] font-mono text-gray-500">EA Sports FC 25 &bull; Apex Legends</div>
+              </div>
+            </div>
+            <span id="status-ea" class="text-[10px] font-mono text-gray-500">Not Linked</span>
+          </div>
+
+          <!-- 1-Click OAuth Sign-In Button -->
+          <div id="action-ea">
+            <button onclick="signInWithProvider('ea')" class="w-full py-2.5 px-4 rounded-xl bg-[#2e1215] hover:bg-[#801b24] border border-rose-500/40 text-white font-bold text-xs flex items-center justify-center gap-2.5 transition shadow-sm hover:border-rose-400">
+              <i class="fa-solid fa-play text-rose-400 text-base"></i>
+              <span>Sign In with EA Account (1-Click Link)</span>
+            </button>
+            <div class="text-right pt-1.5">
+              <button onclick="toggleManualInput('ea')" class="text-[10px] text-gray-500 hover:text-gray-300 transition underline">
+                or enter EA ID manually
+              </button>
+            </div>
+          </div>
+
+          <!-- Hidden Manual Input -->
+          <div id="manual-ea" class="hidden flex items-center gap-2 pt-1">
+            <input type="text" id="input-ea" placeholder="e.g. EA_Sentinel99" class="flex-1 bg-[#070a10] border border-client-border rounded-xl px-3 py-2 text-xs font-mono text-white placeholder-gray-600 focus:outline-none focus:border-rose-500 transition">
+            <button onclick="saveSinglePlatform('ea', 'EA ID')" class="px-3 py-2 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 text-xs font-bold font-mono transition">Save</button>
+          </div>
+        </div>
+
+        <!-- Platform 6: Battlestate Games -->
+        <div id="card-tarkov" class="p-4 rounded-2xl bg-client-bg border border-client-border hover:border-amber-500/40 transition space-y-3 shadow-sm">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400">
+                <i class="fa-solid fa-crosshairs text-base"></i>
+              </div>
+              <div>
+                <div class="font-bold text-xs text-white">Battlestate Games Account</div>
+                <div class="text-[10px] font-mono text-gray-500">Escape from Tarkov</div>
+              </div>
+            </div>
+            <span id="status-tarkov" class="text-[10px] font-mono text-gray-500">Not Linked</span>
+          </div>
+
+          <!-- 1-Click OAuth Sign-In Button -->
+          <div id="action-tarkov">
+            <button onclick="signInWithProvider('tarkov')" class="w-full py-2.5 px-4 rounded-xl bg-[#1a1816] hover:bg-[#38332c] border border-amber-500/40 text-white font-bold text-xs flex items-center justify-center gap-2.5 transition shadow-sm hover:border-amber-400">
+              <i class="fa-solid fa-crosshairs text-stone-400 text-base"></i>
+              <span>Connect Battlestate Games (1-Click Link)</span>
+            </button>
+            <div class="text-right pt-1.5">
+              <button onclick="toggleManualInput('tarkov')" class="text-[10px] text-gray-500 hover:text-gray-300 transition underline">
+                or enter PMC nickname manually
+              </button>
+            </div>
+          </div>
+
+          <!-- Hidden Manual Input -->
+          <div id="manual-tarkov" class="hidden flex items-center gap-2 pt-1">
+            <input type="text" id="input-tarkov" placeholder="e.g. PMC_Sentinel" class="flex-1 bg-[#070a10] border border-client-border rounded-xl px-3 py-2 text-xs font-mono text-white placeholder-gray-600 focus:outline-none focus:border-amber-500 transition">
+            <button onclick="saveSinglePlatform('tarkov', 'Tarkov PMC')" class="px-3 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 text-xs font-bold font-mono transition">Save</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer Action -->
+      <div class="pt-3 border-t border-client-border flex items-center justify-between shrink-0">
+        <div class="text-[11px] font-mono text-gray-400 flex items-center gap-1.5">
+          <i class="fa-solid fa-shield-halved text-emerald-400 text-xs"></i>
+          <span>Single-Sign-On binds directly to hardware attestation.</span>
+        </div>
+        <button onclick="completePassportSetup()" id="passport-submit-btn" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-[0_0_15px_rgba(16,185,129,0.3)]">
+          Done &bull; Activate Passport
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+<!-- ========================================================================= -->
+  <!-- 🛡️ REAL ACCOUNT CONFIRMATION MODAL (NO FAKE / MADE UP DATA) -->
+  <!-- ========================================================================= -->
+  <div id="account-confirm-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[60] hidden flex items-center justify-center p-4">
+    <div class="bg-client-card border-2 border-emerald-500/50 rounded-3xl max-w-md w-full p-6 text-white space-y-4 shadow-2xl relative">
+      <div class="flex items-center gap-3 border-b border-client-border pb-3">
+        <div id="confirm-modal-icon" class="w-10 h-10 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center text-lg shrink-0">
+          <i class="fa-brands fa-steam"></i>
+        </div>
+        <div>
+          <h4 class="font-extrabold text-sm text-white flex items-center gap-2">
+            <span id="confirm-modal-title">Real Account Detected</span>
+            <span class="text-[9px] font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-1.5 py-0.2 rounded font-bold">HARDWARE BOUND</span>
+          </h4>
+          <p class="text-[11px] text-gray-400" id="confirm-modal-subtitle">Found active gaming profile on this Windows machine.</p>
+        </div>
+      </div>
+
+      <!-- Detected Account Details Card -->
+      <div class="p-4 rounded-2xl bg-[#070a10] border border-client-border space-y-2 font-mono text-xs">
+        <div class="flex items-center justify-between">
+          <span class="text-gray-400">Verified Gamertag:</span>
+          <span class="text-emerald-300 font-bold text-sm" id="confirm-detected-tag">SknotRockIT</span>
+        </div>
+        <div class="flex items-center justify-between text-[11px]" id="confirm-row-id">
+          <span class="text-gray-500">Platform ID:</span>
+          <span class="text-gray-300" id="confirm-detected-id">76561199186527040</span>
+        </div>
+        <div class="flex items-center justify-between text-[11px]" id="confirm-row-source">
+          <span class="text-gray-500">Detection Source:</span>
+          <span class="text-gray-400" id="confirm-detected-source">Steam Client</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="space-y-2 pt-2">
+        <button onclick="confirmRealAccount()" class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-[0_0_15px_rgba(16,185,129,0.3)] flex items-center justify-center gap-2">
+          <i class="fa-solid fa-check text-sm"></i>
+          <span>Link This Account</span>
+        </button>
+
+        <button onclick="promptManualGamertag()" class="w-full py-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 border border-slate-600 text-gray-300 text-xs font-bold transition">
+          Enter a Different Gamertag
+        </button>
+      </div>
+    </div>
+  </div>
+
+<script>
+
     let activeGame = 'cs2';
     let selectedWager = 10;
     let selectedLauncherId = 'steam';
@@ -1528,365 +1770,43 @@ cod: {
       alert("🏆 Game Passport Activated! Your gaming identities are verified and ready for competitive duels.");
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      selectGame('cs2');
-      selectQueueTier(10, document.getElementById('tier-btn-10'));
-
-      // 🆔 Force Game Passport Onboarding on first launch
-      const onboarded = localStorage.getItem('sz_passport_onboarded');
-      updatePassportHeaderBadge();
-      // Attach native window control listeners
-      const minBtn = document.getElementById('win-min-btn');
-      const maxBtn = document.getElementById('win-max-btn');
-      const closeBtn = document.getElementById('win-close-btn');
-      if (minBtn) minBtn.addEventListener('click', (e) => { e.stopPropagation(); minimizeWindow(); });
-      if (maxBtn) maxBtn.addEventListener('click', (e) => { e.stopPropagation(); maximizeWindow(); });
-      if (closeBtn) closeBtn.addEventListener('click', (e) => { e.stopPropagation(); closeWindow(); });
-
-      if (!onboarded) {
-        setTimeout(() => {
-          openClientPassportModal(true); // Force first-run setup
-        }, 500);
-      }
-    });
-  
     // =========================================================================
-    // 🪟 BULLETPROOF WINDOW CONTROLS (ELECTRON NATIVE + BROWSER FALLBACK)
+    // 🚀 FAIL-SAFE STARTUP & INITIALIZATION (FIRES IMMEDIATELY)
     // =========================================================================
-    function minimizeWindow() {
-      if (window.electronAPI && typeof window.electronAPI.minimize === 'function') {
-        window.electronAPI.minimize();
+    function initializeClientRuntime() {
+      try {
+        selectGame('cs2');
+        const tier10Btn = document.getElementById('tier-btn-10');
+        if (tier10Btn) selectQueueTier(10, tier10Btn);
+
+        updatePassportHeaderBadge();
+
+        // Wire window control buttons
+        const minBtn = document.getElementById('win-min-btn');
+        const maxBtn = document.getElementById('win-max-btn');
+        const closeBtn = document.getElementById('win-close-btn');
+
+        if (minBtn) minBtn.onclick = (e) => { e.stopPropagation(); minimizeWindow(); };
+        if (maxBtn) maxBtn.onclick = (e) => { e.stopPropagation(); maximizeWindow(); };
+        if (closeBtn) closeBtn.onclick = (e) => { e.stopPropagation(); closeWindow(); };
+
+        // Check if user is onboarded
+        const onboarded = localStorage.getItem('sz_passport_onboarded');
+        if (!onboarded) {
+          setTimeout(() => {
+            openClientPassportModal(true);
+          }, 300);
+        }
+      } catch (err) {
+        console.error("Initialization error:", err);
       }
     }
 
-    function maximizeWindow() {
-      if (window.electronAPI && typeof window.electronAPI.maximize === 'function') {
-        window.electronAPI.maximize();
-      } else {
-        // Browser Fullscreen API Fallback
-        try {
-          if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen().catch(() => {});
-          } else {
-            document.exitFullscreen().catch(() => {});
-          }
-        } catch (e) {}
-      }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializeClientRuntime);
+    } else {
+      initializeClientRuntime();
     }
-
-    function closeWindow() {
-      if (window.electronAPI && typeof window.electronAPI.close === 'function') {
-        window.electronAPI.close();
-      } else {
-        window.close();
-      }
-    }
-
-</script>
-
-  <!-- ========================================================================= -->
-  <!-- 🆔 1-CLICK OAUTH GAME PASSPORT MODAL (SIGN IN WITH STEAM / XBOX / BNET) -->
-  <!-- ========================================================================= -->
-  <div id="client-passport-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-client-card border-2 border-cyan-500/40 rounded-3xl max-w-xl w-full p-6 text-white space-y-5 shadow-2xl relative max-h-[90vh] flex flex-col">
-      
-      <!-- Modal Header -->
-      <div class="flex items-center justify-between border-b border-client-border pb-3 shrink-0">
-        <div class="flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-xl bg-cyan-500/20 border border-cyan-500/40 text-cyan-400 flex items-center justify-center text-sm font-black">
-            <i class="fa-solid fa-id-card"></i>
-          </div>
-          <div>
-            <h3 class="font-extrabold text-sm text-white flex items-center gap-2">
-              <span id="passport-modal-title">Link Your Game Accounts</span>
-              <span id="passport-status-pill" class="text-[9px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 px-1.5 py-0.2 rounded">1-CLICK SIGN-IN</span>
-            </h3>
-            <p class="text-[11px] text-gray-400" id="passport-modal-desc">
-              Sign in with your gaming platform to automatically link and verify your in-game identity.
-            </p>
-          </div>
-        </div>
-        <button onclick="closeClientPassportModal()" id="passport-close-btn" class="w-7 h-7 rounded-lg hover:bg-slate-800 text-gray-400 hover:text-white flex items-center justify-center transition">
-          <i class="fa-solid fa-xmark text-xs"></i>
-        </button>
-      </div>
-
-      <!-- Scrollable Platforms List -->
-      <div class="space-y-3 overflow-y-auto flex-1 pr-1" id="passport-inputs-container">
-        
-        <!-- Platform 1: Steam -->
-        <div id="card-steam" class="p-4 rounded-2xl bg-client-bg border border-client-border hover:border-sky-500/40 transition space-y-3 shadow-sm">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2.5">
-              <div class="w-8 h-8 rounded-xl bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-400">
-                <i class="fa-brands fa-steam text-base"></i>
-              </div>
-              <div>
-                <div class="font-bold text-xs text-white">Steam Account</div>
-                <div class="text-[10px] font-mono text-gray-500">Counter-Strike 2 &bull; Rust &bull; Rocket League</div>
-              </div>
-            </div>
-            <span id="status-steam" class="text-[10px] font-mono text-gray-500">Not Linked</span>
-          </div>
-
-          <!-- 1-Click OAuth Sign-In Button -->
-          <div id="action-steam">
-            <button onclick="signInWithProvider('steam')" class="w-full py-2.5 px-4 rounded-xl bg-[#171a21] hover:bg-[#1b2838] border border-sky-500/40 text-white font-bold text-xs flex items-center justify-center gap-2.5 transition shadow-sm hover:border-sky-400">
-              <i class="fa-brands fa-steam text-sky-400 text-base"></i>
-              <span>Sign In with Steam (1-Click Link)</span>
-            </button>
-            <div class="text-right pt-1.5">
-              <button onclick="toggleManualInput('steam')" class="text-[10px] text-gray-500 hover:text-gray-300 transition underline">
-                or enter Steam ID manually
-              </button>
-            </div>
-          </div>
-
-          <!-- Hidden Manual Input -->
-          <div id="manual-steam" class="hidden flex items-center gap-2 pt-1">
-            <input type="text" id="input-steam" placeholder="e.g. steamcommunity.com/id/yourname" class="flex-1 bg-[#070a10] border border-client-border rounded-xl px-3 py-2 text-xs font-mono text-white placeholder-gray-600 focus:outline-none focus:border-sky-500 transition">
-            <button onclick="saveSinglePlatform('steam', 'Steam')" class="px-3 py-2 rounded-xl bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 text-xs font-bold font-mono transition">Save</button>
-          </div>
-        </div>
-
-        <!-- Platform 2: Battle.net / Activision -->
-        <div id="card-activision" class="p-4 rounded-2xl bg-client-bg border border-client-border hover:border-blue-500/40 transition space-y-3 shadow-sm">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2.5">
-              <div class="w-8 h-8 rounded-xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center text-blue-400">
-                <i class="fa-solid fa-shield text-base"></i>
-              </div>
-              <div>
-                <div class="font-bold text-xs text-white">Battle.net / Activision ID</div>
-                <div class="text-[10px] font-mono text-gray-500">Call of Duty (MP/CDL) &bull; Warzone</div>
-              </div>
-            </div>
-            <span id="status-activision" class="text-[10px] font-mono text-gray-500">Not Linked</span>
-          </div>
-
-          <!-- 1-Click OAuth Sign-In Button -->
-          <div id="action-activision">
-            <button onclick="signInWithProvider('activision')" class="w-full py-2.5 px-4 rounded-xl bg-[#0c243c] hover:bg-[#0074e0] border border-blue-500/40 text-white font-bold text-xs flex items-center justify-center gap-2.5 transition shadow-sm hover:border-blue-400">
-              <i class="fa-solid fa-shield text-blue-400 text-base"></i>
-              <span>Sign In with Battle.net (1-Click Link)</span>
-            </button>
-            <div class="text-right pt-1.5">
-              <button onclick="toggleManualInput('activision')" class="text-[10px] text-gray-500 hover:text-gray-300 transition underline">
-                or enter Activision ID manually
-              </button>
-            </div>
-          </div>
-
-          <!-- Hidden Manual Input -->
-          <div id="manual-activision" class="hidden flex items-center gap-2 pt-1">
-            <input type="text" id="input-activision" placeholder="e.g. SentinelPlayer#1940291" class="flex-1 bg-[#070a10] border border-client-border rounded-xl px-3 py-2 text-xs font-mono text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 transition">
-            <button onclick="saveSinglePlatform('activision', 'Activision')" class="px-3 py-2 rounded-xl bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 text-xs font-bold font-mono transition">Save</button>
-          </div>
-        </div>
-
-        <!-- Platform 3: Xbox Live / PC Game Pass -->
-        <div id="card-xbox" class="p-4 rounded-2xl bg-client-bg border border-client-border hover:border-emerald-500/40 transition space-y-3 shadow-sm">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2.5">
-              <div class="w-8 h-8 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
-                <i class="fa-brands fa-xbox text-base"></i>
-              </div>
-              <div>
-                <div class="font-bold text-xs text-white">Xbox Live / PC Game Pass</div>
-                <div class="text-[10px] font-mono text-gray-500">Cross-Play Titles &bull; Microsoft Account</div>
-              </div>
-            </div>
-            <span id="status-xbox" class="text-[10px] font-mono text-gray-500">Not Linked</span>
-          </div>
-
-          <!-- 1-Click OAuth Sign-In Button -->
-          <div id="action-xbox">
-            <button onclick="signInWithProvider('xbox')" class="w-full py-2.5 px-4 rounded-xl bg-[#0e3b1c] hover:bg-[#107c41] border border-emerald-500/40 text-white font-bold text-xs flex items-center justify-center gap-2.5 transition shadow-sm hover:border-emerald-400">
-              <i class="fa-brands fa-xbox text-emerald-400 text-base"></i>
-              <span>Sign In with Xbox / Microsoft (1-Click Link)</span>
-            </button>
-            <div class="text-right pt-1.5">
-              <button onclick="toggleManualInput('xbox')" class="text-[10px] text-gray-500 hover:text-gray-300 transition underline">
-                or enter Gamertag manually
-              </button>
-            </div>
-          </div>
-
-          <!-- Hidden Manual Input -->
-          <div id="manual-xbox" class="hidden flex items-center gap-2 pt-1">
-            <input type="text" id="input-xbox" placeholder="e.g. SentinelGamertag" class="flex-1 bg-[#070a10] border border-client-border rounded-xl px-3 py-2 text-xs font-mono text-white placeholder-gray-600 focus:outline-none focus:border-emerald-500 transition">
-            <button onclick="saveSinglePlatform('xbox', 'Xbox Gamertag')" class="px-3 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-xs font-bold font-mono transition">Save</button>
-          </div>
-        </div>
-
-        <!-- Platform 4: Ubisoft Connect -->
-        <div id="card-ubisoft" class="p-4 rounded-2xl bg-client-bg border border-client-border hover:border-cyan-500/40 transition space-y-3 shadow-sm">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2.5">
-              <div class="w-8 h-8 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
-                <i class="fa-solid fa-shield-halved text-base"></i>
-              </div>
-              <div>
-                <div class="font-bold text-xs text-white">Ubisoft Connect</div>
-                <div class="text-[10px] font-mono text-gray-500">Rainbow Six Siege</div>
-              </div>
-            </div>
-            <span id="status-ubisoft" class="text-[10px] font-mono text-gray-500">Not Linked</span>
-          </div>
-
-          <!-- 1-Click OAuth Sign-In Button -->
-          <div id="action-ubisoft">
-            <button onclick="signInWithProvider('ubisoft')" class="w-full py-2.5 px-4 rounded-xl bg-[#091b33] hover:bg-[#004bb3] border border-cyan-500/40 text-white font-bold text-xs flex items-center justify-center gap-2.5 transition shadow-sm hover:border-cyan-400">
-              <i class="fa-solid fa-shield-halved text-cyan-400 text-base"></i>
-              <span>Connect Ubisoft Account (1-Click Link)</span>
-            </button>
-            <div class="text-right pt-1.5">
-              <button onclick="toggleManualInput('ubisoft')" class="text-[10px] text-gray-500 hover:text-gray-300 transition underline">
-                or enter Ubisoft username manually
-              </button>
-            </div>
-          </div>
-
-          <!-- Hidden Manual Input -->
-          <div id="manual-ubisoft" class="hidden flex items-center gap-2 pt-1">
-            <input type="text" id="input-ubisoft" placeholder="e.g. Ubi_Sentinel_Zero" class="flex-1 bg-[#070a10] border border-client-border rounded-xl px-3 py-2 text-xs font-mono text-white placeholder-gray-600 focus:outline-none focus:border-cyan-500 transition">
-            <button onclick="saveSinglePlatform('ubisoft', 'Ubisoft')" class="px-3 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 text-xs font-bold font-mono transition">Save</button>
-          </div>
-        </div>
-
-        <!-- Platform 5: EA Account -->
-        <div id="card-ea" class="p-4 rounded-2xl bg-client-bg border border-client-border hover:border-rose-500/40 transition space-y-3 shadow-sm">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2.5">
-              <div class="w-8 h-8 rounded-xl bg-rose-500/15 border border-rose-500/30 flex items-center justify-center text-rose-400">
-                <i class="fa-solid fa-play text-base"></i>
-              </div>
-              <div>
-                <div class="font-bold text-xs text-white">EA Account (Origin)</div>
-                <div class="text-[10px] font-mono text-gray-500">EA Sports FC 25 &bull; Apex Legends</div>
-              </div>
-            </div>
-            <span id="status-ea" class="text-[10px] font-mono text-gray-500">Not Linked</span>
-          </div>
-
-          <!-- 1-Click OAuth Sign-In Button -->
-          <div id="action-ea">
-            <button onclick="signInWithProvider('ea')" class="w-full py-2.5 px-4 rounded-xl bg-[#2e1215] hover:bg-[#801b24] border border-rose-500/40 text-white font-bold text-xs flex items-center justify-center gap-2.5 transition shadow-sm hover:border-rose-400">
-              <i class="fa-solid fa-play text-rose-400 text-base"></i>
-              <span>Sign In with EA Account (1-Click Link)</span>
-            </button>
-            <div class="text-right pt-1.5">
-              <button onclick="toggleManualInput('ea')" class="text-[10px] text-gray-500 hover:text-gray-300 transition underline">
-                or enter EA ID manually
-              </button>
-            </div>
-          </div>
-
-          <!-- Hidden Manual Input -->
-          <div id="manual-ea" class="hidden flex items-center gap-2 pt-1">
-            <input type="text" id="input-ea" placeholder="e.g. EA_Sentinel99" class="flex-1 bg-[#070a10] border border-client-border rounded-xl px-3 py-2 text-xs font-mono text-white placeholder-gray-600 focus:outline-none focus:border-rose-500 transition">
-            <button onclick="saveSinglePlatform('ea', 'EA ID')" class="px-3 py-2 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 text-xs font-bold font-mono transition">Save</button>
-          </div>
-        </div>
-
-        <!-- Platform 6: Battlestate Games -->
-        <div id="card-tarkov" class="p-4 rounded-2xl bg-client-bg border border-client-border hover:border-amber-500/40 transition space-y-3 shadow-sm">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2.5">
-              <div class="w-8 h-8 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400">
-                <i class="fa-solid fa-crosshairs text-base"></i>
-              </div>
-              <div>
-                <div class="font-bold text-xs text-white">Battlestate Games Account</div>
-                <div class="text-[10px] font-mono text-gray-500">Escape from Tarkov</div>
-              </div>
-            </div>
-            <span id="status-tarkov" class="text-[10px] font-mono text-gray-500">Not Linked</span>
-          </div>
-
-          <!-- 1-Click OAuth Sign-In Button -->
-          <div id="action-tarkov">
-            <button onclick="signInWithProvider('tarkov')" class="w-full py-2.5 px-4 rounded-xl bg-[#1a1816] hover:bg-[#38332c] border border-amber-500/40 text-white font-bold text-xs flex items-center justify-center gap-2.5 transition shadow-sm hover:border-amber-400">
-              <i class="fa-solid fa-crosshairs text-stone-400 text-base"></i>
-              <span>Connect Battlestate Games (1-Click Link)</span>
-            </button>
-            <div class="text-right pt-1.5">
-              <button onclick="toggleManualInput('tarkov')" class="text-[10px] text-gray-500 hover:text-gray-300 transition underline">
-                or enter PMC nickname manually
-              </button>
-            </div>
-          </div>
-
-          <!-- Hidden Manual Input -->
-          <div id="manual-tarkov" class="hidden flex items-center gap-2 pt-1">
-            <input type="text" id="input-tarkov" placeholder="e.g. PMC_Sentinel" class="flex-1 bg-[#070a10] border border-client-border rounded-xl px-3 py-2 text-xs font-mono text-white placeholder-gray-600 focus:outline-none focus:border-amber-500 transition">
-            <button onclick="saveSinglePlatform('tarkov', 'Tarkov PMC')" class="px-3 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 text-xs font-bold font-mono transition">Save</button>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Modal Footer Action -->
-      <div class="pt-3 border-t border-client-border flex items-center justify-between shrink-0">
-        <div class="text-[11px] font-mono text-gray-400 flex items-center gap-1.5">
-          <i class="fa-solid fa-shield-halved text-emerald-400 text-xs"></i>
-          <span>Single-Sign-On binds directly to hardware attestation.</span>
-        </div>
-        <button onclick="completePassportSetup()" id="passport-submit-btn" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-[0_0_15px_rgba(16,185,129,0.3)]">
-          Done &bull; Activate Passport
-        </button>
-      </div>
-
-    </div>
-  </div>
-
-<!-- ========================================================================= -->
-  <!-- 🛡️ REAL ACCOUNT CONFIRMATION MODAL (NO FAKE / MADE UP DATA) -->
-  <!-- ========================================================================= -->
-  <div id="account-confirm-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[60] hidden flex items-center justify-center p-4">
-    <div class="bg-client-card border-2 border-emerald-500/50 rounded-3xl max-w-md w-full p-6 text-white space-y-4 shadow-2xl relative">
-      <div class="flex items-center gap-3 border-b border-client-border pb-3">
-        <div id="confirm-modal-icon" class="w-10 h-10 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center text-lg shrink-0">
-          <i class="fa-brands fa-steam"></i>
-        </div>
-        <div>
-          <h4 class="font-extrabold text-sm text-white flex items-center gap-2">
-            <span id="confirm-modal-title">Real Account Detected</span>
-            <span class="text-[9px] font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-1.5 py-0.2 rounded font-bold">HARDWARE BOUND</span>
-          </h4>
-          <p class="text-[11px] text-gray-400" id="confirm-modal-subtitle">Found active gaming profile on this Windows machine.</p>
-        </div>
-      </div>
-
-      <!-- Detected Account Details Card -->
-      <div class="p-4 rounded-2xl bg-[#070a10] border border-client-border space-y-2 font-mono text-xs">
-        <div class="flex items-center justify-between">
-          <span class="text-gray-400">Verified Gamertag:</span>
-          <span class="text-emerald-300 font-bold text-sm" id="confirm-detected-tag">SknotRockIT</span>
-        </div>
-        <div class="flex items-center justify-between text-[11px]" id="confirm-row-id">
-          <span class="text-gray-500">Platform ID:</span>
-          <span class="text-gray-300" id="confirm-detected-id">76561199186527040</span>
-        </div>
-        <div class="flex items-center justify-between text-[11px]" id="confirm-row-source">
-          <span class="text-gray-500">Detection Source:</span>
-          <span class="text-gray-400" id="confirm-detected-source">Steam Client</span>
-        </div>
-      </div>
-
-      <!-- Action Buttons -->
-      <div class="space-y-2 pt-2">
-        <button onclick="confirmRealAccount()" class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-[0_0_15px_rgba(16,185,129,0.3)] flex items-center justify-center gap-2">
-          <i class="fa-solid fa-check text-sm"></i>
-          <span>Link This Account</span>
-        </button>
-
-        <button onclick="promptManualGamertag()" class="w-full py-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 border border-slate-600 text-gray-300 text-xs font-bold transition">
-          Enter a Different Gamertag
-        </button>
-      </div>
-    </div>
-  </div>
-
+  </script>
 </body>
 </html>
