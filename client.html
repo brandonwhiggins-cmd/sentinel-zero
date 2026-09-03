@@ -2035,14 +2035,16 @@ cod: {
       initializeClientRuntime();
     }
   
-    // Check for active founder token
+    // Check for active founder token or custom chosen GamerTag
     function checkClientFounderUser() {
       try {
-        const params = new URLSearchParams(window.location.search);
-        const token = params.get('founder_invite') || params.get('founder_token') || localStorage.getItem('sz_founder_token');
+        const userStr = localStorage.getItem('sz_user') || localStorage.getItem('sz_registered_user');
         const userEl = document.getElementById('client-username');
-        if (token === 'swag_4b6e81c9a3f2d07e' || localStorage.getItem('sz_founder_claimed_swag')) {
-          if (userEl) userEl.innerText = '@swagg';
+        if (userStr) {
+          const u = JSON.parse(userStr);
+          if (u.username && userEl) {
+            userEl.innerText = '@' + u.username;
+          }
         }
       } catch(e) {}
     }
