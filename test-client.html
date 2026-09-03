@@ -2103,6 +2103,20 @@ cod: {
     } else {
       initializeClientRuntime();
     }
-  </script>
+  
+    // Check for active founder token
+    function checkClientFounderUser() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const token = params.get('founder_invite') || params.get('founder_token') || localStorage.getItem('sz_founder_token');
+        const userEl = document.getElementById('client-username');
+        if (token === 'swag_4b6e81c9a3f2d07e' || localStorage.getItem('sz_founder_claimed_swag')) {
+          if (userEl) userEl.innerText = '@swagg';
+        }
+      } catch(e) {}
+    }
+    window.addEventListener('DOMContentLoaded', checkClientFounderUser);
+
+</script>
 </body>
 </html>
