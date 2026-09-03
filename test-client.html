@@ -31,9 +31,12 @@
 
     function resetTestState() {
       localStorage.removeItem('sz_preferred_launcher_' + activeGame);
+      localStorage.removeItem('sz_passport_onboarded');
+      localStorage.removeItem('sz_linked_accounts');
       document.getElementById('client-balance').innerText = '$0.00';
       const sideEl = document.getElementById('side-balance');
       if (sideEl) sideEl.innerText = '$0.00';
+      updatePassportHeaderBadge();
       alert('🧪 [TEST SANDBOX]: Test state reset.');
     }
 
@@ -90,9 +93,12 @@
 
     function resetTestState() {
       localStorage.removeItem('sz_preferred_launcher_' + activeGame);
+      localStorage.removeItem('sz_passport_onboarded');
+      localStorage.removeItem('sz_linked_accounts');
       document.getElementById('client-balance').innerText = '$0.00';
       const sideEl = document.getElementById('side-balance');
       if (sideEl) sideEl.innerText = '$0.00';
+      updatePassportHeaderBadge();
       alert('🧪 [TEST SANDBOX]: Test state reset.');
     }
 
@@ -172,8 +178,8 @@
       </div>
       <span class="text-gray-600 shrink-0">&bull;</span>
       <div class="flex items-center gap-1.5 text-amber-400 font-semibold whitespace-nowrap shrink-0">
-        <i class="fa-solid fa-users text-xs shrink-0"></i>
-        <span id="client-online-count" class="whitespace-nowrap">48 Players Queuing</span>
+        <i class="fa-solid fa-circle-check text-xs shrink-0 text-emerald-400"></i>
+        <span class="whitespace-nowrap">Matchmaking: READY</span>
       </div>
     </div>
 
@@ -190,7 +196,7 @@
       <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-client-bg border border-client-border no-drag">
         <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
         <span class="text-xs text-gray-400 font-semibold">Escrow:</span>
-        <span class="text-xs font-black text-white font-mono" id="client-balance">$100.00</span>
+        <span class="text-xs font-black text-white font-mono" id="client-balance">$0.00</span>
         <button onclick="openClientDepositModal()" class="text-[10px] bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 px-2 py-0.5 rounded font-bold transition ml-1 whitespace-nowrap shrink-0">+ Add</button>
       </div>
 
@@ -573,7 +579,7 @@
             <i class="fa-solid fa-wallet text-amber-400"></i>
             <span>Match Wallet</span>
           </span>
-          <span class="text-xs font-mono font-bold text-emerald-400" id="side-balance">$100.00</span>
+          <span class="text-xs font-mono font-bold text-emerald-400" id="side-balance">$0.00</span>
         </div>
 
         <div class="grid grid-cols-2 gap-2">
@@ -639,7 +645,7 @@
         </div>
         <div class="p-3.5 rounded-2xl bg-client-bg border border-client-border">
           <div class="text-[10px] text-gray-400 uppercase font-mono">Opponent</div>
-          <div class="text-base font-black text-white" id="client-match-opponent">@Swag</div>
+          <div class="text-base font-black text-white" id="client-match-opponent">Awaiting Opponent...</div>
           <div class="text-[9px] text-emerald-400 font-mono">TPM 2.0 Attested</div>
         </div>
       </div>
@@ -1046,6 +1052,25 @@
       const g = CLIENT_GAMES[activeGame] || CLIENT_GAMES['cs2'];
       const lobbies = g.lobbies || [];
 
+      if (lobbies.length === 0) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td colspan="5" class="p-8 text-center text-gray-400">
+            <div class="max-w-md mx-auto space-y-2">
+              <div class="w-10 h-10 mx-auto rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+                <i class="fa-solid fa-radar animate-pulse text-sm"></i>
+              </div>
+              <div class="font-bold text-white text-xs">Radar Active &bull; No Open Duels in US-East</div>
+              <p class="text-[11px] text-gray-400">
+                Be the first to host an escrow match for ${g.name}. Click "Queue for Match" above to open a verified lobby.
+              </p>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+        return;
+      }
+
       lobbies.forEach(l => {
         const tr = document.createElement('tr');
         tr.className = "hover:bg-client-sidebar/50 transition";
@@ -1091,12 +1116,21 @@
 
     function startClientMatchSearch() {
       const btn = document.getElementById('client-launch-btn');
-      btn.innerHTML = `<div class="w-4 h-4 border-2 border-slate-950 border-t-transparent rounded-full animate-spin"></div> <span>Finding Opponent...</span>`;
+      const g = CLIENT_GAMES[activeGame] || CLIENT_GAMES['cs2'];
+      btn.innerHTML = `<div class="w-4 h-4 border-2 border-slate-950 border-t-transparent rounded-full animate-spin"></div> <span>Broadcasting Challenge to Radar...</span>`;
       setTimeout(() => {
-        const g = CLIENT_GAMES[activeGame] || CLIENT_GAMES['cs2'];
-        btn.innerHTML = `<i class="fa-solid fa-crosshairs text-base"></i> <span id="client-launch-label">QUEUE FOR ${g.name.toUpperCase()} ($${selectedWager} ESCROW)</span>`;
-        acceptLobbyChallenge('@Swag', `$${(selectedWager * 2).toFixed(2)}`);
-      }, 1200);
+        btn.innerHTML = `<i class="fa-solid fa-check text-base"></i> <span>CHALLENGE POSTED TO RADAR</span>`;
+        // Post host challenge to radar
+        g.lobbies.unshift({
+          challenger: document.getElementById('client-username').innerText || '@SknotRockIt',
+          mode: g.modeBadge.split('•')[0].trim(),
+          pot: `$${(selectedWager * 2).toFixed(2)}`
+        });
+        renderLobbies();
+        setTimeout(() => {
+          btn.innerHTML = `<i class="fa-solid fa-crosshairs text-base"></i> <span id="client-launch-label">QUEUE FOR ${g.name.toUpperCase()} (${selectedWager === 0 ? 'FREE' : '$' + selectedWager + ' ESCROW'})</span>`;
+        }, 2000);
+      }, 800);
     }
 
     function renderLauncherOptions(gameKey) {
@@ -1461,9 +1495,12 @@
 
     function resetTestState() {
       localStorage.removeItem('sz_preferred_launcher_' + activeGame);
+      localStorage.removeItem('sz_passport_onboarded');
+      localStorage.removeItem('sz_linked_accounts');
       document.getElementById('client-balance').innerText = '$0.00';
       const sideEl = document.getElementById('side-balance');
       if (sideEl) sideEl.innerText = '$0.00';
+      updatePassportHeaderBadge();
       alert('🧪 [TEST SANDBOX]: Test state reset.');
     }
 
