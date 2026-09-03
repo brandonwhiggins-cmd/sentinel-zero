@@ -30,22 +30,9 @@
     }
 
     // =========================================================================
-    // 🧪 MASTER FACTORY RESET (DAY-ZERO FIRST-LAUNCH SIMULATOR)
+    // 🧪 MASTER FACTORY RESET (ZERO FRICTION PURGE & DAY-ZERO RELOAD)
     // =========================================================================
     function masterFactoryReset() {
-      const confirmed = confirm(
-        "⚠️ MASTER FACTORY RESET:\n\n" +
-        "This will:\n" +
-        "• Wipe all linked accounts & gamertags\n" +
-        "• Reset escrow balance to $0.00\n" +
-        "• Clear all launcher preferences\n" +
-        "• Purge all client localStorage & sessionStorage\n" +
-        "• Reload into Day-Zero first-launch onboarding\n\n" +
-        "Are you sure you want to perform a Master Factory Reset?"
-      );
-
-      if (!confirmed) return;
-
       try {
         localStorage.clear();
         sessionStorage.clear();
@@ -53,8 +40,17 @@
         console.error("Storage clear error:", e);
       }
 
-      alert("🔄 MASTER FACTORY RESET COMPLETE!\n\nClient will now reload in Day-Zero first-launch mode.");
-      window.location.href = window.location.pathname + '?client=desktop&reset=' + Date.now();
+      // Reset balance immediately in DOM
+      const bEl = document.getElementById('client-balance');
+      if (bEl) bEl.innerText = '$0.00';
+      const sEl = document.getElementById('side-balance');
+      if (sEl) sEl.innerText = '$0.00';
+
+      // Reset passport header badge
+      updatePassportHeaderBadge();
+
+      // Clean, instant reload
+      window.location.reload();
     }
 
     function resetTestState() {
@@ -78,7 +74,7 @@
 
 
     // =========================================================================
-    // 🪟 NATIVE WINDOW CONTROLS (MINIMIZE, MAXIMIZE, CLOSE)
+    // 🪟 BULLETPROOF WINDOW CONTROLS (ELECTRON NATIVE + BROWSER FALLBACK)
     // =========================================================================
     function minimizeWindow() {
       if (window.electronAPI && typeof window.electronAPI.minimize === 'function') {
@@ -89,6 +85,15 @@
     function maximizeWindow() {
       if (window.electronAPI && typeof window.electronAPI.maximize === 'function') {
         window.electronAPI.maximize();
+      } else {
+        // Browser Fullscreen API Fallback
+        try {
+          if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(() => {});
+          } else {
+            document.exitFullscreen().catch(() => {});
+          }
+        } catch (e) {}
       }
     }
 
@@ -96,6 +101,9 @@
       if (window.electronAPI && typeof window.electronAPI.close === 'function') {
         window.electronAPI.close();
       } else {
+        window.close();
+      }
+    } else {
         window.close();
       }
     }
@@ -172,7 +180,7 @@
 
 
     // =========================================================================
-    // 🪟 NATIVE WINDOW CONTROLS (MINIMIZE, MAXIMIZE, CLOSE)
+    // 🪟 BULLETPROOF WINDOW CONTROLS (ELECTRON NATIVE + BROWSER FALLBACK)
     // =========================================================================
     function minimizeWindow() {
       if (window.electronAPI && typeof window.electronAPI.minimize === 'function') {
@@ -183,6 +191,15 @@
     function maximizeWindow() {
       if (window.electronAPI && typeof window.electronAPI.maximize === 'function') {
         window.electronAPI.maximize();
+      } else {
+        // Browser Fullscreen API Fallback
+        try {
+          if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(() => {});
+          } else {
+            document.exitFullscreen().catch(() => {});
+          }
+        } catch (e) {}
       }
     }
 
@@ -190,6 +207,9 @@
       if (window.electronAPI && typeof window.electronAPI.close === 'function') {
         window.electronAPI.close();
       } else {
+        window.close();
+      }
+    } else {
         window.close();
       }
     }
@@ -1720,7 +1740,7 @@ cod: {
 
 
     // =========================================================================
-    // 🪟 NATIVE WINDOW CONTROLS (MINIMIZE, MAXIMIZE, CLOSE)
+    // 🪟 BULLETPROOF WINDOW CONTROLS (ELECTRON NATIVE + BROWSER FALLBACK)
     // =========================================================================
     function minimizeWindow() {
       if (window.electronAPI && typeof window.electronAPI.minimize === 'function') {
@@ -1731,6 +1751,15 @@ cod: {
     function maximizeWindow() {
       if (window.electronAPI && typeof window.electronAPI.maximize === 'function') {
         window.electronAPI.maximize();
+      } else {
+        // Browser Fullscreen API Fallback
+        try {
+          if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(() => {});
+          } else {
+            document.exitFullscreen().catch(() => {});
+          }
+        } catch (e) {}
       }
     }
 
@@ -1738,6 +1767,9 @@ cod: {
       if (window.electronAPI && typeof window.electronAPI.close === 'function') {
         window.electronAPI.close();
       } else {
+        window.close();
+      }
+    } else {
         window.close();
       }
     }

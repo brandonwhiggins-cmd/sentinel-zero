@@ -11,7 +11,7 @@
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com">
     // =========================================================================
-    // 🪟 NATIVE WINDOW CONTROLS (MINIMIZE, MAXIMIZE, CLOSE)
+    // 🪟 BULLETPROOF WINDOW CONTROLS (ELECTRON NATIVE + BROWSER FALLBACK)
     // =========================================================================
     function minimizeWindow() {
       if (window.electronAPI && typeof window.electronAPI.minimize === 'function') {
@@ -22,6 +22,15 @@
     function maximizeWindow() {
       if (window.electronAPI && typeof window.electronAPI.maximize === 'function') {
         window.electronAPI.maximize();
+      } else {
+        // Browser Fullscreen API Fallback
+        try {
+          if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(() => {});
+          } else {
+            document.exitFullscreen().catch(() => {});
+          }
+        } catch (e) {}
       }
     }
 
@@ -29,6 +38,9 @@
       if (window.electronAPI && typeof window.electronAPI.close === 'function') {
         window.electronAPI.close();
       } else {
+        window.close();
+      }
+    } else {
         window.close();
       }
     }
@@ -66,7 +78,7 @@
     }
   
     // =========================================================================
-    // 🪟 NATIVE WINDOW CONTROLS (MINIMIZE, MAXIMIZE, CLOSE)
+    // 🪟 BULLETPROOF WINDOW CONTROLS (ELECTRON NATIVE + BROWSER FALLBACK)
     // =========================================================================
     function minimizeWindow() {
       if (window.electronAPI && typeof window.electronAPI.minimize === 'function') {
@@ -77,6 +89,15 @@
     function maximizeWindow() {
       if (window.electronAPI && typeof window.electronAPI.maximize === 'function') {
         window.electronAPI.maximize();
+      } else {
+        // Browser Fullscreen API Fallback
+        try {
+          if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(() => {});
+          } else {
+            document.exitFullscreen().catch(() => {});
+          }
+        } catch (e) {}
       }
     }
 
@@ -84,6 +105,9 @@
       if (window.electronAPI && typeof window.electronAPI.close === 'function') {
         window.electronAPI.close();
       } else {
+        window.close();
+      }
+    } else {
         window.close();
       }
     }
@@ -1547,7 +1571,7 @@ cod: {
     });
   
     // =========================================================================
-    // 🪟 NATIVE WINDOW CONTROLS (MINIMIZE, MAXIMIZE, CLOSE)
+    // 🪟 BULLETPROOF WINDOW CONTROLS (ELECTRON NATIVE + BROWSER FALLBACK)
     // =========================================================================
     function minimizeWindow() {
       if (window.electronAPI && typeof window.electronAPI.minimize === 'function') {
@@ -1558,6 +1582,15 @@ cod: {
     function maximizeWindow() {
       if (window.electronAPI && typeof window.electronAPI.maximize === 'function') {
         window.electronAPI.maximize();
+      } else {
+        // Browser Fullscreen API Fallback
+        try {
+          if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(() => {});
+          } else {
+            document.exitFullscreen().catch(() => {});
+          }
+        } catch (e) {}
       }
     }
 
@@ -1565,6 +1598,9 @@ cod: {
       if (window.electronAPI && typeof window.electronAPI.close === 'function') {
         window.electronAPI.close();
       } else {
+        window.close();
+      }
+    } else {
         window.close();
       }
     }
