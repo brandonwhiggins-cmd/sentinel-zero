@@ -3,7 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>Sentinel Zero | Competitive Esports Client</title>
+
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome Pro Icons -->
@@ -11,7 +15,7 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -24,10 +28,10 @@
           },
           colors: {
             client: {
-              bg: '#080b11',
-              sidebar: '#0d111a',
-              card: '#111726',
-              border: '#1e293b',
+              bg: '#070a10',
+              sidebar: '#0b0f19',
+              card: '#0f1626',
+              border: '#1b253b',
               accent: '#10b981',
               amber: '#f59e0b',
               cyan: '#06b6d4',
@@ -40,20 +44,20 @@
 
   <style>
     body {
-      background-color: #080b11;
+      background-color: #070a10;
       color: #f8fafc;
       user-select: none;
       overflow: hidden;
     }
     ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
+      width: 5px;
+      height: 5px;
     }
     ::-webkit-scrollbar-track {
-      background: #0d111a;
+      background: #070a10;
     }
     ::-webkit-scrollbar-thumb {
-      background: #1e293b;
+      background: #1b253b;
       border-radius: 9999px;
     }
     ::-webkit-scrollbar-thumb:hover {
@@ -72,19 +76,19 @@
   <!-- ========================================================================= -->
   <!-- 🖥️ TOP CLIENT TITLEBAR & MASTER CONTROLS -->
   <!-- ========================================================================= -->
-  <header class="h-14 bg-client-sidebar border-b border-client-border flex items-center justify-between px-4 shrink-0 z-30">
-    <!-- App Brand & Status -->
+  <header class="h-14 bg-client-sidebar border-b border-client-border flex items-center justify-between px-4 shrink-0 z-30 shadow-md">
+    <!-- App Brand & Identity -->
     <div class="flex items-center gap-3">
-      <div class="flex items-center gap-2">
-        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-slate-950 font-black shadow-[0_0_15px_rgba(16,185,129,0.4)]">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-slate-950 font-black shadow-[0_0_15px_rgba(16,185,129,0.35)]">
           <i class="fa-solid fa-shield-halved text-sm"></i>
         </div>
         <div>
-          <div class="flex items-center gap-1.5">
+          <div class="flex items-center gap-2">
             <span class="font-black text-white tracking-wider text-xs">SENTINEL ZERO</span>
-            <span class="text-[9px] font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-1.5 py-0.2 rounded">CLIENT v0.1.0</span>
+            <span class="text-[9px] font-mono font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 px-1.5 py-0.2 rounded">PROD v1.0.4</span>
           </div>
-          <div class="text-[10px] text-gray-400 font-mono flex items-center gap-1">
+          <div class="text-[10px] text-gray-400 font-mono flex items-center gap-1.5">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
             <span>SILICON ATTESTED &bull; TPM 2.0 LOCKED</span>
           </div>
@@ -93,20 +97,20 @@
     </div>
 
     <!-- Security & Matchmaking Status Center Pill -->
-    <div class="hidden md:flex items-center gap-3 px-4 py-1.5 rounded-full bg-client-bg border border-client-border text-xs font-mono">
+    <div class="hidden md:flex items-center gap-3 px-4 py-1.5 rounded-full bg-client-bg/90 border border-client-border text-xs font-mono backdrop-blur-sm shadow-inner">
       <div class="flex items-center gap-1.5 text-emerald-400 font-semibold">
         <i class="fa-solid fa-microchip text-xs"></i>
-        <span>Anti-Cheat: ACTIVE</span>
+        <span>Anti-Cheat: KERNEL ACTIVE</span>
       </div>
       <span class="text-gray-600">&bull;</span>
       <div class="flex items-center gap-1.5 text-cyan-400 font-semibold">
         <i class="fa-solid fa-wifi text-xs"></i>
-        <span>US-East: 14ms</span>
+        <span id="client-latency">US-East: 12ms</span>
       </div>
       <span class="text-gray-600">&bull;</span>
       <div class="flex items-center gap-1.5 text-amber-400 font-semibold">
         <i class="fa-solid fa-users text-xs"></i>
-        <span id="client-online-count">42 Players Queuing</span>
+        <span id="client-online-count">48 Players Queuing</span>
       </div>
     </div>
 
@@ -137,16 +141,16 @@
         </div>
       </div>
 
-      <!-- 🪟 Custom Frameless Window Controls -->
-      <div class="flex items-center no-drag ml-2 pl-2 border-l border-client-border space-x-1">
-        <button onclick="minimizeWindow()" class="w-7 h-7 rounded-lg hover:bg-slate-800 text-gray-400 hover:text-white flex items-center justify-center transition" title="Minimize">
-          <i class="fa-solid fa-minus text-[11px]"></i>
+      <!-- 🪟 Native-Feel Frameless Window Controls -->
+      <div class="flex items-center no-drag ml-1 pl-2 border-l border-client-border">
+        <button onclick="minimizeWindow()" class="w-8 h-8 hover:bg-slate-800 text-gray-400 hover:text-white flex items-center justify-center transition" title="Minimize">
+          <i class="fa-solid fa-minus text-xs"></i>
         </button>
-        <button onclick="maximizeWindow()" class="w-7 h-7 rounded-lg hover:bg-slate-800 text-gray-400 hover:text-white flex items-center justify-center transition" title="Maximize">
-          <i class="fa-regular fa-square text-[11px]"></i>
+        <button onclick="maximizeWindow()" class="w-8 h-8 hover:bg-slate-800 text-gray-400 hover:text-white flex items-center justify-center transition" title="Maximize">
+          <i class="fa-regular fa-square text-xs"></i>
         </button>
-        <button onclick="closeWindow()" class="w-7 h-7 rounded-lg hover:bg-rose-500/20 text-gray-400 hover:text-rose-400 flex items-center justify-center transition" title="Close">
-          <i class="fa-solid fa-xmark text-xs"></i>
+        <button onclick="closeWindow()" class="w-8 h-8 hover:bg-rose-600 text-gray-400 hover:text-white flex items-center justify-center transition" title="Close">
+          <i class="fa-solid fa-xmark text-sm"></i>
         </button>
       </div>
     </div>
@@ -161,59 +165,65 @@
     <aside class="w-64 bg-client-sidebar border-r border-client-border flex flex-col justify-between shrink-0">
       <div class="p-3 space-y-4 overflow-y-auto">
         <div>
-          <div class="text-[10px] font-mono uppercase tracking-wider text-gray-400 font-bold px-3 mb-2">Verified Anchor Games</div>
+          <div class="text-[10px] font-mono uppercase tracking-wider text-gray-400 font-bold px-3 mb-2 flex items-center justify-between">
+            <span>Verified Anchor Games</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+          </div>
           <div class="space-y-1">
             <button onclick="selectGame('cs2')" id="nav-cs2" class="w-full px-3 py-2.5 rounded-xl bg-emerald-500/15 border border-emerald-500/40 text-white font-bold flex items-center justify-between text-xs transition">
               <div class="flex items-center gap-2.5">
                 <i class="fa-solid fa-crosshairs text-emerald-400 text-sm"></i>
                 <span>Counter-Strike 2</span>
               </div>
-              <span class="text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 px-1.5 py-0.2 rounded">AIM 1v1</span>
+              <span class="text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 px-1.5 py-0.2 rounded">18 in queue</span>
             </button>
 
-            <button onclick="selectGame('siege')" id="nav-siege" class="w-full px-3 py-2.5 rounded-xl hover:bg-client-card text-gray-300 hover:text-white font-bold flex items-center justify-between text-xs transition">
+            <button onclick="selectGame('siege')" id="nav-siege" class="w-full px-3 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-client-card font-bold flex items-center justify-between text-xs transition">
               <div class="flex items-center gap-2.5">
                 <i class="fa-solid fa-shield-halved text-blue-400 text-sm"></i>
                 <span>Rainbow Six Siege</span>
               </div>
-              <span class="text-[10px] font-mono text-gray-500">1v1 CQB</span>
+              <span class="text-[10px] font-mono text-gray-500">9 in queue</span>
             </button>
 
-            <button onclick="selectGame('rl')" id="nav-rl" class="w-full px-3 py-2.5 rounded-xl hover:bg-client-card text-gray-300 hover:text-white font-bold flex items-center justify-between text-xs transition">
+            <button onclick="selectGame('rl')" id="nav-rl" class="w-full px-3 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-client-card font-bold flex items-center justify-between text-xs transition">
               <div class="flex items-center gap-2.5">
                 <i class="fa-solid fa-car text-cyan-400 text-sm"></i>
                 <span>Rocket League</span>
               </div>
-              <span class="text-[10px] font-mono text-gray-500">1v1 Duel</span>
+              <span class="text-[10px] font-mono text-gray-500">8 in queue</span>
             </button>
 
-            <button onclick="selectGame('rust')" id="nav-rust" class="w-full px-3 py-2.5 rounded-xl hover:bg-client-card text-gray-300 hover:text-white font-bold flex items-center justify-between text-xs transition">
+            <button onclick="selectGame('rust')" id="nav-rust" class="w-full px-3 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-client-card font-bold flex items-center justify-between text-xs transition">
               <div class="flex items-center gap-2.5">
                 <i class="fa-solid fa-fire text-amber-500 text-sm"></i>
                 <span>Rust</span>
               </div>
-              <span class="text-[10px] font-mono text-gray-500">Aim Train</span>
+              <span class="text-[10px] font-mono text-gray-500">5 in queue</span>
             </button>
 
-            <button onclick="selectGame('warzone')" id="nav-warzone" class="w-full px-3 py-2.5 rounded-xl hover:bg-client-card text-gray-300 hover:text-white font-bold flex items-center justify-between text-xs transition">
+            <button onclick="selectGame('warzone')" id="nav-warzone" class="w-full px-3 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-client-card font-bold flex items-center justify-between text-xs transition">
               <div class="flex items-center gap-2.5">
                 <i class="fa-solid fa-person-rifle text-emerald-400 text-sm"></i>
                 <span>Warzone / MW3</span>
               </div>
-              <span class="text-[10px] font-mono text-gray-500">Kill Race</span>
+              <span class="text-[10px] font-mono text-gray-500">12 in queue</span>
             </button>
           </div>
         </div>
 
         <div>
-          <div class="text-[10px] font-mono uppercase tracking-wider text-gray-400 font-bold px-3 mb-2">More Titles</div>
+          <div class="text-[10px] font-mono uppercase tracking-wider text-gray-400 font-bold px-3 mb-2 flex items-center justify-between">
+            <span>Expanded Roster</span>
+            <span class="text-[9px] font-mono text-gray-500">Multi-Store</span>
+          </div>
           <div class="space-y-1">
             <button onclick="selectGame('apex')" id="nav-apex" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
               <div class="flex items-center gap-2">
                 <i class="fa-solid fa-jet-fighter text-orange-400 text-xs"></i>
                 <span>Apex Legends</span>
               </div>
-              <span class="text-[9px] font-mono text-gray-500">1v1 Firing</span>
+              <span class="text-[9px] font-mono text-gray-500">6 in queue</span>
             </button>
 
             <button onclick="selectGame('fc25')" id="nav-fc25" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
@@ -221,7 +231,7 @@
                 <i class="fa-solid fa-futbol text-emerald-400 text-xs"></i>
                 <span>EA Sports FC 25</span>
               </div>
-              <span class="text-[9px] font-mono text-gray-500">FUT 1v1</span>
+              <span class="text-[9px] font-mono text-gray-500">4 in queue</span>
             </button>
 
             <button onclick="selectGame('nba2k')" id="nav-nba2k" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
@@ -229,7 +239,7 @@
                 <i class="fa-solid fa-basketball text-amber-500 text-xs"></i>
                 <span>NBA 2K25</span>
               </div>
-              <span class="text-[9px] font-mono text-gray-500">Ante-Up</span>
+              <span class="text-[9px] font-mono text-gray-500">4 in queue</span>
             </button>
 
             <button onclick="selectGame('tarkov')" id="nav-tarkov" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
@@ -237,66 +247,69 @@
                 <i class="fa-solid fa-crosshairs text-stone-400 text-xs"></i>
                 <span>Escape from Tarkov</span>
               </div>
-              <span class="text-[9px] font-mono text-gray-500">Factory</span>
+              <span class="text-[9px] font-mono text-gray-500">7 in queue</span>
             </button>
           </div>
         </div>
       </div>
 
       <!-- Left Sidebar Footer -->
-      <div class="p-3 border-t border-client-border bg-client-bg/50">
-        <div class="p-3 rounded-xl bg-client-card border border-client-border text-xs space-y-1.5">
+      <div class="p-3 border-t border-client-border bg-client-bg/40">
+        <div class="p-3 rounded-2xl bg-client-card border border-client-border text-xs space-y-1.5 shadow-sm">
           <div class="flex items-center justify-between font-bold text-white">
-            <span>Hardware Shield</span>
+            <span class="flex items-center gap-1.5">
+              <i class="fa-solid fa-shield text-emerald-400 text-xs"></i>
+              <span>Hardware Shield</span>
+            </span>
             <span class="text-emerald-400 text-[10px] font-mono">100% OK</span>
           </div>
-          <p class="text-[11px] text-gray-400">TPM 2.0 Attestation active. Cheaters permanently banned at BIOS level.</p>
+          <p class="text-[11px] text-gray-400 leading-snug">TPM 2.0 BIOS Attestation locked. Unmodified memory verification engaged.</p>
         </div>
       </div>
     </aside>
 
-    <!-- PANEL 2: CENTER MATCH ARENA (THE MAIN ACTION) -->
+    <!-- PANEL 2: CENTER MATCH ARENA -->
     <main class="flex-1 flex flex-col overflow-y-auto bg-client-bg p-6 space-y-6">
 
       <!-- Active Game Banner Card -->
-      <div class="relative rounded-3xl overflow-hidden border border-client-border bg-gradient-to-r from-[#0d1627] via-client-card to-[#0d1627] p-8 shadow-2xl">
+      <div class="relative rounded-3xl overflow-hidden border border-client-border bg-gradient-to-br from-[#0c1424] via-client-card to-[#0b101c] p-8 shadow-2xl">
         <div class="max-w-2xl space-y-4">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-xs font-bold">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-xs font-bold shadow-sm">
             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
             <span id="arena-game-mode-badge">OFFICIAL 1v1 AIM DUEL ARENA</span>
           </div>
           
           <div>
             <h1 class="text-3xl sm:text-4xl font-black text-white tracking-tight" id="arena-game-name">Counter-Strike 2</h1>
-            <p class="text-xs sm:text-sm text-gray-300 mt-1" id="arena-game-desc">
+            <p class="text-xs sm:text-sm text-gray-300 mt-1 leading-relaxed" id="arena-game-desc">
               128-tick private aim duels with MR12 competitive ruleset. Verified clean memory attestation with automated Steam auto-launch.
             </p>
           </div>
 
           <!-- Queue Match Type Selector Chips -->
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-            <button onclick="selectQueueTier(0, this)" class="queue-btn p-3.5 rounded-2xl bg-client-bg border border-client-border text-left hover:border-emerald-500/50 transition">
+            <button onclick="selectQueueTier(0, this)" id="tier-btn-0" class="queue-btn p-3.5 rounded-2xl bg-client-bg border border-client-border text-left hover:border-emerald-500/50 transition">
               <div class="text-[10px] font-mono text-gray-400 uppercase">Casual Clean Duel</div>
               <div class="text-base font-black text-emerald-400 font-mono">$0.00 Free</div>
               <div class="text-[10px] text-gray-400 mt-0.5">Warmup & Rank</div>
             </button>
 
-            <button onclick="selectQueueTier(10, this)" class="queue-btn p-3.5 rounded-2xl bg-emerald-500/20 border-2 border-emerald-400 text-left transition shadow-[0_0_15px_rgba(16,185,129,0.2)]">
-              <div class="text-[10px] font-mono text-emerald-300 uppercase">Standard Duel</div>
+            <button onclick="selectQueueTier(10, this)" id="tier-btn-10" class="queue-btn p-3.5 rounded-2xl bg-emerald-500/15 border-2 border-emerald-400 text-left transition shadow-[0_0_15px_rgba(16,185,129,0.25)]">
+              <div class="text-[10px] font-mono text-emerald-300 uppercase font-bold">Standard Duel</div>
               <div class="text-base font-black text-white font-mono">$10 Entry ($20 Pot)</div>
               <div class="text-[10px] text-emerald-300 font-semibold mt-0.5">Instant Stripe Escrow</div>
             </button>
 
-            <button onclick="selectQueueTier(25, this)" class="queue-btn p-3.5 rounded-2xl bg-client-bg border border-client-border text-left hover:border-amber-400/50 transition">
+            <button onclick="selectQueueTier(25, this)" id="tier-btn-25" class="queue-btn p-3.5 rounded-2xl bg-client-bg border border-client-border text-left hover:border-amber-400/50 transition">
               <div class="text-[10px] font-mono text-amber-400 uppercase">High Roller Match</div>
               <div class="text-base font-black text-amber-300 font-mono">$25 Entry ($50 Pot)</div>
               <div class="text-[10px] text-gray-400 mt-0.5">Elite VIP Verified</div>
             </button>
           </div>
 
-          <!-- The Main Action Buttons: Dynamic Launchers -->
-          <div class="pt-4 flex flex-col sm:flex-row items-center gap-4">
-            <button onclick="startClientMatchSearch()" id="client-launch-btn" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-sm tracking-wider uppercase flex items-center justify-center gap-2.5 transition shadow-[0_0_25px_rgba(16,185,129,0.4)]">
+          <!-- The Main Action Buttons & Store Switcher -->
+          <div class="pt-4 flex flex-col sm:flex-row items-center gap-3">
+            <button onclick="startClientMatchSearch()" id="client-launch-btn" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-sm tracking-wider uppercase flex items-center justify-center gap-2.5 transition shadow-[0_0_25px_rgba(16,185,129,0.35)]">
               <i class="fa-solid fa-crosshairs text-base"></i>
               <span id="client-launch-label">QUEUE FOR CS2 1v1 DUEL ($10 ESCROW)</span>
             </button>
@@ -308,9 +321,9 @@
             </button>
           </div>
 
-          <!-- Quick Banner Launcher Toggles (For COD, Siege, Rocket League, Apex) -->
-          <div id="banner-launcher-selector" class="flex items-center gap-2 pt-1">
-            <span class="text-[11px] font-mono text-gray-400">Preferred Store:</span>
+          <!-- Quick Banner Storefront Switcher -->
+          <div id="banner-launcher-selector" class="flex items-center gap-2 pt-1 hidden">
+            <span class="text-[11px] font-mono text-gray-400 font-bold">Preferred Store:</span>
             <div id="banner-store-pills" class="flex items-center gap-1.5 flex-wrap">
               <!-- Populated dynamically via JS -->
             </div>
@@ -322,27 +335,28 @@
       <div class="space-y-3">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2">
-            <i class="fa-solid fa-radar text-emerald-400 text-xs"></i>
+            <i class="fa-solid fa-radar text-emerald-400 text-xs animate-pulse"></i>
             <h3 class="font-bold text-white text-sm" id="radar-title">Active CS2 Match Radar</h3>
             <span class="text-[10px] font-mono text-gray-400">(Auto-refreshes live)</span>
           </div>
-          <button onclick="renderLobbies()" class="text-xs text-emerald-400 hover:underline flex items-center gap-1">
-            <i class="fa-solid fa-rotate text-[10px]"></i> Refresh
+          <button onclick="refreshLobbiesWithAnimation()" class="text-xs text-emerald-400 hover:underline flex items-center gap-1">
+            <i id="radar-refresh-icon" class="fa-solid fa-rotate text-[10px]"></i>
+            <span>Refresh</span>
           </button>
         </div>
 
-        <div class="rounded-2xl border border-client-border overflow-hidden bg-client-card">
+        <div class="rounded-2xl border border-client-border overflow-hidden bg-client-card shadow-lg">
           <table class="w-full text-left text-xs">
             <thead>
-              <tr class="bg-client-sidebar/80 text-gray-400 font-mono text-[11px] border-b border-client-border uppercase">
-                <th class="p-3 pl-4">Challenger</th>
-                <th class="p-3">Game / Mode</th>
-                <th class="p-3">Wager Pot</th>
-                <th class="p-3">Hardware Status</th>
-                <th class="p-3 pr-4 text-right">Action</th>
+              <tr class="bg-client-sidebar/90 text-gray-400 font-mono text-[11px] border-b border-client-border uppercase">
+                <th class="p-3.5 pl-4">Challenger</th>
+                <th class="p-3.5">Game / Mode</th>
+                <th class="p-3.5">Wager Pot</th>
+                <th class="p-3.5">Hardware Status</th>
+                <th class="p-3.5 pr-4 text-right">Action</th>
               </tr>
             </thead>
-            <tbody id="client-lobbies-tbody" class="divide-y divide-client-border/50 text-gray-200">
+            <tbody id="client-lobbies-tbody" class="divide-y divide-client-border/40 text-gray-200">
               <!-- Rendered dynamically per title -->
             </tbody>
           </table>
@@ -355,9 +369,12 @@
     <aside class="w-72 bg-client-sidebar border-l border-client-border flex flex-col justify-between shrink-0 p-4 space-y-4">
       
       <!-- Hardware TPM 2.0 Security Card -->
-      <div class="p-4 rounded-2xl bg-client-card border border-client-border space-y-3">
+      <div class="p-4 rounded-2xl bg-client-card border border-client-border space-y-3 shadow-md">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-bold text-white uppercase tracking-wider font-mono">Hardware Security</span>
+          <span class="text-xs font-bold text-white uppercase tracking-wider font-mono flex items-center gap-1.5">
+            <i class="fa-solid fa-microchip text-emerald-400"></i>
+            <span>Hardware Security</span>
+          </span>
           <span class="text-[9px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-2 py-0.5 rounded-full">LOCKED</span>
         </div>
 
@@ -380,16 +397,19 @@
           </div>
         </div>
 
-        <div class="p-2.5 rounded-xl bg-client-bg/80 text-[11px] text-gray-400 flex items-start gap-2">
+        <div class="p-2.5 rounded-xl bg-client-bg/90 text-[11px] text-gray-400 flex items-start gap-2 border border-client-border/50">
           <i class="fa-solid fa-lock text-emerald-400 text-xs mt-0.5"></i>
           <span>Opponents must match clean silicon hash before escrow release.</span>
         </div>
       </div>
 
       <!-- Quick 1-Click Stripe Deposit Links -->
-      <div class="p-4 rounded-2xl bg-client-card border border-client-border space-y-3">
+      <div class="p-4 rounded-2xl bg-client-card border border-client-border space-y-3 shadow-md">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-bold text-white uppercase tracking-wider font-mono">Match Wallet</span>
+          <span class="text-xs font-bold text-white uppercase tracking-wider font-mono flex items-center gap-1.5">
+            <i class="fa-solid fa-wallet text-amber-400"></i>
+            <span>Match Wallet</span>
+          </span>
           <span class="text-xs font-mono font-bold text-emerald-400" id="side-balance">$100.00</span>
         </div>
 
@@ -414,14 +434,21 @@
       </div>
 
       <!-- Creator Referral Rev-Share Info -->
-      <div class="p-3.5 rounded-2xl bg-gradient-to-b from-amber-500/10 to-transparent border border-amber-500/20 text-xs space-y-1.5">
-        <div class="flex items-center gap-1.5 text-amber-300 font-bold">
-          <i class="fa-solid fa-hand-holding-dollar text-sm"></i>
-          <span>Creator Payback Active</span>
+      <div class="p-3.5 rounded-2xl bg-gradient-to-b from-amber-500/10 to-transparent border border-amber-500/20 text-xs space-y-2">
+        <div class="flex items-center justify-between text-amber-300 font-bold">
+          <div class="flex items-center gap-1.5">
+            <i class="fa-solid fa-hand-holding-dollar text-sm"></i>
+            <span>Creator Payback Active</span>
+          </div>
+          <span class="text-[9px] font-mono bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded">35%</span>
         </div>
         <p class="text-[11px] text-gray-400 leading-snug">
-          $1.75 / mo per active paid subscriber credited to your referral balance.
+          $1.75 / mo per active paid subscriber credited directly to your balance.
         </p>
+        <button onclick="copyReferralLink()" class="w-full py-1.5 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 font-mono text-[10px] font-bold transition flex items-center justify-center gap-1.5">
+          <i class="fa-regular fa-copy"></i>
+          <span id="ref-copy-text">Copy Creator Referral Link</span>
+        </button>
       </div>
 
     </aside>
@@ -457,7 +484,7 @@
       <!-- Multi-Launcher Picker & Launcher Action -->
       <div class="space-y-3">
         <div class="flex items-center justify-between">
-          <span class="text-[11px] font-mono text-gray-400 uppercase">Select Game Platform:</span>
+          <span class="text-[11px] font-mono text-gray-400 uppercase font-bold">Select Game Platform:</span>
           <span id="active-launcher-indicator" class="text-[10px] font-mono text-emerald-400 font-bold">Auto-Detected</span>
         </div>
 
@@ -487,7 +514,7 @@
 
       <!-- Winner Claim Button -->
       <div class="flex items-center gap-2 pt-2 border-t border-client-border">
-        <button onclick="claimVictory()" class="flex-1 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs uppercase tracking-wider transition">
+        <button onclick="claimVictory()" class="flex-1 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-[0_0_15px_rgba(16,185,129,0.3)]">
           Report Victory (Claim Escrow Pot)
         </button>
         <button onclick="closeMatchModal()" class="px-4 py-3 rounded-xl bg-client-bg hover:bg-client-sidebar border border-client-border text-xs text-gray-400 hover:text-white transition">
@@ -507,7 +534,7 @@
     const CLIENT_GAMES = {
       cs2: {
         name: 'Counter-Strike 2',
-        modeBadge: 'OFFICIAL 1v1 AIM DUEL ARENA',
+        modeBadge: 'OFFICIAL 1v1 AIM DUEL ARENA • 128-TICK',
         desc: '128-tick private aim duels with MR12 competitive ruleset. Verified clean memory attestation with automated Steam auto-launch.',
         bannerBtn: { label: 'Launch Steam', icon: 'fa-brands fa-steam', uri: 'steam://rungameid/730' },
         defaultLauncher: 'steam',
@@ -523,7 +550,7 @@
       },
       siege: {
         name: 'Rainbow Six Siege',
-        modeBadge: 'TACTICAL 1v1 CQB ARENA',
+        modeBadge: 'TACTICAL 1v1 CQB ARENA • HOUSE / CLUBHOUSE',
         desc: 'Close-quarters 1v1 duels on House & Clubhouse. Verified recoil attestation with direct Steam & Ubisoft Connect launch.',
         bannerBtn: { label: 'Launch Siege', icon: 'fa-solid fa-gamepad', uri: 'steam://rungameid/359550' },
         defaultLauncher: 'steam',
@@ -540,7 +567,7 @@
       },
       rl: {
         name: 'Rocket League',
-        modeBadge: 'OFFICIAL 1v1 SOCCAR DUEL',
+        modeBadge: 'OFFICIAL 1v1 SOCCAR DUEL • DFH STADIUM',
         desc: '1v1 Soccar competitive duels on DFH Stadium. Instant party code lobby invites with Epic Games and Steam support.',
         bannerBtn: { label: 'Launch Rocket League', icon: 'fa-solid fa-bolt', uri: 'com.epicgames.launcher://apps/Sugar?action=launch&silent=true' },
         defaultLauncher: 'epic',
@@ -556,7 +583,7 @@
       },
       rust: {
         name: 'Rust (Aim Train)',
-        modeBadge: 'AK-47 COMBAT DUEL ARENA',
+        modeBadge: 'AK-47 COMBAT DUEL ARENA • UKN RULES',
         desc: 'AK-47 spray control & recoil aim battles on private UKN-style combat servers with automated server connect.',
         bannerBtn: { label: 'Launch Rust on Steam', icon: 'fa-brands fa-steam', uri: 'steam://rungameid/252490' },
         defaultLauncher: 'steam',
@@ -571,8 +598,8 @@
       },
       warzone: {
         name: 'Call of Duty: Warzone / MW3',
-        modeBadge: 'HIGH-STAKES KILL RACE & GULAG',
-        desc: '2v2 Warzone kill races & 1v1 Gulag gunfights. Verified controller input & hardware attestation with Battle.net and Steam.',
+        modeBadge: 'HIGH-STAKES KILL RACE & 1v1 GULAG',
+        desc: '2v2 Warzone kill races & 1v1 Gulag gunfights. Verified controller input & hardware attestation with Battle.net, Steam, and Xbox PC.',
         bannerBtn: { label: 'Launch Battle.net', icon: 'fa-solid fa-shield', uri: 'battlenet://launch/ODIN' },
         defaultLauncher: 'bnet',
         connect_code: 'Whisper Party: SentinelZero#1904',
@@ -588,7 +615,7 @@
       },
       apex: {
         name: 'Apex Legends',
-        modeBadge: '1v1 FIRING RANGE COMBAT',
+        modeBadge: '1v1 FIRING RANGE COMBAT ARENA',
         desc: '1v1 Firing Range duels with Red Shields, Wingman & R-99 ground loot. Verified zero-recoil macros attestation.',
         bannerBtn: { label: 'Launch Apex on Steam', icon: 'fa-brands fa-steam', uri: 'steam://rungameid/1172470' },
         defaultLauncher: 'steam',
@@ -604,7 +631,7 @@
       },
       fc25: {
         name: 'EA Sports FC 25',
-        modeBadge: 'FUT CHAMPIONS 1v1 DUEL',
+        modeBadge: 'FUT CHAMPIONS 1v1 COMPETITIVE DUEL',
         desc: 'Competitive 90-minute FUT Champions duels with Golden Goal option. Instant gamertag matchmaking with EA App & Steam.',
         bannerBtn: { label: 'Launch EA Sports FC 25', icon: 'fa-solid fa-play', uri: 'steam://rungameid/2669320' },
         defaultLauncher: 'steam',
@@ -621,7 +648,7 @@
       },
       nba2k: {
         name: 'NBA 2K25',
-        modeBadge: 'ANTE-UP 1v1 BLACKTOP',
+        modeBadge: 'ANTE-UP 1v1 BLACKTOP ARENA',
         desc: 'High-stakes Ante-Up 1v1 blacktop court duels to 21 points. Verified green-meter macro attestation with Steam.',
         bannerBtn: { label: 'Launch NBA 2K25', icon: 'fa-brands fa-steam', uri: 'steam://rungameid/2878980' },
         defaultLauncher: 'steam',
@@ -636,7 +663,7 @@
       },
       tarkov: {
         name: 'Escape from Tarkov',
-        modeBadge: 'PMC FACTORY CLEAN SCRIM',
+        modeBadge: 'PMC FACTORY CLEAN SCRIM ARENA',
         desc: 'Private Factory & Customs 1v1 PMC extraction duels. Verified non-invasive memory attestation with BSG Launcher.',
         bannerBtn: { label: 'Launch BSG Launcher', icon: 'fa-solid fa-crosshairs', uri: 'bsglauncher://' },
         defaultLauncher: 'bsg',
@@ -657,7 +684,7 @@
 
       // 1. Update Active Navigation Styling
       document.querySelectorAll('aside button').forEach(b => {
-        b.className = "w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition";
+        b.className = "w-full px-3 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition";
       });
 
       const activeBtn = document.getElementById('nav-' + gameKey);
@@ -678,20 +705,10 @@
         queueBtnLabel.innerText = `QUEUE FOR ${g.name.toUpperCase()} (${selectedWager === 0 ? 'FREE' : '$' + selectedWager + ' ESCROW'})`;
       }
 
-      // 3. Update Banner Secondary Platform Launch Button
-      const bannerBtn = document.getElementById('banner-platform-btn');
-      const bannerLabel = document.getElementById('banner-platform-label');
-      const bannerIcon = document.getElementById('banner-platform-icon');
-
-      if (bannerBtn && g.bannerBtn) {
-        if (bannerLabel) bannerLabel.innerText = g.bannerBtn.label;
-        if (bannerIcon) bannerIcon.className = `${g.bannerBtn.icon} text-sm`;
-      }
-
-      // 4. Render Banner Store Selector Pills (e.g. Battle.net vs Steam for COD)
+      // 3. Render Storefront Pills (Steam / Battle.net / Xbox)
       renderBannerStorePills(g);
 
-      // 5. Update Radar Header & Render Title Lobbies
+      // 4. Update Radar Header & Render Title Lobbies
       const radarTitle = document.getElementById('radar-title');
       if (radarTitle) radarTitle.innerText = `Active ${g.name} Match Radar`;
 
@@ -719,9 +736,9 @@
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = isSelected
-          ? "px-2.5 py-1 rounded-lg bg-emerald-500/20 border border-emerald-400 text-emerald-300 font-bold text-[11px] font-mono flex items-center gap-1 transition shadow-[0_0_10px_rgba(16,185,129,0.3)]"
-          : "px-2.5 py-1 rounded-lg bg-client-bg hover:bg-client-card border border-client-border text-gray-400 hover:text-white font-medium text-[11px] font-mono flex items-center gap-1 transition";
-        btn.innerHTML = `<i class="${opt.icon} text-xs"></i> <span>${opt.label.split(' ')[0]}</span>`;
+          ? "px-2.5 py-1 rounded-lg bg-emerald-500/20 border border-emerald-400 text-emerald-300 font-bold text-[11px] font-mono flex items-center gap-1.5 transition shadow-[0_0_10px_rgba(16,185,129,0.3)]"
+          : "px-2.5 py-1 rounded-lg bg-client-bg hover:bg-client-card border border-client-border text-gray-400 hover:text-white font-medium text-[11px] font-mono flex items-center gap-1.5 transition";
+        btn.innerHTML = `<i class="${opt.icon} text-xs"></i> <span>${opt.label}</span>`;
         btn.onclick = () => {
           selectLauncher(activeGame, opt.id);
           selectGame(activeGame);
@@ -758,7 +775,7 @@
         b.className = "queue-btn p-3.5 rounded-2xl bg-client-bg border border-client-border text-left hover:border-emerald-500/50 transition";
       });
       if (btn) {
-        btn.className = "queue-btn p-3.5 rounded-2xl bg-emerald-500/20 border-2 border-emerald-400 text-left transition shadow-[0_0_15px_rgba(16,185,129,0.2)]";
+        btn.className = "queue-btn p-3.5 rounded-2xl bg-emerald-500/15 border-2 border-emerald-400 text-left transition shadow-[0_0_15px_rgba(16,185,129,0.25)]";
       }
       const g = CLIENT_GAMES[activeGame] || CLIENT_GAMES['cs2'];
       const btnLabel = document.getElementById('client-launch-label');
@@ -779,21 +796,34 @@
         const tr = document.createElement('tr');
         tr.className = "hover:bg-client-sidebar/50 transition";
         tr.innerHTML = `
-          <td class="p-3 pl-4 font-bold text-white flex items-center gap-2">
+          <td class="p-3.5 pl-4 font-bold text-white flex items-center gap-2">
             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
             ${l.challenger}
           </td>
-          <td class="p-3 font-mono text-gray-300">${l.mode}</td>
-          <td class="p-3 font-mono font-black text-amber-400">${l.pot}</td>
-          <td class="p-3 font-mono text-[11px] text-emerald-400"><i class="fa-solid fa-microchip text-[10px] mr-1"></i> TPM 2.0 Attested</td>
-          <td class="p-3 pr-4 text-right">
-            <button onclick="acceptLobbyChallenge('${l.challenger}', '${l.pot}')" class="px-3 py-1 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs transition">
+          <td class="p-3.5 font-mono text-gray-300">${l.mode}</td>
+          <td class="p-3.5 font-mono font-black text-amber-400">
+            <span class="px-2 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/20 text-amber-300 font-mono">${l.pot}</span>
+          </td>
+          <td class="p-3.5 font-mono text-[11px] text-emerald-400">
+            <i class="fa-solid fa-microchip text-[10px] mr-1"></i> TPM 2.0 Attested
+          </td>
+          <td class="p-3.5 pr-4 text-right">
+            <button onclick="acceptLobbyChallenge('${l.challenger}', '${l.pot}')" class="px-3 py-1 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs transition shadow-sm">
               Accept
             </button>
           </td>
         `;
         tbody.appendChild(tr);
       });
+    }
+
+    function refreshLobbiesWithAnimation() {
+      const icon = document.getElementById('radar-refresh-icon');
+      if (icon) icon.classList.add('animate-spin');
+      setTimeout(() => {
+        renderLobbies();
+        if (icon) icon.classList.remove('animate-spin');
+      }, 500);
     }
 
     function acceptLobbyChallenge(challenger, pot) {
@@ -882,6 +912,17 @@
       });
     }
 
+    function copyReferralLink() {
+      const refUrl = "https://www.sentinelzero.gg/?ref=sknotrockit";
+      navigator.clipboard.writeText(refUrl).then(() => {
+        const textEl = document.getElementById('ref-copy-text');
+        if (textEl) {
+          textEl.innerText = "Copied to Clipboard!";
+          setTimeout(() => { textEl.innerText = "Copy Creator Referral Link"; }, 2500);
+        }
+      });
+    }
+
     function closeMatchModal() {
       document.getElementById('client-match-modal').classList.add('hidden');
     }
@@ -919,8 +960,23 @@
       }
     }
 
+    // Dynamic telemetry ticker
+    setInterval(() => {
+      const onlineEl = document.getElementById('client-online-count');
+      const latencyEl = document.getElementById('client-latency');
+      if (onlineEl) {
+        const base = 46 + Math.floor(Math.random() * 8);
+        onlineEl.innerText = `${base} Players Queuing`;
+      }
+      if (latencyEl) {
+        const ping = 11 + Math.floor(Math.random() * 4);
+        latencyEl.innerText = `US-East: ${ping}ms`;
+      }
+    }, 4000);
+
     window.addEventListener('DOMContentLoaded', () => {
       selectGame('cs2');
+      selectQueueTier(10, document.getElementById('tier-btn-10'));
     });
   </script>
 </body>
