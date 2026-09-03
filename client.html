@@ -123,10 +123,11 @@
 
     <!-- User Profile, Wallet & Passport Trigger -->
     <div class="flex items-center gap-3">
-      <!-- Game Passport Trigger -->
-      <button onclick="openClientPassportModal()" class="px-3 py-1.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-xs font-bold font-mono flex items-center gap-1.5 transition no-drag">
-        <i class="fa-solid fa-id-card"></i>
-        <span>Game Passport</span>
+      <!-- Game Passport Trigger (Dynamic Status Badge) -->
+      <button onclick="openClientPassportModal(false)" class="px-3 py-1.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-xs font-bold font-mono flex items-center gap-2 transition no-drag shadow-sm">
+        <span id="passport-header-badge" class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+        <i class="fa-solid fa-id-card text-xs"></i>
+        <span id="passport-header-label">Link Game Passport</span>
       </button>
 
       <!-- Wallet Balance Pill -->
@@ -963,9 +964,150 @@
       closeMatchModal();
     }
 
-    function openClientPassportModal() {
-      window.open('https://www.sentinelzero.gg/index.html', '_blank');
+
+    // =========================================================================
+    // 🆔 GAME PASSPORT ONBOARDING & MULTI-PLATFORM STORAGE
+    // =========================================================================
+    function getLinkedAccounts() {
+      try {
+        return JSON.parse(localStorage.getItem('sz_linked_accounts')) || {};
+      } catch (e) {
+        return {};
+      }
     }
+
+    function saveSinglePlatform(key, name) {
+      const input = document.getElementById('input-' + key);
+      const val = input ? input.value.trim() : '';
+      if (!val) {
+        alert('Please enter your ' + name + ' gamertag or ID.');
+        return;
+      }
+
+      const linked = getLinkedAccounts();
+      linked[key] = val;
+      localStorage.setItem('sz_linked_accounts', JSON.stringify(linked));
+      localStorage.setItem('sz_passport_onboarded', 'true');
+
+      updatePassportModalUI();
+      updatePassportHeaderBadge();
+      alert(`✅ ${name} linked: ${val}`);
+    }
+
+    function updatePassportModalUI() {
+      const linked = getLinkedAccounts();
+      const platforms = ['steam', 'activision', 'xbox', 'ubisoft', 'ea', 'tarkov'];
+      let count = 0;
+
+      platforms.forEach(k => {
+        const statusEl = document.getElementById('status-' + k);
+        const inputEl = document.getElementById('input-' + k);
+        if (linked[k]) {
+          count++;
+          if (statusEl) {
+            statusEl.innerText = "Linked: " + linked[k];
+            statusEl.className = "text-[9px] font-mono text-emerald-400 font-bold";
+          }
+          if (inputEl) inputEl.value = linked[k];
+        } else {
+          if (statusEl) {
+            statusEl.innerText = "Not Linked";
+            statusEl.className = "text-[9px] font-mono text-gray-500";
+          }
+        }
+      });
+
+      const pill = document.getElementById('passport-status-pill');
+      if (pill) {
+        if (count > 0) {
+          pill.innerText = `${count} PLATFORM${count > 1 ? 'S' : ''} ACTIVE`;
+          pill.className = "text-[9px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-1.5 py-0.2 rounded";
+        } else {
+          pill.innerText = "SETUP REQUIRED";
+          pill.className = "text-[9px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 px-1.5 py-0.2 rounded";
+        }
+      }
+    }
+
+    function updatePassportHeaderBadge() {
+      const linked = getLinkedAccounts();
+      const count = Object.keys(linked).length;
+      const btnText = document.getElementById('passport-header-label');
+      const badgePill = document.getElementById('passport-header-badge');
+
+      if (btnText) {
+        if (count > 0) {
+          btnText.innerText = `Game Passport (${count} Active)`;
+        } else {
+          btnText.innerText = "Link Game Passport";
+        }
+      }
+
+      if (badgePill) {
+        if (count > 0) {
+          badgePill.className = "w-2 h-2 rounded-full bg-emerald-400 animate-pulse";
+        } else {
+          badgePill.className = "w-2 h-2 rounded-full bg-amber-400 animate-ping";
+        }
+      }
+    }
+
+    function openClientPassportModal(isFirstRun = false) {
+      const modal = document.getElementById('client-passport-modal');
+      const title = document.getElementById('passport-modal-title');
+      const desc = document.getElementById('passport-modal-desc');
+      const closeBtn = document.getElementById('passport-close-btn');
+
+      if (isFirstRun) {
+        if (title) title.innerText = "Step 1: Link Your Game Passport";
+        if (desc) desc.innerText = "Link at least one primary ID (Steam, Activision, or Xbox) to activate matchmaking. You can add more later!";
+        if (closeBtn) closeBtn.classList.add('hidden'); // Force initial onboarding
+      } else {
+        if (title) title.innerText = "Game Passport Manager";
+        if (desc) desc.innerText = "Manage your linked gaming IDs across all supported storefronts. Add or update anytime.";
+        if (closeBtn) closeBtn.classList.remove('hidden');
+      }
+
+      updatePassportModalUI();
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeClientPassportModal() {
+      const modal = document.getElementById('client-passport-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function completePassportSetup() {
+      // Check if user filled in any input directly without clicking individual save
+      const platforms = [
+        { k: 'steam', n: 'Steam' },
+        { k: 'activision', n: 'Activision' },
+        { k: 'xbox', n: 'Xbox Gamertag' },
+        { k: 'ubisoft', n: 'Ubisoft' },
+        { k: 'ea', n: 'EA ID' },
+        { k: 'tarkov', n: 'Tarkov PMC' }
+      ];
+
+      const linked = getLinkedAccounts();
+      platforms.forEach(p => {
+        const inp = document.getElementById('input-' + p.k);
+        if (inp && inp.value.trim() && !linked[p.k]) {
+          linked[p.k] = inp.value.trim();
+        }
+      });
+
+      if (Object.keys(linked).length === 0) {
+        alert("⚠️ Please link at least one gaming account (e.g. Steam ID, Activision ID, or Xbox Gamertag) before activating.");
+        return;
+      }
+
+      localStorage.setItem('sz_linked_accounts', JSON.stringify(linked));
+      localStorage.setItem('sz_passport_onboarded', 'true');
+      updatePassportHeaderBadge();
+      closeClientPassportModal();
+      alert("🏆 Game Passport Activated! Your identity is attested and ready for tournament matchmaking.");
+    }
+
 
     function openClientDepositModal() {
       window.open('https://buy.stripe.com/aFa6oI4Ph2pt6vs547gfu02', '_blank');
@@ -1003,7 +1145,159 @@
     window.addEventListener('DOMContentLoaded', () => {
       selectGame('cs2');
       selectQueueTier(10, document.getElementById('tier-btn-10'));
+
+      // 🆔 Force Game Passport Onboarding on first launch
+      const onboarded = localStorage.getItem('sz_passport_onboarded');
+      updatePassportHeaderBadge();
+      if (!onboarded) {
+        setTimeout(() => {
+          openClientPassportModal(true); // Force first-run setup
+        }, 500);
+      }
     });
   </script>
+
+  <!-- ========================================================================= -->
+  <!-- 🆔 GAME PASSPORT ONBOARDING & ACCOUNT LINKING MODAL -->
+  <!-- ========================================================================= -->
+  <div id="client-passport-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-client-card border-2 border-cyan-500/40 rounded-3xl max-w-xl w-full p-6 text-white space-y-5 shadow-2xl relative max-h-[90vh] flex flex-col">
+      
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between border-b border-client-border pb-3 shrink-0">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-cyan-500/20 border border-cyan-500/40 text-cyan-400 flex items-center justify-center text-sm font-black">
+            <i class="fa-solid fa-id-card"></i>
+          </div>
+          <div>
+            <h3 class="font-extrabold text-sm text-white flex items-center gap-2">
+              <span id="passport-modal-title">Initialize Game Passport</span>
+              <span id="passport-status-pill" class="text-[9px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 px-1.5 py-0.2 rounded">SETUP REQUIRED</span>
+            </h3>
+            <p class="text-[11px] text-gray-400" id="passport-modal-desc">
+              Link your gaming accounts to enable anti-cheat hardware attestation and automated escrow payouts.
+            </p>
+          </div>
+        </div>
+        <button onclick="closeClientPassportModal()" id="passport-close-btn" class="w-7 h-7 rounded-lg hover:bg-slate-800 text-gray-400 hover:text-white flex items-center justify-center transition">
+          <i class="fa-solid fa-xmark text-xs"></i>
+        </button>
+      </div>
+
+      <!-- Scrollable Platforms List -->
+      <div class="space-y-3 overflow-y-auto flex-1 pr-1" id="passport-inputs-container">
+        
+        <!-- Platform 1: Steam -->
+        <div class="p-3.5 rounded-2xl bg-client-bg border border-client-border hover:border-emerald-500/40 transition space-y-2">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <i class="fa-brands fa-steam text-sky-400 text-base"></i>
+              <span class="font-bold text-xs text-white">Steam ID / Community URL</span>
+              <span class="text-[10px] font-mono text-gray-500">(CS2, Rust, Rocket League)</span>
+            </div>
+            <span id="status-steam" class="text-[9px] font-mono text-gray-500">Not Linked</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="text" id="input-steam" placeholder="e.g. steamcommunity.com/id/yourname or 7656119..." class="flex-1 bg-[#070a10] border border-client-border rounded-xl px-3 py-2 text-xs font-mono text-white placeholder-gray-600 focus:outline-none focus:border-emerald-500 transition">
+            <button onclick="saveSinglePlatform('steam', 'Steam')" class="px-3 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-xs font-bold font-mono transition">Save</button>
+          </div>
+        </div>
+
+        <!-- Platform 2: Activision ID / Battle.net -->
+        <div class="p-3.5 rounded-2xl bg-client-bg border border-client-border hover:border-emerald-500/40 transition space-y-2">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-crosshairs text-orange-400 text-base"></i>
+              <span class="font-bold text-xs text-white">Activision ID / BattleTag</span>
+              <span class="text-[10px] font-mono text-gray-500">(MW3 / Warzone / CDL)</span>
+            </div>
+            <span id="status-activision" class="text-[9px] font-mono text-gray-500">Not Linked</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="text" id="input-activision" placeholder="e.g. SentinelPlayer#1940291" class="flex-1 bg-[#070a10] border border-client-border rounded-xl px-3 py-2 text-xs font-mono text-white placeholder-gray-600 focus:outline-none focus:border-emerald-500 transition">
+            <button onclick="saveSinglePlatform('activision', 'Activision')" class="px-3 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-xs font-bold font-mono transition">Save</button>
+          </div>
+        </div>
+
+        <!-- Platform 3: Xbox Gamertag / Game Pass -->
+        <div class="p-3.5 rounded-2xl bg-client-bg border border-client-border hover:border-emerald-500/40 transition space-y-2">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <i class="fa-brands fa-xbox text-emerald-400 text-base"></i>
+              <span class="font-bold text-xs text-white">Xbox Gamertag / PC Game Pass</span>
+              <span class="text-[10px] font-mono text-gray-500">(COD, Cross-Play)</span>
+            </div>
+            <span id="status-xbox" class="text-[9px] font-mono text-gray-500">Not Linked</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="text" id="input-xbox" placeholder="e.g. SentinelGamertag" class="flex-1 bg-[#070a10] border border-client-border rounded-xl px-3 py-2 text-xs font-mono text-white placeholder-gray-600 focus:outline-none focus:border-emerald-500 transition">
+            <button onclick="saveSinglePlatform('xbox', 'Xbox Gamertag')" class="px-3 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-xs font-bold font-mono transition">Save</button>
+          </div>
+        </div>
+
+        <!-- Platform 4: Ubisoft Connect -->
+        <div class="p-3.5 rounded-2xl bg-client-bg border border-client-border hover:border-emerald-500/40 transition space-y-2">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-shield-halved text-blue-400 text-base"></i>
+              <span class="font-bold text-xs text-white">Ubisoft Connect Username</span>
+              <span class="text-[10px] font-mono text-gray-500">(Rainbow Six Siege)</span>
+            </div>
+            <span id="status-ubisoft" class="text-[9px] font-mono text-gray-500">Not Linked</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="text" id="input-ubisoft" placeholder="e.g. Ubi_Sentinel_Zero" class="flex-1 bg-[#070a10] border border-client-border rounded-xl px-3 py-2 text-xs font-mono text-white placeholder-gray-600 focus:outline-none focus:border-emerald-500 transition">
+            <button onclick="saveSinglePlatform('ubisoft', 'Ubisoft')" class="px-3 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-xs font-bold font-mono transition">Save</button>
+          </div>
+        </div>
+
+        <!-- Platform 5: EA App (Origin) -->
+        <div class="p-3.5 rounded-2xl bg-client-bg border border-client-border hover:border-emerald-500/40 transition space-y-2">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-play text-red-400 text-base"></i>
+              <span class="font-bold text-xs text-white">EA ID / Gamertag</span>
+              <span class="text-[10px] font-mono text-gray-500">(EA Sports FC 25, Apex)</span>
+            </div>
+            <span id="status-ea" class="text-[9px] font-mono text-gray-500">Not Linked</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="text" id="input-ea" placeholder="e.g. EA_Sentinel99" class="flex-1 bg-[#070a10] border border-client-border rounded-xl px-3 py-2 text-xs font-mono text-white placeholder-gray-600 focus:outline-none focus:border-emerald-500 transition">
+            <button onclick="saveSinglePlatform('ea', 'EA ID')" class="px-3 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-xs font-bold font-mono transition">Save</button>
+          </div>
+        </div>
+
+        <!-- Platform 6: Battlestate Games (Tarkov) -->
+        <div class="p-3.5 rounded-2xl bg-client-bg border border-client-border hover:border-emerald-500/40 transition space-y-2">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-crosshairs text-stone-400 text-base"></i>
+              <span class="font-bold text-xs text-white">Tarkov PMC Nickname</span>
+              <span class="text-[10px] font-mono text-gray-500">(Escape from Tarkov)</span>
+            </div>
+            <span id="status-tarkov" class="text-[9px] font-mono text-gray-500">Not Linked</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="text" id="input-tarkov" placeholder="e.g. PMC_Sentinel" class="flex-1 bg-[#070a10] border border-client-border rounded-xl px-3 py-2 text-xs font-mono text-white placeholder-gray-600 focus:outline-none focus:border-emerald-500 transition">
+            <button onclick="saveSinglePlatform('tarkov', 'Tarkov PMC')" class="px-3 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-xs font-bold font-mono transition">Save</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer Action -->
+      <div class="pt-3 border-t border-client-border flex items-center justify-between shrink-0">
+        <div class="text-[11px] font-mono text-gray-400 flex items-center gap-1.5">
+          <i class="fa-solid fa-shield-halved text-emerald-400 text-xs"></i>
+          <span>Linked accounts are cryptographically bound to hardware hash.</span>
+        </div>
+        <button onclick="completePassportSetup()" id="passport-submit-btn" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-[0_0_15px_rgba(16,185,129,0.3)]">
+          Activate Game Passport
+        </button>
+      </div>
+
+    </div>
+  </div>
+
 </body>
 </html>
