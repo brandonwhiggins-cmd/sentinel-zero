@@ -302,10 +302,18 @@
             </button>
 
             <!-- Dynamic Banner Platform Launch Button -->
-            <button id="banner-platform-btn" onclick="executeBannerLaunch()" class="px-5 py-4 rounded-2xl bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/40 text-sky-300 font-bold text-xs flex items-center gap-2 transition">
+            <button id="banner-platform-btn" onclick="executeBannerLaunch()" class="px-5 py-4 rounded-2xl bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/40 text-sky-300 font-bold text-xs flex items-center gap-2 transition shadow-[0_0_15px_rgba(14,165,233,0.2)]">
               <i id="banner-platform-icon" class="fa-brands fa-steam text-sm"></i>
               <span id="banner-platform-label">Launch via Steam</span>
             </button>
+          </div>
+
+          <!-- Quick Banner Launcher Toggles (For COD, Siege, Rocket League, Apex) -->
+          <div id="banner-launcher-selector" class="flex items-center gap-2 pt-1">
+            <span class="text-[11px] font-mono text-gray-400">Preferred Store:</span>
+            <div id="banner-store-pills" class="flex items-center gap-1.5 flex-wrap">
+              <!-- Populated dynamically via JS -->
+            </div>
           </div>
         </div>
       </div>
@@ -680,16 +688,63 @@
         if (bannerIcon) bannerIcon.className = `${g.bannerBtn.icon} text-sm`;
       }
 
-      // 4. Update Radar Header & Render Title Lobbies
+      // 4. Render Banner Store Selector Pills (e.g. Battle.net vs Steam for COD)
+      renderBannerStorePills(g);
+
+      // 5. Update Radar Header & Render Title Lobbies
       const radarTitle = document.getElementById('radar-title');
       if (radarTitle) radarTitle.innerText = `Active ${g.name} Match Radar`;
 
       renderLobbies();
     }
 
+    function renderBannerStorePills(g) {
+      const container = document.getElementById('banner-store-pills');
+      const selectorRow = document.getElementById('banner-launcher-selector');
+      if (!container || !selectorRow) return;
+
+      if (!g.launchers || g.launchers.length <= 1) {
+        selectorRow.classList.add('hidden');
+        return;
+      }
+
+      selectorRow.classList.remove('hidden');
+      container.innerHTML = '';
+
+      const saved = localStorage.getItem('sz_preferred_launcher_' + activeGame);
+      selectedLauncherId = saved || g.defaultLauncher;
+
+      g.launchers.forEach(opt => {
+        const isSelected = opt.id === selectedLauncherId;
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = isSelected
+          ? "px-2.5 py-1 rounded-lg bg-emerald-500/20 border border-emerald-400 text-emerald-300 font-bold text-[11px] font-mono flex items-center gap-1 transition shadow-[0_0_10px_rgba(16,185,129,0.3)]"
+          : "px-2.5 py-1 rounded-lg bg-client-bg hover:bg-client-card border border-client-border text-gray-400 hover:text-white font-medium text-[11px] font-mono flex items-center gap-1 transition";
+        btn.innerHTML = `<i class="${opt.icon} text-xs"></i> <span>${opt.label.split(' ')[0]}</span>`;
+        btn.onclick = () => {
+          selectLauncher(activeGame, opt.id);
+          selectGame(activeGame);
+        };
+        container.appendChild(btn);
+      });
+
+      // Update the banner button label & icon
+      const activeOpt = g.launchers.find(o => o.id === selectedLauncherId) || g.launchers[0];
+      const bannerLabel = document.getElementById('banner-platform-label');
+      const bannerIcon = document.getElementById('banner-platform-icon');
+
+      if (bannerLabel && activeOpt) bannerLabel.innerText = `Launch via ${activeOpt.label}`;
+      if (bannerIcon && activeOpt) bannerIcon.className = `${activeOpt.icon} text-sm`;
+    }
+
     function executeBannerLaunch() {
       const g = CLIENT_GAMES[activeGame] || CLIENT_GAMES['cs2'];
-      const uri = g.bannerBtn ? g.bannerBtn.uri : 'steam://rungameid/730';
+      const saved = localStorage.getItem('sz_preferred_launcher_' + activeGame);
+      const currentId = saved || g.defaultLauncher;
+      const opt = (g.launchers && g.launchers.find(o => o.id === currentId)) || (g.launchers && g.launchers[0]) || g.bannerBtn;
+      const uri = opt ? opt.uri : 'steam://rungameid/730';
+
       if (window.electronAPI && window.electronAPI.launchGame) {
         window.electronAPI.launchGame(uri);
       } else {
