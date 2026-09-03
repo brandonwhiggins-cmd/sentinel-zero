@@ -100,11 +100,11 @@
   <section id="hero" class="relative pt-16 pb-20 overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center max-w-3xl mx-auto space-y-6">
       
-      <!-- Trust Pill & Prime Time Hours -->
+      <!-- Trust Pill, Live Online Count & Prime Time Hours -->
       <div class="flex flex-col sm:flex-row items-center justify-center gap-2.5">
         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-mono font-bold shadow-sm">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-          <span>SEASON 0 LIVE ON WINDOWS PC</span>
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span><strong id="hero-online-count" class="text-white">48</strong> PLAYERS LIVE ONLINE &bull; SEASON 0 PC</span>
         </div>
         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/15 border border-amber-500/35 text-amber-300 text-xs font-mono font-bold shadow-sm">
           <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
@@ -1028,6 +1028,20 @@
 
     // Auto-record pageview on arrival
     trackWebTraffic('pageview');
+
+    // Fetch and display live players online on website
+    async function updateHeroOnlineCount() {
+      try {
+        const res = await fetch('/api/stats');
+        if (res.ok) {
+          const data = await res.json();
+          const el = document.getElementById('hero-online-count');
+          if (el && data.total_online) el.innerText = data.total_online;
+        }
+      } catch (e) {}
+    }
+    updateHeroOnlineCount();
+    setInterval(updateHeroOnlineCount, 15000);
   </script>
 
   <!-- Vercel Web Analytics Official Tag -->
