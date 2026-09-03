@@ -134,7 +134,7 @@
         <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
         <span class="text-xs text-gray-400 font-semibold">Escrow:</span>
         <span class="text-xs font-black text-white font-mono" id="client-balance">$100.00</span>
-        <button onclick="openClientDepositModal()" class="text-[10px] bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 px-1.5 py-0.5 rounded font-bold transition ml-0.5">+ Add</button>
+        <button onclick="openClientDepositModal()" class="text-[10px] bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 px-2 py-0.5 rounded font-bold transition ml-1 whitespace-nowrap shrink-0">+ Add</button>
       </div>
 
       <!-- User Badge -->
@@ -603,21 +603,40 @@
           { challenger: '@Bchillz_Raid', mode: 'Semi-Rifle Duel', pot: '$10.00' }
         ]
       },
-      warzone: {
-        name: 'Call of Duty: Warzone / MW3',
-        modeBadge: 'HIGH-STAKES KILL RACE & 1v1 GULAG',
-        desc: '2v2 Warzone kill races & 1v1 Gulag gunfights. Verified controller input & hardware attestation with Battle.net, Steam, and Xbox PC.',
-        bannerBtn: { label: 'Launch Battle.net', icon: 'fa-solid fa-shield', uri: 'battlenet://launch/ODIN' },
+      cod: {
+        name: 'Call of Duty (MP / CDL)',
+        modeBadge: 'OFFICIAL 1v1 SEARCH & DESTROY / GUNFIGHT ARENA',
+        desc: '1v1 Radar-On Search & Destroy & Gunfight duels on Karachi, Rio, and Rust. Official CDL competitive ruleset with verified anti-recoil hardware attestation.',
+        bannerBtn: { label: 'Launch via Battle.net', icon: 'fa-solid fa-shield', uri: 'battlenet://launch/ODIN' },
         defaultLauncher: 'bnet',
-        connect_code: 'Whisper Party: SentinelZero#1904',
+        connect_code: 'Whisper Activision ID: SentinelCDL#1904',
         launchers: [
           { id: 'bnet', label: 'Battle.net', icon: 'fa-solid fa-shield', uri: 'battlenet://launch/ODIN' },
           { id: 'steam', label: 'Steam (AppID 1938090)', icon: 'fa-brands fa-steam', uri: 'steam://rungameid/1938090' },
           { id: 'xbox', label: 'Xbox PC / Game Pass', icon: 'fa-brands fa-xbox', uri: 'xbox:' }
         ],
         lobbies: [
-          { challenger: '@Scump_Fan', mode: '1v1 Gulag Gunfight', pot: '$50.00' },
-          { challenger: '@Aydan_Race', mode: 'Duo Kill Race', pot: '$100.00' }
+          { challenger: '@Scump_Fan', mode: '1v1 SnD (Karachi)', pot: '$50.00' },
+          { challenger: '@Shotzzy_Movement', mode: '1v1 Gunfight (Rio)', pot: '$25.00' },
+          { challenger: '@Dashy_Sniper', mode: '1v1 SnD Quickscope', pot: '$100.00' }
+        ]
+      },
+      warzone: {
+        name: 'Call of Duty: Warzone',
+        modeBadge: 'HIGH-STAKES 2v2 KILL RACE & REBIRTH DUELS',
+        desc: '2v2 Kill Races & Rebirth Island wager drops. Verified hardware attestation and automated score tracking with Battle.net, Steam, and Xbox PC.',
+        bannerBtn: { label: 'Launch via Battle.net', icon: 'fa-solid fa-shield', uri: 'battlenet://launch/ODIN' },
+        defaultLauncher: 'bnet',
+        connect_code: 'Warzone Party Invite: SentinelWZ#1904',
+        launchers: [
+          { id: 'bnet', label: 'Battle.net', icon: 'fa-solid fa-shield', uri: 'battlenet://launch/ODIN' },
+          { id: 'steam', label: 'Steam (AppID 1938090)', icon: 'fa-brands fa-steam', uri: 'steam://rungameid/1938090' },
+          { id: 'xbox', label: 'Xbox PC / Game Pass', icon: 'fa-brands fa-xbox', uri: 'xbox:' }
+        ],
+        lobbies: [
+          { challenger: '@Aydan_Race', mode: '2v2 Rebirth Kill Race', pot: '$100.00' },
+          { challenger: '@Biffle_Wager', mode: 'Solo vs Squads Race', pot: '$50.00' },
+          { challenger: '@Fifakill_Drop', mode: '1v1 Gulag Duel', pot: '$25.00' }
         ]
       },
       apex: {
