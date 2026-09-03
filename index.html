@@ -35,7 +35,7 @@
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #05070a; color: #e2e8f0; }
     .glow-box-emerald { box-shadow: 0 0 35px rgba(16, 185, 129, 0.18); }
-    .glow-text-emerald { text-shadow: 0 0 20px rgba(16, 185, 129, 0.4); }
+    .glow-box-amber { box-shadow: 0 0 35px rgba(245, 158, 11, 0.22); }
   </style>
 </head>
 <body class="bg-dark-bg text-slate-200 min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-black">
@@ -66,6 +66,10 @@
           <span>The Desktop App</span>
         </a>
         <a href="#how-it-works" class="hover:text-emerald-400 transition">How It Works</a>
+        <a href="#passes" class="hover:text-amber-300 transition flex items-center gap-1.5 text-amber-400">
+          <i class="fa-solid fa-crown text-xs"></i>
+          <span>Passes ($6.99 / $12.99)</span>
+        </a>
         <a href="#who-we-are" class="hover:text-emerald-400 transition flex items-center gap-1.5">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
           <span>Who We Are</span>
@@ -81,10 +85,10 @@
           <span>Discord</span>
         </a>
 
-        <button onclick="openSignUpModal()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center gap-2 transition shadow-[0_0_20px_rgba(16,185,129,0.35)]">
-          <i class="fa-solid fa-user-plus text-sm"></i>
-          <span>Create Free Account</span>
-        </button>
+        <a href="#passes" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center gap-2 transition shadow-[0_0_20px_rgba(16,185,129,0.35)]">
+          <i class="fa-solid fa-crown text-sm"></i>
+          <span>Get Membership Pass</span>
+        </a>
       </div>
 
     </div>
@@ -111,15 +115,15 @@
       <!-- Subheading -->
       <p class="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
         The world's first hardware-attested wagering arena. We lock out DMA cards, Cronus Zen macros, and memory injectors before match launch. 
-        <span class="text-white font-semibold">Sign up online, launch our lightweight desktop client, and duel on 128-tick private servers with automated Stripe escrow payouts.</span>
+        <span class="text-white font-semibold">Choose your competitive pass ($6.99 or $12.99), launch our native desktop client, and duel on 128-tick private servers with automated Stripe escrow payouts.</span>
       </p>
 
       <!-- CTA Cluster -->
       <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-        <button onclick="openSignUpModal()" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 transition shadow-[0_0_30px_rgba(16,185,129,0.4)]">
-          <i class="fa-solid fa-download text-base"></i>
-          <span>Sign Up & Download App</span>
-        </button>
+        <a href="#passes" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 transition shadow-[0_0_30px_rgba(16,185,129,0.4)]">
+          <i class="fa-solid fa-crown text-base"></i>
+          <span>Choose Pass & Download App</span>
+        </a>
 
         <a href="#app-showcase" class="w-full sm:w-auto px-7 py-4 rounded-2xl bg-dark-card hover:bg-dark-border/60 border border-dark-border text-gray-200 font-bold text-sm flex items-center justify-center gap-2 transition">
           <i class="fa-solid fa-display text-emerald-400"></i>
@@ -162,7 +166,7 @@
           NATIVE CLIENT ARCHITECTURE
         </span>
         <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">
-          The Web is for Sign-Up.<br>
+          The Web is for Sign-Up & Passes.<br>
           <span class="text-emerald-400">The Battleground is the Desktop App.</span>
         </h2>
         <p class="text-sm text-gray-300 max-w-xl mx-auto">
@@ -238,9 +242,97 @@
   </section>
 
   <!-- ========================================================================= -->
+  <!-- 👑 MEMBERSHIP PASSES ($6.99 PRO / $12.99 ELITE VIP) -->
+  <!-- ========================================================================= -->
+  <section id="passes" class="py-20 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      
+      <div class="text-center max-w-3xl mx-auto space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold font-mono">
+          <i class="fa-solid fa-crown"></i> SEASON 0 MEMBERSHIP TIERS
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+          Choose Your Competitive Pass
+        </h2>
+        <p class="text-sm text-gray-300 max-w-2xl mx-auto">
+          Every Sentinel Zero account is backed by silicon hardware attestation and 100% money-back insurance protection against cheaters. No free tier. Zero smurfs.
+        </p>
+      </div>
+
+      <!-- Passes Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        
+        <!-- PRO PASS ($6.99) -->
+        <div class="p-8 rounded-3xl bg-dark-card border border-dark-border hover:border-emerald-500/50 transition shadow-2xl flex flex-col justify-between space-y-6">
+          <div class="space-y-4">
+            <div class="flex justify-between items-center">
+              <span class="text-xs uppercase tracking-widest text-emerald-400 font-mono font-bold bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full">FLAGSHIP PASS</span>
+              <span class="text-xs text-gray-400">Cancel anytime</span>
+            </div>
+            <div>
+              <h3 class="text-2xl font-black text-white">Pro Pass</h3>
+              <p class="text-xs text-gray-400 mt-1">For competitive gamers who want verified clean, cheat-free matchmaking.</p>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="text-4xl font-black text-white font-mono">$6.99</span>
+              <span class="text-xs text-gray-400">/ month</span>
+            </div>
+            <ul class="space-y-3 text-xs text-gray-300 pt-2 border-t border-dark-border">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Verified Clean Matchmaking across all 16 games</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> 100% Match Insurance Shield (instant victim refund)</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> 50% Platform Rake Discount on all cash matches</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> @Verified Player Discord Role & Profile Badge</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Open Community Tournament Bracket Access</li>
+            </ul>
+          </div>
+          <button onclick="openSignUpWithTier('pro')" class="w-full py-4 rounded-2xl bg-dark-surface hover:bg-emerald-500 hover:text-slate-900 border border-emerald-500/40 text-emerald-300 font-bold text-sm tracking-wide flex items-center justify-center gap-2 transition shadow-lg">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>Subscribe to Pro ($6.99/mo)</span>
+          </button>
+        </div>
+
+        <!-- ELITE VIP ($12.99) -->
+        <div class="p-8 rounded-3xl bg-gradient-to-b from-[#1c1829] via-dark-card to-dark-card border-2 border-amber-500/50 relative flex flex-col justify-between hover:border-amber-400 transition glow-box-amber space-y-6">
+          <div class="space-y-4">
+            <div class="flex justify-between items-center">
+              <span class="text-xs uppercase tracking-widest text-amber-400 font-mono font-bold bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-full">0% RAKE VIP</span>
+              <span class="text-xs text-gray-400">Cancel anytime</span>
+            </div>
+            <div>
+              <h3 class="text-2xl font-black text-white flex items-center gap-2">
+                <span>Elite High-Roller</span>
+                <i class="fa-solid fa-crown text-amber-400 text-lg"></i>
+              </h3>
+              <p class="text-xs text-gray-400 mt-1">For serious wager grinders, high-stakes duels, and tournament competitors.</p>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="text-4xl font-black text-white font-mono">$12.99</span>
+              <span class="text-xs text-gray-400">/ month</span>
+            </div>
+            <ul class="space-y-3 text-xs text-gray-300 pt-2 border-t border-dark-border">
+              <li class="flex items-center gap-2 text-white font-semibold"><i class="fa-solid fa-star text-amber-400"></i> <strong>0% Platform Rake on All Matches</strong> (Keep 100% of pots)</li>
+              <li class="flex items-center gap-2 text-amber-300 font-semibold"><i class="fa-solid fa-trophy text-amber-400"></i> <strong>Free $500 Monthly Cash Cup</strong> Tournament Entries</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> VIP Discord Channel & Private Voice Lounge</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> Gold Founder Badge & Custom Discord Role</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> Priority Queue Matchmaking</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> 100% Match Insurance Shield Included</li>
+            </ul>
+          </div>
+          <button onclick="openSignUpWithTier('elite')" class="w-full py-4 rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-sm tracking-wider uppercase flex items-center justify-center gap-2 transition shadow-[0_0_25px_rgba(245,158,11,0.4)]">
+            <i class="fa-solid fa-crown"></i>
+            <span>Join Elite VIP ($12.99/mo)</span>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
   <!-- 🛡️ WHO WE ARE / FOUNDER STORY -->
   <!-- ========================================================================= -->
-  <section id="who-we-are" class="py-20 relative">
+  <section id="who-we-are" class="py-20 border-t border-dark-border/80 relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
       
       <div class="space-y-6">
@@ -270,9 +362,9 @@
         </div>
 
         <div class="pt-2 flex items-center gap-4">
-          <button onclick="openSignUpModal()" class="px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-lg">
+          <a href="#passes" class="px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-lg">
             Join the Movement
-          </button>
+          </a>
           <a href="https://discord.gg/7FXD5AhmnP" target="_blank" class="px-5 py-3 rounded-xl bg-dark-card hover:bg-dark-border border border-dark-border text-gray-300 text-xs font-bold transition">
             Talk to Us on Discord
           </a>
@@ -327,7 +419,7 @@
           SIMPLE 3-STEP ONBOARDING
         </span>
         <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">How It Works</h2>
-        <p class="text-sm text-gray-400">From web sign-up to your first verified 1v1 duel in under two minutes.</p>
+        <p class="text-sm text-gray-400">From membership pass activation to your first verified 1v1 duel in under two minutes.</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -335,9 +427,9 @@
         <!-- Step 1 -->
         <div class="p-8 rounded-3xl bg-dark-card border border-dark-border space-y-4">
           <div class="w-12 h-12 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center justify-center text-xl font-black">1</div>
-          <h4 class="text-lg font-bold text-white">Create Your Account</h4>
-          <p class="text-xs text-gray-400 leading-relaxed">Claim your universal Sentinel GamerTag on our website in 30 seconds. Connect your Discord or Steam for instant verification.</p>
-          <div class="pt-2 text-xs font-mono text-emerald-400 font-semibold">Instant Web Signup &rarr;</div>
+          <h4 class="text-lg font-bold text-white">Choose Your Pass</h4>
+          <p class="text-xs text-gray-400 leading-relaxed">Select the Pro Pass ($6.99) or Elite VIP ($12.99) and claim your universal Sentinel GamerTag online.</p>
+          <div class="pt-2 text-xs font-mono text-emerald-400 font-semibold">Web Pass Activation &rarr;</div>
         </div>
 
         <!-- Step 2 -->
@@ -359,9 +451,9 @@
       </div>
 
       <div class="text-center pt-4">
-        <button onclick="openSignUpModal()" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-sm uppercase tracking-wider transition shadow-[0_0_25px_rgba(16,185,129,0.35)]">
-          Get Started Now — Create Account
-        </button>
+        <a href="#passes" class="inline-block px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-sm uppercase tracking-wider transition shadow-[0_0_25px_rgba(16,185,129,0.35)]">
+          Get Started Now — Choose Your Pass
+        </a>
       </div>
 
     </div>
@@ -536,6 +628,7 @@
       </div>
       <div class="flex items-center space-x-6">
         <a href="#who-we-are" class="hover:text-white transition">About Us</a>
+        <a href="#passes" class="hover:text-amber-300 transition">Membership Passes</a>
         <a href="#how-it-works" class="hover:text-white transition">How It Works</a>
         <button onclick="openArchitectureModal()" class="hover:text-emerald-400 transition">Silicon Whitepaper</button>
         <button onclick="openTosModal()" class="hover:text-white transition">Terms of Service</button>
@@ -547,7 +640,7 @@
   </footer>
 
   <!-- ========================================================================= -->
-  <!-- 📝 INTERACTIVE SIGN-UP MODAL (STEP 1: WEB -> STEP 2: DOWNLOAD APP) -->
+  <!-- 📝 INTERACTIVE PASS ACTIVATION MODAL -->
   <!-- ========================================================================= -->
   <div id="signup-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
     <div class="bg-dark-card border-2 border-emerald-500/40 rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-5 text-white shadow-2xl relative">
@@ -558,22 +651,47 @@
       <!-- Step 1 Form -->
       <div id="signup-form-state" class="space-y-4">
         <div class="space-y-1">
-          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-mono text-[10px] font-bold">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span>STEP 1: CREATE ACCOUNT</span>
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30 font-mono text-[10px] font-bold">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+            <span>STEP 1: ACTIVATE PASS & REGISTER</span>
           </div>
           <h3 class="text-xl font-black text-white">Join Sentinel Zero</h3>
-          <p class="text-xs text-gray-400">Claim your universal GamerTag. Once registered, you'll download the native desktop app to duel.</p>
+          <p class="text-xs text-gray-400">Claim your universal GamerTag and choose your membership pass to unlock the desktop app.</p>
         </div>
 
         <form onsubmit="handleSignUp(event)" class="space-y-3">
+          
+          <!-- Pass Tier Selector -->
+          <div>
+            <label class="block text-[11px] font-mono text-gray-400 mb-1.5">SELECT MEMBERSHIP PASS</label>
+            <div class="grid grid-cols-2 gap-2">
+              <label id="tier-label-pro" class="cursor-pointer p-3 rounded-xl border-2 border-emerald-500 bg-emerald-500/10 flex flex-col text-left transition">
+                <input type="radio" name="pass-tier" value="pro" checked onchange="selectTierRadio('pro')" class="sr-only">
+                <div class="text-xs font-bold text-white flex items-center justify-between">
+                  <span>Pro Pass</span>
+                  <span class="text-emerald-400 font-mono font-black">$6.99</span>
+                </div>
+                <div class="text-[10px] text-gray-400 mt-0.5">50% Rake Discount</div>
+              </label>
+
+              <label id="tier-label-elite" class="cursor-pointer p-3 rounded-xl border border-dark-border bg-dark-surface flex flex-col text-left hover:border-amber-500/50 transition">
+                <input type="radio" name="pass-tier" value="elite" onchange="selectTierRadio('elite')" class="sr-only">
+                <div class="text-xs font-bold text-white flex items-center justify-between">
+                  <span>Elite VIP</span>
+                  <span class="text-amber-400 font-mono font-black">$12.99</span>
+                </div>
+                <div class="text-[10px] text-gray-400 mt-0.5">0% Rake + Cash Cups</div>
+              </label>
+            </div>
+          </div>
+
           <div>
             <label class="block text-[11px] font-mono text-gray-400 mb-1">CHOOSE GAMERTAG</label>
             <input type="text" id="su-tag" required placeholder="e.g. SknotRockIt" class="w-full bg-dark-surface border border-dark-border rounded-xl px-4 py-2.5 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-emerald-400 font-mono">
           </div>
 
           <div>
-            <label class="block text-[11px] font-mono text-gray-400 mb-1">EMAIL ADDRESS</label>
+            <label class="block text-[11px] font-mono text-gray-400 mb-1">EMAIL ADDRESS (FOR RECEIPT & PAYOUTS)</label>
             <input type="email" id="su-email" required placeholder="player@domain.com" class="w-full bg-dark-surface border border-dark-border rounded-xl px-4 py-2.5 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-emerald-400">
           </div>
 
@@ -587,14 +705,14 @@
             <label for="su-age">I confirm I am 18+ and agree to the <button type="button" onclick="openTosModal()" class="text-emerald-400 underline">Terms of Service</button>.</label>
           </div>
 
-          <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-[0_0_20px_rgba(16,185,129,0.35)] flex items-center justify-center gap-2">
-            <span>Create Account & Continue to App</span>
+          <button type="submit" id="su-submit-btn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-[0_0_20px_rgba(16,185,129,0.35)] flex items-center justify-center gap-2">
+            <span>Proceed to Pass Checkout & App</span>
             <i class="fa-solid fa-arrow-right text-xs"></i>
           </button>
         </form>
 
         <div class="text-center pt-2">
-          <p class="text-[11px] text-gray-500">Already registered? Launch <strong>Sentinel Zero.exe</strong> on your PC to sign in!</p>
+          <p class="text-[11px] text-gray-500">Already a member? Launch <strong>Sentinel Zero.exe</strong> on your PC to duel!</p>
         </div>
       </div>
 
@@ -605,7 +723,7 @@
         </div>
 
         <div class="space-y-1">
-          <h3 class="text-xl font-black text-white">Account Created!</h3>
+          <h3 class="text-xl font-black text-white">GamerTag Registered!</h3>
           <p class="text-xs text-gray-300">Welcome, <span id="confirmed-tag" class="text-emerald-400 font-bold font-mono">Player</span>.</p>
           <div class="inline-block bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 px-3 py-1 rounded-full font-mono text-[11px] font-bold mt-2">
             SENTINEL ID: <span id="confirmed-id">SZ-84920</span>
@@ -625,10 +743,16 @@
         </div>
 
         <div class="space-y-2 pt-2">
-          <a id="auto-dl-link" href="SentinelAgent.exe" download="SentinelAgent.exe" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-[0_0_25px_rgba(16,185,129,0.4)] flex items-center justify-center gap-2">
-            <i class="fa-solid fa-download text-sm"></i>
-            <span>Download Sentinel Zero Client (.exe)</span>
+          <a id="stripe-checkout-btn" href="https://buy.stripe.com/cNi3cw3Lde8bcTQgMPgfu00" target="_blank" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-[0_0_25px_rgba(16,185,129,0.4)] flex items-center justify-center gap-2">
+            <i class="fa-solid fa-credit-card text-sm"></i>
+            <span id="stripe-btn-label">Complete Pro Pass Checkout ($6.99/mo)</span>
           </a>
+
+          <a id="auto-dl-link" href="SentinelAgent.exe" download="SentinelAgent.exe" class="w-full py-2.5 rounded-xl bg-dark-surface hover:bg-dark-border border border-dark-border text-gray-300 hover:text-white font-bold text-xs flex items-center justify-center gap-2 transition">
+            <i class="fa-solid fa-download text-xs text-emerald-400"></i>
+            <span>Download Desktop Client (.exe)</span>
+          </a>
+
           <p class="text-[10px] text-gray-500 font-mono">Windows 10 / 11 64-bit &bull; TPM 2.0 Attested &bull; 1.2s Startup</p>
         </div>
       </div>
@@ -751,6 +875,37 @@
   <!-- ⚙️ LOGIC SCRIPTS -->
   <!-- ========================================================================= -->
   <script>
+    let currentSelectedTier = 'pro';
+
+    const STRIPE_LINKS = {
+      pro: 'https://buy.stripe.com/cNi3cw3Lde8bcTQgMPgfu00',
+      elite: 'https://buy.stripe.com/cNi7sM1D58NR3jggMPgfu01'
+    };
+
+    function selectTierRadio(tier) {
+      currentSelectedTier = tier;
+      const proLabel = document.getElementById('tier-label-pro');
+      const eliteLabel = document.getElementById('tier-label-elite');
+      const submitBtn = document.getElementById('su-submit-btn');
+
+      if (tier === 'pro') {
+        proLabel.className = 'cursor-pointer p-3 rounded-xl border-2 border-emerald-500 bg-emerald-500/10 flex flex-col text-left transition';
+        eliteLabel.className = 'cursor-pointer p-3 rounded-xl border border-dark-border bg-dark-surface flex flex-col text-left hover:border-amber-500/50 transition';
+        submitBtn.className = 'w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-[0_0_20px_rgba(16,185,129,0.35)] flex items-center justify-center gap-2';
+      } else {
+        eliteLabel.className = 'cursor-pointer p-3 rounded-xl border-2 border-amber-500 bg-amber-500/15 flex flex-col text-left transition shadow-[0_0_15px_rgba(245,158,11,0.2)]';
+        proLabel.className = 'cursor-pointer p-3 rounded-xl border border-dark-border bg-dark-surface flex flex-col text-left hover:border-emerald-500/50 transition';
+        submitBtn.className = 'w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-[0_0_20px_rgba(245,158,11,0.35)] flex items-center justify-center gap-2';
+      }
+    }
+
+    function openSignUpWithTier(tier) {
+      selectTierRadio(tier);
+      const radio = document.querySelector(`input[name="pass-tier"][value="${tier}"]`);
+      if (radio) radio.checked = true;
+      openSignUpModal();
+    }
+
     function openSignUpModal() {
       document.getElementById('signup-form-state').classList.remove('hidden');
       document.getElementById('signup-success-state').classList.add('hidden');
@@ -772,7 +927,20 @@
       document.getElementById('confirmed-tag').innerText = tag;
       document.getElementById('confirmed-id').innerText = randomId;
 
-      localStorage.setItem('sz_registered_user', JSON.stringify({ tag, email, id: randomId }));
+      const checkoutBtn = document.getElementById('stripe-checkout-btn');
+      const checkoutLabel = document.getElementById('stripe-btn-label');
+      
+      if (currentSelectedTier === 'elite') {
+        checkoutBtn.href = STRIPE_LINKS.elite;
+        checkoutBtn.className = 'w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-[0_0_25px_rgba(245,158,11,0.4)] flex items-center justify-center gap-2';
+        checkoutLabel.innerText = 'Complete Elite VIP Checkout ($12.99/mo)';
+      } else {
+        checkoutBtn.href = STRIPE_LINKS.pro;
+        checkoutBtn.className = 'w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-[0_0_25px_rgba(16,185,129,0.4)] flex items-center justify-center gap-2';
+        checkoutLabel.innerText = 'Complete Pro Pass Checkout ($6.99/mo)';
+      }
+
+      localStorage.setItem('sz_registered_user', JSON.stringify({ tag, email, id: randomId, tier: currentSelectedTier }));
 
       document.getElementById('signup-form-state').classList.add('hidden');
       document.getElementById('signup-success-state').classList.remove('hidden');
@@ -780,7 +948,7 @@
       // Auto-trigger download
       const dlLink = document.getElementById('auto-dl-link');
       if (dlLink) {
-        setTimeout(() => dlLink.click(), 500);
+        setTimeout(() => dlLink.click(), 600);
       }
     }
 
@@ -805,7 +973,6 @@
       document.getElementById('privacy-modal').classList.add('hidden');
     }
 
-    // Close on Escape key
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closeSignUpModal();
