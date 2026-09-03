@@ -1087,6 +1087,7 @@
     let currentActiveMatch = null;
 
     async function triggerCasualLaunch() {
+      renderLauncherOptions(typeof activeMatchGameKey !== 'undefined' ? activeMatchGameKey : 'cs2');
       const btn = document.getElementById('launch-btn');
       if (!btn) return;
 
@@ -2280,6 +2281,168 @@
     window.addEventListener('DOMContentLoaded', () => {
       checkDesktopClientMode();
     });
+
+  
+    // =========================================================================
+    // 🎮 MULTI-LAUNCHER MATRIX ENGINE (STEAM, UBISOFT, EPIC, BATTLE.NET, EA)
+    // =========================================================================
+    const GAME_LAUNCHER_MATRIX = {
+      'siege': {
+        name: "Rainbow Six Siege",
+        default: "steam",
+        connect_code: "Custom Match: SZ-SIEGE-8492 | Pass: 1v1",
+        options: [
+          { id: "steam", label: "Steam", icon: "fa-brands fa-steam", uri: "steam://rungameid/359550" },
+          { id: "uplay", label: "Ubisoft Connect", icon: "fa-solid fa-gamepad", uri: "uplay://launch/54/0" },
+          { id: "epic", label: "Epic Games", icon: "fa-solid fa-bolt", uri: "com.epicgames.launcher://apps/Sugar?action=launch&silent=true" }
+        ]
+      },
+      'cs2': {
+        name: "Counter-Strike 2",
+        default: "steam",
+        connect_code: "connect 142.250.78.12:27015; password sentinel",
+        options: [
+          { id: "steam", label: "Steam (Valve)", icon: "fa-brands fa-steam", uri: "steam://rungameid/730" }
+        ]
+      },
+      'rl': {
+        name: "Rocket League",
+        default: "epic",
+        connect_code: "Name: SZ-ROCKET-9042 | Pass: 778",
+        options: [
+          { id: "epic", label: "Epic Games", icon: "fa-solid fa-bolt", uri: "com.epicgames.launcher://apps/Sugar?action=launch&silent=true" },
+          { id: "steam", label: "Steam (Legacy)", icon: "fa-brands fa-steam", uri: "steam://rungameid/252950" }
+        ]
+      },
+      'cod': {
+        name: "Call of Duty / Warzone",
+        default: "bnet",
+        connect_code: "Whisper Party: SentinelZero#1904",
+        options: [
+          { id: "bnet", label: "Battle.net", icon: "fa-solid fa-shield", uri: "battlenet://launch/ODIN" },
+          { id: "steam", label: "Steam", icon: "fa-brands fa-steam", uri: "steam://rungameid/1938090" },
+          { id: "xbox", label: "Xbox PC App", icon: "fa-brands fa-xbox", uri: "ms-windows-store://pdp/?productid=9WZDNCRFHVQM" }
+        ]
+      },
+      'warzone': {
+        name: "Call of Duty / Warzone",
+        default: "bnet",
+        connect_code: "Whisper Party: SentinelZero#1904",
+        options: [
+          { id: "bnet", label: "Battle.net", icon: "fa-solid fa-shield", uri: "battlenet://launch/ODIN" },
+          { id: "steam", label: "Steam", icon: "fa-brands fa-steam", uri: "steam://rungameid/1938090" }
+        ]
+      },
+      'apex': {
+        name: "Apex Legends",
+        default: "steam",
+        connect_code: "Firing Range Lobby Code: #SZ-APEX-110",
+        options: [
+          { id: "steam", label: "Steam", icon: "fa-brands fa-steam", uri: "steam://rungameid/1172470" },
+          { id: "ea", label: "EA App", icon: "fa-solid fa-play", uri: "origin2://game/launch?offerIds=1028757" }
+        ]
+      },
+      'rust': {
+        name: "Rust",
+        default: "steam",
+        connect_code: "client.connect 142.250.78.12:28015",
+        options: [
+          { id: "steam", label: "Steam", icon: "fa-brands fa-steam", uri: "steam://rungameid/252490" }
+        ]
+      },
+      'tarkov': {
+        name: "Escape from Tarkov",
+        default: "bsg",
+        connect_code: "Lobby Room: #SZ-FACTORY-01 | Key: 9021",
+        options: [
+          { id: "bsg", label: "BSG Launcher", icon: "fa-solid fa-crosshairs", uri: "bsglauncher://" }
+        ]
+      },
+      'overwatch': {
+        name: "Overwatch 2",
+        default: "bnet",
+        connect_code: "Custom Game Code: SZ-OW2-DUEL",
+        options: [
+          { id: "bnet", label: "Battle.net", icon: "fa-solid fa-shield", uri: "battlenet://launch/Pro" },
+          { id: "steam", label: "Steam", icon: "fa-brands fa-steam", uri: "steam://rungameid/2357570" }
+        ]
+      }
+    };
+
+    let selectedLauncherId = 'steam';
+
+    function renderLauncherOptions(gameKey) {
+      const g = (gameKey || activeGame || 'cs2').toLowerCase();
+      const config = GAME_LAUNCHER_MATRIX[g] || GAME_LAUNCHER_MATRIX['cs2'];
+      const container = document.getElementById('launcher-pills-container');
+      const codeEl = document.getElementById('direct-connect-code');
+
+      if (codeEl) codeEl.innerText = config.connect_code || "Direct In-Game Match Invite";
+
+      // Restore saved preference or use default
+      const saved = localStorage.getItem('sz_preferred_launcher_' + g);
+      selectedLauncherId = saved || config.default;
+
+      if (!container) return;
+      container.innerHTML = '';
+
+      config.options.forEach(opt => {
+        const isSelected = opt.id === selectedLauncherId;
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = isSelected 
+          ? "p-2.5 rounded-xl bg-emerald-500/20 border-2 border-emerald-400 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition shadow-[0_0_10px_rgba(16,185,129,0.3)]"
+          : "p-2.5 rounded-xl bg-client-bg hover:bg-client-sidebar border border-client-border text-gray-400 hover:text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition";
+        btn.innerHTML = `<i class="${opt.icon}"></i> <span>${opt.label}</span>`;
+        btn.onclick = () => selectLauncher(g, opt.id);
+        container.appendChild(btn);
+      });
+
+      updateLaunchButtonUI(config);
+    }
+
+    function selectLauncher(gameKey, launcherId) {
+      selectedLauncherId = launcherId;
+      localStorage.setItem('sz_preferred_launcher_' + gameKey, launcherId);
+      const config = GAME_LAUNCHER_MATRIX[gameKey] || GAME_LAUNCHER_MATRIX['cs2'];
+      renderLauncherOptions(gameKey);
+    }
+
+    function updateLaunchButtonUI(config) {
+      const opt = config.options.find(o => o.id === selectedLauncherId) || config.options[0];
+      const label = document.getElementById('multi-launch-label');
+      const icon = document.getElementById('multi-launch-icon');
+      const indicator = document.getElementById('active-launcher-indicator');
+
+      if (label) label.innerText = `1-Click Auto-Launch via ${opt.label}`;
+      if (icon) icon.className = `${opt.icon} text-lg`;
+      if (indicator) indicator.innerText = `${opt.label} Active`;
+    }
+
+    function executeSelectedLauncher() {
+      const g = (typeof activeGame !== 'undefined' ? activeGame : (typeof activeMatchGameKey !== 'undefined' ? activeMatchGameKey : 'cs2')).toLowerCase();
+      const config = GAME_LAUNCHER_MATRIX[g] || GAME_LAUNCHER_MATRIX['cs2'];
+      const opt = config.options.find(o => o.id === selectedLauncherId) || config.options[0];
+
+      if (window.electronAPI && window.electronAPI.launchGame) {
+        window.electronAPI.launchGame(opt.uri);
+      } else {
+        window.location.href = opt.uri;
+      }
+    }
+
+    function copyConnectCode() {
+      const codeEl = document.getElementById('direct-connect-code');
+      if (!codeEl) return;
+      const text = codeEl.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const btnText = document.getElementById('copy-btn-text');
+        if (btnText) {
+          btnText.innerText = "Copied!";
+          setTimeout(() => { btnText.innerText = "Copy"; }, 2000);
+        }
+      });
+    }
 
   </script>
 
