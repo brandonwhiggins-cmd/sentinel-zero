@@ -48,6 +48,9 @@
       color: #f8fafc;
       user-select: none;
       overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
     }
     ::-webkit-scrollbar {
       width: 5px;
@@ -80,37 +83,41 @@
     <!-- App Brand & Identity -->
     <div class="flex items-center gap-3">
       <div class="flex items-center gap-2.5">
-        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-slate-950 font-black shadow-[0_0_15px_rgba(16,185,129,0.35)]">
-          <i class="fa-solid fa-shield-halved text-sm"></i>
+        <!-- Official Sentinel Zero Z-Shield SVG Logo -->
+        <div class="w-9 h-9 rounded-xl bg-[#09111e] border border-emerald-500/50 flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.4)] shrink-0">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2.5L3.5 6.2V12.2C3.5 17.6 7.1 22.3 12 23.5C16.9 22.3 20.5 17.6 20.5 12.2V6.2L12 2.5Z" stroke="#10b981" stroke-width="2" stroke-linejoin="round" fill="#10b981" fill-opacity="0.2"/>
+            <path d="M8.5 8.5H15.5L8.5 15.5H15.5" stroke="#10b981" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </div>
-        <div>
+        <div class="whitespace-nowrap">
           <div class="flex items-center gap-2">
             <span class="font-black text-white tracking-wider text-xs">SENTINEL ZERO</span>
             <span class="text-[9px] font-mono font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 px-1.5 py-0.2 rounded">PROD v1.0.4</span>
           </div>
-          <div class="text-[10px] text-gray-400 font-mono flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span>SILICON ATTESTED &bull; TPM 2.0 LOCKED</span>
+          <div class="text-[10px] text-gray-400 font-mono flex items-center gap-1.5 whitespace-nowrap">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
+            <span class="whitespace-nowrap">SILICON ATTESTED &bull; TPM 2.0 LOCKED</span>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Security & Matchmaking Status Center Pill -->
-    <div class="hidden md:flex items-center gap-3 px-4 py-1.5 rounded-full bg-client-bg/90 border border-client-border text-xs font-mono backdrop-blur-sm shadow-inner">
-      <div class="flex items-center gap-1.5 text-emerald-400 font-semibold">
-        <i class="fa-solid fa-microchip text-xs"></i>
-        <span>Anti-Cheat: KERNEL ACTIVE</span>
+    <div class="hidden xl:flex items-center gap-3 px-4 py-1.5 rounded-full bg-client-bg/90 border border-client-border text-xs font-mono backdrop-blur-sm shadow-inner whitespace-nowrap shrink-0">
+      <div class="flex items-center gap-1.5 text-emerald-400 font-semibold whitespace-nowrap shrink-0">
+        <i class="fa-solid fa-microchip text-xs shrink-0"></i>
+        <span class="whitespace-nowrap">Anti-Cheat: KERNEL ACTIVE</span>
       </div>
-      <span class="text-gray-600">&bull;</span>
-      <div class="flex items-center gap-1.5 text-cyan-400 font-semibold">
-        <i class="fa-solid fa-wifi text-xs"></i>
-        <span id="client-latency">US-East: 12ms</span>
+      <span class="text-gray-600 shrink-0">&bull;</span>
+      <div class="flex items-center gap-1.5 text-cyan-400 font-semibold whitespace-nowrap shrink-0">
+        <i class="fa-solid fa-wifi text-xs shrink-0"></i>
+        <span id="client-latency" class="whitespace-nowrap">US-East: 12ms</span>
       </div>
-      <span class="text-gray-600">&bull;</span>
-      <div class="flex items-center gap-1.5 text-amber-400 font-semibold">
-        <i class="fa-solid fa-users text-xs"></i>
-        <span id="client-online-count">48 Players Queuing</span>
+      <span class="text-gray-600 shrink-0">&bull;</span>
+      <div class="flex items-center gap-1.5 text-amber-400 font-semibold whitespace-nowrap shrink-0">
+        <i class="fa-solid fa-users text-xs shrink-0"></i>
+        <span id="client-online-count" class="whitespace-nowrap">48 Players Queuing</span>
       </div>
     </div>
 
@@ -162,7 +169,7 @@
   <div class="flex-1 flex overflow-hidden">
 
     <!-- PANEL 1: LEFT GAME NAV RAIL -->
-    <aside class="w-64 bg-client-sidebar border-r border-client-border flex flex-col justify-between shrink-0">
+    <aside class="w-72 bg-client-sidebar border-r border-client-border flex flex-col justify-between shrink-0">
       <div class="p-3 space-y-4 overflow-y-auto">
         <div>
           <div class="text-[10px] font-mono uppercase tracking-wider text-gray-400 font-bold px-3 mb-2 flex items-center justify-between">
@@ -171,43 +178,43 @@
           </div>
           <div class="space-y-1">
             <button onclick="selectGame('cs2')" id="nav-cs2" class="w-full px-3 py-2.5 rounded-xl bg-emerald-500/15 border border-emerald-500/40 text-white font-bold flex items-center justify-between text-xs transition">
-              <div class="flex items-center gap-2.5">
-                <i class="fa-solid fa-crosshairs text-emerald-400 text-sm"></i>
-                <span>Counter-Strike 2</span>
+              <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
+                <i class="fa-solid fa-crosshairs text-emerald-400 text-sm shrink-0"></i>
+                <span class="truncate font-bold text-white">Counter-Strike 2</span>
               </div>
-              <span class="text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 px-1.5 py-0.2 rounded">18 in queue</span>
+              <span class="text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap">18 in queue</span>
             </button>
 
             <button onclick="selectGame('siege')" id="nav-siege" class="w-full px-3 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-client-card font-bold flex items-center justify-between text-xs transition">
-              <div class="flex items-center gap-2.5">
-                <i class="fa-solid fa-shield-halved text-blue-400 text-sm"></i>
-                <span>Rainbow Six Siege</span>
+              <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
+                <i class="fa-solid fa-shield-halved text-blue-400 text-sm shrink-0"></i>
+                <span class="truncate font-bold">Rainbow Six Siege</span>
               </div>
-              <span class="text-[10px] font-mono text-gray-500">9 in queue</span>
+              <span class="text-[10px] font-mono text-gray-400 bg-slate-800/80 px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap">9 in queue</span>
             </button>
 
             <button onclick="selectGame('rl')" id="nav-rl" class="w-full px-3 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-client-card font-bold flex items-center justify-between text-xs transition">
-              <div class="flex items-center gap-2.5">
-                <i class="fa-solid fa-car text-cyan-400 text-sm"></i>
-                <span>Rocket League</span>
+              <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
+                <i class="fa-solid fa-car text-cyan-400 text-sm shrink-0"></i>
+                <span class="truncate font-bold">Rocket League</span>
               </div>
-              <span class="text-[10px] font-mono text-gray-500">8 in queue</span>
+              <span class="text-[10px] font-mono text-gray-400 bg-slate-800/80 px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap">8 in queue</span>
             </button>
 
             <button onclick="selectGame('rust')" id="nav-rust" class="w-full px-3 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-client-card font-bold flex items-center justify-between text-xs transition">
-              <div class="flex items-center gap-2.5">
-                <i class="fa-solid fa-fire text-amber-500 text-sm"></i>
-                <span>Rust</span>
+              <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
+                <i class="fa-solid fa-fire text-amber-500 text-sm shrink-0"></i>
+                <span class="truncate font-bold">Rust</span>
               </div>
-              <span class="text-[10px] font-mono text-gray-500">5 in queue</span>
+              <span class="text-[10px] font-mono text-gray-400 bg-slate-800/80 px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap">5 in queue</span>
             </button>
 
             <button onclick="selectGame('warzone')" id="nav-warzone" class="w-full px-3 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-client-card font-bold flex items-center justify-between text-xs transition">
-              <div class="flex items-center gap-2.5">
-                <i class="fa-solid fa-person-rifle text-emerald-400 text-sm"></i>
-                <span>Warzone / MW3</span>
+              <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
+                <i class="fa-solid fa-person-rifle text-emerald-400 text-sm shrink-0"></i>
+                <span class="truncate font-bold">Warzone / MW3</span>
               </div>
-              <span class="text-[10px] font-mono text-gray-500">12 in queue</span>
+              <span class="text-[10px] font-mono text-gray-400 bg-slate-800/80 px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap">12 in queue</span>
             </button>
           </div>
         </div>
@@ -219,35 +226,35 @@
           </div>
           <div class="space-y-1">
             <button onclick="selectGame('apex')" id="nav-apex" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
-              <div class="flex items-center gap-2">
-                <i class="fa-solid fa-jet-fighter text-orange-400 text-xs"></i>
-                <span>Apex Legends</span>
+              <div class="flex items-center gap-2 min-w-0 flex-1 pr-2">
+                <i class="fa-solid fa-jet-fighter text-orange-400 text-xs shrink-0"></i>
+                <span class="truncate font-bold">Apex Legends</span>
               </div>
-              <span class="text-[9px] font-mono text-gray-500">6 in queue</span>
+              <span class="text-[10px] font-mono text-gray-400 bg-slate-800/80 px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap">6 in queue</span>
             </button>
 
             <button onclick="selectGame('fc25')" id="nav-fc25" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
-              <div class="flex items-center gap-2">
-                <i class="fa-solid fa-futbol text-emerald-400 text-xs"></i>
-                <span>EA Sports FC 25</span>
+              <div class="flex items-center gap-2 min-w-0 flex-1 pr-2">
+                <i class="fa-solid fa-futbol text-emerald-400 text-xs shrink-0"></i>
+                <span class="truncate font-bold">EA Sports FC 25</span>
               </div>
-              <span class="text-[9px] font-mono text-gray-500">4 in queue</span>
+              <span class="text-[10px] font-mono text-gray-400 bg-slate-800/80 px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap">4 in queue</span>
             </button>
 
             <button onclick="selectGame('nba2k')" id="nav-nba2k" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
-              <div class="flex items-center gap-2">
-                <i class="fa-solid fa-basketball text-amber-500 text-xs"></i>
-                <span>NBA 2K25</span>
+              <div class="flex items-center gap-2 min-w-0 flex-1 pr-2">
+                <i class="fa-solid fa-basketball text-amber-500 text-xs shrink-0"></i>
+                <span class="truncate font-bold">NBA 2K25</span>
               </div>
-              <span class="text-[9px] font-mono text-gray-500">4 in queue</span>
+              <span class="text-[10px] font-mono text-gray-400 bg-slate-800/80 px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap">4 in queue</span>
             </button>
 
             <button onclick="selectGame('tarkov')" id="nav-tarkov" class="w-full px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition">
-              <div class="flex items-center gap-2">
-                <i class="fa-solid fa-crosshairs text-stone-400 text-xs"></i>
-                <span>Escape from Tarkov</span>
+              <div class="flex items-center gap-2 min-w-0 flex-1 pr-2">
+                <i class="fa-solid fa-crosshairs text-stone-400 text-xs shrink-0"></i>
+                <span class="truncate font-bold">Escape from Tarkov</span>
               </div>
-              <span class="text-[9px] font-mono text-gray-500">7 in queue</span>
+              <span class="text-[10px] font-mono text-gray-400 bg-slate-800/80 px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap">7 in queue</span>
             </button>
           </div>
         </div>
@@ -796,19 +803,21 @@
         const tr = document.createElement('tr');
         tr.className = "hover:bg-client-sidebar/50 transition";
         tr.innerHTML = `
-          <td class="p-3.5 pl-4 font-bold text-white flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            ${l.challenger}
+          <td class="p-3.5 pl-4">
+            <div class="flex items-center gap-2 font-bold text-white whitespace-nowrap">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
+              <span class="font-bold tracking-tight">${l.challenger}</span>
+            </div>
           </td>
-          <td class="p-3.5 font-mono text-gray-300">${l.mode}</td>
-          <td class="p-3.5 font-mono font-black text-amber-400">
+          <td class="p-3.5 font-mono text-gray-300 whitespace-nowrap">${l.mode}</td>
+          <td class="p-3.5 font-mono font-black text-amber-400 whitespace-nowrap">
             <span class="px-2 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/20 text-amber-300 font-mono">${l.pot}</span>
           </td>
-          <td class="p-3.5 font-mono text-[11px] text-emerald-400">
+          <td class="p-3.5 font-mono text-[11px] text-emerald-400 whitespace-nowrap">
             <i class="fa-solid fa-microchip text-[10px] mr-1"></i> TPM 2.0 Attested
           </td>
-          <td class="p-3.5 pr-4 text-right">
-            <button onclick="acceptLobbyChallenge('${l.challenger}', '${l.pot}')" class="px-3 py-1 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs transition shadow-sm">
+          <td class="p-3.5 pr-4 text-right whitespace-nowrap">
+            <button onclick="acceptLobbyChallenge('${l.challenger}', '${l.pot}')" class="px-3 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs transition shadow-[0_0_10px_rgba(16,185,129,0.3)]">
               Accept
             </button>
           </td>
