@@ -42,7 +42,7 @@ function detectLocalGamertags() {
           res.steam = {
             gamertag: pMatch[1],
             account: aMatch ? aMatch[1] : '',
-            id: sMatch ? sMatch[1] : '76561199186527040',
+            id: sMatch ? sMatch[1] : '',
             source: 'Steam Local Client'
           };
           break;

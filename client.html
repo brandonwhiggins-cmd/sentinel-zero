@@ -963,15 +963,15 @@
       <div class="p-4 rounded-2xl bg-[#070a10] border border-client-border space-y-2 font-mono text-xs">
         <div class="flex items-center justify-between">
           <span class="text-gray-400">Verified Gamertag:</span>
-          <span class="text-emerald-300 font-bold text-sm" id="confirm-detected-tag">SknotRockIT</span>
+          <span class="text-emerald-300 font-bold text-sm" id="confirm-detected-tag">—</span>
         </div>
         <div class="flex items-center justify-between text-[11px]" id="confirm-row-id">
           <span class="text-gray-500">Platform ID:</span>
-          <span class="text-gray-300" id="confirm-detected-id">76561199186527040</span>
+          <span class="text-gray-300" id="confirm-detected-id">—</span>
         </div>
         <div class="flex items-center justify-between text-[11px]" id="confirm-row-source">
           <span class="text-gray-500">Detection Source:</span>
-          <span class="text-gray-400" id="confirm-detected-source">Steam Client</span>
+          <span class="text-gray-400" id="confirm-detected-source">—</span>
         </div>
       </div>
 
@@ -1425,7 +1425,7 @@ cod: {
         btn.innerHTML = `<i class="fa-solid fa-check text-base"></i> <span>CHALLENGE POSTED TO RADAR</span>`;
         // Post host challenge to radar
         g.lobbies.unshift({
-          challenger: document.getElementById('client-username').innerText || '@SknotRockIt',
+          challenger: document.getElementById('client-username').innerText || '@Operative',
           mode: g.modeBadge.split('•')[0].trim(),
           pot: `$${(selectedWager * 2).toFixed(2)}`
         });
@@ -1571,37 +1571,13 @@ cod: {
         }
       }
 
-      // 2. Known local defaults discovered directly from Brandon's machine
-      const baseTag = (detectedTags.xbox && detectedTags.xbox.gamertag) || 
-                      (detectedTags.steam && detectedTags.steam.gamertag) || 
-                      'SknotRockIt';
-
-      if (!detectedTags.steam) {
-        detectedTags.steam = { gamertag: 'SknotRockIT', id: '76561199186527040', source: 'Steam Local Client' };
-      }
-      if (!detectedTags.xbox) {
-        detectedTags.xbox = { gamertag: 'SknotRockIt', id: '2535410246606851', source: 'Windows Xbox Live' };
-      }
-      if (!detectedTags.activision) {
-        detectedTags.activision = { gamertag: 'SknotRockIt', id: 'sknotrockittv', source: 'Battle.net Desktop' };
-      }
-      if (!detectedTags.ubisoft) {
-        detectedTags.ubisoft = { gamertag: baseTag, id: 'Ubi_' + baseTag, source: 'Ubisoft Connect' };
-      }
-      if (!detectedTags.ea) {
-        detectedTags.ea = { gamertag: baseTag, id: 'EA_' + baseTag, source: 'EA App' };
-      }
-      if (!detectedTags.tarkov) {
-        detectedTags.tarkov = { gamertag: baseTag, id: 'PMC_' + baseTag, source: 'Battlestate Games' };
-      }
-
       const found = detectedTags[provider];
       if (found && found.gamertag) {
         // Show authentic confirmation card with real tag
         pendingDetectedData = found;
         showAccountConfirmModal(provider, found);
       } else {
-        // Platform not installed locally (e.g. Ubisoft, EA, Tarkov) -> Ask user for their real gamertag
+        // Platform not installed locally or not detected -> Ask user for their real gamertag
         promptManualGamertag(provider);
       }
     }
