@@ -83,10 +83,10 @@
 
       <!-- RIGHT CTAs -->
       <div class="flex items-center space-x-3">
-        <a href="SentinelAgent.exe" download="SentinelAgent.exe" class="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-dark-surface hover:bg-dark-card border border-dark-border text-gray-300 hover:text-white text-xs font-semibold transition">
-          <i class="fa-solid fa-download text-emerald-400"></i>
-          <span>Client</span>
-        </a>
+        <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-mono font-bold">
+          <i class="fa-solid fa-lock text-amber-400"></i>
+          <span>Client: Unlocks at 500</span>
+        </span>
         <a href="index.html" class="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-lg">
           Enter Arena
         </a>
@@ -152,9 +152,9 @@
               <span class="w-9 h-9 rounded-2xl bg-teal-500/20 border border-teal-500/40 text-teal-400 flex items-center justify-center font-mono font-black text-sm">02</span>
               <span class="text-xs uppercase tracking-widest text-teal-400 font-mono font-bold">STEP TWO</span>
             </div>
-            <h2 class="text-2xl font-black text-white">Download the Sentinel Client (Windows)</h2>
+            <h2 class="text-2xl font-black text-white">Client Distribution (Rolls Out at 500 Threshold)</h2>
             <p class="text-xs text-gray-300 leading-relaxed">
-              Grab <code>SentinelAgent.exe</code> (8.6 MB). Run it before launching your game. In &lt; 15 seconds, it queries your hardware TPM 2.0 PCR registers and verifies IOMMU (VT-d / AMD-Vi) DMA hardware isolation to guarantee no rogue PCIe memory-reading devices are attached.
+              To protect build integrity, official Windows client downloads unlock when our 500 Early Adopter milestone is achieved and will be dispatched directly to your registered email 48 hours before match servers launch.
             </p>
             <div class="p-3.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs space-y-1 my-3">
               <div class="font-bold text-white flex items-center gap-2"><i class="fa-brands fa-windows text-cyan-400"></i> Windows PC Exclusive (No Consoles Supported)</div>
@@ -166,14 +166,14 @@
             </div>
           </div>
           <div class="w-full md:w-64 p-4 rounded-2xl bg-dark-surface border border-dark-border text-center space-y-2 shrink-0">
-            <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-2xl mx-auto">
-              <i class="fa-solid fa-shield-cat"></i>
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-2xl mx-auto">
+              <i class="fa-solid fa-lock"></i>
             </div>
-            <div class="text-xs font-bold text-white">SentinelAgent.exe</div>
-            <div class="text-[10px] text-gray-400">Windows 10 / 11 • 64-bit</div>
-            <a href="SentinelAgent.exe" download="SentinelAgent.exe" class="inline-flex items-center justify-center gap-1.5 w-full py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-[11px] transition">
-              <i class="fa-solid fa-download"></i> Download Client
-            </a>
+            <div class="text-xs font-bold text-white">Sentinel Desktop Client</div>
+            <div class="text-[10px] text-gray-400 font-mono">Windows 10 / 11 • 64-bit</div>
+            <div class="inline-flex items-center justify-center gap-1.5 w-full py-2 rounded-xl bg-amber-500/20 border border-amber-500/30 text-amber-300 font-mono font-bold text-[11px]">
+              <i class="fa-solid fa-lock"></i> Unlocks at 500 Threshold
+            </div>
           </div>
         </div>
       </div>
@@ -337,15 +337,15 @@
         </div>
 
         <!-- Item 2 -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-dark-bg/80 border border-dark-border hover:border-emerald-500/40 transition">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-dark-bg/80 border border-dark-border hover:border-amber-500/40 transition">
           <div class="flex items-center gap-3">
-            <input type="checkbox" id="chk-client" checked class="w-4 h-4 rounded text-emerald-500 focus:ring-0">
-            <label for="chk-client" class="font-semibold text-white cursor-pointer">2. Download & Keep <code>SentinelAgent.exe</code> Ready</label>
+            <input type="checkbox" id="chk-client" checked class="w-4 h-4 rounded text-amber-400 focus:ring-0">
+            <label for="chk-client" class="font-semibold text-white cursor-pointer">2. Pre-Register for Client Access (Dispatched at 500 Mark)</label>
           </div>
-          <a href="SentinelAgent.exe" download="SentinelAgent.exe" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 transition shrink-0 shadow">
-            <i class="fa-solid fa-download"></i>
-            <span>Download Client (8.6 MB)</span>
-          </a>
+          <div class="px-4 py-2 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-300 font-bold text-xs flex items-center justify-center gap-2 shrink-0 font-mono">
+            <i class="fa-solid fa-lock"></i>
+            <span>Unlocks at 500 Milestone</span>
+          </div>
         </div>
 
         <!-- Item 3 -->

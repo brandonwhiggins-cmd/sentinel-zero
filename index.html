@@ -475,11 +475,14 @@
         </div>
 
         <!-- Step 2 -->
-        <div class="p-8 rounded-3xl bg-dark-card border-2 border-emerald-500/40 space-y-4 shadow-[0_0_25px_rgba(16,185,129,0.15)]">
-          <div class="w-12 h-12 rounded-2xl bg-emerald-500 text-slate-950 flex items-center justify-center text-xl font-black">2</div>
-          <h4 class="text-lg font-bold text-white">Download Desktop App</h4>
-          <p class="text-xs text-gray-300 leading-relaxed">Download the lightweight Windows client (<15MB). Installs cleanly, launches in 1.2 seconds, and initializes your TPM silicon shield.</p>
-          <div class="pt-2 text-xs font-mono text-emerald-300 font-semibold">Everything Runs in the App &rarr;</div>
+        <div class="p-8 rounded-3xl bg-dark-card border-2 border-amber-500/40 space-y-4 shadow-[0_0_25px_rgba(245,158,11,0.15)]">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center text-xl font-black">2</div>
+          <h4 class="text-lg font-bold text-white">Client Distribution at 500 Threshold</h4>
+          <p class="text-xs text-gray-300 leading-relaxed">The lightweight Windows client (&lt;15MB) unlocks and is dispatched directly to all verified Early Adopters 48 hours before matchmaking servers officially go live.</p>
+          <div class="pt-2 text-xs font-mono text-amber-300 font-semibold flex items-center gap-1.5">
+            <i class="fa-solid fa-lock text-amber-400"></i>
+            <span>Rolls Out at 500 Milestone &rarr;</span>
+          </div>
         </div>
 
         <!-- Step 3 -->
@@ -829,11 +832,22 @@
           </ul>
         </div>
 
-        <div class="space-y-2 pt-2">
-          <a id="auto-dl-link" href="SentinelAgent.exe" download="SentinelAgent.exe" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-[0_0_25px_rgba(16,185,129,0.4)] flex items-center justify-center gap-2">
-            <i class="fa-solid fa-download text-sm"></i>
-            <span>Download Desktop Client (.exe)</span>
-          </a>
+        <!-- Client Rollout Notice -->
+        <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-left space-y-1.5 font-mono text-xs">
+          <div class="text-amber-300 font-bold flex items-center gap-2">
+            <i class="fa-solid fa-lock text-amber-400"></i>
+            <span>Client Download Unlocks at 500 Milestone:</span>
+          </div>
+          <p class="text-[11px] text-gray-300 leading-normal">
+            To protect competitive integrity and maintain staging control, official Windows desktop client downloads will unlock and be dispatched directly to your email <strong>48 hours before matchmaking servers launch</strong>.
+          </p>
+        </div>
+
+        <div class="space-y-2 pt-1">
+          <button type="button" onclick="closeSignUpModal()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-[0_0_20px_rgba(16,185,129,0.35)] flex items-center justify-center gap-2 cursor-pointer">
+            <i class="fa-solid fa-check"></i>
+            <span>Spot Confirmed — View Launch Progress</span>
+          </button>
 
           <div class="pt-1">
             <a id="stripe-checkout-btn" href="https://buy.stripe.com/cNi3cw3Lde8bcTQgMPgfu00" target="_blank" class="text-[11px] text-gray-400 hover:text-emerald-300 underline transition">
@@ -1001,9 +1015,9 @@
 
       <div class="pt-3 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-white/10">
         <span class="text-xs text-gray-400 font-mono">Want your title to unlock next?</span>
-        <a href="#hero" onclick="closeWebVoteModal()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-[0_0_20px_rgba(16,185,129,0.35)] flex items-center justify-center gap-2">
-          <i class="fa-solid fa-download"></i>
-          <span>Get Desktop App & Vote</span>
+        <a href="#hero" onclick="closeWebVoteModal(); openSignUpModal();" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-[0_0_20px_rgba(16,185,129,0.35)] flex items-center justify-center gap-2">
+          <i class="fa-solid fa-check-to-slot"></i>
+          <span>Pre-Register &amp; Cast Your Vote</span>
         </a>
       </div>
     </div>
@@ -1116,11 +1130,6 @@
       document.getElementById('signup-form-state').classList.add('hidden');
       document.getElementById('signup-success-state').classList.remove('hidden');
 
-      // Auto-trigger download
-      const dlLink = document.getElementById('auto-dl-link');
-      if (dlLink) {
-        setTimeout(() => dlLink.click(), 600);
-      }
     }
 
     function openArchitectureModal() {
@@ -1663,10 +1672,10 @@
       </form>
 
       <div class="text-center pt-1">
-        <a href="downloads/Sentinel_Zero_Client.zip" download class="text-[11px] text-gray-400 hover:text-cyan-400 transition font-mono flex items-center justify-center gap-1.5">
-          <i class="fa-brands fa-windows text-cyan-400"></i>
-          <span>Download Desktop Client (Direct Bundle)</span>
-        </a>
+        <div class="text-[11px] text-amber-300/90 font-mono flex items-center justify-center gap-1.5">
+          <i class="fa-solid fa-lock text-amber-400"></i>
+          <span>Desktop client download rolls out at 500 Early Adopter milestone</span>
+        </div>
       </div>
     </div>
   </div>
