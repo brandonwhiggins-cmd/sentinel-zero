@@ -394,8 +394,18 @@
           const user = JSON.parse(stored);
           const ctaBtn = document.querySelector('header a[href="index.html"].px-4');
           if (ctaBtn && user.username) {
-            ctaBtn.innerHTML = `<i class="fa-solid fa-user-shield text-slate-900 mr-1"></i> <span>${user.username}</span>`;
-            ctaBtn.classList.remove('uppercase');
+            if (user.is_founder) {
+              ctaBtn.outerHTML = `
+                <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-300 font-mono text-xs font-bold">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <i class="fa-solid fa-crown text-amber-400"></i>
+                  <span>${user.username} (FOUNDER VIP)</span>
+                </div>
+              `;
+            } else {
+              ctaBtn.innerHTML = `<i class="fa-solid fa-user-shield text-slate-900 mr-1"></i> <span>${user.username}</span>`;
+              ctaBtn.classList.remove('uppercase');
+            }
           }
         } catch (e) {}
       }

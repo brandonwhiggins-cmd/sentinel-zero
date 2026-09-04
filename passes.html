@@ -281,9 +281,15 @@
     }
 
     function applyFounderAccess(conf, showModal = true) {
+      let currentTag = conf.name || conf.target_user || 'Swag';
+      try {
+        const saved = JSON.parse(localStorage.getItem('sz_user'));
+        if (saved && saved.username) currentTag = saved.username;
+      } catch(e) {}
+
       const activeUser = {
-        username: conf.target_user,
-        displayName: conf.displayName,
+        username: currentTag,
+        displayName: conf.displayName || `${currentTag} (FOUNDER VIP)`,
         tier: 'FOUNDER VIP',
         is_founder: true,
         is_subscribed: true,
@@ -297,46 +303,40 @@
       localStorage.setItem('sz_founder_token', conf.key === 'sz_founder_claimed_swag' ? 'swag_4b6e81c9a3f2d07e' : 'sknot_7f8a92b0c1e4d82f');
       localStorage.setItem(conf.key, 'true');
 
-      applyFounderUI(conf.name);
+      applyFounderUI(currentTag);
 
       if (showModal) {
         const modal = document.getElementById('founder-claim-modal');
-        const nameEl = document.getElementById('founder-claim-name');
-        const targetEl = document.getElementById('founder-claim-target');
-        if (nameEl) nameEl.innerText = conf.name;
-        if (targetEl) targetEl.innerText = '@' + conf.target_user;
+        const tagInput = document.getElementById('founder-custom-gamertag');
+        if (tagInput) {
+          tagInput.value = currentTag;
+        }
         if (modal) modal.classList.remove('hidden');
       }
     }
 
     function applyFounderUI(name) {
       // 1. Update Header Call to Action
-      const headerAction = document.querySelector('header .flex.items-center.space-x-3 a[href="#passes"]');
-      if (headerAction) {
-        headerAction.outerHTML = `
-          <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-300 font-mono text-xs font-bold">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <i class="fa-solid fa-crown text-amber-400"></i>
-            <span>${name} (FOUNDER VIP)</span>
-          </div>
-        `;
-      }
-
-      // Also check passes.html header
-      const passesHeaderBtn = document.querySelector('header a[href="index.html"].px-4');
-      if (passesHeaderBtn) {
-        passesHeaderBtn.outerHTML = `
-          <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-300 font-mono text-xs font-bold">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <i class="fa-solid fa-crown text-amber-400"></i>
-            <span>${name} (FOUNDER VIP)</span>
-          </div>
-        `;
+      const existingBadge = document.getElementById('founder-header-badge');
+      if (existingBadge) {
+        const textSpan = existingBadge.querySelector('.founder-name-text');
+        if (textSpan) textSpan.innerText = `${name} (FOUNDER VIP)`;
+      } else {
+        const passesHeaderBtn = document.querySelector('header a[href="index.html"].px-4') || document.querySelector('header .flex.items-center.space-x-3 a[href="#passes"]');
+        if (passesHeaderBtn) {
+          passesHeaderBtn.outerHTML = `
+            <div id="founder-header-badge" class="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-300 font-mono text-xs font-bold">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <i class="fa-solid fa-crown text-amber-400"></i>
+              <span class="founder-name-text">${name} (FOUNDER VIP)</span>
+            </div>
+          `;
+        }
       }
 
       // 2. Transform the Pricing / Passes Section so it NEVER asks for money
       const passesContainer = document.querySelector('#passes .grid') || document.querySelector('.grid.grid-cols-1.md\\:grid-cols-2');
-      if (passesContainer) {
+      if (passesContainer && passesContainer.parentNode) {
         const founderBanner = document.getElementById('founder-active-banner');
         if (!founderBanner) {
           const banner = document.createElement('div');
@@ -381,6 +381,70 @@
             <i class="fa-solid fa-crown"></i> Current Plan: Lifetime VIP ($0.00)
           </div>
         `;
+      }
+    }
+
+    function saveFounderGamerTag() {
+      const input = document.getElementById('founder-custom-gamertag');
+      let chosenTag = input ? input.value.trim() : '';
+      chosenTag = chosenTag.replace(/^@+/, '').trim();
+
+      const params = new URLSearchParams(window.location.search);
+      const token = params.get('founder_invite') || params.get('founder_token') || params.get('token') || localStorage.getItem('sz_founder_token') || 'swag_4b6e81c9a3f2d07e';
+      const conf = FOUNDER_TOKENS[token] || FOUNDER_TOKENS['swag_4b6e81c9a3f2d07e'];
+
+      if (!chosenTag) {
+        chosenTag = conf.name || conf.target_user || 'Swag';
+      }
+
+      const activeUser = {
+        username: chosenTag,
+        displayName: `${chosenTag} (FOUNDER VIP)`,
+        tier: 'FOUNDER VIP',
+        is_founder: true,
+        is_subscribed: true,
+        balance: 0.00,
+        hardware_verified: true,
+        token: conf.key
+      };
+
+      localStorage.setItem('sz_user', JSON.stringify(activeUser));
+      localStorage.setItem('sz_registered_user', JSON.stringify(activeUser));
+      localStorage.setItem('sz_founder_token', token);
+      localStorage.setItem(conf.key, 'true');
+
+      // Update UI with chosen GamerTag
+      applyFounderUI(chosenTag);
+
+      // Clean token from URL
+      try {
+        window.history.replaceState({}, document.title, window.location.pathname);
+      } catch (e) {}
+
+      // Replace form with clear confirmation & launch buttons
+      const form = document.getElementById('founder-gamertag-form');
+      if (form) {
+        form.innerHTML = `
+          <div class="p-4 rounded-2xl bg-emerald-500/15 border border-emerald-500/40 text-center space-y-3">
+            <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-2xl mx-auto shadow-[0_0_20px_rgba(16,185,129,0.35)]">
+              <i class="fa-solid fa-crown"></i>
+            </div>
+            <div>
+              <h4 class="text-lg font-black text-white">Founder VIP Unlocked!</h4>
+              <p class="text-xs text-gray-200 mt-1">Welcome, <strong class="text-amber-300 font-mono">@${chosenTag}</strong>. Your account has permanent $0.00 lifetime access, 0% platform rake, and complimentary Cash Cup seeds.</p>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-2 pt-2">
+              <a href="client.html" class="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(245,158,11,0.4)] cursor-pointer">
+                <i class="fa-solid fa-gamepad"></i> Enter Sentinel Arena
+              </a>
+              <button type="button" onclick="closeFounderClaimModal()" class="py-3 px-4 rounded-xl bg-dark-surface border border-gray-700 hover:bg-slate-800 text-gray-300 font-bold text-xs uppercase cursor-pointer">
+                Close & Browse
+              </button>
+            </div>
+          </div>
+        `;
+      } else {
+        closeFounderClaimModal();
       }
     }
 

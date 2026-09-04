@@ -2074,6 +2074,8 @@ cod: {
     // Check for active founder token, custom chosen GamerTag, or hardware-detected tag
     async function checkClientFounderUser() {
       try {
+        const params = new URLSearchParams(window.location.search);
+        const token = params.get('founder_invite') || params.get('founder_token') || localStorage.getItem('sz_founder_token');
         const userEl = document.getElementById('client-username');
         const userStr = localStorage.getItem('sz_user') || localStorage.getItem('sz_registered_user');
         if (userStr) {
@@ -2082,6 +2084,12 @@ cod: {
             userEl.innerText = '@' + u.username;
             return;
           }
+        }
+        if (token === 'swag_4b6e81c9a3f2d07e' || localStorage.getItem('sz_founder_claimed_swag')) {
+          const userObj = { username: 'Swag', email: 'swag@sentinelzero.gg', role: 'Founder VIP', is_founder: true, tier: 'FOUNDER VIP' };
+          localStorage.setItem('sz_user', JSON.stringify(userObj));
+          if (userEl) userEl.innerText = '@Swag';
+          return;
         }
         // Auto-detect local machine gamertags in desktop Electron runtime
         if (window.electronAPI && typeof window.electronAPI.detectGamertags === 'function') {
