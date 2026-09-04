@@ -81,7 +81,7 @@
   <!-- ========================================================================= -->
   <!-- 🖥️ TOP CLIENT TITLEBAR & MASTER CONTROLS -->
   <!-- ========================================================================= -->
-    <header class="h-14 bg-client-sidebar border-b border-client-border flex items-center justify-between px-3 sm:px-4 shrink-0 z-30 shadow-md overflow-hidden">
+      <header class="h-14 bg-client-sidebar border-b border-client-border flex items-center justify-between px-3 sm:px-4 shrink-0 z-30 shadow-md">
     <!-- App Brand & Identity -->
     <div class="flex items-center gap-2.5 shrink-0 whitespace-nowrap">
       <div class="flex items-center gap-2.5">
@@ -105,43 +105,20 @@
       </div>
     </div>
 
-    <!-- Security & Matchmaking Status Center Pill (Only shown on extra-wide screens to prevent navbar compression) -->
-    <div class="hidden 2xl:flex items-center gap-3 px-3.5 py-1 rounded-full bg-client-bg/90 border border-client-border text-[11px] font-mono backdrop-blur-sm shadow-inner whitespace-nowrap shrink-0">
-      <div class="flex items-center gap-1.5 text-emerald-400 font-semibold whitespace-nowrap shrink-0">
-        <i class="fa-solid fa-microchip text-xs shrink-0"></i>
-        <span>Anti-Cheat: ACTIVE</span>
-      </div>
-      <span class="text-gray-600 shrink-0">&bull;</span>
-      <div class="flex items-center gap-1.5 text-amber-400 font-semibold whitespace-nowrap shrink-0">
-        <i class="fa-solid fa-cloud text-xs shrink-0 text-amber-400 animate-pulse"></i>
-        <span class="whitespace-nowrap text-amber-300">Cloud Sync: LIVE (TEST)</span>
-      </div>
-      <span class="text-gray-600 shrink-0">&bull;</span>
-      <div class="flex items-center gap-1.5 text-cyan-400 font-semibold whitespace-nowrap shrink-0">
-        <i class="fa-solid fa-wifi text-xs shrink-0"></i>
-        <span id="client-latency">US-East: 12ms</span>
-      </div>
-      <span class="text-gray-600 shrink-0">&bull;</span>
-      <div class="flex items-center gap-1.5 text-amber-400 font-semibold whitespace-nowrap shrink-0">
-        <i class="fa-solid fa-circle-check text-xs shrink-0 text-emerald-400"></i>
-        <span>Matchmaking: READY</span>
-      </div>
-    </div>
-
-    <!-- User Profile, Wallet & Passport Trigger -->
-    <div class="flex items-center gap-2 shrink-0 whitespace-nowrap ml-auto">
+    <!-- User Profile, Wallet & Passport Trigger (Right Cluster) -->
+    <div class="flex items-center gap-2.5 shrink-0 whitespace-nowrap ml-auto">
       <!-- Game Passport Trigger (Dynamic Status Badge) -->
-      <button type="button" onclick="openClientPassportModal(false)" class="px-2.5 py-1.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-xs font-bold font-mono flex items-center gap-1.5 transition no-drag shadow-sm whitespace-nowrap shrink-0 cursor-pointer">
+      <button type="button" onclick="openClientPassportModal(false)" class="px-3 py-1.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-xs font-bold font-mono flex items-center gap-1.5 transition no-drag shadow-sm whitespace-nowrap shrink-0 cursor-pointer">
         <span id="passport-header-badge" class="w-2 h-2 rounded-full bg-amber-400 animate-ping shrink-0"></span>
         <i class="fa-solid fa-id-card text-xs shrink-0"></i>
         <span id="passport-header-label" class="whitespace-nowrap">Passport</span>
       </button>
 
       <!-- Wallet Balance / Wagers Pill -->
-      <div class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-client-bg border border-client-border no-drag whitespace-nowrap shrink-0 text-xs">
+      <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-client-bg border border-client-border no-drag whitespace-nowrap shrink-0 text-xs">
         <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0"></span>
-        <span class="text-gray-400 font-semibold whitespace-nowrap hidden sm:inline">Wagers:</span>
-        <span class="font-black text-emerald-400 font-mono whitespace-nowrap">Free</span>
+        <span class="text-gray-400 font-semibold whitespace-nowrap">Wagers:</span>
+        <span class="font-black text-emerald-400 font-mono whitespace-nowrap">Free Scrims</span>
         <button type="button" onclick="openWagerComingSoonModal('nav')" class="text-[9px] bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 px-1.5 py-0.5 rounded font-bold transition ml-0.5 whitespace-nowrap shrink-0 border border-amber-500/30 cursor-pointer">Soon</button>
       </div>
 
@@ -150,7 +127,7 @@
         <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-amber-500 to-yellow-400 flex items-center justify-center text-slate-950 text-xs font-black group-hover:scale-105 transition shadow-sm shrink-0">
           <i class="fa-solid fa-crown"></i>
         </div>
-        <div class="text-left leading-tight hidden md:block whitespace-nowrap">
+        <div class="text-left leading-tight hidden sm:block whitespace-nowrap">
           <div class="flex items-center gap-1 whitespace-nowrap">
             <span class="text-xs font-bold text-white group-hover:text-amber-300 transition whitespace-nowrap" id="client-username">@Operative</span>
             <i class="fa-solid fa-pen text-[8px] text-gray-500 group-hover:text-amber-400 transition shrink-0"></i>
@@ -161,13 +138,13 @@
 
       <!-- 🪟 Native Window Controls -->
       <div class="flex items-center no-drag ml-1 pl-1 border-l border-client-border shrink-0" style="-webkit-app-region: no-drag !important;">
-        <button id="win-min-btn" onclick="minimizeWindow()" class="w-7 h-7 hover:bg-slate-800 text-gray-400 hover:text-white flex items-center justify-center transition cursor-pointer" title="Minimize" style="-webkit-app-region: no-drag !important;">
+        <button id="win-min-btn" onclick="minimizeWindow()" class="w-8 h-8 hover:bg-slate-800 text-gray-400 hover:text-white flex items-center justify-center transition cursor-pointer" title="Minimize" style="-webkit-app-region: no-drag !important;">
           <i class="fa-solid fa-minus text-xs pointer-events-none"></i>
         </button>
-        <button id="win-max-btn" onclick="maximizeWindow()" class="w-7 h-7 hover:bg-slate-800 text-gray-400 hover:text-white flex items-center justify-center transition cursor-pointer" title="Maximize" style="-webkit-app-region: no-drag !important;">
+        <button id="win-max-btn" onclick="maximizeWindow()" class="w-8 h-8 hover:bg-slate-800 text-gray-400 hover:text-white flex items-center justify-center transition cursor-pointer" title="Maximize" style="-webkit-app-region: no-drag !important;">
           <i class="fa-regular fa-square text-xs pointer-events-none"></i>
         </button>
-        <button id="win-close-btn" onclick="closeWindow()" class="w-7 h-7 hover:bg-rose-600 text-gray-400 hover:text-white flex items-center justify-center transition cursor-pointer" title="Close" style="-webkit-app-region: no-drag !important;">
+        <button id="win-close-btn" onclick="closeWindow()" class="w-8 h-8 hover:bg-rose-600 text-gray-400 hover:text-white flex items-center justify-center transition cursor-pointer" title="Close" style="-webkit-app-region: no-drag !important;">
           <i class="fa-solid fa-xmark text-sm pointer-events-none"></i>
         </button>
       </div>
@@ -2013,7 +1990,7 @@ cod: {
         if (count > 0) {
           btnText.innerText = `Passport (${count})`;
         } else {
-          btnText.innerText = "Passport";
+          btnText.innerText = "Link Passport";
         }
       }
 
