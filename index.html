@@ -118,11 +118,11 @@
         </div>
         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/15 border border-amber-500/35 text-amber-300 text-xs font-mono font-bold shadow-sm">
           <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-          <span>DAILY PRIME TIME: 5:00 PM – 10:30 PM EST</span>
+          <span>DAILY PRIME TIME: 5:00 PM – 10:30 PM CT (6:00 PM – 11:30 PM ET)</span>
         </div>
         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/15 border border-cyan-500/35 text-cyan-300 text-xs font-mono font-bold shadow-sm">
-          <i class="fa-solid fa-clock text-cyan-400"></i>
-          <span>CASH WAGERS: COMING SOON &bull; FREE SCRIMS ACTIVE</span>
+          <i class="fa-solid fa-lock text-cyan-400"></i>
+          <span>LAUNCH LOCK: CS2 &amp; R6 SIEGE</span>
         </div>
       </div>
 
@@ -135,20 +135,40 @@
       <!-- Subheading -->
       <p class="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
         The world's first cheat-proof competitive cash stake arena. We lock out aimbots, wallhacks, spinbots, and recoil scripts before your match even boots up. 
-        <span class="text-white font-semibold">Choose your competitive pass ($6.99 or $12.99), launch our native desktop client, and compete on private dedicated servers with automated Stripe escrow payouts.</span>
+        <span class="text-white font-semibold">Pre-register as an Early Adopter ($0 due today), vote for your favorite title, and unlock CS2 &amp; R6 Siege matchmaking as soon as our 500-player threshold is met.</span>
       </p>
 
       <!-- CTA Cluster -->
-      <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+      <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
         <a href="#passes" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 transition shadow-[0_0_30px_rgba(16,185,129,0.4)]">
-          <i class="fa-solid fa-crown text-base"></i>
-          <span>Choose Pass & Download App</span>
+          <i class="fa-solid fa-users-gear text-base"></i>
+          <span>Pre-Register as Early Adopter ($0 Today)</span>
         </a>
 
         <a href="#app-showcase" class="w-full sm:w-auto px-7 py-4 rounded-2xl bg-dark-card hover:bg-dark-border/60 border border-dark-border text-gray-200 font-bold text-sm flex items-center justify-center gap-2 transition">
           <i class="fa-solid fa-display text-emerald-400"></i>
           <span>See How the App Works</span>
         </a>
+      </div>
+
+      <!-- Early Adopter Launch Milestone Banner -->
+      <div class="pt-2 max-w-xl mx-auto">
+        <div class="p-4 rounded-2xl bg-dark-card/90 border border-emerald-500/40 shadow-[0_0_25px_rgba(16,185,129,0.15)] text-left space-y-2.5">
+          <div class="flex items-center justify-between text-xs font-mono">
+            <span class="text-amber-300 font-bold flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+              <span>EARLY ADOPTER GO-LIVE MILESTONE</span>
+            </span>
+            <span class="text-emerald-400 font-bold" id="hero-ea-count">384 / 500 PLEDGES (76.8%)</span>
+          </div>
+          <div class="w-full bg-dark-surface rounded-full h-2.5 overflow-hidden border border-white/10 p-0.5">
+            <div id="hero-ea-progress" class="bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 h-full rounded-full transition-all duration-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" style="width: 76.8%"></div>
+          </div>
+          <div class="flex items-center justify-between text-[11px] font-mono text-gray-400">
+            <span>$0 Charged Today &bull; Delayed Billing</span>
+            <span class="text-emerald-400 font-bold">116 Spots to Go-Live</span>
+          </div>
+        </div>
       </div>
 
       <!-- Trust Badges -->
@@ -262,20 +282,20 @@
   </section>
 
   <!-- ========================================================================= -->
-  <!-- 👑 MEMBERSHIP PASSES ($6.99 PRO / $12.99 ELITE VIP) -->
+  <!-- 🛡️ EARLY ADOPTER PRE-REGISTRATION PASSES ($0 UPFRONT) -->
   <!-- ========================================================================= -->
   <section id="passes" class="py-20 relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
       
       <div class="text-center max-w-3xl mx-auto space-y-4">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold font-mono">
-          <i class="fa-solid fa-crown"></i> SEASON 0 MEMBERSHIP TIERS
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold font-mono">
+          <i class="fa-solid fa-users-gear text-emerald-400"></i> EARLY ADOPTER PRE-REGISTRATION
         </div>
         <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
-          Choose Your Competitive Pass
+          Pre-Register as an Early Adopter
         </h2>
         <p class="text-sm text-gray-300 max-w-2xl mx-auto">
-          Every Sentinel Zero account is backed by silicon hardware attestation and 100% money-back insurance protection against cheaters. No free tier. Zero smurfs.
+          <strong class="text-emerald-400 font-semibold">$0 Due Today.</strong> Zero upfront charges. You will only be billed once we reach 500 verified Early Adopters and our dedicated CS2 &amp; R6 Siege matchmaking servers go live.
         </p>
       </div>
 
@@ -286,28 +306,29 @@
         <div class="p-8 rounded-3xl bg-dark-card border border-dark-border hover:border-emerald-500/50 transition shadow-2xl flex flex-col justify-between space-y-6">
           <div class="space-y-4">
             <div class="flex justify-between items-center">
-              <span class="text-xs uppercase tracking-widest text-emerald-400 font-mono font-bold bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full">FLAGSHIP PASS</span>
-              <span class="text-xs text-gray-400">Cancel anytime</span>
+              <span class="text-xs uppercase tracking-widest text-emerald-400 font-mono font-bold bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full">EARLY ADOPTER PRO</span>
+              <span class="text-xs text-emerald-400 font-mono font-bold">$0 DUE TODAY</span>
             </div>
             <div>
-              <h3 class="text-2xl font-black text-white">Pro Pass</h3>
+              <h3 class="text-2xl font-black text-white">Early Adopter Pass</h3>
               <p class="text-xs text-gray-400 mt-1">For competitive gamers who want verified clean, cheat-free matchmaking.</p>
             </div>
             <div class="flex items-baseline gap-2">
               <span class="text-4xl font-black text-white font-mono">$6.99</span>
-              <span class="text-xs text-gray-400">/ month</span>
+              <span class="text-xs text-gray-400">/ month <span class="text-emerald-400 font-bold font-mono">(Billed at Go-Live)</span></span>
             </div>
             <ul class="space-y-3 text-xs text-gray-300 pt-2 border-t border-dark-border">
-              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Verified Clean Matchmaking across all 16 games</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> <strong>$0 charged today</strong> (Delayed billing until go-live)</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Day-1 access to CS2 &amp; Rainbow Six Siege matchmaking</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> <strong>1 Community Vote</strong> for next game to unlock</li>
               <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> 100% Match Insurance Shield (instant victim refund)</li>
               <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> 50% Platform Rake Discount on all cash matches</li>
-              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> @Verified Player Discord Role & Profile Badge</li>
-              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Open Community Tournament Bracket Access</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> <strong>@Early Adopter Pro</strong> Discord Role &amp; Profile Badge</li>
             </ul>
           </div>
-          <button onclick="openSignUpWithTier('pro')" class="w-full py-4 rounded-2xl bg-dark-surface hover:bg-emerald-500 hover:text-slate-900 border border-emerald-500/40 text-emerald-300 font-bold text-sm tracking-wide flex items-center justify-center gap-2 transition shadow-lg">
+          <button onclick="openSignUpWithTier('pro')" class="w-full py-4 rounded-2xl bg-dark-surface hover:bg-emerald-500 hover:text-slate-900 border border-emerald-500/40 text-emerald-300 font-bold text-sm tracking-wide flex items-center justify-center gap-2 transition shadow-lg cursor-pointer">
             <i class="fa-solid fa-shield-halved"></i>
-            <span>Subscribe to Pro ($6.99/mo)</span>
+            <span>Pre-Register for Pro ($0 Today)</span>
           </button>
         </div>
 
@@ -316,31 +337,32 @@
           <div class="space-y-4">
             <div class="flex justify-between items-center">
               <span class="text-xs uppercase tracking-widest text-amber-400 font-mono font-bold bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-full">0% RAKE VIP</span>
-              <span class="text-xs text-gray-400">Cancel anytime</span>
+              <span class="text-xs text-amber-400 font-mono font-bold">$0 DUE TODAY</span>
             </div>
             <div>
               <h3 class="text-2xl font-black text-white flex items-center gap-2">
-                <span>Elite High-Roller</span>
+                <span>Early Adopter Elite VIP</span>
                 <i class="fa-solid fa-crown text-amber-400 text-lg"></i>
               </h3>
               <p class="text-xs text-gray-400 mt-1">For serious competitive grinders, high-stakes duels, and tournament competitors.</p>
             </div>
             <div class="flex items-baseline gap-2">
               <span class="text-4xl font-black text-white font-mono">$12.99</span>
-              <span class="text-xs text-gray-400">/ month</span>
+              <span class="text-xs text-gray-400">/ month <span class="text-amber-400 font-bold font-mono">(Billed at Go-Live)</span></span>
             </div>
             <ul class="space-y-3 text-xs text-gray-300 pt-2 border-t border-dark-border">
+              <li class="flex items-center gap-2 text-white font-semibold"><i class="fa-solid fa-star text-amber-400"></i> <strong>$0 charged today</strong> (Delayed billing until go-live)</li>
               <li class="flex items-center gap-2 text-white font-semibold"><i class="fa-solid fa-star text-amber-400"></i> <strong>0% Platform Rake on All Matches</strong> (Keep 100% of pots)</li>
+              <li class="flex items-center gap-2 text-amber-300 font-semibold"><i class="fa-solid fa-check-to-slot text-amber-400"></i> <strong>2 Community Votes</strong> for next game to unlock</li>
               <li class="flex items-center gap-2 text-amber-300 font-semibold"><i class="fa-solid fa-trophy text-amber-400"></i> <strong>Free $500 Monthly Cash Cup</strong> Tournament Entries</li>
-              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> VIP Discord Channel & Private Voice Lounge</li>
-              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> Gold Founder Badge & Custom Discord Role</li>
-              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> Priority Queue Matchmaking</li>
-              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> 100% Match Insurance Shield Included</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> VIP Discord Channel &amp; Private Voice Lounge</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> Gold Early Adopter VIP Badge &amp; Discord Role</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-400"></i> Priority Queue Matchmaking in Primetime Window</li>
             </ul>
           </div>
-          <button onclick="openSignUpWithTier('elite')" class="w-full py-4 rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-sm tracking-wider uppercase flex items-center justify-center gap-2 transition shadow-[0_0_25px_rgba(245,158,11,0.4)]">
+          <button onclick="openSignUpWithTier('elite')" class="w-full py-4 rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-sm tracking-wider uppercase flex items-center justify-center gap-2 transition shadow-[0_0_25px_rgba(245,158,11,0.4)] cursor-pointer">
             <i class="fa-solid fa-crown"></i>
-            <span>Join Elite VIP ($12.99/mo)</span>
+            <span>Pre-Register for Elite VIP ($0 Today)</span>
           </button>
         </div>
 
@@ -680,27 +702,27 @@
       <!-- Step 1 Form -->
       <div id="signup-form-state" class="space-y-4">
         <div class="space-y-1">
-          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30 font-mono text-[10px] font-bold">
-            <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
-            <span>STEP 1: ACTIVATE PASS & REGISTER</span>
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-mono text-[10px] font-bold">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>EARLY ADOPTER PLEDGE • $0 TODAY</span>
           </div>
-          <h3 class="text-xl font-black text-white">Join Sentinel Zero</h3>
-          <p class="text-xs text-gray-400">Claim your universal GamerTag and choose your membership pass to unlock the desktop app.</p>
+          <h3 class="text-xl font-black text-white">Pre-Register for Season 0</h3>
+          <p class="text-xs text-gray-400">Lock in your spot. You will only be charged when 500 Early Adopters register and matchmaking servers go live.</p>
         </div>
 
         <form onsubmit="handleSignUp(event)" class="space-y-3">
           
           <!-- Pass Tier Selector -->
           <div>
-            <label class="block text-[11px] font-mono text-gray-400 mb-1.5">SELECT MEMBERSHIP PASS</label>
+            <label class="block text-[11px] font-mono text-gray-400 mb-1.5">SELECT PASS TIER (DELAYED BILLING)</label>
             <div class="grid grid-cols-2 gap-2">
               <label id="tier-label-pro" onclick="selectTierRadio('pro')" class="cursor-pointer p-3 rounded-xl border-2 border-emerald-500 bg-emerald-500/10 flex flex-col text-left transition">
                 <input type="radio" name="pass-tier" value="pro" checked onchange="selectTierRadio('pro')" class="sr-only">
                 <div class="text-xs font-bold text-white flex items-center justify-between">
-                  <span>Pro Pass</span>
+                  <span>Early Adopter Pro</span>
                   <span class="text-emerald-400 font-mono font-black">$6.99</span>
                 </div>
-                <div class="text-[10px] text-gray-400 mt-0.5">50% Rake Discount</div>
+                <div class="text-[10px] text-gray-400 mt-0.5">$0 today • 1 Game Vote</div>
               </label>
 
               <label id="tier-label-elite" onclick="selectTierRadio('elite')" class="cursor-pointer p-3 rounded-xl border border-dark-border bg-dark-surface flex flex-col text-left hover:border-amber-500/50 transition">
@@ -709,24 +731,24 @@
                   <span>Elite VIP</span>
                   <span class="text-amber-400 font-mono font-black">$12.99</span>
                 </div>
-                <div class="text-[10px] text-gray-400 mt-0.5">0% Rake + Cash Cups</div>
+                <div class="text-[10px] text-gray-400 mt-0.5">$0 today • 2 Game Votes</div>
               </label>
             </div>
           </div>
 
           <div>
-            <label class="block text-[11px] font-mono text-gray-400 mb-1">CHOOSE GAMERTAG</label>
+            <label class="block text-[11px] font-mono text-gray-400 mb-1">UNIVERSAL GAMERTAG</label>
             <input type="text" id="su-tag" required placeholder="e.g. SknotRockIt" class="w-full bg-dark-surface border border-dark-border rounded-xl px-4 py-2.5 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-emerald-400 font-mono">
           </div>
 
           <div>
-            <label class="block text-[11px] font-mono text-gray-400 mb-1">EMAIL ADDRESS (FOR RECEIPT & PAYOUTS)</label>
-            <input type="email" id="su-email" required placeholder="player@domain.com" class="w-full bg-dark-surface border border-dark-border rounded-xl px-4 py-2.5 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-emerald-400">
+            <label class="block text-[11px] font-mono text-gray-400 mb-1">EMAIL (FOR 48-HOUR GO-LIVE NOTICE)</label>
+            <input type="email" id="su-email" required placeholder="operative@domain.com" class="w-full bg-dark-surface border border-dark-border rounded-xl px-4 py-2.5 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-emerald-400">
           </div>
 
           <div>
             <div class="flex items-center justify-between mb-1">
-              <label class="block text-[11px] font-mono text-gray-400">DISCORD HANDLE (OPTIONAL)</label>
+              <label class="block text-[11px] font-mono text-gray-400">DISCORD HANDLE (FOR @EARLY ADOPTER ROLE)</label>
               <a href="https://discord.gg/7FXD5AhmnP" target="_blank" class="text-[11px] text-indigo-400 hover:text-indigo-300 font-semibold flex items-center gap-1 transition">
                 <i class="fa-brands fa-discord text-xs"></i> Join Server &rarr;
               </a>
@@ -734,58 +756,90 @@
             <input type="text" id="su-discord" placeholder="username#0000" class="w-full bg-dark-surface border border-dark-border rounded-xl px-4 py-2.5 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-emerald-400 font-mono">
           </div>
 
-          <div class="flex items-center gap-2 pt-1 text-[11px] text-gray-400">
-            <input type="checkbox" id="su-age" checked class="rounded border-gray-700 text-emerald-500 focus:ring-0">
-            <label for="su-age">I confirm I am 18+ and agree to the <button type="button" onclick="openTosModal()" class="text-emerald-400 underline">Terms of Service</button>.</label>
+          <!-- Vote for Next Game -->
+          <div>
+            <label class="block text-[11px] font-mono text-amber-400 mb-1 flex items-center gap-1.5">
+              <i class="fa-solid fa-check-to-slot"></i>
+              <span>VOTE FOR NEXT GAME TO UNLOCK AFTER CS2 &amp; R6</span>
+            </label>
+            <select id="su-vote" class="w-full bg-dark-surface border border-dark-border rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400 font-mono">
+              <option value="wardogs">WARDOGS (Tactical FPS) — 142 Current Votes</option>
+              <option value="valorant">VALORANT (Tactical 5v5) — 128 Current Votes</option>
+              <option value="warzone" selected>Call of Duty: Warzone (BR Kill Races) — 114 Current Votes</option>
+              <option value="cod">Call of Duty (CDL Multiplayer) — 98 Current Votes</option>
+              <option value="tarkov">Escape from Tarkov: Arena — 87 Current Votes</option>
+              <option value="apex">Apex Legends — 76 Current Votes</option>
+              <option value="rocketleague">Rocket League — 69 Current Votes</option>
+              <option value="fortnite">Fortnite (Zero Build / Box Fights) — 64 Current Votes</option>
+              <option value="rust">Rust (1v1 PvP Arenas) — 55 Current Votes</option>
+              <option value="overwatch">Overwatch 2 — 49 Current Votes</option>
+              <option value="league">League of Legends — 44 Current Votes</option>
+              <option value="fc25">EA Sports FC 25 — 38 Current Votes</option>
+              <option value="nba2k">NBA 2K25 — 32 Current Votes</option>
+              <option value="madden">Madden NFL 25 — 26 Current Votes</option>
+            </select>
           </div>
 
-          <button type="submit" id="su-submit-btn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-[0_0_20px_rgba(16,185,129,0.35)] flex items-center justify-center gap-2">
-            <span>Proceed to Pass Checkout & App</span>
-            <i class="fa-solid fa-arrow-right text-xs"></i>
+          <div class="p-3 rounded-xl bg-[#091120] border border-emerald-500/30 text-[11px] text-gray-300 space-y-1">
+            <div class="font-bold text-white flex items-center gap-1.5">
+              <i class="fa-solid fa-shield-halved text-emerald-400"></i>
+              <span>Zero Risk Delayed Billing Guarantee:</span>
+            </div>
+            <p class="text-gray-400">No charges occur today. When our 500-player milestone is reached, CS2 and R6 matchmaking servers unlock during Primetime (5:00 PM – 10:30 PM CT), and an email alert is sent 48 hours prior.</p>
+          </div>
+
+          <button type="submit" id="su-submit-btn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-[0_0_20px_rgba(16,185,129,0.35)] flex items-center justify-center gap-2 cursor-pointer">
+            <i class="fa-solid fa-check"></i>
+            <span>Lock In Early Adopter Spot ($0 Today)</span>
           </button>
         </form>
 
-        <div class="text-center pt-2">
-          <p class="text-[11px] text-gray-500">Already a member? Launch <strong>Sentinel Zero.exe</strong> on your PC to duel!</p>
+        <div class="text-center pt-1">
+          <p class="text-[11px] text-gray-500">Already registered? Launch <strong>Sentinel Zero.exe</strong> on your PC!</p>
         </div>
       </div>
 
       <!-- Step 2 Success & Direct Download -->
       <div id="signup-success-state" class="hidden space-y-5 text-center">
-        <div class="w-14 h-14 mx-auto rounded-2xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center text-2xl shadow-[0_0_20px_rgba(16,185,129,0.3)]">
-          <i class="fa-solid fa-circle-check"></i>
+        <div class="w-14 h-14 mx-auto rounded-2xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center text-2xl shadow-[0_0_20px_rgba(16,185,129,0.35)]">
+          <i class="fa-solid fa-shield-heart"></i>
         </div>
 
         <div class="space-y-1">
-          <h3 class="text-xl font-black text-white">GamerTag Registered!</h3>
-          <p class="text-xs text-gray-300">Welcome, <span id="confirmed-tag" class="text-emerald-400 font-bold font-mono">Player</span>.</p>
-          <div class="inline-block bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 px-3 py-1 rounded-full font-mono text-[11px] font-bold mt-2">
-            SENTINEL ID: <span id="confirmed-id">SZ-84920</span>
+          <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-mono text-[11px] font-bold">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> EARLY ADOPTER CONFIRMED
+          </div>
+          <h3 class="text-2xl font-black text-white">You're on the Roster!</h3>
+          <p class="text-xs text-gray-300">Welcome, <span id="confirmed-tag" class="text-emerald-400 font-bold font-mono">@Operative</span>.</p>
+          <div class="inline-block bg-dark-surface text-gray-300 border border-white/10 px-3 py-1 rounded-full font-mono text-[11px] font-bold mt-1">
+            CONFIRMATION TICKET: <span id="confirmed-id" class="text-emerald-400">SZ-EA-84920</span>
           </div>
         </div>
 
         <div class="p-4 rounded-2xl bg-[#091120] border border-emerald-500/30 text-left space-y-2 text-xs">
           <div class="font-bold text-white flex items-center gap-2">
-            <i class="fa-brands fa-windows text-cyan-400"></i>
-            <span>Everything Happens Inside the App:</span>
+            <i class="fa-solid fa-calendar-check text-emerald-400"></i>
+            <span>What Happens Next:</span>
           </div>
-          <ol class="text-gray-300 text-[11px] space-y-1.5 list-decimal pl-4">
-            <li>Download & launch <strong class="text-white">Sentinel Zero.exe</strong> below.</li>
-            <li>Sign in with your Gamertag.</li>
-            <li>1-Click link your Game Passport (Steam, Xbox, Ubi, EA) and enter the 1v1 queue!</li>
-          </ol>
+          <ul class="text-gray-300 text-[11px] space-y-1.5 list-disc pl-4">
+            <li><strong>$0 Charged Today:</strong> Your card is NOT billed until 500 Early Adopters register.</li>
+            <li><strong>Launch Notification:</strong> You will receive an email &amp; Discord notification 48 hours before servers go live.</li>
+            <li><strong>Launch Day Access:</strong> CS2 &amp; Rainbow Six Siege matchmaking unlocks daily from <strong class="text-amber-300">5:00 PM – 10:30 PM CT</strong>.</li>
+            <li><strong>Game Vote Recorded:</strong> Your vote has been officially logged in the Community Unlock Queue!</li>
+          </ul>
         </div>
 
         <div class="space-y-2 pt-2">
-          <a id="stripe-checkout-btn" href="https://buy.stripe.com/cNi3cw3Lde8bcTQgMPgfu00" target="_blank" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-[0_0_25px_rgba(16,185,129,0.4)] flex items-center justify-center gap-2">
-            <i class="fa-solid fa-credit-card text-sm"></i>
-            <span id="stripe-btn-label">Complete Pro Pass Checkout ($6.99/mo)</span>
-          </a>
-
-          <a id="auto-dl-link" href="SentinelAgent.exe" download="SentinelAgent.exe" class="w-full py-2.5 rounded-xl bg-dark-surface hover:bg-dark-border border border-dark-border text-gray-300 hover:text-white font-bold text-xs flex items-center justify-center gap-2 transition">
-            <i class="fa-solid fa-download text-xs text-emerald-400"></i>
+          <a id="auto-dl-link" href="SentinelAgent.exe" download="SentinelAgent.exe" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-[0_0_25px_rgba(16,185,129,0.4)] flex items-center justify-center gap-2">
+            <i class="fa-solid fa-download text-sm"></i>
             <span>Download Desktop Client (.exe)</span>
           </a>
+
+          <div class="pt-1">
+            <a id="stripe-checkout-btn" href="https://buy.stripe.com/cNi3cw3Lde8bcTQgMPgfu00" target="_blank" class="text-[11px] text-gray-400 hover:text-emerald-300 underline transition">
+              <span id="stripe-btn-label">Optional: Pre-save payment method on Stripe now &rarr;</span>
+            </a>
+          </div>
 
           <p class="text-[10px] text-gray-500 font-mono">Windows 10 / 11 64-bit &bull; TPM 2.0 Attested &bull; 1.2s Startup</p>
         </div>
@@ -1004,28 +1058,64 @@
 
     function handleSignUp(e) {
       e.preventDefault();
-      const tag = document.getElementById('su-tag').value.trim() || 'Player';
+      const tag = document.getElementById('su-tag').value.trim() || 'Operative';
       const email = document.getElementById('su-email').value.trim();
-      const randomId = 'SZ-' + Math.floor(10000 + Math.random() * 90000);
+      const discord = (document.getElementById('su-discord') ? document.getElementById('su-discord').value.trim() : '') || 'None';
+      const voteEl = document.getElementById('su-vote');
+      const vote = voteEl ? voteEl.value : 'warzone';
+      const randomId = 'SZ-EA-' + Math.floor(10000 + Math.random() * 90000);
 
-      document.getElementById('confirmed-tag').innerText = tag;
+      document.getElementById('confirmed-tag').innerText = '@' + tag.replace(/^@+/, '');
       document.getElementById('confirmed-id').innerText = randomId;
 
-      const checkoutBtn = document.getElementById('stripe-checkout-btn');
-      const checkoutLabel = document.getElementById('stripe-btn-label');
-      
-      if (currentSelectedTier === 'elite') {
-        checkoutBtn.href = STRIPE_LINKS.elite;
-        checkoutBtn.className = 'w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-[0_0_25px_rgba(245,158,11,0.4)] flex items-center justify-center gap-2';
-        checkoutLabel.innerText = 'Complete Elite VIP Checkout ($12.99/mo)';
-      } else {
-        checkoutBtn.href = STRIPE_LINKS.pro;
-        checkoutBtn.className = 'w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-[0_0_25px_rgba(16,185,129,0.4)] flex items-center justify-center gap-2';
-        checkoutLabel.innerText = 'Complete Pro Pass Checkout ($6.99/mo)';
+      const userObj = {
+        username: tag,
+        email: email,
+        discord_id: discord,
+        id: randomId,
+        tier: currentSelectedTier === 'elite' ? 'Early Adopter Elite VIP' : 'Early Adopter Pro',
+        role: currentSelectedTier === 'elite' ? '@Early Adopter Elite' : '@Early Adopter Pro',
+        is_early_adopter: true,
+        game_vote: vote,
+        balance: 0.00,
+        upfront_charged: 0.00,
+        threshold_target: 500,
+        primetime_window: "5:00 PM – 10:30 PM CT (6:00 PM – 11:30 PM ET)"
+      };
+
+      localStorage.setItem('sz_user', JSON.stringify(userObj));
+      localStorage.setItem('sz_registered_user', JSON.stringify(userObj));
+      localStorage.setItem('sz_early_adopter', 'true');
+
+      // Update vote tallies locally for instant feedback
+      const foundTitle = WEB_QUEUE_TITLES.find(t => t.id === vote);
+      if (foundTitle) {
+        foundTitle.votes += (currentSelectedTier === 'elite' ? 2 : 1);
+        WEB_QUEUE_TITLES.sort((a, b) => b.votes - a.votes);
       }
 
-      localStorage.setItem('sz_registered_user', JSON.stringify({ tag, email, id: randomId, tier: currentSelectedTier }));
-      syncToGoogleSheet('Registration', tag);
+      // Update hero Early Adopter progress banner
+      const heroEaEl = document.getElementById('hero-ea-count');
+      const heroEaProg = document.getElementById('hero-ea-progress');
+      if (heroEaEl) heroEaEl.innerText = '385 / 500 PLEDGES (77.0%)';
+      if (heroEaProg) heroEaProg.style.width = '77.0%';
+
+      // Dispatch to Edge API & Google Sheet
+      try {
+        fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            plan: currentSelectedTier,
+            gamertag: tag,
+            email: email,
+            vote: vote,
+            discord: discord
+          })
+        }).catch(() => {});
+      } catch(err) {}
+
+      syncToGoogleSheet('Early Adopter Pre-Registration', `${tag} (${currentSelectedTier.toUpperCase()}) - Vote: ${vote}`);
 
       document.getElementById('signup-form-state').classList.add('hidden');
       document.getElementById('signup-success-state').classList.remove('hidden');
@@ -1151,7 +1241,7 @@
     // Auto-record pageview on arrival
     trackWebTraffic('pageview');
 
-    // Fetch and display live players online on website
+    // Fetch and display live players online & Early Adopter progress on website
     async function updateHeroOnlineCount() {
       try {
         const res = await fetch('/api/stats');
@@ -1159,6 +1249,16 @@
           const data = await res.json();
           const el = document.getElementById('hero-online-count');
           if (el && data.total_online) el.innerText = data.total_online;
+          
+          if (data.early_adopter_count && data.early_adopter_target) {
+            const count = data.early_adopter_count;
+            const target = data.early_adopter_target;
+            const pct = ((count / target) * 100).toFixed(1);
+            const eaCountEl = document.getElementById('hero-ea-count');
+            const eaProgEl = document.getElementById('hero-ea-progress');
+            if (eaCountEl) eaCountEl.innerText = `${count} / ${target} PLEDGES (${pct}%)`;
+            if (eaProgEl) eaProgEl.style.width = `${pct}%`;
+          }
         }
       } catch (e) {}
     }

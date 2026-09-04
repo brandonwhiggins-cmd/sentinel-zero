@@ -69,6 +69,41 @@
 
 ---
 
+### 6. SoKrispyMedia (*Chalk Warfare*) 🌟 NEW VIRAL TARGET
+* **Game:** *Chalk Warfare* (Viral draw-your-weapon FPS with 250,000+ Steam wishlists)
+* **Engine:** Unreal Engine 5 (UE5 native, presented at Unreal Fest)
+* **Location:** United States (US Pacific / Eastern hours)
+* **Key Contacts:**
+  * Sam Wickert & Eric Leigh (Founders / Directors)
+* **Communication Channels:**
+  * Beta Portal & Discord Link: `https://beta.chalkwarfare.com` / `https://chalkwarfare.com`
+  * Direct Studio Email: `contact@sokrispymedia.com`
+  * Steam Page: `https://store.steampowered.com/app/2935800/Chalk_Warfare/`
+* **Vulnerability:** Drawing macros, memory-injected weapon spawns, ESP wallhacks, and 2nd-PC DMA radars break the core drawing mechanic.
+* **Status:** In Closed Beta / Playtests.
+
+---
+
+### 7. Deep Worlds SA (*Beautiful Light*)
+* **Game:** *Beautiful Light* (High-tension stealth extraction horror)
+* **Engine:** Unreal Engine 5
+* **Location:** Switzerland / France (CEST / UTC+2)
+* **Key Contacts:** `Aherys` (CEO & Lead Developer)
+* **Discord:** `https://discord.gg/project-bl`
+* **Status:** Active Steam Playtests.
+
+---
+
+### 8. Gunzilla Games (*Off The Grid*)
+* **Game:** *Off The Grid* (Cyberpunk battle royale & extraction economy)
+* **Engine:** Unreal Engine 5
+* **Location:** Frankfurt / Kyiv / Los Angeles
+* **Key Contacts:** Vlad Korolev (CEO) & Engineering Leads
+* **Discord:** `https://discord.gg/offthegrid`
+* **Status:** September 2026 Phase 04 "Layered Security Updates" ahead of October launch.
+
+---
+
 ## ⏰ Brandon's Golden Follow-Up Schedule (Central Time)
 
 ```

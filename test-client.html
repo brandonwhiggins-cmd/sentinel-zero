@@ -124,15 +124,15 @@
 
       <!-- User Badge -->
       <div class="flex items-center gap-2 pl-2 border-l border-client-border cursor-pointer no-drag group shrink-0 whitespace-nowrap" onclick="openGamerTagPrompt()" title="Click to choose or edit your GamerTag">
-        <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-amber-500 to-yellow-400 flex items-center justify-center text-slate-950 text-xs font-black group-hover:scale-105 transition shadow-sm shrink-0">
-          <i class="fa-solid fa-crown"></i>
+        <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-slate-950 text-xs font-black group-hover:scale-105 transition shadow-sm shrink-0">
+          <i class="fa-solid fa-shield-halved"></i>
         </div>
         <div class="text-left leading-tight hidden sm:block whitespace-nowrap">
           <div class="flex items-center gap-1 whitespace-nowrap">
-            <span class="text-xs font-bold text-white group-hover:text-amber-300 transition whitespace-nowrap" id="client-username">@Operative</span>
-            <i class="fa-solid fa-pen text-[8px] text-gray-500 group-hover:text-amber-400 transition shrink-0"></i>
+            <span class="text-xs font-bold text-white group-hover:text-emerald-300 transition whitespace-nowrap" id="client-username">@Operative</span>
+            <i class="fa-solid fa-pen text-[8px] text-gray-500 group-hover:text-emerald-400 transition shrink-0"></i>
           </div>
-          <div class="text-[9px] font-mono text-amber-300 font-bold whitespace-nowrap">👑 FOUNDER VIP</div>
+          <div class="text-[9px] font-mono text-emerald-300 font-bold whitespace-nowrap" id="client-user-role">🛡️ EARLY ADOPTER</div>
         </div>
       </div>
 
@@ -154,10 +154,11 @@
   <!-- 🧪 TEST ENVIRONMENT SANDBOX TOOLBAR -->
   <!-- ========================================================================= -->
   <div class="bg-amber-500/10 border-b border-amber-500/30 px-4 py-2 flex items-center justify-between text-xs font-mono text-amber-200 z-20 shrink-0">
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-2 flex-wrap">
       <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-      <span class="font-bold">SANDBOX MODE ACTIVE:</span>
-      <span class="text-gray-300 text-[11px]">Test features, launchers & match flows before promoting to Production</span>
+      <span class="font-bold">EARLY ADOPTER SANDBOX:</span>
+      <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-bold border border-emerald-500/30">THRESHOLD: 384 / 500 PLEDGES (76.8%)</span>
+      <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono text-[10px] font-bold border border-amber-500/30">PRIMETIME: 5:00 PM – 10:30 PM CT</span>
     </div>
 
     <div class="flex items-center gap-2">
@@ -2179,13 +2180,17 @@ cod: {
     async function checkClientFounderUser() {
       try {
         const userEl = document.getElementById('client-username');
+        const roleEl = document.getElementById('client-user-role');
         const userStr = localStorage.getItem('sz_user') || localStorage.getItem('sz_registered_user');
         if (userStr) {
           const u = JSON.parse(userStr);
           if (u.username && userEl) {
             userEl.innerText = '@' + u.username;
-            return;
           }
+          if (roleEl) {
+            roleEl.innerText = u.is_founder ? '👑 FOUNDER VIP' : (u.tier || '🛡️ EARLY ADOPTER');
+          }
+          return;
         }
         // Auto-detect local machine gamertags in desktop Electron runtime
         if (window.electronAPI && typeof window.electronAPI.detectGamertags === 'function') {

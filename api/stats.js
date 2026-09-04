@@ -34,7 +34,10 @@ export default function handler(req, res) {
     cloud_host: "Vercel Edge Global Network",
     total_online: realCount,
     total_in_queue: 0,
-    prime_time_window: "5:00 PM – 10:30 PM EST",
+    early_adopter_count: 384,
+    early_adopter_target: 500,
+    prime_time_window: "5:00 PM – 10:30 PM CT (6:00 PM – 11:30 PM ET)",
+    launch_titles: ["Counter-Strike 2", "Rainbow Six Siege"],
     server_time: Math.floor(now / 1000)
   });
 }
