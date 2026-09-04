@@ -343,13 +343,13 @@
               <span class="text-[9px] font-mono text-amber-400/80 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shrink-0">SOON</span>
             </button>
 
-            <!-- 14. PUBG: BATTLEGROUNDS -->
-            <button onclick="selectGame('pubg')" id="nav-pubg" class="game-nav-btn w-full px-2.5 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition group">
+            <!-- 14. League of Legends -->
+            <button onclick="selectGame('league')" id="nav-league" class="game-nav-btn w-full px-2.5 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-client-card flex items-center justify-between text-xs transition group">
               <div class="flex items-center gap-2.5 min-w-0 flex-1 pr-2">
                 <div class="game-badge-box w-7 h-7 rounded-lg overflow-hidden shrink-0 border border-white/10 shadow-sm bg-slate-900 flex items-center justify-center relative transition">
-                  <img src="assets/games/pubg.jpg" alt="PUBG" class="w-full h-full object-cover group-hover:scale-110 transition duration-200">
+                  <img src="assets/games/league_of_legends.jpg" alt="League of Legends" class="w-full h-full object-cover group-hover:scale-110 transition duration-200">
                 </div>
-                <span class="truncate font-semibold tracking-tight">PUBG: BATTLEGROUNDS</span>
+                <span class="truncate font-semibold tracking-tight">League of Legends</span>
               </div>
               <span class="text-[9px] font-mono text-amber-400/80 bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded shrink-0">SOON</span>
             </button>
@@ -1164,6 +1164,19 @@ cod: {
         ],
         lobbies: []
       },
+      wardogs: {
+        id: 'wardogs',
+        name: 'WARDOGS',
+        status: 'coming_soon',
+        modeBadge: 'BULKHEAD • COMING SOON',
+        desc: 'Tactical close-quarters military shooter by Bulkhead. Silicon-level memory attestation and competitive team matches.',
+        defaultLauncher: 'steam',
+        connect_code: 'Lobby: SZ-WARDOGS-01',
+        launchers: [
+          { id: 'steam', label: 'Steam', icon: 'fa-brands fa-steam', uri: 'steam://' }
+        ],
+        lobbies: []
+      },
       madden: {
         id: 'madden',
         name: 'Madden NFL 25',
@@ -1175,6 +1188,19 @@ cod: {
         launchers: [
           { id: 'steam', label: 'Steam', icon: 'fa-brands fa-steam', uri: 'steam://rungameid/2669320' },
           { id: 'ea', label: 'EA App', icon: 'fa-solid fa-play', uri: 'origin2://' }
+        ],
+        lobbies: []
+      },
+      league: {
+        id: 'league',
+        name: 'League of Legends',
+        status: 'coming_soon',
+        modeBadge: 'COMING SOON • 1v1 MID LANE DUELS & 5v5 SCRIMS',
+        desc: '1v1 Howling Abyss mid lane duels and verified 5v5 custom scrims. Hardware memory integrity attestation with Riot Games.',
+        defaultLauncher: 'riot',
+        connect_code: 'Custom Tournament Code: #SZ-LOL-SCRIM',
+        launchers: [
+          { id: 'riot', label: 'Riot Games Client', icon: 'fa-solid fa-fist-raised', uri: 'riotclientservices://' }
         ],
         lobbies: []
       }
