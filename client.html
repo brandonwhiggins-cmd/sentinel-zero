@@ -140,9 +140,9 @@
       <!-- Wallet Balance Pill -->
       <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-client-bg border border-client-border no-drag">
         <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
-        <span class="text-xs text-gray-400 font-semibold">Escrow:</span>
-        <span class="text-xs font-black text-white font-mono" id="client-balance">$0.00</span>
-        <button onclick="openClientDepositModal()" class="text-[10px] bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 px-2 py-0.5 rounded font-bold transition ml-1 whitespace-nowrap shrink-0">+ Add</button>
+        <span class="text-xs text-gray-400 font-semibold">Wagers:</span>
+        <span class="text-xs font-black text-emerald-400 font-mono">Free Scrims</span>
+        <button onclick="openWagerComingSoonModal('nav')" class="text-[10px] bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 px-2 py-0.5 rounded font-bold transition ml-1 whitespace-nowrap shrink-0 border border-amber-500/30 cursor-pointer">Soon</button>
       </div>
 
       <!-- User Badge -->
@@ -419,22 +419,31 @@
           <div id="arena-active-controls">
 <!-- Queue Match Type Selector Chips -->
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-            <button onclick="selectQueueTier(0, this)" id="tier-btn-0" class="queue-btn p-3.5 rounded-2xl bg-client-bg border border-client-border text-left hover:border-emerald-500/50 transition">
-              <div class="text-[10px] font-mono text-gray-400 uppercase">Casual Clean Duel</div>
-              <div class="text-base font-black text-emerald-400 font-mono">$0.00 Free</div>
-              <div class="text-[10px] text-gray-400 mt-0.5">Warmup & Rank</div>
+            <button onclick="selectQueueTier(0, this)" id="tier-btn-0" class="queue-btn p-3.5 rounded-2xl bg-emerald-500/15 border-2 border-emerald-400 text-left transition shadow-[0_0_15px_rgba(16,185,129,0.25)] cursor-pointer">
+              <div class="flex items-center justify-between">
+                <div class="text-[10px] font-mono text-emerald-300 uppercase font-bold">Casual Clean Duel</div>
+                <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/40">ACTIVE</span>
+              </div>
+              <div class="text-base font-black text-white font-mono">$0.00 Free</div>
+              <div class="text-[10px] text-gray-300 mt-0.5">Warmup, Scrimmage & Rank</div>
             </button>
 
-            <button onclick="selectQueueTier(10, this)" id="tier-btn-10" class="queue-btn p-3.5 rounded-2xl bg-emerald-500/15 border-2 border-emerald-400 text-left transition shadow-[0_0_15px_rgba(16,185,129,0.25)]">
-              <div class="text-[10px] font-mono text-emerald-300 uppercase font-bold">Standard Duel</div>
-              <div class="text-base font-black text-white font-mono">$10 Entry ($20 Pot)</div>
-              <div class="text-[10px] text-emerald-300 font-semibold mt-0.5">Instant Stripe Escrow</div>
+            <button onclick="openWagerComingSoonModal('$10')" id="tier-btn-10" class="queue-btn p-3.5 rounded-2xl bg-client-bg/60 border border-client-border/60 text-left opacity-80 hover:opacity-100 hover:border-amber-400/50 transition cursor-pointer">
+              <div class="flex items-center justify-between">
+                <div class="text-[10px] font-mono text-gray-400 uppercase font-bold">Standard Duel</div>
+                <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold border border-amber-500/40">COMING SOON</span>
+              </div>
+              <div class="text-base font-black text-gray-400 font-mono line-through">$10 Entry ($20 Pot)</div>
+              <div class="text-[10px] text-amber-400/80 font-medium mt-0.5">Releasing in Season 1</div>
             </button>
 
-            <button onclick="selectQueueTier(25, this)" id="tier-btn-25" class="queue-btn p-3.5 rounded-2xl bg-client-bg border border-client-border text-left hover:border-amber-400/50 transition">
-              <div class="text-[10px] font-mono text-amber-400 uppercase">High Roller Match</div>
-              <div class="text-base font-black text-amber-300 font-mono">$25 Entry ($50 Pot)</div>
-              <div class="text-[10px] text-gray-400 mt-0.5">Elite VIP Verified</div>
+            <button onclick="openWagerComingSoonModal('$25')" id="tier-btn-25" class="queue-btn p-3.5 rounded-2xl bg-client-bg/60 border border-client-border/60 text-left opacity-80 hover:opacity-100 hover:border-amber-400/50 transition cursor-pointer">
+              <div class="flex items-center justify-between">
+                <div class="text-[10px] font-mono text-gray-400 uppercase font-bold">High Roller Match</div>
+                <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold border border-amber-500/40">COMING SOON</span>
+              </div>
+              <div class="text-base font-black text-gray-400 font-mono line-through">$25 Entry ($50 Pot)</div>
+              <div class="text-[10px] text-amber-400/80 font-medium mt-0.5">Releasing in Season 1</div>
             </button>
           </div>
 
@@ -442,7 +451,7 @@
           <div class="pt-4 flex flex-col sm:flex-row items-center gap-3">
             <button onclick="startClientMatchSearch()" id="client-launch-btn" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-sm tracking-wider uppercase flex items-center justify-center gap-2.5 transition shadow-[0_0_25px_rgba(16,185,129,0.35)]">
               <i class="fa-solid fa-crosshairs text-base"></i>
-              <span id="client-launch-label">QUEUE FOR CS2 1v1 DUEL ($10 ESCROW)</span>
+              <span id="client-launch-label">QUEUE FOR CS2 1v1 DUEL (FREE SCRIMMAGE)</span>
             </button>
 
             <!-- Dynamic Banner Platform Launch Button -->
@@ -561,34 +570,31 @@
         </div>
       </div>
 
-      <!-- Quick 1-Click Stripe Deposit Links -->
-      <div class="p-4 rounded-2xl bg-client-card border border-client-border space-y-3 shadow-md">
+      <!-- Quick 1-Click Stripe Deposit Links (Coming Soon) -->
+      <div class="p-4 rounded-2xl bg-client-card border border-amber-500/30 space-y-3 shadow-md">
         <div class="flex items-center justify-between">
           <span class="text-xs font-bold text-white uppercase tracking-wider font-mono flex items-center gap-1.5">
             <i class="fa-solid fa-wallet text-amber-400"></i>
             <span>Match Wallet</span>
           </span>
-          <span class="text-xs font-mono font-bold text-emerald-400" id="side-balance">$0.00</span>
+          <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold border border-amber-500/40">COMING SOON</span>
         </div>
 
-        <div class="grid grid-cols-2 gap-2">
-          <a href="https://buy.stripe.com/aFa6oI4Ph2pt6vs547gfu02" target="_blank" class="p-2 rounded-xl bg-client-bg border border-client-border text-center hover:border-emerald-400 transition font-mono font-bold text-xs text-white">
-            +$10.00
-          </a>
-          <a href="https://buy.stripe.com/8x2dRa2H91lp7zw2VZgfu03" target="_blank" class="p-2 rounded-xl bg-client-bg border border-client-border text-center hover:border-emerald-400 transition font-mono font-bold text-xs text-white">
-            +$20.00
-          </a>
-          <a href="https://buy.stripe.com/fZudRabdF9RV6vs2VZgfu04" target="_blank" class="p-2 rounded-xl bg-client-bg border border-client-border text-center hover:border-emerald-400 transition font-mono font-bold text-xs text-white">
-            +$50.00
-          </a>
-          <a href="https://buy.stripe.com/6oUfZi1D5ggj6vs2VZgfu05" target="_blank" class="p-2 rounded-xl bg-client-bg border border-client-border text-center hover:border-emerald-400 transition font-mono font-bold text-xs text-white">
-            +$100.00
-          </a>
+        <p class="text-[11px] text-gray-400 leading-relaxed">
+          Wallet deposits and real-money escrow duels are temporarily paused while additional dedicated game accounts and server pools are being deployed.
+        </p>
+
+        <div class="p-2.5 rounded-xl bg-client-bg/90 border border-emerald-500/30 text-center space-y-1">
+          <div class="text-[11px] font-mono text-emerald-400 font-bold flex items-center justify-center gap-1.5">
+            <i class="fa-solid fa-circle-check"></i> Free Scrimmages Active
+          </div>
+          <div class="text-[10px] text-gray-400">0% Rake &bull; TPM 2.0 Silicon Attested</div>
         </div>
 
-        <div class="text-center text-[10px] text-gray-500 font-mono">
-          Powered by Stripe Connect & Apple Pay
-        </div>
+        <button type="button" onclick="openWagerComingSoonModal('sidebar')" class="w-full py-2 rounded-xl bg-dark-surface hover:bg-slate-800 border border-gray-700 text-gray-300 hover:text-white text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer">
+          <i class="fa-solid fa-circle-info text-amber-400"></i>
+          <span>Wager Rollout Info</span>
+        </button>
       </div>
 
       <!-- Creator Referral Rev-Share Info -->
@@ -1250,7 +1256,7 @@ cod: {
         if (activeControlsContainer) activeControlsContainer.classList.remove('hidden');
         if (comingSoonBanner) comingSoonBanner.classList.add('hidden');
         if (queueBtnLabel) {
-          queueBtnLabel.innerText = `QUEUE FOR ${g.name.toUpperCase()} (${selectedWager === 0 ? 'FREE' : '$' + selectedWager + ' ESCROW'})`;
+          queueBtnLabel.innerText = `QUEUE FOR ${g.name.toUpperCase()} (${selectedWager === 0 ? 'FREE SCRIMMAGE' : '$' + selectedWager + ' ESCROW'})`;
         }
       } else {
         if (activeControlsContainer) activeControlsContainer.classList.add('hidden');
@@ -1427,11 +1433,11 @@ cod: {
         g.lobbies.unshift({
           challenger: document.getElementById('client-username').innerText || '@Operative',
           mode: g.modeBadge.split('•')[0].trim(),
-          pot: `$${(selectedWager * 2).toFixed(2)}`
+          pot: selectedWager === 0 ? "FREE SCRIMMAGE" : `$${(selectedWager * 2).toFixed(2)}`
         });
         renderLobbies();
         setTimeout(() => {
-          btn.innerHTML = `<i class="fa-solid fa-crosshairs text-base"></i> <span id="client-launch-label">QUEUE FOR ${g.name.toUpperCase()} (${selectedWager === 0 ? 'FREE' : '$' + selectedWager + ' ESCROW'})</span>`;
+          btn.innerHTML = `<i class="fa-solid fa-crosshairs text-base"></i> <span id="client-launch-label">QUEUE FOR ${g.name.toUpperCase()} (${selectedWager === 0 ? 'FREE SCRIMMAGE' : '$' + selectedWager + ' ESCROW'})</span>`;
         }, 2000);
       }, 800);
     }
@@ -2076,8 +2082,8 @@ cod: {
     function initializeClientRuntime() {
       try {
         selectGame('cs2');
-        const tier10Btn = document.getElementById('tier-btn-10');
-        if (tier10Btn) selectQueueTier(10, tier10Btn);
+        const tier0Btn = document.getElementById('tier-btn-0');
+        if (tier0Btn) selectQueueTier(0, tier0Btn);
 
         updatePassportHeaderBadge();
 
@@ -2162,5 +2168,53 @@ cod: {
     window.addEventListener('DOMContentLoaded', checkClientFounderUser);
 
 </script>
+
+  <!-- ========================================================================= -->
+  <!-- 🟡 CASH WAGERS & WALLET DEPOSITS: COMING SOON MODAL -->
+  <!-- ========================================================================= -->
+  <div id="wager-coming-soon-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden transition-all">
+    <div class="bg-[#0f131f] border-2 border-amber-500/60 rounded-3xl w-full max-w-md p-6 sm:p-7 shadow-[0_0_50px_rgba(245,158,11,0.25)] relative text-white space-y-5 text-center">
+      
+      <button type="button" onclick="closeWagerComingSoonModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition cursor-pointer">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center text-2xl mx-auto shadow-[0_0_20px_rgba(245,158,11,0.3)]">
+        <i class="fa-solid fa-clock"></i>
+      </div>
+
+      <div class="space-y-1.5">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 font-mono text-[11px] font-bold uppercase">
+          <i class="fa-solid fa-shield-halved text-amber-400"></i> Season 1 Feature Rollout
+        </div>
+        <h3 class="text-xl font-black text-white tracking-tight">
+          Cash Wagers: <span class="text-amber-400">Coming Soon</span>
+        </h3>
+        <p class="text-xs text-gray-300 leading-relaxed pt-1">
+          Real-money cash duels, automated Stripe escrow payouts, and wallet deposits are temporarily paused while our dedicated game account pools and match clusters are expanding.
+        </p>
+      </div>
+
+      <div class="p-3.5 rounded-xl bg-[#161c2d] border border-gray-700/60 text-left space-y-2 text-xs">
+        <div class="flex items-center justify-between pb-1.5 border-b border-gray-700/50">
+          <span class="text-gray-400 font-medium">Free Scrimmages:</span>
+          <span class="text-emerald-400 font-mono font-bold">100% Active & Free</span>
+        </div>
+        <div class="flex items-center justify-between pb-1.5 border-b border-gray-700/50">
+          <span class="text-gray-400 font-medium">Anti-Cheat Protection:</span>
+          <span class="text-white font-mono">TPM 2.0 Silicon Attestation</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-gray-400 font-medium">Cash Stakes Launch:</span>
+          <span class="text-amber-300 font-mono font-bold">Season 1 Launch</span>
+        </div>
+      </div>
+
+      <button type="button" onclick="closeWagerComingSoonModal()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-[0_0_20px_rgba(16,185,129,0.35)] cursor-pointer">
+        Continue with Free Scrimmages
+      </button>
+    </div>
+  </div>
+
 </body>
 </html>
