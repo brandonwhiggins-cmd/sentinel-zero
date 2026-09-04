@@ -472,34 +472,39 @@
             <div id="banner-store-pills" class="flex items-center gap-1.5 flex-wrap">
               <!-- Populated dynamically via JS -->
             </div>
-</div>
-          <!-- 🟡 COMING SOON OVERLAY BANNER FOR 12 ROSTER TITLES -->
-          <div id="arena-coming-soon-banner" class="hidden pt-4">
-            <div class="p-6 rounded-2xl bg-[#0c1424]/90 border border-amber-500/30 text-center space-y-4 shadow-xl">
-              <div class="w-12 h-12 mx-auto rounded-2xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-300 text-xl shadow-[0_0_15px_rgba(245,158,11,0.2)]">
-                <i class="fa-solid fa-clock"></i>
+          </div>
+        </div>
+
+        <!-- 🟡 COMING SOON OVERLAY BANNER FOR 14 ROSTER TITLES -->
+        <div id="arena-coming-soon-banner" class="hidden pt-2">
+          <div class="p-6 rounded-2xl bg-[#0c1424]/90 border border-amber-500/30 text-center space-y-4 shadow-xl">
+            <div class="w-12 h-12 mx-auto rounded-2xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-300 text-xl shadow-[0_0_15px_rgba(245,158,11,0.2)]">
+              <i class="fa-solid fa-clock"></i>
+            </div>
+            <div class="space-y-1">
+              <div class="text-sm font-black text-white tracking-wider uppercase">
+                <span id="coming-soon-game-name">Title</span> &bull; RELEASING IN SEASON 1
               </div>
-              <div class="space-y-1">
-                <div class="text-sm font-black text-white tracking-wider uppercase">
-                  <span id="coming-soon-game-name">Title</span> &bull; RELEASING IN SEASON 1
-                </div>
-                <p class="text-xs text-gray-400 max-w-lg mx-auto leading-relaxed">
-                  Hardware attestation and competitive 1v1 escrow rulesets are currently being calibrated. Live matchmaking is active for <strong>Counter-Strike 2</strong> and <strong>Rainbow Six Siege</strong>.
-                </p>
-              </div>
-              <div class="flex items-center justify-center gap-3 pt-1">
-                <button onclick="preRegisterTitle(CLIENT_GAMES[activeGame].name)" class="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-[0_0_20px_rgba(245,158,11,0.35)] flex items-center gap-2">
-                  <i class="fa-solid fa-bell"></i>
-                  <span>Pre-Register for Priority Access</span>
-                </button>
-                <button onclick="selectGame('cs2')" class="px-5 py-3 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 text-emerald-300 font-bold text-xs transition flex items-center gap-1.5">
-                  <i class="fa-solid fa-arrow-right"></i>
-                  <span>Play CS2 Now</span>
-                </button>
-              </div>
+              <p class="text-xs text-gray-400 max-w-lg mx-auto leading-relaxed">
+                Community unlock voting and hardware attestation rulesets are currently active. Matchmaking unlocks based on votes once our 500 Early Adopter threshold is achieved. Live scrimmages are running now for <strong>Counter-Strike 2</strong> and <strong>Rainbow Six Siege</strong>.
+              </p>
+            </div>
+            <div class="flex flex-wrap items-center justify-center gap-3 pt-1">
+              <button type="button" onclick="openWagerComingSoonModal('coming-soon-banner')" class="px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-[0_0_20px_rgba(245,158,11,0.35)] flex items-center gap-2 cursor-pointer">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>View 500 Milestone Roadmap</span>
+              </button>
+              <button type="button" onclick="selectGame('cs2')" class="px-5 py-3 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 text-emerald-300 font-bold text-xs transition flex items-center gap-1.5 cursor-pointer">
+                <i class="fa-solid fa-gamepad"></i>
+                <span>Play Counter-Strike 2 (Live)</span>
+              </button>
+              <button type="button" onclick="selectGame('siege')" class="px-5 py-3 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 text-emerald-300 font-bold text-xs transition flex items-center gap-1.5 cursor-pointer">
+                <i class="fa-solid fa-shield text-xs"></i>
+                <span>Play Siege (Live)</span>
+              </button>
             </div>
           </div>
-          </div>
+        </div>
         </div>
       </div>
 
@@ -1099,8 +1104,8 @@ cod: {
         ],
         lobbies: []
       },
-      rl: {
-        id: 'rl',
+      rocketleague: {
+        id: 'rocketleague',
         name: 'Rocket League',
         status: 'coming_soon',
         modeBadge: 'COMING SOON • 1v1 SOCCAR DUEL',
@@ -1210,6 +1215,7 @@ cod: {
       league: {
         id: 'league',
         name: 'League of Legends',
+        backdrop: 'assets/games/league_of_legends.jpg',
         status: 'coming_soon',
         modeBadge: 'COMING SOON • 1v1 MID LANE DUELS & 5v5 SCRIMS',
         desc: '1v1 Howling Abyss mid lane duels and verified 5v5 custom scrims. Hardware memory integrity attestation with Riot Games.',
@@ -1249,6 +1255,7 @@ cod: {
         lobbies: []
       }
     };
+    CLIENT_GAMES.rl = CLIENT_GAMES.rocketleague;
 
     function selectGame(gameKey) {
       activeGame = gameKey;
@@ -1295,7 +1302,12 @@ cod: {
       if (nameEl) nameEl.innerText = g.name;
       if (descEl) descEl.innerText = g.desc;
       const backdrop = document.getElementById('arena-backdrop-img');
-      if (backdrop) backdrop.src = 'assets/games/' + gameKey + '.jpg';
+      if (backdrop) {
+        backdrop.onerror = function() {
+          this.src = 'assets/games/cs2.jpg';
+        };
+        backdrop.src = g.backdrop || ('assets/games/' + gameKey + '.jpg');
+      }
 
       // Toggle between Live Queue Controls vs. Coming Soon Banner
       if (isLive) {
@@ -1409,15 +1421,18 @@ cod: {
 
       if (lobbies.length === 0) {
         const tr = document.createElement('tr');
+        const isLive = g.status === 'live';
         tr.innerHTML = `
           <td colspan="5" class="p-8 text-center text-gray-400">
             <div class="max-w-md mx-auto space-y-2">
-              <div class="w-10 h-10 mx-auto rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+              <div class="w-10 h-10 mx-auto rounded-full ${isLive ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' : 'bg-amber-500/10 border-amber-500/20 text-amber-400'} border flex items-center justify-center">
                 <i class="fa-solid fa-radar animate-pulse text-sm"></i>
               </div>
-              <div class="font-bold text-white text-xs">Radar Active &bull; No Open Duels in US-East</div>
+              <div class="font-bold text-white text-xs">${isLive ? 'Radar Active &bull; No Open Duels in US-East' : 'Season 1 Waitlist & Community Vote Active'}</div>
               <p class="text-[11px] text-gray-400">
-                Be the first to host an escrow match for ${g.name}. Click "Queue for Match" above to open a verified lobby.
+                ${isLive 
+                  ? `Be the first to host an escrow match for ${g.name}. Click "Queue for Match" above to open a verified lobby.`
+                  : `${g.name} matchmaking unlocks based on community voting after our 500 Early Adopter milestone is achieved. Live scrimmages are running now in Counter-Strike 2 and Rainbow Six Siege.`}
               </p>
             </div>
           </td>
