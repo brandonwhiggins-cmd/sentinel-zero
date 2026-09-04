@@ -123,19 +123,19 @@
           <p class="text-xs text-gray-400">Matchmaking queues open simultaneously for all registered players when 500 Early Adopters register.</p>
         </div>
         <div class="text-left sm:text-right shrink-0">
-          <div class="text-3xl font-black font-mono text-emerald-400" id="ea-counter-display">384 <span class="text-gray-500 text-xl font-normal">/ 500</span></div>
-          <div class="text-[11px] font-mono text-gray-400">Early Adopters Registered (76.8%)</div>
+          <div class="text-3xl font-black font-mono text-emerald-400" id="ea-counter-display">0 <span class="text-gray-500 text-xl font-normal">/ 500</span></div>
+          <div class="text-[11px] font-mono text-gray-400" id="ea-percent-display">Early Adopters Registered (0.0%)</div>
         </div>
       </div>
 
       <!-- Progress Bar -->
       <div class="space-y-2">
         <div class="w-full bg-dark-surface rounded-full h-3 overflow-hidden border border-dark-border p-0.5">
-          <div id="ea-progress-bar" class="bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 h-full rounded-full transition-all duration-500 shadow-[0_0_15px_rgba(16,185,129,0.5)]" style="width: 76.8%"></div>
+          <div id="ea-progress-bar" class="bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 h-full rounded-full transition-all duration-500 shadow-[0_0_15px_rgba(16,185,129,0.5)]" style="width: 0%"></div>
         </div>
         <div class="flex justify-between text-[11px] font-mono text-gray-400">
           <span>0 (Pre-Registration Open)</span>
-          <span class="text-emerald-400 font-bold" id="ea-spots-remaining">116 Spots Remaining to Go-Live</span>
+          <span class="text-emerald-400 font-bold" id="ea-spots-remaining">500 Spots Remaining to Go-Live</span>
           <span>500 (Launch Trigger)</span>
         </div>
       </div>
@@ -344,20 +344,20 @@
               <span>VOTE FOR NEXT GAME TO UNLOCK AFTER CS2 & R6</span>
             </label>
             <select id="ea-vote" class="w-full bg-dark-surface border border-dark-border rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400 font-mono">
-              <option value="wardogs">WARDOGS (Tactical FPS) — 142 Current Votes</option>
-              <option value="valorant">VALORANT (Tactical 5v5) — 128 Current Votes</option>
-              <option value="warzone" selected>Call of Duty: Warzone (BR Kill Races) — 114 Current Votes</option>
-              <option value="cod">Call of Duty (CDL Multiplayer) — 98 Current Votes</option>
-              <option value="tarkov">Escape from Tarkov: Arena — 87 Current Votes</option>
-              <option value="apex">Apex Legends — 76 Current Votes</option>
-              <option value="rocketleague">Rocket League — 69 Current Votes</option>
-              <option value="fortnite">Fortnite (Zero Build / Box Fights) — 64 Current Votes</option>
-              <option value="rust">Rust (1v1 PvP Arenas) — 55 Current Votes</option>
-              <option value="overwatch">Overwatch 2 — 49 Current Votes</option>
-              <option value="league">League of Legends — 44 Current Votes</option>
-              <option value="fc25">EA Sports FC 25 — 38 Current Votes</option>
-              <option value="nba2k">NBA 2K25 — 32 Current Votes</option>
-              <option value="madden">Madden NFL 25 — 26 Current Votes</option>
+              <option value="wardogs">WARDOGS (Tactical FPS)</option>
+              <option value="valorant">VALORANT (Tactical 5v5)</option>
+              <option value="warzone" selected>Call of Duty: Warzone (BR Kill Races)</option>
+              <option value="cod">Call of Duty (CDL Multiplayer)</option>
+              <option value="tarkov">Escape from Tarkov: Arena</option>
+              <option value="apex">Apex Legends</option>
+              <option value="rocketleague">Rocket League</option>
+              <option value="fortnite">Fortnite (Zero Build / Box Fights)</option>
+              <option value="rust">Rust (1v1 PvP Arenas)</option>
+              <option value="overwatch">Overwatch 2</option>
+              <option value="league">League of Legends</option>
+              <option value="fc25">EA Sports FC 25</option>
+              <option value="nba2k">NBA 2K25</option>
+              <option value="madden">Madden NFL 25</option>
             </select>
           </div>
 
@@ -527,24 +527,12 @@
             vote: vote,
             discord: discord
           })
+        }).then(() => {
+          fetchEarlyAdopterStats();
         }).catch(() => {});
       } catch(err) {}
 
       syncToGoogleSheet('Early Adopter Pre-Registration', `${tag} (${currentEATier.toUpperCase()}) - Vote: ${vote}`);
-
-      // Update counter visually
-      const counterEl = document.getElementById('ea-counter-display');
-      const progBar = document.getElementById('ea-progress-bar');
-      const remEl = document.getElementById('ea-spots-remaining');
-      if (counterEl) {
-        counterEl.innerHTML = `385 <span class="text-gray-500 text-xl font-normal">/ 500</span>`;
-      }
-      if (progBar) {
-        progBar.style.width = '77.0%';
-      }
-      if (remEl) {
-        remEl.innerText = '115 Spots Remaining to Go-Live';
-      }
 
       document.getElementById('ea-form-state').classList.add('hidden');
       document.getElementById('ea-success-state').classList.remove('hidden');
@@ -557,21 +545,23 @@
       }
     });
 
-    // Auto-fetch live Early Adopter stats from /api/stats
+    // Auto-fetch live Early Adopter stats from /api/stats (100% authentic telemetry)
     async function fetchEarlyAdopterStats() {
       try {
         const res = await fetch('/api/stats');
         if (res.ok) {
           const data = await res.json();
-          if (data.early_adopter_count && data.early_adopter_target) {
+          if (data.early_adopter_count !== undefined && data.early_adopter_target) {
             const count = data.early_adopter_count;
             const target = data.early_adopter_target;
             const pct = ((count / target) * 100).toFixed(1);
             const rem = Math.max(0, target - count);
             const counterEl = document.getElementById('ea-counter-display');
+            const pctEl = document.getElementById('ea-percent-display');
             const progBar = document.getElementById('ea-progress-bar');
             const remEl = document.getElementById('ea-spots-remaining');
             if (counterEl) counterEl.innerHTML = `${count} <span class="text-gray-500 text-xl font-normal">/ ${target}</span>`;
+            if (pctEl) pctEl.innerText = `Early Adopters Registered (${pct}%)`;
             if (progBar) progBar.style.width = `${pct}%`;
             if (remEl) remEl.innerText = `${rem} Spots Remaining to Go-Live`;
           }
@@ -579,6 +569,7 @@
       } catch(e) {}
     }
     fetchEarlyAdopterStats();
+    setInterval(fetchEarlyAdopterStats, 15000);
   
     // =========================================================================
     // 👑 FOUNDER VIP TOKEN ACTIVATION & COMPLIMENTARY ACCESS SYSTEM

@@ -157,7 +157,7 @@
     <div class="flex items-center gap-2 flex-wrap">
       <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
       <span class="font-bold">EARLY ADOPTER SANDBOX:</span>
-      <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-bold border border-emerald-500/30">THRESHOLD: 384 / 500 PLEDGES (76.8%)</span>
+      <span id="sandbox-ea-threshold" class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-bold border border-emerald-500/30">THRESHOLD: 0 / 500 PLEDGES (0.0%)</span>
       <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono text-[10px] font-bold border border-amber-500/30">PRIMETIME: 5:00 PM – 10:30 PM CT</span>
     </div>
 
@@ -2207,6 +2207,29 @@ cod: {
       } catch(e) {}
     }
     window.addEventListener('DOMContentLoaded', checkClientFounderUser);
+
+    async function syncSandboxThreshold() {
+      try {
+        let data = null;
+        try {
+          const res = await fetch('http://localhost:5090/api/v1/early_adopter/status');
+          if (res.ok) data = await res.json();
+        } catch (e) {}
+        if (!data) {
+          const resWeb = await fetch('/api/stats');
+          if (resWeb.ok) data = await resWeb.json();
+        }
+        if (data) {
+          const count = data.registered_count !== undefined ? data.registered_count : (data.early_adopter_count !== undefined ? data.early_adopter_count : 0);
+          const target = data.target_threshold || data.early_adopter_target || 500;
+          const pct = ((count / target) * 100).toFixed(1);
+          const el = document.getElementById('sandbox-ea-threshold');
+          if (el) el.innerText = `THRESHOLD: ${count} / ${target} PLEDGES (${pct}%)`;
+        }
+      } catch (e) {}
+    }
+    window.addEventListener('DOMContentLoaded', syncSandboxThreshold);
+    setInterval(syncSandboxThreshold, 15000);
 
 </script>
 

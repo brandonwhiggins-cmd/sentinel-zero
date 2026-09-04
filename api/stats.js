@@ -1,5 +1,6 @@
 // Vercel Serverless Function: /api/stats
-// Real-time authentic player tracking via active hardware heartbeats.
+// Real-time authentic player tracking via active hardware heartbeats & live Early Adopter state.
+import { getEarlyAdopterState } from './store.js';
 
 const activeHeartbeats = new Map();
 
@@ -27,15 +28,20 @@ export default function handler(req, res) {
     }
   }
 
+  // Authentic live online count (1 is current connecting client session)
   const realCount = Math.max(1, activeHeartbeats.size);
+  const eaState = getEarlyAdopterState();
 
   return res.status(200).json({
     status: "ONLINE",
     cloud_host: "Vercel Edge Global Network",
     total_online: realCount,
     total_in_queue: 0,
-    early_adopter_count: 384,
-    early_adopter_target: 500,
+    early_adopter_count: eaState.count,
+    early_adopter_target: eaState.target,
+    early_adopter_percent: eaState.percent,
+    early_adopter_remaining: eaState.remaining,
+    votes: eaState.votes,
     prime_time_window: "5:00 PM – 10:30 PM CT (6:00 PM – 11:30 PM ET)",
     launch_titles: ["Counter-Strike 2", "Rainbow Six Siege"],
     server_time: Math.floor(now / 1000)

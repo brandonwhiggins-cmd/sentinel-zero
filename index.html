@@ -114,7 +114,7 @@
       <div class="flex flex-col sm:flex-row items-center justify-center gap-2.5">
         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-mono font-bold shadow-sm">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span><strong id="hero-online-count" class="text-white">48</strong> PLAYERS LIVE ONLINE &bull; SEASON 0 PC</span>
+          <span><strong id="hero-online-count" class="text-white">1</strong> PLAYERS LIVE ONLINE &bull; SEASON 0 PC</span>
         </div>
         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/15 border border-amber-500/35 text-amber-300 text-xs font-mono font-bold shadow-sm">
           <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
@@ -159,14 +159,14 @@
               <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
               <span>EARLY ADOPTER GO-LIVE MILESTONE</span>
             </span>
-            <span class="text-emerald-400 font-bold" id="hero-ea-count">384 / 500 PLEDGES (76.8%)</span>
+            <span class="text-emerald-400 font-bold" id="hero-ea-count">0 / 500 PLEDGES (0.0%)</span>
           </div>
           <div class="w-full bg-dark-surface rounded-full h-2.5 overflow-hidden border border-white/10 p-0.5">
-            <div id="hero-ea-progress" class="bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 h-full rounded-full transition-all duration-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" style="width: 76.8%"></div>
+            <div id="hero-ea-progress" class="bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 h-full rounded-full transition-all duration-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" style="width: 0%"></div>
           </div>
           <div class="flex items-center justify-between text-[11px] font-mono text-gray-400">
             <span>$0 Charged Today &bull; Delayed Billing</span>
-            <span class="text-emerald-400 font-bold">116 Spots to Go-Live</span>
+            <span class="text-emerald-400 font-bold" id="hero-ea-spots">500 Spots to Go-Live</span>
           </div>
         </div>
       </div>
@@ -763,20 +763,20 @@
               <span>VOTE FOR NEXT GAME TO UNLOCK AFTER CS2 &amp; R6</span>
             </label>
             <select id="su-vote" class="w-full bg-dark-surface border border-dark-border rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400 font-mono">
-              <option value="wardogs">WARDOGS (Tactical FPS) — 142 Current Votes</option>
-              <option value="valorant">VALORANT (Tactical 5v5) — 128 Current Votes</option>
-              <option value="warzone" selected>Call of Duty: Warzone (BR Kill Races) — 114 Current Votes</option>
-              <option value="cod">Call of Duty (CDL Multiplayer) — 98 Current Votes</option>
-              <option value="tarkov">Escape from Tarkov: Arena — 87 Current Votes</option>
-              <option value="apex">Apex Legends — 76 Current Votes</option>
-              <option value="rocketleague">Rocket League — 69 Current Votes</option>
-              <option value="fortnite">Fortnite (Zero Build / Box Fights) — 64 Current Votes</option>
-              <option value="rust">Rust (1v1 PvP Arenas) — 55 Current Votes</option>
-              <option value="overwatch">Overwatch 2 — 49 Current Votes</option>
-              <option value="league">League of Legends — 44 Current Votes</option>
-              <option value="fc25">EA Sports FC 25 — 38 Current Votes</option>
-              <option value="nba2k">NBA 2K25 — 32 Current Votes</option>
-              <option value="madden">Madden NFL 25 — 26 Current Votes</option>
+              <option value="wardogs">WARDOGS (Tactical FPS)</option>
+              <option value="valorant">VALORANT (Tactical 5v5)</option>
+              <option value="warzone" selected>Call of Duty: Warzone (BR Kill Races)</option>
+              <option value="cod">Call of Duty (CDL Multiplayer)</option>
+              <option value="tarkov">Escape from Tarkov: Arena</option>
+              <option value="apex">Apex Legends</option>
+              <option value="rocketleague">Rocket League</option>
+              <option value="fortnite">Fortnite (Zero Build / Box Fights)</option>
+              <option value="rust">Rust (1v1 PvP Arenas)</option>
+              <option value="overwatch">Overwatch 2</option>
+              <option value="league">League of Legends</option>
+              <option value="fc25">EA Sports FC 25</option>
+              <option value="nba2k">NBA 2K25</option>
+              <option value="madden">Madden NFL 25</option>
             </select>
           </div>
 
@@ -1094,12 +1094,6 @@
         WEB_QUEUE_TITLES.sort((a, b) => b.votes - a.votes);
       }
 
-      // Update hero Early Adopter progress banner
-      const heroEaEl = document.getElementById('hero-ea-count');
-      const heroEaProg = document.getElementById('hero-ea-progress');
-      if (heroEaEl) heroEaEl.innerText = '385 / 500 PLEDGES (77.0%)';
-      if (heroEaProg) heroEaProg.style.width = '77.0%';
-
       // Dispatch to Edge API & Google Sheet
       try {
         fetch('/api/subscribe', {
@@ -1112,6 +1106,8 @@
             vote: vote,
             discord: discord
           })
+        }).then(() => {
+          updateHeroOnlineCount();
         }).catch(() => {});
       } catch(err) {}
 
@@ -1150,22 +1146,23 @@
 
     // =========================================================================
     // 🗳️ COMMUNITY UNLOCK QUEUE (STANDINGS MODAL)
+    // Zero mock data: All titles start with authentic 0 votes and update dynamically.
     // =========================================================================
     const WEB_QUEUE_TITLES = [
-      { id: 'wardogs', name: 'WARDOGS', votes: 142, img: 'assets/games/wardogs.jpg' },
-      { id: 'valorant', name: 'VALORANT', votes: 128, img: 'assets/games/valorant.jpg' },
-      { id: 'warzone', name: 'Call of Duty: Warzone', votes: 114, img: 'assets/games/warzone.jpg' },
-      { id: 'cod', name: 'Call of Duty (CDL)', votes: 98, img: 'assets/games/cod.jpg' },
-      { id: 'tarkov', name: 'Escape from Tarkov: Arena', votes: 87, img: 'assets/games/tarkov.jpg' },
-      { id: 'apex', name: 'Apex Legends', votes: 76, img: 'assets/games/apex.jpg' },
-      { id: 'rocketleague', name: 'Rocket League', votes: 69, img: 'assets/games/rocketleague.jpg' },
-      { id: 'fortnite', name: 'Fortnite', votes: 64, img: 'assets/games/fortnite.jpg' },
-      { id: 'rust', name: 'Rust', votes: 55, img: 'assets/games/rust.jpg' },
-      { id: 'overwatch', name: 'Overwatch 2', votes: 49, img: 'assets/games/overwatch.jpg' },
-      { id: 'league', name: 'League of Legends', votes: 44, img: 'assets/games/league_of_legends.jpg' },
-      { id: 'fc25', name: 'EA Sports FC 25', votes: 38, img: 'assets/games/fc25.jpg' },
-      { id: 'nba2k', name: 'NBA 2K25', votes: 32, img: 'assets/games/nba2k.jpg' },
-      { id: 'madden', name: 'Madden NFL 25', votes: 26, img: 'assets/games/madden.jpg' }
+      { id: 'wardogs', name: 'WARDOGS', votes: 0, img: 'assets/games/wardogs.jpg' },
+      { id: 'valorant', name: 'VALORANT', votes: 0, img: 'assets/games/valorant.jpg' },
+      { id: 'warzone', name: 'Call of Duty: Warzone', votes: 0, img: 'assets/games/warzone.jpg' },
+      { id: 'cod', name: 'Call of Duty (CDL)', votes: 0, img: 'assets/games/cod.jpg' },
+      { id: 'tarkov', name: 'Escape from Tarkov: Arena', votes: 0, img: 'assets/games/tarkov.jpg' },
+      { id: 'apex', name: 'Apex Legends', votes: 0, img: 'assets/games/apex.jpg' },
+      { id: 'rocketleague', name: 'Rocket League', votes: 0, img: 'assets/games/rocketleague.jpg' },
+      { id: 'fortnite', name: 'Fortnite', votes: 0, img: 'assets/games/fortnite.jpg' },
+      { id: 'rust', name: 'Rust', votes: 0, img: 'assets/games/rust.jpg' },
+      { id: 'overwatch', name: 'Overwatch 2', votes: 0, img: 'assets/games/overwatch.jpg' },
+      { id: 'league', name: 'League of Legends', votes: 0, img: 'assets/games/league_of_legends.jpg' },
+      { id: 'fc25', name: 'EA Sports FC 25', votes: 0, img: 'assets/games/fc25.jpg' },
+      { id: 'nba2k', name: 'NBA 2K25', votes: 0, img: 'assets/games/nba2k.jpg' },
+      { id: 'madden', name: 'Madden NFL 25', votes: 0, img: 'assets/games/madden.jpg' }
     ];
 
     function renderWebStandings(highlightId = null) {
@@ -1248,16 +1245,32 @@
         if (res.ok) {
           const data = await res.json();
           const el = document.getElementById('hero-online-count');
-          if (el && data.total_online) el.innerText = data.total_online;
+          if (el && data.total_online !== undefined) el.innerText = data.total_online;
           
-          if (data.early_adopter_count && data.early_adopter_target) {
+          if (data.early_adopter_count !== undefined && data.early_adopter_target) {
             const count = data.early_adopter_count;
             const target = data.early_adopter_target;
             const pct = ((count / target) * 100).toFixed(1);
+            const rem = Math.max(0, target - count);
             const eaCountEl = document.getElementById('hero-ea-count');
             const eaProgEl = document.getElementById('hero-ea-progress');
+            const eaSpotsEl = document.getElementById('hero-ea-spots');
             if (eaCountEl) eaCountEl.innerText = `${count} / ${target} PLEDGES (${pct}%)`;
             if (eaProgEl) eaProgEl.style.width = `${pct}%`;
+            if (eaSpotsEl) eaSpotsEl.innerText = `${rem} Spots to Go-Live`;
+          }
+
+          if (data.votes) {
+            WEB_QUEUE_TITLES.forEach(t => {
+              if (data.votes[t.id] !== undefined) {
+                t.votes = data.votes[t.id];
+              }
+            });
+            WEB_QUEUE_TITLES.sort((a, b) => b.votes - a.votes);
+            const standingsContainer = document.getElementById('web-standings-container');
+            if (standingsContainer && !document.getElementById('web-vote-modal').classList.contains('hidden')) {
+              renderWebStandings();
+            }
           }
         }
       } catch (e) {}
