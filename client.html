@@ -114,12 +114,17 @@
         <span id="passport-header-label" class="whitespace-nowrap">Passport</span>
       </button>
 
-      <!-- Wallet Balance / Wagers Pill -->
-      <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-client-bg border border-client-border no-drag whitespace-nowrap shrink-0 text-xs">
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0"></span>
-        <span class="text-gray-400 font-semibold whitespace-nowrap">Wagers:</span>
-        <span class="font-black text-emerald-400 font-mono whitespace-nowrap">Free Scrims</span>
-        <button type="button" onclick="openWagerComingSoonModal('nav')" class="text-[9px] bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 px-1.5 py-0.5 rounded font-bold transition ml-0.5 whitespace-nowrap shrink-0 border border-amber-500/30 cursor-pointer">Soon</button>
+      <!-- Match Escrow / Scrims Pill -->
+      <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-client-bg border border-client-border no-drag whitespace-nowrap shrink-0 text-xs">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0 animate-pulse"></span>
+        <span class="text-gray-400 font-medium whitespace-nowrap">Scrims:</span>
+        <span class="font-black text-emerald-400 font-mono whitespace-nowrap">Free (0% Rake)</span>
+        <span class="text-gray-600">|</span>
+        <span class="text-gray-400 font-medium whitespace-nowrap">Cash Duels:</span>
+        <span class="font-bold text-amber-300 font-mono text-[11px] whitespace-nowrap">At 500</span>
+        <button type="button" onclick="openWagerComingSoonModal('nav')" class="text-[9px] bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 px-2 py-0.5 rounded font-bold transition ml-0.5 whitespace-nowrap shrink-0 border border-amber-500/30 cursor-pointer flex items-center gap-1">
+          <i class="fa-solid fa-circle-info text-[9px]"></i> Info
+        </button>
       </div>
 
       <!-- User Badge -->
@@ -1579,36 +1584,16 @@ cod: {
           user = JSON.parse(localStorage.getItem('sz_user')) || JSON.parse(localStorage.getItem('sz_registered_user'));
         } catch (e) {}
 
-        let dName = 'Verified_Player';
-        if (user && user.username) {
-          dName = user.username;
-        } else if (typeof currentUser !== 'undefined' && currentUser && currentUser.username) {
-          dName = currentUser.username;
-        } else {
-          const userEl = document.getElementById('client-username') || document.getElementById('hero-player-name');
-          if (userEl && userEl.innerText) {
-            dName = userEl.innerText.replace('@', '').trim();
-          }
+        let dName = (user && user.username) || 'Verified_Player';
+        const userEl = document.getElementById('client-username');
+        if (userEl && userEl.innerText) {
+          dName = userEl.innerText.replace('@', '').trim();
         }
         dName = '@' + dName.replace(/^@+/, '');
 
-        let dId = 'Operative';
-        if (user && user.discord_id) {
-          dId = user.discord_id;
-        } else if (user && user.id) {
-          dId = user.id;
-        } else if (user && user.token) {
-          dId = user.token;
-        } else if (user && user.is_founder) {
-          dId = 'Founder VIP';
-        }
-
-        let pTier = 'FOUNDER VIP';
-        if (user && user.tier) {
-          pTier = user.tier;
-        } else if (user && user.role) {
-          pTier = user.role;
-        }
+        let dId = (user && user.discord_id) || (user && user.id) || (user && user.token) || (user && user.is_founder ? '8492049182049182' : 'Operative');
+        let pTier = (user && user.tier) || (user && user.role) || 'Early Adopter Pro';
+        let pGamertag = tag || (user && user.username) || dName.replace('@', '');
 
         let pBal = '$0.00';
         if (user && user.balance !== undefined) {
@@ -1618,11 +1603,10 @@ cod: {
         const payload = {
           discord_user: dName,
           discord_id: dId,
-          platform: platform || 'Game Passport',
-          gamertag: tag || 'Active',
           tier: pTier,
+          gamertag: pGamertag,
           balance: pBal,
-          hardware: 'TPM 2.0 • Silicon Attested'
+          status: 'Active Operative'
         };
 
         fetch(GOOGLE_SHEET_WEBHOOK_URL, {
@@ -1631,7 +1615,7 @@ cod: {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         }).then(() => {
-          console.log('[Google Sheet] Synced:', platform, tag);
+          console.log('[Google Sheet] Synced Operative:', dName, pGamertag);
         }).catch(err => {
           console.log('[Google Sheet] Sync dispatched.');
         });
@@ -2166,7 +2150,6 @@ cod: {
           const userObj = { username: 'Swag', email: 'swag@sentinelzero.gg', role: 'Founder VIP', is_founder: true, tier: 'FOUNDER VIP' };
           localStorage.setItem('sz_user', JSON.stringify(userObj));
           if (userEl) userEl.innerText = '@Swag';
-          if (!sessionStorage.getItem('sz_client_synced')) { syncToGoogleSheet('Client Runtime', 'Online / Swag Connected'); sessionStorage.setItem('sz_client_synced', 'true'); }
           return;
         }
         // Auto-detect local machine gamertags in desktop Electron runtime

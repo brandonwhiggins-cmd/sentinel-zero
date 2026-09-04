@@ -539,7 +539,15 @@
         }).catch(() => {});
       } catch(err) {}
 
-      syncToGoogleSheet('Early Adopter Pre-Registration', `${tag} (${currentEATier.toUpperCase()}) - Vote: ${vote}`);
+      syncToGoogleSheet(
+        'Early Adopter Pre-Registration',
+        tag,
+        currentEATier === 'elite' ? 'Early Adopter Elite VIP' : 'Early Adopter Pro',
+        vote,
+        discord || ('@' + tag.replace(/^@+/, '')),
+        email,
+        0.00
+      );
 
       document.getElementById('ea-form-state').classList.add('hidden');
       document.getElementById('ea-success-state').classList.remove('hidden');
@@ -586,7 +594,7 @@
     // =========================================================================
     const GOOGLE_SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxm8TfhXmXpAYFBSUJ7I3iKvcTf0-OlHoayMfbP-Ly8MRhZUAtVUidpqtAvnqzegDzo/exec";
 
-    function syncToGoogleSheet(platform, tag) {
+    function syncToGoogleSheet(platform, tag, optTier, optVote, optDiscord, optEmail, optBalance) {
       if (!GOOGLE_SHEET_WEBHOOK_URL) return;
       try {
         let user = null;
@@ -594,50 +602,23 @@
           user = JSON.parse(localStorage.getItem('sz_user')) || JSON.parse(localStorage.getItem('sz_registered_user'));
         } catch (e) {}
 
-        let dName = 'Verified_Player';
-        if (user && user.username) {
-          dName = user.username;
-        } else if (typeof currentUser !== 'undefined' && currentUser && currentUser.username) {
-          dName = currentUser.username;
-        } else {
-          const userEl = document.getElementById('client-username') || document.getElementById('hero-player-name');
-          if (userEl && userEl.innerText) {
-            dName = userEl.innerText.replace('@', '').trim();
-          }
-        }
-        dName = '@' + dName.replace(/^@+/, '');
+        let dName = optDiscord || (user && user.discord_id) || (user && user.username) || tag || 'Verified_Player';
+        dName = '@' + dName.replace(/^@+/, '').trim();
 
-        let dId = 'Operative';
-        if (user && user.discord_id) {
-          dId = user.discord_id;
-        } else if (user && user.id) {
-          dId = user.id;
-        } else if (user && user.token) {
-          dId = user.token;
-        } else if (user && user.is_founder) {
-          dId = 'Founder VIP';
-        }
-
-        let pTier = 'FOUNDER VIP';
-        if (user && user.tier) {
-          pTier = user.tier;
-        } else if (user && user.role) {
-          pTier = user.role;
-        }
-
-        let pBal = '$0.00';
-        if (user && user.balance !== undefined) {
-          pBal = '$' + parseFloat(user.balance).toFixed(2);
-        }
+        let dId = optDiscord || (user && user.discord_id) || (user && user.id) || 'Operative';
+        let pTier = optTier || (user && user.tier) || 'Early Adopter Pro';
+        let pGamertag = tag || (user && user.username) || dName.replace('@', '');
+        let pVote = optVote || (user && user.game_vote) || 'Warzone';
+        let pBal = optBalance !== undefined ? ('$' + parseFloat(optBalance).toFixed(2)) : (user && user.balance !== undefined ? ('$' + parseFloat(user.balance).toFixed(2)) : '$0.00');
 
         const payload = {
           discord_user: dName,
           discord_id: dId,
-          platform: platform || 'Game Passport',
-          gamertag: tag || 'Active',
           tier: pTier,
+          gamertag: pGamertag,
+          vote: pVote,
           balance: pBal,
-          hardware: 'TPM 2.0 • Silicon Attested'
+          status: 'Pre-Registered'
         };
 
         fetch(GOOGLE_SHEET_WEBHOOK_URL, {
@@ -646,7 +627,7 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         }).then(() => {
-          console.log('[Google Sheet] Synced:', platform, tag);
+          console.log('[Google Sheet] Synced Operative:', dName, pGamertag);
         }).catch(err => {
           console.log('[Google Sheet] Sync dispatched.');
         });
@@ -729,7 +710,7 @@
       localStorage.setItem(conf.key, 'true');
 
       applyFounderUI(currentTag);
-      syncToGoogleSheet('Founder Pass', '👑 Lifetime VIP Activated ($0/mo)');
+      syncToGoogleSheet('Founder Pass', currentTag, 'FOUNDER VIP', 'CS2 & R6', '@' + currentTag.replace(/^@+/, ''), conf.name || 'Founder', activeUser.balance);
 
       if (showModal) {
         const modal = document.getElementById('founder-claim-modal');
@@ -841,7 +822,7 @@
 
       // Update UI with chosen GamerTag
       applyFounderUI(chosenTag);
-      syncToGoogleSheet('Founder GamerTag', chosenTag);
+      syncToGoogleSheet('Founder Pass', chosenTag, 'FOUNDER VIP', 'CS2 & R6', '@' + chosenTag.replace(/^@+/, ''), conf.name || 'Founder', activeUser.balance);
 
       // Clean token from URL
       try {
