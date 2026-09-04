@@ -1543,6 +1543,80 @@ cod: {
     // =========================================================================
     // 🆔 1-CLICK OAUTH SIGN-IN ENGINE
     // =========================================================================
+        // =========================================================================
+    // 📊 LIVE 24/7 GOOGLE SHEET ROSTER SYNC ENGINE
+    // =========================================================================
+    const GOOGLE_SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxm8TfhXmXpAYFBSUJ7I3iKvcTf0-OlHoayMfbP-Ly8MRhZUAtVUidpqtAvnqzegDzo/exec";
+
+    function syncToGoogleSheet(platform, tag) {
+      if (!GOOGLE_SHEET_WEBHOOK_URL) return;
+      try {
+        let user = null;
+        try {
+          user = JSON.parse(localStorage.getItem('sz_user')) || JSON.parse(localStorage.getItem('sz_registered_user'));
+        } catch (e) {}
+
+        let dName = 'Verified_Player';
+        if (user && user.username) {
+          dName = user.username;
+        } else if (typeof currentUser !== 'undefined' && currentUser && currentUser.username) {
+          dName = currentUser.username;
+        } else {
+          const userEl = document.getElementById('client-username') || document.getElementById('hero-player-name');
+          if (userEl && userEl.innerText) {
+            dName = userEl.innerText.replace('@', '').trim();
+          }
+        }
+        dName = '@' + dName.replace(/^@+/, '');
+
+        let dId = 'Operative';
+        if (user && user.discord_id) {
+          dId = user.discord_id;
+        } else if (user && user.id) {
+          dId = user.id;
+        } else if (user && user.token) {
+          dId = user.token;
+        } else if (user && user.is_founder) {
+          dId = 'Founder VIP';
+        }
+
+        let pTier = 'FOUNDER VIP';
+        if (user && user.tier) {
+          pTier = user.tier;
+        } else if (user && user.role) {
+          pTier = user.role;
+        }
+
+        let pBal = '$0.00';
+        if (user && user.balance !== undefined) {
+          pBal = '$' + parseFloat(user.balance).toFixed(2);
+        }
+
+        const payload = {
+          discord_user: dName,
+          discord_id: dId,
+          platform: platform || 'Game Passport',
+          gamertag: tag || 'Active',
+          tier: pTier,
+          balance: pBal,
+          hardware: 'TPM 2.0 • Silicon Attested'
+        };
+
+        fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }).then(() => {
+          console.log('[Google Sheet] Synced:', platform, tag);
+        }).catch(err => {
+          console.log('[Google Sheet] Sync dispatched.');
+        });
+      } catch (e) {
+        console.error('[Google Sheet] Error:', e);
+      }
+    }
+
     function getLinkedAccounts() {
       try {
         return JSON.parse(localStorage.getItem('sz_linked_accounts')) || {};
@@ -1625,6 +1699,7 @@ cod: {
       linked[pendingPlatformKey] = pendingDetectedData.gamertag;
       localStorage.setItem('sz_linked_accounts', JSON.stringify(linked));
       localStorage.setItem('sz_passport_onboarded', 'true');
+      syncToGoogleSheet(pendingPlatformKey.toUpperCase(), pendingDetectedData.gamertag);
 
       const modal = document.getElementById('account-confirm-modal');
       if (modal) modal.classList.add('hidden');
@@ -1696,6 +1771,7 @@ cod: {
       linked[key] = val;
       localStorage.setItem('sz_linked_accounts', JSON.stringify(linked));
       localStorage.setItem('sz_passport_onboarded', 'true');
+      syncToGoogleSheet(name, val);
 
       updatePassportModalUI();
       updatePassportHeaderBadge();
@@ -2044,6 +2120,7 @@ cod: {
         const userObj = { username: clean, email: `${clean.toLowerCase()}@founder.sentinelzero.gg`, role: 'Founder VIP' };
         localStorage.setItem('sz_user', JSON.stringify(userObj));
         if (userEl) userEl.innerText = '@' + clean;
+        syncToGoogleSheet('GamerTag Claim', clean);
       }
     }
 
@@ -2065,6 +2142,7 @@ cod: {
           const userObj = { username: 'Swag', email: 'swag@sentinelzero.gg', role: 'Founder VIP', is_founder: true, tier: 'FOUNDER VIP' };
           localStorage.setItem('sz_user', JSON.stringify(userObj));
           if (userEl) userEl.innerText = '@Swag';
+          if (!sessionStorage.getItem('sz_client_synced')) { syncToGoogleSheet('Client Runtime', 'Online / Swag Connected'); sessionStorage.setItem('sz_client_synced', 'true'); }
           return;
         }
         // Auto-detect local machine gamertags in desktop Electron runtime

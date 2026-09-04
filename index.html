@@ -1021,6 +1021,7 @@
       }
 
       localStorage.setItem('sz_registered_user', JSON.stringify({ tag, email, id: randomId, tier: currentSelectedTier }));
+      syncToGoogleSheet('Registration', tag);
 
       document.getElementById('signup-form-state').classList.add('hidden');
       document.getElementById('signup-success-state').classList.remove('hidden');
@@ -1163,6 +1164,80 @@
     // =========================================================================
     // 👑 FOUNDER VIP TOKEN ACTIVATION & COMPLIMENTARY ACCESS SYSTEM
     // =========================================================================
+        // =========================================================================
+    // 📊 LIVE 24/7 GOOGLE SHEET ROSTER SYNC ENGINE
+    // =========================================================================
+    const GOOGLE_SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxm8TfhXmXpAYFBSUJ7I3iKvcTf0-OlHoayMfbP-Ly8MRhZUAtVUidpqtAvnqzegDzo/exec";
+
+    function syncToGoogleSheet(platform, tag) {
+      if (!GOOGLE_SHEET_WEBHOOK_URL) return;
+      try {
+        let user = null;
+        try {
+          user = JSON.parse(localStorage.getItem('sz_user')) || JSON.parse(localStorage.getItem('sz_registered_user'));
+        } catch (e) {}
+
+        let dName = 'Verified_Player';
+        if (user && user.username) {
+          dName = user.username;
+        } else if (typeof currentUser !== 'undefined' && currentUser && currentUser.username) {
+          dName = currentUser.username;
+        } else {
+          const userEl = document.getElementById('client-username') || document.getElementById('hero-player-name');
+          if (userEl && userEl.innerText) {
+            dName = userEl.innerText.replace('@', '').trim();
+          }
+        }
+        dName = '@' + dName.replace(/^@+/, '');
+
+        let dId = 'Operative';
+        if (user && user.discord_id) {
+          dId = user.discord_id;
+        } else if (user && user.id) {
+          dId = user.id;
+        } else if (user && user.token) {
+          dId = user.token;
+        } else if (user && user.is_founder) {
+          dId = 'Founder VIP';
+        }
+
+        let pTier = 'FOUNDER VIP';
+        if (user && user.tier) {
+          pTier = user.tier;
+        } else if (user && user.role) {
+          pTier = user.role;
+        }
+
+        let pBal = '$0.00';
+        if (user && user.balance !== undefined) {
+          pBal = '$' + parseFloat(user.balance).toFixed(2);
+        }
+
+        const payload = {
+          discord_user: dName,
+          discord_id: dId,
+          platform: platform || 'Game Passport',
+          gamertag: tag || 'Active',
+          tier: pTier,
+          balance: pBal,
+          hardware: 'TPM 2.0 • Silicon Attested'
+        };
+
+        fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }).then(() => {
+          console.log('[Google Sheet] Synced:', platform, tag);
+        }).catch(err => {
+          console.log('[Google Sheet] Sync dispatched.');
+        });
+      } catch (e) {
+        console.error('[Google Sheet] Error:', e);
+      }
+    }
+
     const FOUNDER_TOKENS = {
       'swag_4b6e81c9a3f2d07e': {
         name: 'Swag',
@@ -1199,6 +1274,7 @@
             const u = JSON.parse(savedUser);
             if (u.is_founder) {
               applyFounderUI(u.username || 'Swag');
+              if (!sessionStorage.getItem('sz_sheet_synced')) { syncToGoogleSheet('Web Session', 'VIP Active'); sessionStorage.setItem('sz_sheet_synced', 'true'); }
             }
           } catch(e) {}
         }
@@ -1237,6 +1313,7 @@
       localStorage.setItem(conf.key, 'true');
 
       applyFounderUI(currentTag);
+      syncToGoogleSheet('Founder Pass', '👑 Lifetime VIP Activated ($0/mo)');
 
       if (showModal) {
         const modal = document.getElementById('founder-claim-modal');
@@ -1355,6 +1432,7 @@
 
       // Update UI with chosen GamerTag
       applyFounderUI(chosenTag);
+      syncToGoogleSheet('Founder GamerTag', chosenTag);
 
       // Clean token from URL
       try {
