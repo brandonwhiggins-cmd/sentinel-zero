@@ -1219,6 +1219,7 @@
     }
 
     function openSignUpWithTier(tier) {
+      currentSelectedTier = tier;
       selectTierRadio(tier);
       const radio = document.querySelector(`input[name="pass-tier"][value="${tier}"]`);
       if (radio) radio.checked = true;
@@ -1226,10 +1227,33 @@
     }
 
     function openSignUpModal() {
+      const activeUser = getActiveSession();
+      if (!activeUser || (!activeUser.username && !activeUser.gamertag)) {
+        sessionStorage.setItem('sz_pending_pass_tier', currentSelectedTier || 'pro');
+        openAccountAuthModal();
+        const notice = document.getElementById('auth-modal-notice');
+        if (notice) {
+          const tierName = (currentSelectedTier === 'elite') ? 'Elite VIP Pass' : 'Pro Pass';
+          notice.innerHTML = `<i class="fa-solid fa-lock text-amber-400 mt-0.5"></i> <span><strong>Account Required:</strong> Please sign in or create an operative account before signing up for your ${tierName}.</span>`;
+          notice.classList.remove('hidden');
+        }
+        return;
+      }
+
+      if (activeUser.is_founder) {
+        alert("You have permanent Lifetime Founder VIP ($0.00) access unlocked with 0% platform rake!");
+        return;
+      }
+
       document.getElementById('signup-form-state').classList.remove('hidden');
       document.getElementById('signup-success-state').classList.add('hidden');
       document.getElementById('signup-modal').classList.remove('hidden');
       const tagInput = document.getElementById('su-tag');
+      const emailInput = document.getElementById('su-email');
+      const discordInput = document.getElementById('su-discord');
+      if (tagInput) tagInput.value = activeUser.gamertag || activeUser.username || '';
+      if (emailInput && activeUser.email) emailInput.value = activeUser.email;
+      if (discordInput && activeUser.discord_user) discordInput.value = activeUser.discord_user;
       if (tagInput) setTimeout(() => tagInput.focus(), 100);
     }
 
@@ -1249,24 +1273,32 @@
       document.getElementById('confirmed-tag').innerText = '@' + tag.replace(/^@+/, '');
       document.getElementById('confirmed-id').innerText = randomId;
 
-      const userObj = {
-        username: tag,
-        email: email,
-        discord_id: discord,
-        id: randomId,
-        tier: currentSelectedTier === 'elite' ? 'Early Adopter Elite VIP' : 'Early Adopter Pro',
-        role: currentSelectedTier === 'elite' ? '@Early Adopter Elite' : '@Early Adopter Pro',
-        is_early_adopter: true,
-        game_vote: vote,
-        balance: 0.00,
-        upfront_charged: 0.00,
-        threshold_target: 500,
-        primetime_window: "5:00 PM – 10:30 PM CT (6:00 PM – 11:30 PM ET)"
-      };
+      const activeUser = getActiveSession() || {};
+      const newTier = currentSelectedTier === 'elite' ? 'Early Adopter Elite VIP' : 'Early Adopter Pro';
+      const newRole = currentSelectedTier === 'elite' ? '@Early Adopter Elite' : '@Early Adopter Pro';
 
-      localStorage.setItem('sz_user', JSON.stringify(userObj));
-      localStorage.setItem('sz_registered_user', JSON.stringify(userObj));
+      activeUser.username = activeUser.username || tag;
+      activeUser.gamertag = activeUser.gamertag || tag;
+      activeUser.tier = newTier;
+      activeUser.role = newRole;
+      activeUser.is_early_adopter = true;
+      activeUser.is_subscribed = true;
+      activeUser.game_vote = vote;
+      if (email) activeUser.email = email;
+      if (discord && discord !== 'None') activeUser.discord_user = discord;
+
+      setActiveSession(activeUser);
       localStorage.setItem('sz_early_adopter', 'true');
+
+      if (!activeUser.is_founder) {
+        const accounts = getRegisteredAccounts();
+        const key = (activeUser.username || tag).toLowerCase();
+        if (accounts[key]) {
+          accounts[key] = { ...accounts[key], ...activeUser };
+          saveRegisteredAccounts(accounts);
+        }
+      }
+      applyAuthenticatedUI(activeUser.gamertag || activeUser.username, activeUser.tier);
 
       // Update vote tallies locally for instant feedback
       const foundTitle = WEB_QUEUE_TITLES.find(t => t.id === vote);
@@ -1769,6 +1801,18 @@
     function closeAccountAuthModal() {
       const modal = document.getElementById('account-auth-modal');
       if (modal) modal.classList.add('hidden');
+      const notice = document.getElementById('auth-modal-notice');
+      if (notice) notice.classList.add('hidden');
+    }
+
+    function checkAndResumePendingPass() {
+      const pendingTier = sessionStorage.getItem('sz_pending_pass_tier');
+      if (pendingTier) {
+        sessionStorage.removeItem('sz_pending_pass_tier');
+        setTimeout(() => {
+          openSignUpWithTier(pendingTier);
+        }, 300);
+      }
     }
 
     function saveWebCustomGamerTag() {
@@ -1844,6 +1888,7 @@
           applyFounderUI(currentTag);
           syncToGoogleSheet('Founder Login', currentTag, userObj.tier, 'CS2 & R6', userObj.discord_user, userObj.role, userObj.balance);
           closeAccountAuthModal();
+          checkAndResumePendingPass();
           return;
         } else {
           if (errEl) {
@@ -1865,6 +1910,7 @@
           applyFounderUI(currentTag);
           syncToGoogleSheet('Founder Login', currentTag, userObj.tier, 'CS2 & R6', userObj.discord_user, userObj.role, userObj.balance);
           closeAccountAuthModal();
+          checkAndResumePendingPass();
           return;
         } else {
           if (errEl) {
@@ -1884,6 +1930,7 @@
             applyAuthenticatedUI(acc.gamertag || acc.username, acc.tier || 'Operative');
             syncToGoogleSheet('Player Login', acc.gamertag || acc.username, acc.tier, 'CS2 & R6', acc.discord_user, acc.role, acc.balance);
             closeAccountAuthModal();
+            checkAndResumePendingPass();
             return;
           } else {
             if (errEl) {
@@ -1959,6 +2006,7 @@
       applyAuthenticatedUI(tag, 'Early Adopter');
       syncToGoogleSheet('Player Registration', tag, newUser.tier, 'CS2 & R6', newUser.discord_user, newUser.role, newUser.balance);
       closeAccountAuthModal();
+      checkAndResumePendingPass();
     }
 
     function signOutAccount() {
@@ -2062,6 +2110,9 @@
         <h3 class="text-xl font-black text-white tracking-tight">Sentinel Operative Account</h3>
         <p class="text-xs text-gray-400">Sign in to your authenticated profile or register your new operative credentials.</p>
       </div>
+
+      <!-- Pending Pass Banner / Account Required Notice -->
+      <div id="auth-modal-notice" class="hidden p-3 rounded-2xl bg-amber-500/15 border border-amber-500/40 text-amber-300 text-xs font-mono flex items-start gap-2"></div>
 
       <!-- Active Account Details (Shown when authenticated) -->
       <div id="active-account-section" class="hidden space-y-4">
