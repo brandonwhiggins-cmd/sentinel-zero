@@ -1749,9 +1749,12 @@
       const activeTier = document.getElementById('active-session-tier');
       const activeUser = getActiveSession();
 
-      if (activeUser && activeUser.username) {
-        if (activeLabel) activeLabel.innerText = `@${activeUser.gamertag || activeUser.username}`;
-        if (activeTier) activeTier.innerText = activeUser.tier || 'Verified';
+      if (activeUser && (activeUser.username || activeUser.gamertag)) {
+        const currentName = activeUser.gamertag || activeUser.username;
+        if (activeLabel) activeLabel.innerText = `@${currentName}`;
+        if (activeTier) activeTier.innerText = (activeUser.is_founder ? '👑 ' : '🛡️ ') + (activeUser.role || activeUser.tier || 'Verified');
+        const tagInput = document.getElementById('custom-gamertag-web-input');
+        if (tagInput) tagInput.value = currentName;
         if (activeSec) activeSec.classList.remove('hidden');
         if (authForms) authForms.classList.add('hidden');
       } else {
@@ -1766,6 +1769,26 @@
     function closeAccountAuthModal() {
       const modal = document.getElementById('account-auth-modal');
       if (modal) modal.classList.add('hidden');
+    }
+
+    function saveWebCustomGamerTag() {
+      const input = document.getElementById('custom-gamertag-web-input');
+      if (!input || !input.value.trim()) return;
+      const clean = input.value.trim().replace(/^@/, '');
+      localStorage.setItem('sz_verified_gamertag', clean);
+
+      let user = getActiveSession() || {};
+      user.gamertag = clean;
+      user.username = clean;
+      setActiveSession(user);
+
+      if (user.is_founder) {
+        applyFounderUI(clean);
+      } else {
+        applyAuthenticatedUI(clean, user.tier || 'Operative');
+      }
+      syncToGoogleSheet('GamerTag Claim', clean, user.tier, 'CS2 & R6', user.discord_user, user.role, user.balance);
+      closeAccountAuthModal();
     }
 
     function switchAuthTab(tab) {
@@ -1814,10 +1837,12 @@
       const brandon = FOUNDER_CREDENTIALS['sknotrockit'];
       if (brandon.aliases.some(a => a.toLowerCase() === cleanId)) {
         if (brandon.passwords.includes(password)) {
-          const userObj = { ...brandon, gamertag: brandon.username };
+          const savedTag = localStorage.getItem('sz_verified_gamertag');
+          const currentTag = savedTag || brandon.username;
+          const userObj = { ...brandon, gamertag: currentTag, username: currentTag };
           setActiveSession(userObj);
-          applyFounderUI(userObj.username);
-          syncToGoogleSheet('Founder Login', userObj.username, userObj.tier, 'CS2 & R6', userObj.discord_user, userObj.role, userObj.balance);
+          applyFounderUI(currentTag);
+          syncToGoogleSheet('Founder Login', currentTag, userObj.tier, 'CS2 & R6', userObj.discord_user, userObj.role, userObj.balance);
           closeAccountAuthModal();
           return;
         } else {
@@ -1833,10 +1858,12 @@
       const swag = FOUNDER_CREDENTIALS['swag'];
       if (swag.aliases.some(a => a.toLowerCase() === cleanId)) {
         if (swag.passwords.includes(password)) {
-          const userObj = { ...swag, gamertag: swag.username };
+          const savedTag = localStorage.getItem('sz_verified_gamertag');
+          const currentTag = savedTag || swag.username;
+          const userObj = { ...swag, gamertag: currentTag, username: currentTag };
           setActiveSession(userObj);
-          applyFounderUI(userObj.username);
-          syncToGoogleSheet('Founder Login', userObj.username, userObj.tier, 'CS2 & R6', userObj.discord_user, userObj.role, userObj.balance);
+          applyFounderUI(currentTag);
+          syncToGoogleSheet('Founder Login', currentTag, userObj.tier, 'CS2 & R6', userObj.discord_user, userObj.role, userObj.balance);
           closeAccountAuthModal();
           return;
         } else {
@@ -2051,7 +2078,23 @@
             🔒 Authenticated Session Active. Your identity is remembered across this device.
           </div>
         </div>
-        <div class="flex gap-2">
+
+        <!-- Custom Gamertag Form -->
+        <form onsubmit="event.preventDefault(); saveWebCustomGamerTag();" class="space-y-3 pt-1 border-t border-gray-800">
+          <div>
+            <label class="block text-xs font-bold text-gray-300 mb-1 font-mono uppercase">Universal Ranked Gamertag</label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-400 font-mono text-sm font-bold">@</span>
+              <input type="text" id="custom-gamertag-web-input" required placeholder="Enter custom gamertag" class="w-full pl-8 pr-4 py-2.5 rounded-xl bg-[#101726] border border-emerald-500/40 focus:border-amber-400 text-white text-xs font-mono font-bold transition">
+            </div>
+            <p class="text-[10px] text-gray-400 mt-1">You can change your leaderboard gamertag anytime without losing your Founder VIP status.</p>
+          </div>
+          <button type="submit" class="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs uppercase font-mono tracking-wider transition shadow-md cursor-pointer">
+            Save Gamertag
+          </button>
+        </form>
+
+        <div class="flex gap-2 pt-1">
           <a href="client.html" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black text-xs uppercase tracking-wider text-center flex items-center justify-center gap-1.5 shadow-md">
             <i class="fa-solid fa-gamepad"></i> Open Arena
           </a>

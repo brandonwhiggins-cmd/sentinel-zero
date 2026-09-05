@@ -2513,10 +2513,12 @@ cod: {
       const brandon = FOUNDER_CREDENTIALS['sknotrockit'];
       if (brandon.aliases.some(a => a.toLowerCase() === cleanId)) {
         if (brandon.passwords.includes(password)) {
-          const userObj = { ...brandon, gamertag: brandon.username };
+          const savedTag = localStorage.getItem('sz_verified_gamertag');
+          const currentTag = savedTag || brandon.username;
+          const userObj = { ...brandon, gamertag: currentTag, username: currentTag };
           setActiveSession(userObj);
           applyClientIdentity(userObj);
-          syncToGoogleSheet('Founder Login', userObj.username, userObj.tier, 'CS2 & R6', userObj.discord_user, userObj.role, userObj.balance);
+          syncToGoogleSheet('Founder Login', currentTag, userObj.tier, 'CS2 & R6', userObj.discord_user, userObj.role, userObj.balance);
           closeAccountIdentityModal();
           return;
         } else {
@@ -2532,10 +2534,12 @@ cod: {
       const swag = FOUNDER_CREDENTIALS['swag'];
       if (swag.aliases.some(a => a.toLowerCase() === cleanId)) {
         if (swag.passwords.includes(password)) {
-          const userObj = { ...swag, gamertag: swag.username };
+          const savedTag = localStorage.getItem('sz_verified_gamertag');
+          const currentTag = savedTag || swag.username;
+          const userObj = { ...swag, gamertag: currentTag, username: currentTag };
           setActiveSession(userObj);
           applyClientIdentity(userObj);
-          syncToGoogleSheet('Founder Login', userObj.username, userObj.tier, 'CS2 & R6', userObj.discord_user, userObj.role, userObj.balance);
+          syncToGoogleSheet('Founder Login', currentTag, userObj.tier, 'CS2 & R6', userObj.discord_user, userObj.role, userObj.balance);
           closeAccountIdentityModal();
           return;
         } else {
