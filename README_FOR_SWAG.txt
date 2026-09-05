@@ -50,7 +50,17 @@ Nobody has the ability to log in as anyone else without their password.
    ($0.00 / Life).
 
 ------------------------------------------------------------------------
-3. HOT-RELOAD & REFRESH
+3. CHANGING YOUR GAMERTAG ANYTIME (LEADERBOARD / CALLSIGN)
+------------------------------------------------------------------------
+- Want to go by `Wubstract`, `Zach`, `Swagzilla`, or anything else?
+- Simply click your profile badge / edit pencil in the top-right header anytime.
+- Type your desired name in the "Universal Ranked Gamertag" box and hit "Save".
+- Your public in-game name updates instantly across duels and leaderboards.
+- Your Founder VIP perks, 0% platform rake, $0.00 pass, and verified Discord
+  link (@swagg) are 100% preserved forever!
+
+------------------------------------------------------------------------
+4. HOT-RELOAD & REFRESH
 ------------------------------------------------------------------------
 - Press [F5] or [Ctrl+R] inside the app anytime to hot-reload the latest build!
 - Discord Server: https://discord.gg/7FXD5AhmnP
