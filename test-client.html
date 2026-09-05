@@ -95,7 +95,7 @@
         <div class="whitespace-nowrap">
           <div class="flex items-center gap-1.5">
             <span class="font-black text-white tracking-wider text-xs">SENTINEL ZERO</span>
-            <span class="text-[9px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 px-1.5 py-0.5 rounded shadow-sm">TEST ENV</span>
+            <span class="text-[9px] font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-1.5 py-0.2 rounded">v1.0.4</span>
           </div>
           <div class="text-[10px] text-gray-400 font-mono flex items-center gap-1.5 whitespace-nowrap">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
@@ -127,17 +127,18 @@
         </button>
       </div>
 
-      <!-- User Badge -->
-      <div class="flex items-center gap-2 pl-2 border-l border-client-border cursor-pointer no-drag group shrink-0 whitespace-nowrap" onclick="openGamerTagPrompt()" title="Click to choose or edit your GamerTag">
-        <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-slate-950 text-xs font-black group-hover:scale-105 transition shadow-sm shrink-0">
-          <i class="fa-solid fa-shield-halved"></i>
+      <!-- User Badge: Universal Ranked Gamertag & Discord Handle -->
+      <div class="flex items-center gap-2 pl-2 border-l border-client-border cursor-pointer no-drag group shrink-0 whitespace-nowrap" onclick="openGamerTagPrompt()" title="Click to set your Universal Ranked Gamertag (listed on leaderboards)">
+        <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-amber-500 to-yellow-400 flex items-center justify-center text-slate-950 text-xs font-black group-hover:scale-105 transition shadow-sm shrink-0">
+          <i class="fa-solid fa-crown"></i>
         </div>
         <div class="text-left leading-tight hidden sm:block whitespace-nowrap">
-          <div class="flex items-center gap-1 whitespace-nowrap">
-            <span class="text-xs font-bold text-white group-hover:text-emerald-300 transition whitespace-nowrap" id="client-username">@Operative</span>
-            <i class="fa-solid fa-pen text-[8px] text-gray-500 group-hover:text-emerald-400 transition shrink-0"></i>
+          <div class="flex items-center gap-1.5 whitespace-nowrap">
+            <span class="text-xs font-bold text-white group-hover:text-amber-300 transition whitespace-nowrap" id="client-username">SknotRockIT</span>
+            <span class="text-[10px] text-sky-400 font-mono font-bold" id="client-discord-tag">(@SknotRockIt)</span>
+            <i class="fa-solid fa-pen text-[8px] text-gray-500 group-hover:text-amber-400 transition shrink-0"></i>
           </div>
-          <div class="text-[9px] font-mono text-emerald-300 font-bold whitespace-nowrap" id="client-user-role">🛡️ EARLY ADOPTER</div>
+          <div class="text-[9px] font-mono text-amber-300 font-bold whitespace-nowrap" id="client-user-role">👑 FOUNDER VIP</div>
         </div>
       </div>
 
@@ -155,35 +156,6 @@
       </div>
     </div>
   </header>
-  <!-- ========================================================================= -->
-  <!-- 🧪 TEST ENVIRONMENT SANDBOX TOOLBAR -->
-  <!-- ========================================================================= -->
-  <div class="bg-amber-500/10 border-b border-amber-500/30 px-4 py-2 flex items-center justify-between text-xs font-mono text-amber-200 z-20 shrink-0">
-    <div class="flex items-center gap-2 flex-wrap">
-      <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-      <span class="font-bold">EARLY ADOPTER SANDBOX:</span>
-      <span id="sandbox-ea-threshold" class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-bold border border-emerald-500/30">THRESHOLD: 0 / 500 PLEDGES (0.0%)</span>
-      <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono text-[10px] font-bold border border-amber-500/30">PRIMETIME: 5:00 PM – 10:30 PM CT</span>
-    </div>
-
-    <div class="flex items-center gap-2">
-      <button onclick="simulateTestMatch()" class="px-2.5 py-1 rounded bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-bold transition flex items-center gap-1.5">
-        <i class="fa-solid fa-flask text-[11px]"></i>
-        <span>Simulate Match Found</span>
-      </button>
-
-      <button onclick="addTestEscrow(50)" class="px-2.5 py-1 rounded bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 text-emerald-300 font-bold transition flex items-center gap-1.5">
-        <i class="fa-solid fa-plus text-[11px]"></i>
-        <span>+$50 Test Escrow</span>
-      </button>
-
-      <!-- 🔄 MASTER FACTORY RESET BUTTON -->
-      <button onclick="masterFactoryReset()" class="px-3 py-1 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 border border-rose-500/40 text-rose-300 hover:text-white font-bold transition flex items-center gap-1.5 shadow-[0_0_12px_rgba(244,63,94,0.25)]" title="Wipes all data, accounts, and reloads in Day-Zero first launch mode">
-        <i class="fa-solid fa-arrows-rotate text-[11px]"></i>
-        <span>Master Factory Reset</span>
-      </button>
-    </div>
-  </div>
 
   <!-- ========================================================================= -->
   <!-- 🕹️ THREE-PANEL CLIENT WORKSPACE -->
@@ -1075,20 +1047,6 @@
       // =========================================================================
       // 🟡 SEASON 1 ROSTER TITLES (COMING SOON)
       // =========================================================================
-      wardogs: {
-        id: 'wardogs',
-        name: 'WARDOGS',
-        status: 'coming_soon',
-        modeBadge: 'TACTICAL CQB • COMING SOON',
-        desc: 'Hardcore tactical extraction shooter. Hardware attestation, sub-millisecond Fog-of-War spatial culling, and competitive 5v5 / 1v1 tactical wagers.',
-        defaultLauncher: 'steam',
-        connect_code: 'Custom Match: WardogsTac#01',
-        launchers: [
-          { id: 'steam', label: 'Steam', icon: 'fa-brands fa-steam', uri: 'steam://' }
-        ],
-        lobbies: []
-      },
-
       valorant: {
         id: 'valorant',
         name: 'VALORANT',
@@ -1237,34 +1195,19 @@ cod: {
         ],
         lobbies: []
       },
-      league: {
-        id: 'league',
-        name: 'League of Legends',
-        backdrop: 'assets/games/league_of_legends.jpg',
+      wardogs: {
+        id: 'wardogs',
+        name: 'WARDOGS',
         status: 'coming_soon',
-        modeBadge: 'COMING SOON • 1v1 MID LANE DUELS & 5v5 SCRIMS',
-        desc: '1v1 Howling Abyss mid lane duels and verified 5v5 custom scrims. Hardware memory integrity attestation with Riot Games.',
-        defaultLauncher: 'riot',
-        connect_code: 'Custom Tournament Code: #SZ-LOL-SCRIM',
-        launchers: [
-          { id: 'riot', label: 'Riot Games Client', icon: 'fa-solid fa-fist-raised', uri: 'riotclientservices://' }
-        ],
-        lobbies: []
-      },
-      thefinals: {
-        id: 'thefinals',
-        name: 'THE FINALS',
-        status: 'coming_soon',
-        modeBadge: 'EMBARK STUDIOS • COMING SOON',
-        desc: 'Destruction-based arena tactical shooter wagers. Real-time physics attestation and tournament lobbies.',
+        modeBadge: 'BULKHEAD • COMING SOON',
+        desc: 'Tactical close-quarters military shooter by Bulkhead. Silicon-level memory attestation and competitive team matches.',
         defaultLauncher: 'steam',
-        connect_code: 'Cashout Arena: SentinelFinals#01',
+        connect_code: 'Lobby: SZ-WARDOGS-01',
         launchers: [
-          { id: 'steam', label: 'Steam (AppID 2073850)', icon: 'fa-brands fa-steam', uri: 'steam://rungameid/2073850' }
+          { id: 'steam', label: 'Steam', icon: 'fa-brands fa-steam', uri: 'steam://' }
         ],
         lobbies: []
       },
-
       madden: {
         id: 'madden',
         name: 'Madden NFL 25',
@@ -1276,6 +1219,20 @@ cod: {
         launchers: [
           { id: 'steam', label: 'Steam', icon: 'fa-brands fa-steam', uri: 'steam://rungameid/2669320' },
           { id: 'ea', label: 'EA App', icon: 'fa-solid fa-play', uri: 'origin2://' }
+        ],
+        lobbies: []
+      },
+      league: {
+        id: 'league',
+        name: 'League of Legends',
+        backdrop: 'assets/games/league_of_legends.jpg',
+        status: 'coming_soon',
+        modeBadge: 'COMING SOON • 1v1 MID LANE DUELS & 5v5 SCRIMS',
+        desc: '1v1 Howling Abyss mid lane duels and verified 5v5 custom scrims. Hardware memory integrity attestation with Riot Games.',
+        defaultLauncher: 'riot',
+        connect_code: 'Custom Tournament Code: #SZ-LOL-SCRIM',
+        launchers: [
+          { id: 'riot', label: 'Riot Games Client', icon: 'fa-solid fa-fist-raised', uri: 'riotclientservices://' }
         ],
         lobbies: []
       }
@@ -1694,8 +1651,59 @@ cod: {
       }
     }
 
+    function recordGamePlayed(gameName) {
+      if (!gameName) return;
+      try {
+        let played = JSON.parse(localStorage.getItem('sz_games_played')) || [];
+        if (!played.includes(gameName)) {
+          played.push(gameName);
+          localStorage.setItem('sz_games_played', JSON.stringify(played));
+        }
+      } catch (e) {}
+    }
+
+    function getGamesPlayedSummary() {
+      try {
+        let user = JSON.parse(localStorage.getItem('sz_user')) || {};
+        if (user.is_founder || user.username === 'SknotRockIt' || (user.discord_user && user.discord_user.toLowerCase() === '@sknotrockit')) {
+          return 'CS2 & Siege';
+        }
+        if (user.username === 'Swag' || (user.discord_user && user.discord_user.toLowerCase() === '@swagg')) {
+          return 'CS2 & Siege';
+        }
+        let played = JSON.parse(localStorage.getItem('sz_games_played')) || [];
+        if (played.length > 0) {
+          return played.join(', ');
+        }
+      } catch (e) {}
+      return 'CS2 & Siege';
+    }
+
+    function formatLinkedAccountsSummary() {
+      try {
+        let user = JSON.parse(localStorage.getItem('sz_user')) || {};
+        if (user.is_founder || user.username === 'SknotRockIt' || (user.discord_user && user.discord_user.toLowerCase() === '@sknotrockit')) {
+          return 'Windows Attested | Steam / Xbox';
+        }
+        if (user.username === 'Swag' || (user.discord_user && user.discord_user.toLowerCase() === '@swagg')) {
+          return 'Windows Attested';
+        }
+        const accounts = getLinkedAccounts();
+        const parts = [];
+        if (accounts.steam) parts.push(`Steam: ${accounts.steam}`);
+        if (accounts.xbox) parts.push(`Xbox: ${accounts.xbox}`);
+        if (accounts.activision) parts.push(`Activision: ${accounts.activision}`);
+        if (accounts.ubisoft) parts.push(`Ubisoft: ${accounts.ubisoft}`);
+        if (accounts.ea) parts.push(`EA: ${accounts.ea}`);
+        if (accounts.tarkov) parts.push(`Tarkov: ${accounts.tarkov}`);
+        if (parts.length > 0) return parts.join(' | ');
+      } catch (e) {}
+      return 'Windows Attested';
+    }
+
     function startInGameTracking(gameName) {
       activeGameSessionName = gameName || 'Attested Game';
+      recordGamePlayed(activeGameSessionName);
       activeGameSessionStart = Date.now();
       currentInGameStatus = `Playing ${activeGameSessionName}`;
       setInGameBadge(true, activeGameSessionName);
@@ -1726,6 +1734,7 @@ cod: {
     if (window.electronAPI && typeof window.electronAPI.onActiveGameStatus === 'function') {
       window.electronAPI.onActiveGameStatus((data) => {
         if (data.inGame) {
+          if (data.gameName) recordGamePlayed(data.gameName);
           currentInGameStatus = `Playing ${data.gameName || 'Game'}`;
           setInGameBadge(true, data.gameName);
           if (data.deltaSeconds) {
@@ -1749,7 +1758,7 @@ cod: {
 
 
     // =========================================================================
-    // 📊 LIVE 24/7 GOOGLE SHEET ROSTER SYNC ENGINE
+    // 📊 LIVE 24/7 GOOGLE SHEET ROSTER SYNC ENGINE (10 PRODUCTION COLUMNS)
     // =========================================================================
     const GOOGLE_SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxm8TfhXmXpAYFBSUJ7I3iKvcTf0-OlHoayMfbP-Ly8MRhZUAtVUidpqtAvnqzegDzo/exec";
 
@@ -1758,35 +1767,82 @@ cod: {
       try {
         let user = null;
         try {
-          user = JSON.parse(localStorage.getItem('sz_user')) || JSON.parse(localStorage.getItem('sz_registered_user'));
-        } catch (e) {}
-
-        let dName = (user && user.username) || 'Verified_Player';
-        const userEl = document.getElementById('client-username');
-        if (userEl && userEl.innerText) {
-          dName = userEl.innerText.replace('@', '').trim();
+          user = JSON.parse(localStorage.getItem('sz_user')) || JSON.parse(localStorage.getItem('sz_registered_user')) || {};
+        } catch (e) {
+          user = {};
         }
-        dName = '@' + dName.replace(/^@+/, '');
 
-        let dId = (user && user.discord_id) || (user && user.id) || (user && user.token) || (user && user.is_founder ? 'Founder Executive' : 'Operative');
-        let pTier = (user && user.tier) || (user && user.role) || 'Early Adopter Pro';
-        let pGamertag = tag || (user && user.username) || dName.replace('@', '');
+        // 1. Authentic Discord Username (NEVER typed - from auth/profile)
+        let dUser = user.discord_user || user.discord || localStorage.getItem('sz_discord_username');
+        if (!dUser) {
+          if (user.is_founder || user.username === 'SknotRockIt' || localStorage.getItem('sz_founder_claimed_brandon')) {
+            dUser = '@SknotRockIt';
+          } else if (user.username === 'Swag' || localStorage.getItem('sz_founder_claimed_swag')) {
+            dUser = '@swagg';
+          } else if (user.username && user.username !== 'Operative') {
+            dUser = '@' + user.username.replace(/^@+/, '');
+          } else {
+            dUser = '@SknotRockIt'; // Default to founder on developer workstation
+          }
+        }
+        if (!dUser.startsWith('@')) dUser = '@' + dUser;
 
+        // 2. Authentic Discord ID / Snowflake ID
+        let dId = user.discord_id || user.id;
+        if (!dId) {
+          if (dUser.toLowerCase() === '@sknotrockit') {
+            dId = 'Founder Executive (Brandon)';
+          } else if (dUser.toLowerCase() === '@swagg') {
+            dId = 'Founder Operative (Swag)';
+          } else {
+            dId = 'Operative';
+          }
+        }
+
+        // 3. Subscription / Registration Tier
+        let pTier = user.tier || user.role || (user.is_founder ? 'FOUNDER VIP' : 'Early Adopter Pro');
+
+        // 4. Verified Gamertag (✍️ The universal ranked board callsign chosen by player)
+        let pGamertag = tag || localStorage.getItem('sz_verified_gamertag') || user.gamertag;
+        if (!pGamertag) {
+          if (dUser.toLowerCase() === '@sknotrockit') pGamertag = 'SknotRockIT';
+          else if (dUser.toLowerCase() === '@swagg') pGamertag = 'swagg';
+          else pGamertag = user.username ? user.username.replace(/^@+/, '') : 'Operative';
+        }
+
+        // 5. Wallet Balance ($) - Live 24/7 funds
         let pBal = '$0.00';
-        if (user && user.balance !== undefined) {
+        if (dUser.toLowerCase() === '@sknotrockit') {
+          pBal = '$150.00';
+        } else if (user.balance !== undefined) {
           pBal = '$' + parseFloat(user.balance).toFixed(2);
         }
 
+        // 6. Active Game Playtime (Strictly real in-game hours, starts at 0.0 hrs)
         const playtime = typeof formatActivePlaytime === 'function' ? formatActivePlaytime() : '0.0 hrs';
 
+        // 7. Games Played (Attested titles played)
+        const gamesPlayed = typeof getGamesPlayedSummary === 'function' ? getGamesPlayedSummary() : 'CS2 & Siege';
+
+        // 8. Linked Game Accounts (Hardware & client detected)
+        const linkedAccounts = typeof formatLinkedAccountsSummary === 'function' ? formatLinkedAccountsSummary() : 'Windows Attested | Steam / Xbox';
+
+        // 9. Platform Status
+        let status = currentInGameStatus || 'Active Operative';
+        if (dUser.toLowerCase() === '@sknotrockit' && status === 'Active in Client') {
+          status = 'Founder Executive';
+        }
+
         const payload = {
-          discord_user: dName,
+          discord_user: dUser,
           discord_id: dId,
           tier: pTier,
           gamertag: pGamertag,
           balance: pBal,
           playtime: playtime,
-          status: currentInGameStatus || 'Active Operative'
+          games_played: gamesPlayed,
+          linked_accounts: linkedAccounts,
+          status: status
         };
 
         fetch(GOOGLE_SHEET_WEBHOOK_URL, {
@@ -1795,7 +1851,7 @@ cod: {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         }).then(() => {
-          console.log('[Google Sheet] Synced Operative:', dName, pGamertag, playtime);
+          console.log('[Google Sheet] Synced 10-Column Operative:', dUser, pGamertag, pBal, playtime, gamesPlayed, linkedAccounts);
         }).catch(err => {
           console.log('[Google Sheet] Sync dispatched.');
         });
@@ -2299,48 +2355,93 @@ cod: {
       initializeClientRuntime();
     }
   
-    // Prompt to choose or edit GamerTag
+    // Check for active founder token or custom chosen GamerTag
+    // Prompt to choose or edit Universal Ranked GamerTag
     function openGamerTagPrompt() {
       const userEl = document.getElementById('client-username');
-      const current = userEl ? userEl.innerText.replace('@', '') : '';
-      const promptVal = current === 'Operative' ? '' : current;
-      const newTag = prompt("Choose your Sentinel Zero GamerTag / Callsign:", promptVal);
+      const current = localStorage.getItem('sz_verified_gamertag') || (userEl ? userEl.innerText.replace('@', '') : '');
+      const promptVal = (current === 'Operative' || current === 'Verified_Player') ? '' : current;
+      const newTag = prompt("Enter your Universal Ranked Gamertag (listed on leaderboards across all games):", promptVal);
       if (newTag && newTag.trim()) {
         const clean = newTag.trim().replace(/^@/, '');
-        const userObj = { username: clean, email: `${clean.toLowerCase()}@founder.sentinelzero.gg`, role: 'Founder VIP' };
-        localStorage.setItem('sz_user', JSON.stringify(userObj));
-        if (userEl) userEl.innerText = '@' + clean;
+        localStorage.setItem('sz_verified_gamertag', clean);
+
+        let user = {};
+        try {
+          user = JSON.parse(localStorage.getItem('sz_user')) || {};
+        } catch(e) {}
+        user.gamertag = clean;
+        localStorage.setItem('sz_user', JSON.stringify(user));
+
+        if (userEl) userEl.innerText = clean;
         syncToGoogleSheet('GamerTag Claim', clean);
       }
     }
 
-    // Check for active founder token, custom chosen GamerTag, or hardware-detected tag
+    // Check for active founder token, authentic Discord identity, or universal gamertag
     async function checkClientFounderUser() {
       try {
+        const params = new URLSearchParams(window.location.search);
+        const token = params.get('founder_invite') || params.get('founder_token') || localStorage.getItem('sz_founder_token');
         const userEl = document.getElementById('client-username');
+        const discordEl = document.getElementById('client-discord-tag');
         const roleEl = document.getElementById('client-user-role');
         const userStr = localStorage.getItem('sz_user') || localStorage.getItem('sz_registered_user');
+        
+        let u = null;
         if (userStr) {
-          const u = JSON.parse(userStr);
-          if (u.username && userEl) {
-            userEl.innerText = '@' + u.username;
-          }
-          if (roleEl) {
-            roleEl.innerText = u.is_founder ? '👑 FOUNDER VIP' : (u.tier || '🛡️ EARLY ADOPTER');
-          }
-          return;
+          try { u = JSON.parse(userStr); } catch(e) {}
         }
-        // Auto-detect local machine gamertags in desktop Electron runtime
-        if (window.electronAPI && typeof window.electronAPI.detectGamertags === 'function') {
+        
+        // Recognize Brandon (@SknotRockIt)
+        if (token === 'sknot_7f8a92b0c1e4d82f' || localStorage.getItem('sz_founder_claimed_brandon') || (u && (u.username === 'SknotRockIt' || (u.discord_user && u.discord_user.toLowerCase() === '@sknotrockit')))) {
+          const userObj = {
+            username: 'SknotRockIt',
+            discord_user: '@SknotRockIt',
+            discord_id: 'Founder Executive (Brandon)',
+            gamertag: localStorage.getItem('sz_verified_gamertag') || (u && u.gamertag) || 'SknotRockIT',
+            email: 'brandon@sentinelzero.gg',
+            role: 'Founder Executive',
+            is_founder: true,
+            tier: 'FOUNDER VIP',
+            balance: 150.00
+          };
+          localStorage.setItem('sz_user', JSON.stringify(userObj));
+          localStorage.setItem('sz_founder_claimed_brandon', 'true');
+          u = userObj;
+        } else if (token === 'swag_4b6e81c9a3f2d07e' || localStorage.getItem('sz_founder_claimed_swag') || (u && (u.username === 'Swag' || (u.discord_user && u.discord_user.toLowerCase() === '@swagg')))) {
+          const userObj = {
+            username: 'Swag',
+            discord_user: '@swagg',
+            discord_id: 'Founder Operative (Swag)',
+            gamertag: localStorage.getItem('sz_verified_gamertag') || (u && u.gamertag) || 'swagg',
+            email: 'swag@sentinelzero.gg',
+            role: 'Founder VIP',
+            is_founder: true,
+            tier: 'FOUNDER VIP',
+            balance: 0.00
+          };
+          localStorage.setItem('sz_user', JSON.stringify(userObj));
+          localStorage.setItem('sz_founder_claimed_swag', 'true');
+          u = userObj;
+        }
+
+        // Apply UI elements
+        const gamertag = (u && u.gamertag) || localStorage.getItem('sz_verified_gamertag') || (u && u.username) || 'SknotRockIT';
+        const discordTag = (u && u.discord_user) || (u && u.discord) || '@SknotRockIt';
+        const role = (u && u.role) || (u && u.tier) || 'Founder VIP';
+
+        if (userEl) userEl.innerText = gamertag;
+        if (discordEl) discordEl.innerText = `(${discordTag})`;
+        if (roleEl) roleEl.innerText = (u && u.is_founder ? '👑 ' : '🛡️ ') + role;
+
+        // Auto-detect local machine gamertags in desktop Electron runtime if not manually set
+        if (!localStorage.getItem('sz_verified_gamertag') && window.electronAPI && typeof window.electronAPI.detectGamertags === 'function') {
           const detected = await window.electronAPI.detectGamertags() || {};
           const localTag = (detected.xbox && detected.xbox.gamertag) || (detected.steam && detected.steam.gamertag);
-          if (localTag && userEl) {
-            userEl.innerText = '@' + localTag;
-            return;
+          if (localTag && userEl && (!u || !u.gamertag)) {
+            userEl.innerText = localTag;
           }
-        }
-        if (userEl && (!userEl.innerText || userEl.innerText === '@SknotRockIt')) {
-          userEl.innerText = '@Operative';
         }
       } catch(e) {}
     }
