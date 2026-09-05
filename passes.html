@@ -83,6 +83,12 @@
 
       <!-- RIGHT CTAs -->
       <div class="flex items-center space-x-3">
+        <!-- Sign In / Account Button -->
+        <button type="button" id="header-account-btn" onclick="openAccountAuthModal()" class="px-3.5 py-2 rounded-xl bg-dark-card hover:bg-slate-800 border border-emerald-500/40 text-emerald-300 hover:text-white text-xs font-bold font-mono flex items-center gap-1.5 transition cursor-pointer shadow-sm">
+          <i class="fa-solid fa-user-shield text-amber-400"></i>
+          <span id="header-account-text">Sign In</span>
+        </button>
+
         <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-mono font-bold">
           <i class="fa-solid fa-lock text-amber-400"></i>
           <span>Client: Unlocks at 500</span>
@@ -638,148 +644,166 @@
       }
     }
 
-    const FOUNDER_TOKENS = {
-      'swag_4b6e81c9a3f2d07e': {
-        name: 'Swag',
-        displayName: 'Swag (@swagg)',
-        target_user: 'swagg',
-        allowed_handles: ['swag', 'swagg', 'wubstract', 'h1n2swagflu', 'zach', 'zachmoore'],
+    // =========================================================================
+    // 🛡️ SECURE AUTHENTICATION & MULTI-USER CREDENTIAL STORE
+    // =========================================================================
+    const AUTH_ACCOUNTS_KEY = 'sz_auth_accounts';
+    const ACTIVE_SESSION_KEY = 'sz_active_session';
+
+    const FOUNDER_CREDENTIALS = {
+      'sknotrockit': {
+        username: 'SknotRockIT',
+        aliases: ['sknotrockit', 'brandon', 'sknot', 'brandon@sentinelzero.gg'],
+        passwords: ['SentinelCEO2026!', 'sknot_7f8a92b0c1e4d82f'],
+        discord_user: '@SknotRockIt',
+        discord_id: 'Founder Executive (Brandon)',
+        email: 'brandon@sentinelzero.gg',
+        role: 'Founder Executive',
+        is_founder: true,
         tier: 'FOUNDER VIP',
-        key: 'sz_founder_claimed_swag'
+        balance: 150.00
       },
-      'sknot_7f8a92b0c1e4d82f': {
-        name: 'Brandon',
-        displayName: 'Brandon (@SknotRockIt)',
-        target_user: 'sknotrockit',
-        allowed_handles: ['sknotrockit', 'brandon', 'sknot'],
+      'swag': {
+        username: 'Swag',
+        aliases: ['swag', 'swagg', 'wubstract', 'h1n2swagflu', 'zach', 'zachmoore', 'swag@sentinelzero.gg'],
+        passwords: ['SwagVIP2026!', 'swag_4b6e81c9a3f2d07e'],
+        discord_user: '@swagg',
+        discord_id: 'Founder Operative (Swag)',
+        email: 'swag@sentinelzero.gg',
+        role: 'Founder VIP',
+        is_founder: true,
         tier: 'FOUNDER VIP',
-        key: 'sz_founder_claimed_brandon'
+        balance: 0.00
       }
     };
 
-    function checkFounderInviteUrl() {
-      const params = new URLSearchParams(window.location.search);
-      let token = params.get('founder_invite') || params.get('founder_token') || params.get('token');
-      
-      const savedToken = localStorage.getItem('sz_founder_token');
-      if (!token && savedToken && FOUNDER_TOKENS[savedToken]) {
-        applyFounderAccess(FOUNDER_TOKENS[savedToken], false);
-        return;
+    function getRegisteredAccounts() {
+      try {
+        return JSON.parse(localStorage.getItem(AUTH_ACCOUNTS_KEY)) || {};
+      } catch(e) {
+        return {};
       }
-
-      if (!token) {
-        const savedUser = localStorage.getItem('sz_user');
-        if (savedUser) {
-          try {
-            const u = JSON.parse(savedUser);
-            if (u.is_founder) {
-              applyFounderUI(u.username || 'Swag');
-            }
-          } catch(e) {}
-        }
-        return;
-      }
-
-      const conf = FOUNDER_TOKENS[token];
-      if (!conf) {
-        return;
-      }
-
-      applyFounderAccess(conf, true);
     }
 
-    function applyFounderAccess(conf, showModal = true) {
-      let currentTag = conf.name || conf.target_user || 'Swag';
+    function saveRegisteredAccounts(accs) {
       try {
-        const saved = JSON.parse(localStorage.getItem('sz_user'));
-        if (saved && saved.username) currentTag = saved.username;
+        localStorage.setItem(AUTH_ACCOUNTS_KEY, JSON.stringify(accs));
       } catch(e) {}
+    }
 
-      const activeUser = {
-        username: currentTag,
-        displayName: conf.displayName || `${currentTag} (FOUNDER VIP)`,
-        tier: 'FOUNDER VIP',
-        is_founder: true,
-        is_subscribed: true,
-        balance: 0.00,
-        hardware_verified: true,
-        token: conf.key
-      };
+    function getActiveSession() {
+      try {
+        const sess = localStorage.getItem(ACTIVE_SESSION_KEY) || localStorage.getItem('sz_user');
+        if (!sess) return null;
+        const u = JSON.parse(sess);
+        if (u && (u.username || u.gamertag)) return u;
+      } catch(e) {}
+      return null;
+    }
 
-      localStorage.setItem('sz_user', JSON.stringify(activeUser));
-      localStorage.setItem('sz_registered_user', JSON.stringify(activeUser));
-      localStorage.setItem('sz_founder_token', conf.key === 'sz_founder_claimed_swag' ? 'swag_4b6e81c9a3f2d07e' : 'sknot_7f8a92b0c1e4d82f');
-      localStorage.setItem(conf.key, 'true');
+    function setActiveSession(user) {
+      try {
+        localStorage.setItem(ACTIVE_SESSION_KEY, JSON.stringify(user));
+        localStorage.setItem('sz_user', JSON.stringify(user));
+        localStorage.setItem('sz_verified_gamertag', user.gamertag || user.username);
+      } catch(e) {}
+    }
 
-      applyFounderUI(currentTag);
-      syncToGoogleSheet('Founder Pass', currentTag, 'FOUNDER VIP', 'CS2 & R6', '@' + currentTag.replace(/^@+/, ''), conf.name || 'Founder', activeUser.balance);
+    function clearActiveSession() {
+      try {
+        localStorage.removeItem(ACTIVE_SESSION_KEY);
+        localStorage.removeItem('sz_user');
+        localStorage.removeItem('sz_registered_user');
+        localStorage.removeItem('sz_founder_token');
+        localStorage.removeItem('sz_founder_claimed_swag');
+        localStorage.removeItem('sz_founder_claimed_brandon');
+      } catch(e) {}
+    }
 
-      if (showModal) {
-        const modal = document.getElementById('founder-claim-modal');
-        const tagInput = document.getElementById('founder-custom-gamertag');
-        if (tagInput) {
-          tagInput.value = currentTag;
-        }
-        if (modal) modal.classList.remove('hidden');
+    function checkActiveSessionOnLoad() {
+      const activeUser = getActiveSession();
+      if (!activeUser) {
+        renderGuestUI();
+        return;
       }
+
+      if (activeUser.is_founder) {
+        applyFounderUI(activeUser.gamertag || activeUser.username);
+      } else {
+        applyAuthenticatedUI(activeUser.gamertag || activeUser.username, activeUser.tier || 'Operative');
+      }
+    }
+
+    function renderGuestUI() {
+      const acctBtn = document.getElementById('header-account-btn');
+      if (acctBtn) {
+        acctBtn.innerHTML = `
+          <i class="fa-solid fa-user-shield text-amber-400"></i>
+          <span id="header-account-text">Sign In</span>
+        `;
+        acctBtn.className = "px-3.5 py-2 rounded-xl bg-dark-card hover:bg-slate-800 border border-emerald-500/40 text-emerald-300 hover:text-white text-xs font-bold font-mono flex items-center gap-1.5 transition cursor-pointer shadow-sm";
+      }
+
+      const passCta = document.getElementById('header-pass-cta');
+      if (passCta) {
+        passCta.href = '#passes';
+        passCta.innerHTML = `<i class="fa-solid fa-crown text-sm"></i><span>Get Membership Pass</span>`;
+        passCta.className = "px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center gap-2 transition shadow-[0_0_20px_rgba(16,185,129,0.35)]";
+      }
+
+      const founderBanner = document.getElementById('founder-active-banner');
+      if (founderBanner) founderBanner.remove();
     }
 
     function applyFounderUI(name) {
-      // 1. Update Header Call to Action
-      const existingBadge = document.getElementById('founder-header-badge');
-      if (existingBadge) {
-        const textSpan = existingBadge.querySelector('.founder-name-text');
-        if (textSpan) textSpan.innerText = `${name} (FOUNDER VIP)`;
-      } else {
-        const passesHeaderBtn = document.querySelector('header a[href="index.html"].px-4') || document.querySelector('header .flex.items-center.space-x-3 a[href="#passes"]');
-        if (passesHeaderBtn) {
-          passesHeaderBtn.outerHTML = `
-            <div id="founder-header-badge" class="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-300 font-mono text-xs font-bold">
-              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              <i class="fa-solid fa-crown text-amber-400"></i>
-              <span class="founder-name-text">${name} (FOUNDER VIP)</span>
-            </div>
-          `;
-        }
+      // 1. Update Header Call to Action / Account Badge
+      const acctBtn = document.getElementById('header-account-btn');
+      if (acctBtn) {
+        acctBtn.innerHTML = `
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <i class="fa-solid fa-crown text-amber-400"></i>
+          <span class="founder-name-text">${name} (FOUNDER VIP)</span>
+        `;
+        acctBtn.className = "flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-300 font-mono text-xs font-bold transition hover:bg-amber-500/30 cursor-pointer shadow-sm";
       }
 
       // 2. Transform the Pricing / Passes Section so it NEVER asks for money
-      const passesContainer = document.querySelector('#passes .grid') || document.querySelector('.grid.grid-cols-1.md\\:grid-cols-2');
+      const passesContainer = document.querySelector('#passes .grid') || document.querySelector('.grid.grid-cols-1.md\\:grid-cols-2') || document.querySelector('.grid.grid-cols-1.lg\\:grid-cols-2');
       if (passesContainer && passesContainer.parentNode) {
-        const founderBanner = document.getElementById('founder-active-banner');
+        let founderBanner = document.getElementById('founder-active-banner');
         if (!founderBanner) {
-          const banner = document.createElement('div');
-          banner.id = 'founder-active-banner';
-          banner.className = 'col-span-1 md:col-span-2 p-6 rounded-3xl bg-gradient-to-r from-amber-500/20 via-yellow-500/10 to-amber-500/20 border-2 border-amber-500/60 shadow-[0_0_30px_rgba(245,158,11,0.25)] flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left mb-6';
-          banner.innerHTML = `
-            <div class="flex items-center gap-4">
-              <div class="w-12 h-12 rounded-2xl bg-amber-500/30 border border-amber-500 text-amber-400 flex items-center justify-center text-2xl shrink-0 shadow-[0_0_15px_rgba(245,158,11,0.4)]">
-                <i class="fa-solid fa-crown"></i>
-              </div>
-              <div>
-                <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-mono text-[10px] font-bold uppercase mb-1">
-                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> Active Plan
-                </div>
-                <h4 class="text-lg font-black text-white">Lifetime Founder VIP — Active ($0.00 / Free for Life)</h4>
-                <p class="text-xs text-gray-300">You have permanent complimentary VIP status. 0% rake, full access to all games, and free $500 Cash Cup entry.</p>
-              </div>
-            </div>
-            <div class="shrink-0">
-              <span class="px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/50 text-emerald-300 font-mono font-bold text-xs flex items-center gap-1.5">
-                <i class="fa-solid fa-circle-check"></i> Subscribed (Complimentary)
-              </span>
-            </div>
-          `;
-          passesContainer.parentNode.insertBefore(banner, passesContainer);
+          founderBanner = document.createElement('div');
+          founderBanner.id = 'founder-active-banner';
+          founderBanner.className = 'col-span-1 md:col-span-2 lg:col-span-2 p-6 rounded-3xl bg-gradient-to-r from-amber-500/20 via-yellow-500/10 to-amber-500/20 border-2 border-amber-500/60 shadow-[0_0_30px_rgba(245,158,11,0.25)] flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left mb-6';
+          passesContainer.parentNode.insertBefore(founderBanner, passesContainer);
         }
+        founderBanner.innerHTML = `
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/30 border border-amber-500 text-amber-400 flex items-center justify-center text-2xl shrink-0 shadow-[0_0_15px_rgba(245,158,11,0.4)]">
+              <i class="fa-solid fa-crown"></i>
+            </div>
+            <div>
+              <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-mono text-[10px] font-bold uppercase mb-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> Active Founder Account: @${name}
+              </div>
+              <h4 class="text-lg font-black text-white">Lifetime Founder VIP — Active ($0.00 / Free for Life)</h4>
+              <p class="text-xs text-gray-300">You have permanent complimentary VIP status. 0% platform rake, full access to all games, and free $500 Cash Cup entry. No membership needed.</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <a href="client.html" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-black text-xs uppercase font-mono flex items-center gap-1.5 shadow-md hover:from-amber-400 hover:to-yellow-300 transition">
+              <i class="fa-solid fa-gamepad"></i> Open Arena
+            </a>
+          </div>
+        `;
       }
 
       // 3. Transform payment buttons into Active Status Badges
       const proBtn = document.querySelector('button[onclick="openSignUpWithTier(\'pro\')"]') || document.querySelector('a[href*="buy.stripe.com"][href*="3Lde8bc"]');
       if (proBtn) {
         proBtn.outerHTML = `
-          <div class="w-full py-3.5 rounded-2xl bg-dark-surface border border-emerald-500/30 text-emerald-400 font-bold text-xs text-center font-mono">
-            <i class="fa-solid fa-check"></i> Included in Founder VIP
+          <div class="w-full py-3.5 rounded-2xl bg-dark-surface border border-emerald-500/30 text-emerald-400 font-bold text-xs text-center font-mono flex items-center justify-center gap-2">
+            <i class="fa-solid fa-circle-check"></i> Included in Founder VIP ($0.00)
           </div>
         `;
       }
@@ -787,10 +811,225 @@
       if (eliteBtn) {
         eliteBtn.outerHTML = `
           <div class="w-full py-3.5 rounded-2xl bg-amber-500/20 border border-amber-500/50 text-amber-300 font-bold text-xs text-center font-mono flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(245,158,11,0.2)]">
-            <i class="fa-solid fa-crown"></i> Current Plan: Lifetime VIP ($0.00)
+            <i class="fa-solid fa-crown"></i> Active Plan: Lifetime VIP ($0.00)
           </div>
         `;
       }
+    }
+
+    function applyAuthenticatedUI(name, tier) {
+      const acctBtn = document.getElementById('header-account-btn');
+      if (acctBtn) {
+        acctBtn.innerHTML = `
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <i class="fa-solid fa-shield text-emerald-400"></i>
+          <span>@${name} (${tier})</span>
+        `;
+      }
+    }
+
+    function openAccountAuthModal() {
+      const modal = document.getElementById('account-auth-modal');
+      const activeSec = document.getElementById('active-account-section');
+      const authForms = document.getElementById('auth-tabs-and-forms');
+      const activeLabel = document.getElementById('active-session-label');
+      const activeTier = document.getElementById('active-session-tier');
+      const activeUser = getActiveSession();
+
+      if (activeUser && activeUser.username) {
+        if (activeLabel) activeLabel.innerText = `@${activeUser.gamertag || activeUser.username}`;
+        if (activeTier) activeTier.innerText = activeUser.tier || 'Verified';
+        if (activeSec) activeSec.classList.remove('hidden');
+        if (authForms) authForms.classList.add('hidden');
+      } else {
+        if (activeSec) activeSec.classList.add('hidden');
+        if (authForms) authForms.classList.remove('hidden');
+        switchAuthTab('login');
+      }
+
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeAccountAuthModal() {
+      const modal = document.getElementById('account-auth-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function switchAuthTab(tab) {
+      const loginTabBtn = document.getElementById('auth-tab-login-btn');
+      const regTabBtn = document.getElementById('auth-tab-reg-btn');
+      const loginForm = document.getElementById('auth-login-form');
+      const regForm = document.getElementById('auth-reg-form');
+      const errEl1 = document.getElementById('login-error-msg');
+      const errEl2 = document.getElementById('reg-error-msg');
+      if (errEl1) errEl1.classList.add('hidden');
+      if (errEl2) errEl2.classList.add('hidden');
+
+      if (tab === 'login') {
+        if (loginTabBtn) loginTabBtn.className = 'flex-1 py-2 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold font-mono transition cursor-pointer';
+        if (regTabBtn) regTabBtn.className = 'flex-1 py-2 rounded-xl text-gray-400 hover:text-white text-xs font-bold font-mono transition cursor-pointer';
+        if (loginForm) loginForm.classList.remove('hidden');
+        if (regForm) regForm.classList.add('hidden');
+      } else {
+        if (regTabBtn) regTabBtn.className = 'flex-1 py-2 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold font-mono transition cursor-pointer';
+        if (loginTabBtn) loginTabBtn.className = 'flex-1 py-2 rounded-xl text-gray-400 hover:text-white text-xs font-bold font-mono transition cursor-pointer';
+        if (regForm) regForm.classList.remove('hidden');
+        if (loginForm) loginForm.classList.add('hidden');
+      }
+    }
+
+    function handleSecureLogin() {
+      const idInput = document.getElementById('login-identifier-input');
+      const passInput = document.getElementById('login-password-input');
+      const errEl = document.getElementById('login-error-msg');
+      if (errEl) errEl.classList.add('hidden');
+
+      const identifier = idInput ? idInput.value.trim() : '';
+      const password = passInput ? passInput.value.trim() : '';
+
+      if (!identifier || !password) {
+        if (errEl) {
+          errEl.innerText = 'Please enter both your gamertag/email and password.';
+          errEl.classList.remove('hidden');
+        }
+        return;
+      }
+
+      const cleanId = identifier.toLowerCase().replace(/^@+/, '');
+
+      // 1. Verify Brandon Founder Executive
+      const brandon = FOUNDER_CREDENTIALS['sknotrockit'];
+      if (brandon.aliases.some(a => a.toLowerCase() === cleanId)) {
+        if (brandon.passwords.includes(password)) {
+          const userObj = { ...brandon, gamertag: brandon.username };
+          setActiveSession(userObj);
+          applyFounderUI(userObj.username);
+          syncToGoogleSheet('Founder Login', userObj.username, userObj.tier, 'CS2 & R6', userObj.discord_user, userObj.role, userObj.balance);
+          closeAccountAuthModal();
+          return;
+        } else {
+          if (errEl) {
+            errEl.innerText = 'Access Denied: Incorrect password for Founder Executive account.';
+            errEl.classList.remove('hidden');
+          }
+          return;
+        }
+      }
+
+      // 2. Verify Swag Founder VIP
+      const swag = FOUNDER_CREDENTIALS['swag'];
+      if (swag.aliases.some(a => a.toLowerCase() === cleanId)) {
+        if (swag.passwords.includes(password)) {
+          const userObj = { ...swag, gamertag: swag.username };
+          setActiveSession(userObj);
+          applyFounderUI(userObj.username);
+          syncToGoogleSheet('Founder Login', userObj.username, userObj.tier, 'CS2 & R6', userObj.discord_user, userObj.role, userObj.balance);
+          closeAccountAuthModal();
+          return;
+        } else {
+          if (errEl) {
+            errEl.innerText = 'Access Denied: Incorrect password for Founder VIP account.';
+            errEl.classList.remove('hidden');
+          }
+          return;
+        }
+      }
+
+      // 3. Verify Registered Operatives
+      const accounts = getRegisteredAccounts();
+      for (const key of Object.keys(accounts)) {
+        const acc = accounts[key];
+        if (
+          key === cleanId ||
+          (acc.gamertag && acc.gamertag.toLowerCase() === cleanId) ||
+          (acc.email && acc.email.toLowerCase() === cleanId) ||
+          (acc.discord_user && acc.discord_user.toLowerCase().replace(/^@+/, '') === cleanId)
+        ) {
+          if (acc.password === password) {
+            setActiveSession(acc);
+            applyAuthenticatedUI(acc.gamertag || acc.username, acc.tier || 'Operative');
+            syncToGoogleSheet('Player Login', acc.gamertag || acc.username, acc.tier, 'CS2 & R6', acc.discord_user, acc.role, acc.balance);
+            closeAccountAuthModal();
+            return;
+          } else {
+            if (errEl) {
+              errEl.innerText = 'Access Denied: Incorrect password for this account.';
+              errEl.classList.remove('hidden');
+            }
+            return;
+          }
+        }
+      }
+
+      if (errEl) {
+        errEl.innerText = 'No registered account found for this name. Click "Create Account" tab to register.';
+        errEl.classList.remove('hidden');
+      }
+    }
+
+    function handleSecureRegistration() {
+      const tagInput = document.getElementById('reg-gamertag-input');
+      const discordInput = document.getElementById('reg-discord-input');
+      const emailInput = document.getElementById('reg-email-input');
+      const passInput = document.getElementById('reg-password-input');
+      const errEl = document.getElementById('reg-error-msg');
+      if (errEl) errEl.classList.add('hidden');
+
+      const tag = tagInput ? tagInput.value.trim().replace(/^@+/, '') : '';
+      const discord = discordInput ? discordInput.value.trim() : '';
+      const email = emailInput ? emailInput.value.trim() : '';
+      const pass = passInput ? passInput.value.trim() : '';
+
+      if (!tag || !pass) {
+        if (errEl) {
+          errEl.innerText = 'Gamertag and password are required.';
+          errEl.classList.remove('hidden');
+        }
+        return;
+      }
+
+      const lower = tag.toLowerCase();
+      if (['sknotrockit', 'brandon', 'sknot', 'swag', 'swagg', 'wubstract'].includes(lower)) {
+        if (errEl) {
+          errEl.innerText = 'This identity is reserved for verified founders. Please sign in instead.';
+          errEl.classList.remove('hidden');
+        }
+        return;
+      }
+
+      const accounts = getRegisteredAccounts();
+      if (accounts[lower]) {
+        if (errEl) {
+          errEl.innerText = 'An account with this gamertag already exists. Please sign in.';
+          errEl.classList.remove('hidden');
+        }
+        return;
+      }
+
+      const newUser = {
+        username: tag,
+        gamertag: tag,
+        discord_user: discord ? (discord.startsWith('@') ? discord : '@' + discord) : '@' + tag,
+        discord_id: 'Operative_' + Math.floor(100000 + Math.random() * 900000),
+        email: email || `${lower}@sentinelzero.gg`,
+        password: pass,
+        role: 'Verified Operative',
+        is_founder: false,
+        tier: 'Early Adopter Pro',
+        balance: 0.00
+      };
+
+      accounts[lower] = newUser;
+      saveRegisteredAccounts(accounts);
+      setActiveSession(newUser);
+      applyAuthenticatedUI(tag, 'Early Adopter');
+      syncToGoogleSheet('Player Registration', tag, newUser.tier, 'CS2 & R6', newUser.discord_user, newUser.role, newUser.balance);
+      closeAccountAuthModal();
+    }
+
+    function signOutAccount() {
+      clearActiveSession();
+      window.location.reload();
     }
 
     function saveFounderGamerTag() {
@@ -800,10 +1039,10 @@
 
       const params = new URLSearchParams(window.location.search);
       const token = params.get('founder_invite') || params.get('founder_token') || params.get('token') || localStorage.getItem('sz_founder_token') || 'swag_4b6e81c9a3f2d07e';
-      const conf = FOUNDER_TOKENS[token] || FOUNDER_TOKENS['swag_4b6e81c9a3f2d07e'];
+      const conf = { name: 'Founder', key: 'sz_founder_claimed' };
 
       if (!chosenTag) {
-        chosenTag = conf.name || conf.target_user || 'Swag';
+        chosenTag = 'Founder';
       }
 
       const activeUser = {
@@ -817,14 +1056,13 @@
         token: conf.key
       };
 
-      localStorage.setItem('sz_user', JSON.stringify(activeUser));
-      localStorage.setItem('sz_registered_user', JSON.stringify(activeUser));
+      setActiveSession(activeUser);
       localStorage.setItem('sz_founder_token', token);
       localStorage.setItem(conf.key, 'true');
 
       // Update UI with chosen GamerTag
       applyFounderUI(chosenTag);
-      syncToGoogleSheet('Founder Pass', chosenTag, 'FOUNDER VIP', 'CS2 & R6', '@' + chosenTag.replace(/^@+/, ''), conf.name || 'Founder', activeUser.balance);
+      syncToGoogleSheet('Founder Pass', chosenTag, 'FOUNDER VIP', 'CS2 & R6', '@' + chosenTag.replace(/^@+/, ''), 'Founder', activeUser.balance);
 
       // Clean token from URL
       try {
@@ -864,7 +1102,7 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      checkFounderInviteUrl();
+      checkActiveSessionOnLoad();
     });
 
   </script>
@@ -873,7 +1111,118 @@
   <script>
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   </script>
-  <script defer src="/_vercel/insights/script.js"></script>
+  <!-- ========================================================================= -->
+  <!-- 🛡️ OPERATIVE & FOUNDER ACCOUNT / SIGN-IN MODAL -->
+  <!-- ========================================================================= -->
+  <div id="account-auth-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden transition-all">
+    <div class="bg-[#0b0f19] border-2 border-emerald-500/50 rounded-3xl w-full max-w-md p-6 sm:p-7 shadow-[0_0_50px_rgba(16,185,129,0.3)] relative text-white space-y-5">
+      <button onclick="closeAccountAuthModal()" class="absolute top-5 right-5 text-gray-400 hover:text-white transition cursor-pointer">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="text-center space-y-1.5">
+        <div class="w-14 h-14 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center text-2xl mx-auto shadow-[0_0_20px_rgba(16,185,129,0.3)]">
+          <i class="fa-solid fa-id-badge"></i>
+        </div>
+        <h3 class="text-xl font-black text-white tracking-tight">Sentinel Operative Account</h3>
+        <p class="text-xs text-gray-400">Sign in to your authenticated profile or register your new operative credentials.</p>
+      </div>
+
+      <!-- Active Account Details (Shown when authenticated) -->
+      <div id="active-account-section" class="hidden space-y-4">
+        <div class="p-4 rounded-2xl bg-slate-900/80 border border-emerald-500/30 space-y-2 text-xs font-mono">
+          <div class="flex items-center justify-between">
+            <span class="text-gray-400">Current Session:</span>
+            <span id="active-session-label" class="text-emerald-300 font-bold text-sm"></span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-gray-400">Account Tier:</span>
+            <span id="active-session-tier" class="text-amber-300 font-bold"></span>
+          </div>
+          <div class="text-[11px] text-gray-400 pt-1 border-t border-gray-800">
+            🔒 Authenticated Session Active. Your identity is remembered across this device.
+          </div>
+        </div>
+        <div class="flex gap-2">
+          <a href="client.html" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black text-xs uppercase tracking-wider text-center flex items-center justify-center gap-1.5 shadow-md">
+            <i class="fa-solid fa-gamepad"></i> Open Arena
+          </a>
+          <button type="button" onclick="signOutAccount()" class="py-2.5 px-4 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/30 text-rose-300 text-xs font-bold font-mono transition cursor-pointer">
+            Sign Out
+          </button>
+        </div>
+      </div>
+
+      <!-- Auth Tabs & Forms (Shown when unauthenticated) -->
+      <div id="auth-tabs-and-forms" class="space-y-4">
+        <!-- Tab Selectors -->
+        <div class="flex items-center bg-[#101726] p-1 rounded-2xl border border-gray-800">
+          <button type="button" id="auth-tab-login-btn" onclick="switchAuthTab('login')" class="flex-1 py-2 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold font-mono transition cursor-pointer">
+            Sign In
+          </button>
+          <button type="button" id="auth-tab-reg-btn" onclick="switchAuthTab('register')" class="flex-1 py-2 rounded-xl text-gray-400 hover:text-white text-xs font-bold font-mono transition cursor-pointer">
+            Create Account
+          </button>
+        </div>
+
+        <!-- 1. Sign In Form -->
+        <form id="auth-login-form" onsubmit="event.preventDefault(); handleSecureLogin();" class="space-y-3">
+          <div>
+            <label class="block text-xs font-bold text-gray-300 mb-1 font-mono uppercase">GamerTag, Discord, or Email</label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-emerald-400 font-mono text-xs font-bold">@</span>
+              <input type="text" id="login-identifier-input" required placeholder="e.g. Swag, SknotRockIt, or email" class="w-full pl-8 pr-4 py-2.5 rounded-xl bg-[#101726] border border-emerald-500/40 focus:border-emerald-400 text-white text-xs font-mono font-bold transition">
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-gray-300 mb-1 font-mono uppercase">Password</label>
+            <input type="password" id="login-password-input" required placeholder="Enter password or Founder token" class="w-full px-3.5 py-2.5 rounded-xl bg-[#101726] border border-emerald-500/40 focus:border-emerald-400 text-white text-xs font-mono font-bold transition">
+          </div>
+
+          <div id="login-error-msg" class="hidden p-2.5 rounded-xl bg-rose-500/15 border border-rose-500/40 text-rose-300 text-xs font-mono"></div>
+
+          <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-md cursor-pointer flex items-center justify-center gap-1.5">
+            <i class="fa-solid fa-lock text-xs"></i>
+            <span>Authenticate &amp; Sign In</span>
+          </button>
+
+          <p class="text-[11px] text-gray-400 text-center font-mono">
+            Founder VIP accounts (Brandon &amp; Swag) require Founder credentials.
+          </p>
+        </form>
+
+        <!-- 2. Create Account Form -->
+        <form id="auth-reg-form" onsubmit="event.preventDefault(); handleSecureRegistration();" class="hidden space-y-3">
+          <div>
+            <label class="block text-xs font-bold text-gray-300 mb-1 font-mono uppercase">Desired GamerTag</label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-emerald-400 font-mono text-xs font-bold">@</span>
+              <input type="text" id="reg-gamertag-input" required placeholder="e.g. Maverick, Phantom" class="w-full pl-8 pr-4 py-2.5 rounded-xl bg-[#101726] border border-emerald-500/40 focus:border-emerald-400 text-white text-xs font-mono font-bold transition">
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-gray-300 mb-1 font-mono uppercase">Discord Handle (Optional)</label>
+            <input type="text" id="reg-discord-input" placeholder="@yourdiscord" class="w-full px-3.5 py-2.5 rounded-xl bg-[#101726] border border-emerald-500/40 focus:border-emerald-400 text-white text-xs font-mono font-bold transition">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-gray-300 mb-1 font-mono uppercase">Email Address (Optional)</label>
+            <input type="email" id="reg-email-input" placeholder="you@domain.com" class="w-full px-3.5 py-2.5 rounded-xl bg-[#101726] border border-emerald-500/40 focus:border-emerald-400 text-white text-xs font-mono font-bold transition">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-gray-300 mb-1 font-mono uppercase">Account Password</label>
+            <input type="password" id="reg-password-input" required placeholder="Choose a secure password" class="w-full px-3.5 py-2.5 rounded-xl bg-[#101726] border border-emerald-500/40 focus:border-emerald-400 text-white text-xs font-mono font-bold transition">
+          </div>
+
+          <div id="reg-error-msg" class="hidden p-2.5 rounded-xl bg-rose-500/15 border border-rose-500/40 text-rose-300 text-xs font-mono"></div>
+
+          <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-md cursor-pointer flex items-center justify-center gap-1.5">
+            <i class="fa-solid fa-user-plus text-xs"></i>
+            <span>Register &amp; Sign In</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <!-- ========================================================================= -->
   <!-- 👑 FOUNDER VIP ONE-TIME TOKEN ACTIVATION MODAL -->

@@ -202,9 +202,34 @@ function createWindow() {
     return detectLocalGamertags();
   });
 
+  // System Profile & Identity Handler
+  ipcMain.handle('get-system-profile', () => {
+    return {
+      username: process.env.USERNAME || 'Operative'
+    };
+  });
+
+  // Active In-Game Status Handler
+  ipcMain.handle('get-in-game-status', async () => {
+    return new Promise((resolve) => {
+      scanRunningGames((detectedGame) => {
+        resolve({ inGame: !!detectedGame, gameName: detectedGame || null });
+      });
+    });
+  });
+
   // Universal Game Launcher Dispatcher
-  ipcMain.on('launch-game', (event, uri) => {
+  ipcMain.on('launch-game', (event, uri, gameName) => {
     if (!uri) return;
+
+    // Immediately flag active game session
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.webContents.send('active-game-status', {
+        inGame: true,
+        gameName: gameName || 'Attested Game',
+        deltaSeconds: 0
+      });
+    }
 
     // Special Auto-Discovery for Tarkov / BSG
     if (uri.includes('bsglauncher') || uri.includes('bsg') || uri.includes('tarkov')) {
@@ -214,6 +239,62 @@ function createWindow() {
 
     // Standard Platform URIs (Steam, Battle.net, Xbox, Epic, EA, Ubisoft)
     shell.openExternal(uri);
+  });
+
+  // Background Attested Game Process Telemetry (Runs every 30s)
+  const processCheckInterval = setInterval(() => {
+    scanRunningGames((detectedGame) => {
+      if (mainWindow && !mainWindow.isDestroyed()) {
+        mainWindow.webContents.send('active-game-status', {
+          inGame: !!detectedGame,
+          gameName: detectedGame || null,
+          deltaSeconds: detectedGame ? 30 : 0
+        });
+      }
+    });
+  }, 30000);
+
+  mainWindow.on('closed', () => {
+    clearInterval(processCheckInterval);
+  });
+}
+
+// Attested competitive game processes tracked by Sentinel Zero
+const ATTESTED_GAME_PROCESSES = {
+  'cs2.exe': 'Counter-Strike 2',
+  'rainbowsix.exe': 'Rainbow Six Siege',
+  'rainbowsix_vulkan.exe': 'Rainbow Six Siege',
+  'escapefromtarkov.exe': 'Escape from Tarkov',
+  'bsglauncher.exe': 'Escape from Tarkov',
+  'cod.exe': 'Call of Duty / Warzone',
+  'bootstrapper.exe': 'Call of Duty / Warzone',
+  'r5apex.exe': 'Apex Legends',
+  'valorant-win64-shipping.exe': 'Valorant',
+  'rocketleague.exe': 'Rocket League',
+  'fortniteclient-win64-shipping.exe': 'Fortnite',
+  'tslgame.exe': 'PUBG: BATTLEGROUNDS',
+  'league of legends.exe': 'League of Legends',
+  'rustclient.exe': 'Rust',
+  'fc25.exe': 'EA SPORTS FC 25',
+  'overwatch.exe': 'Overwatch 2',
+  'madden25.exe': 'Madden NFL 25',
+  'nba2k25.exe': 'NBA 2K25'
+};
+
+function scanRunningGames(callback) {
+  execFile('tasklist', ['/FO', 'CSV', '/NH'], (err, stdout) => {
+    if (err || !stdout) {
+      if (callback) callback(null);
+      return;
+    }
+    const lower = stdout.toLowerCase();
+    for (const [proc, gameName] of Object.entries(ATTESTED_GAME_PROCESSES)) {
+      if (lower.includes('"' + proc + '"')) {
+        if (callback) callback(gameName);
+        return;
+      }
+    }
+    if (callback) callback(null);
   });
 }
 
