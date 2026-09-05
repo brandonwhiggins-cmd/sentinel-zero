@@ -1724,7 +1724,7 @@ cod: {
         }
         dName = '@' + dName.replace(/^@+/, '');
 
-        let dId = (user && user.discord_id) || (user && user.id) || (user && user.token) || (user && user.is_founder ? '8492049182049182' : 'Operative');
+        let dId = (user && user.discord_id) || (user && user.id) || (user && user.token) || (user && user.is_founder ? 'Founder Executive' : 'Operative');
         let pTier = (user && user.tier) || (user && user.role) || 'Early Adopter Pro';
         let pGamertag = tag || (user && user.username) || dName.replace('@', '');
 
