@@ -1654,18 +1654,6 @@ cod: {
       try {
         const saved = localStorage.getItem('sz_active_game_seconds');
         if (saved !== null) return parseInt(saved, 10) || 0;
-
-        // Initial founder seed if no previous local cache exists
-        let user = null;
-        try {
-          user = JSON.parse(localStorage.getItem('sz_user')) || JSON.parse(localStorage.getItem('sz_registered_user'));
-        } catch(e) {}
-        const name = (user && user.username) || '';
-        if (name.toLowerCase().includes('sknot') || name.toLowerCase().includes('brandon')) {
-          return 18.4 * 3600;
-        } else if (name.toLowerCase().includes('swag')) {
-          return 12.1 * 3600;
-        }
       } catch (e) {}
       return 0;
     }
